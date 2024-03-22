@@ -3,6 +3,9 @@ project:
 
 execute:
   freeze: auto
+  
+notebooks-links: global
+
 
 format:
   html:
