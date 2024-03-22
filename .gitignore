@@ -11,3 +11,7 @@
 .Rdata
 .httr-oauth
 .DS_Store
+
+experiment1/
+experiment2/
+
