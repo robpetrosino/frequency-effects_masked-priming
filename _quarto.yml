@@ -4,8 +4,7 @@ project:
 execute:
   freeze: auto
   
-notebooks-links: global
-
+notebook-links: global
 
 format:
   html:
