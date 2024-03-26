@@ -1,0 +1,1066 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+    <meta charset="utf-8">
+    <meta name="generator" content="quarto-1.5.27">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+    <meta name="author" content="Diogo Almeida &amp; Roberto Petrosino">
+
+    <title>Simulating Power in within-subject psycholinguistic experiments using unstandardized measures of effect size</title>
+    <style>
+      code{white-space: pre-wrap;}
+      span.smallcaps{font-variant: small-caps;}
+      div.columns{display: flex; gap: min(4vw, 1.5em);}
+      div.column{flex: auto; overflow-x: auto;}
+      div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+      ul.task-list{list-style: none;}
+      ul.task-list li input[type="checkbox"] {
+        width: 0.8em;
+        margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+        vertical-align: middle;
+      }
+      /* CSS for syntax highlighting */
+      pre > code.sourceCode { white-space: pre; position: relative; }
+      pre > code.sourceCode > span { line-height: 1.25; }
+      pre > code.sourceCode > span:empty { height: 1.2em; }
+      .sourceCode { overflow: visible; }
+      code.sourceCode > span { color: inherit; text-decoration: inherit; }
+      div.sourceCode { margin: 1em 0; }
+      pre.sourceCode { margin: 0; }
+      @media screen {
+      div.sourceCode { overflow: auto; }
+      }
+      @media print {
+      pre > code.sourceCode { white-space: pre-wrap; }
+      pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+      }
+      pre.numberSource code
+        { counter-reset: source-line 0; }
+      pre.numberSource code > span
+        { position: relative; left: -4em; counter-increment: source-line; }
+      pre.numberSource code > span > a:first-child::before
+        { content: counter(source-line);
+          position: relative; left: -1em; text-align: right; vertical-align: baseline;
+          border: none; display: inline-block;
+          -webkit-touch-callout: none; -webkit-user-select: none;
+          -khtml-user-select: none; -moz-user-select: none;
+          -ms-user-select: none; user-select: none;
+          padding: 0 4px; width: 4em;
+        }
+      pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+      div.sourceCode
+        {   }
+      @media screen {
+      pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+      }
+    </style>
+
+    <style>
+      body.hypothesis-enabled #quarto-embed-header {
+        padding-right: 36px;
+      }
+
+      #quarto-embed-header {
+        height: 3em;
+        width: 100%;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: solid 1px;
+      }
+
+      #quarto-embed-header h6 {
+        font-size: 1.1em;
+        padding-top: 0.6em;
+        margin-left: 1em;
+        margin-right: 1em;
+        font-weight: 400;
+      }
+
+      #quarto-embed-header a.quarto-back-link,
+      #quarto-embed-header a.quarto-download-embed {
+        font-size: 0.8em;
+        margin-top: 1em;
+        margin-bottom: 1em;
+        margin-left: 1em;
+        margin-right: 1em;
+      }
+
+      .quarto-back-container {
+        padding-left: 0.5em;
+        display: flex;
+      }
+
+      .headroom {
+          will-change: transform;
+          transition: transform 200ms linear;
+      }
+
+      .headroom--pinned {
+          transform: translateY(0%);
+      }
+
+      .headroom--unpinned {
+          transform: translateY(-100%);
+      }      
+    </style>
+
+    <script>
+    window.document.addEventListener("DOMContentLoaded", function () {
+
+      var header = window.document.querySelector("#quarto-embed-header");
+      const titleBannerEl = window.document.querySelector("body > #title-block-header");
+      if (titleBannerEl) {
+        titleBannerEl.style.paddingTop = header.clientHeight + "px";
+      }
+      const contentEl = window.document.getElementById('quarto-content');
+      for (const child of contentEl.children) {
+        child.style.paddingTop = header.clientHeight + "px";
+        child.style.marginTop = "1em";
+      }
+
+      // Use the article root if the `back` call doesn't work. This isn't perfect
+      // but should typically work
+      window.quartoBackToArticle = () => {
+        var currentUrl = window.location.href;
+        window.history.back();
+        setTimeout(() => {
+            // if location was not changed in 100 ms, then there is no history back
+            if(currentUrl === window.location.href){              
+                // redirect to site root
+                window.location.href = "../index.html";
+            }
+        }, 100);
+      }
+
+      const headroom = new window.Headroom(header, {
+        tolerance: 5,
+        onPin: function () {
+        },
+        onUnpin: function () {
+        },
+      });
+      headroom.init();
+    });
+    </script>
+
+    
+<script src="../site_libs/manuscript-notebook/headroom.min.js"></script>
+<script src="../site_libs/clipboard/clipboard.min.js"></script>
+<script src="../site_libs/quarto-html/quarto.js"></script>
+<script src="../site_libs/quarto-html/popper.min.js"></script>
+<script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="../site_libs/quarto-html/anchor.min.js"></script>
+<link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="../site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+     <script async="" src="https://hypothes.is/embed.js"></script>
+<script>
+  window.document.addEventListener("DOMContentLoaded", function (_event) {
+    document.body.classList.add('hypothesis-enabled');
+  });
+</script>  
+      </head>
+
+  <body class="quarto-notebook">
+    <div id="quarto-embed-header" class="headroom fixed-top bg-primary">
+      
+      <a onclick="window.quartoBackToArticle(); return false;" class="btn btn-primary quarto-back-link" href=""><i class="bi bi-caret-left"></i> Back to Article</a>
+      <h6><i class="bi bi-journal-code"></i> Script D: Power analysis simulations</h6>
+
+            <a href="../notebooks/power-analysis-sims.qmd" class="btn btn-primary quarto-download-embed" download="power-analysis-sims.qmd">Download Source</a>
+          </div>
+
+     <header id="title-block-header" class="quarto-title-block default toc-left page-columns page-full">
+  <div class="quarto-title-banner page-columns page-full">
+    <div class="quarto-title column-body">
+      <h1 class="title">Simulating Power in within-subject psycholinguistic experiments using unstandardized measures of effect size</h1>
+          </div>
+
+    
+    <div class="quarto-title-meta-container">
+      <div class="quarto-title-meta-column-start">
+        
+        <div class="quarto-title-meta">
+
+                <div>
+            <div class="quarto-title-meta-heading">Author</div>
+            <div class="quarto-title-meta-contents">
+                        <p>Diogo Almeida &amp; Roberto Petrosino </p>
+                      </div>
+          </div>
+                
+          
+                
+              </div>
+      </div>
+      <div class="quarto-title-meta-column-end quarto-other-formats-target">
+      </div>
+    </div>
+
+
+
+    <div class="quarto-other-links-text-target">
+    </div>  </div>
+</header><div id="quarto-content" class="page-columns page-rows-contents page-layout-article toc-left">
+<div id="quarto-sidebar-toc-left" class="sidebar toc-left">
+  <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" id="toc-simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" class="nav-link active" data-scroll-target="#simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming">Simulating possible scenarios for the Frequency Attenuation effect in Masked Priming</a>
+  <ul class="collapse">
+  <li><a href="#es-5-ms" id="toc-es-5-ms" class="nav-link" data-scroll-target="#es-5-ms">ES = 5 ms</a></li>
+  <li><a href="#es-10-ms" id="toc-es-10-ms" class="nav-link" data-scroll-target="#es-10-ms">ES = 10 ms</a></li>
+  <li><a href="#es-15-ms" id="toc-es-15-ms" class="nav-link" data-scroll-target="#es-15-ms">ES = 15 ms</a></li>
+  </ul></li>
+  </ul>
+</nav>
+</div>
+<div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
+</div>
+<main class="content quarto-banner-title-block" id="quarto-document-content">      
+
+       <div class="cell-container code-fold"><div class="cell-decorator"><pre>In [1]:</pre></div><div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(MASS)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Utility Functions --- #</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a>invert_argument_docall <span class="ot">&lt;-</span> <span class="cf">function</span>(func){</span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(data){</span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>    <span class="fu">do.call</span>(func, data)</span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a>} </span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>rbind_list <span class="ot">&lt;-</span> <span class="fu">invert_argument_docall</span>(rbind)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a>matcols2lists <span class="ot">&lt;-</span> <span class="cf">function</span>(data_matrix, <span class="at">group_by =</span> <span class="dv">2</span>) {</span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>  ncols <span class="ot">&lt;-</span> <span class="fu">ncol</span>(data_matrix)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(<span class="sc">!</span>(ncols<span class="sc">%%</span>group_by))</span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a>  start_indices <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> <span class="dv">1</span>, <span class="at">to =</span> ncols, <span class="at">by =</span> group_by)</span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a>  n_conditions <span class="ot">&lt;-</span> <span class="fu">length</span>(start_indices)</span>
+<span id="cb1-19"><a href="#cb1-19" aria-hidden="true" tabindex="-1"></a>  grouped_conditions <span class="ot">&lt;-</span> <span class="fu">vector</span>(<span class="at">mode =</span> <span class="st">"list"</span>, <span class="at">length =</span> n_conditions)</span>
+<span id="cb1-20"><a href="#cb1-20" aria-hidden="true" tabindex="-1"></a>  <span class="cf">for</span> (first_item <span class="cf">in</span> start_indices) {</span>
+<span id="cb1-21"><a href="#cb1-21" aria-hidden="true" tabindex="-1"></a>    grouped_conditions[[<span class="fu">which</span>(start_indices <span class="sc">==</span> first_item)]] <span class="ot">&lt;-</span> data_matrix[, <span class="fu">seq</span>(first_item, first_item <span class="sc">+</span> group_by <span class="sc">-</span> <span class="dv">1</span>)]</span>
+<span id="cb1-22"><a href="#cb1-22" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-23"><a href="#cb1-23" aria-hidden="true" tabindex="-1"></a>  grouped_conditions</span>
+<span id="cb1-24"><a href="#cb1-24" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-25"><a href="#cb1-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-26"><a href="#cb1-26" aria-hidden="true" tabindex="-1"></a>organize_output <span class="ot">&lt;-</span> <span class="cf">function</span>(simdata_list) {</span>
+<span id="cb1-27"><a href="#cb1-27" aria-hidden="true" tabindex="-1"></a>  step_1 <span class="ot">&lt;-</span> <span class="fu">lapply</span>(simdata_list, <span class="at">FUN =</span> t)</span>
+<span id="cb1-28"><a href="#cb1-28" aria-hidden="true" tabindex="-1"></a>  n_conds <span class="ot">&lt;-</span> <span class="fu">ncol</span>(step_1[[<span class="dv">1</span>]])</span>
+<span id="cb1-29"><a href="#cb1-29" aria-hidden="true" tabindex="-1"></a>  n_measures <span class="ot">&lt;-</span> <span class="fu">nrow</span>(step_1[[<span class="dv">1</span>]])</span>
+<span id="cb1-30"><a href="#cb1-30" aria-hidden="true" tabindex="-1"></a>  measure_labels <span class="ot">&lt;-</span> <span class="fu">rownames</span>(step_1[[<span class="dv">1</span>]])</span>
+<span id="cb1-31"><a href="#cb1-31" aria-hidden="true" tabindex="-1"></a>  c_lbl <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"cond"</span>, <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_conds, <span class="at">each =</span> n_measures), <span class="st">"_"</span>, <span class="fu">rep</span>(measure_labels, n_conds))</span>
+<span id="cb1-32"><a href="#cb1-32" aria-hidden="true" tabindex="-1"></a>  step_2 <span class="ot">&lt;-</span> step_1 <span class="sc">|&gt;</span></span>
+<span id="cb1-33"><a href="#cb1-33" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rapply</span>(as.vector, <span class="at">how =</span> <span class="st">"list"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-34"><a href="#cb1-34" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbind_list</span>()</span>
+<span id="cb1-35"><a href="#cb1-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(step_2) <span class="ot">&lt;-</span> c_lbl</span>
+<span id="cb1-36"><a href="#cb1-36" aria-hidden="true" tabindex="-1"></a>  step_2 <span class="sc">|&gt;</span></span>
+<span id="cb1-37"><a href="#cb1-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">matcols2lists</span>(<span class="at">group_by =</span> n_measures)</span>
+<span id="cb1-38"><a href="#cb1-38" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-39"><a href="#cb1-39" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-40"><a href="#cb1-40" aria-hidden="true" tabindex="-1"></a>combine_sims <span class="ot">&lt;-</span> <span class="cf">function</span>(sim_list) {</span>
+<span id="cb1-41"><a href="#cb1-41" aria-hidden="true" tabindex="-1"></a>  n_conds <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sim_list[[<span class="dv">1</span>]])</span>
+<span id="cb1-42"><a href="#cb1-42" aria-hidden="true" tabindex="-1"></a>  n_sims <span class="ot">&lt;-</span> <span class="fu">length</span>(sim_list)</span>
+<span id="cb1-43"><a href="#cb1-43" aria-hidden="true" tabindex="-1"></a>  sim_df <span class="ot">&lt;-</span> <span class="fu">rbind_list</span>(sim_list)</span>
+<span id="cb1-44"><a href="#cb1-44" aria-hidden="true" tabindex="-1"></a>  sim_df[[<span class="st">"simulation"</span>]]  <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"simulation_"</span>, <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_sims, <span class="at">each =</span> n_conds))</span>
+<span id="cb1-45"><a href="#cb1-45" aria-hidden="true" tabindex="-1"></a>  sim_df[[<span class="st">"condition"</span>]] <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"condition_"</span>, <span class="fu">rep</span>(<span class="dv">1</span><span class="sc">:</span>n_conds, <span class="at">times =</span> n_sims))</span>
+<span id="cb1-46"><a href="#cb1-46" aria-hidden="true" tabindex="-1"></a>  sim_df</span>
+<span id="cb1-47"><a href="#cb1-47" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-48"><a href="#cb1-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-49"><a href="#cb1-49" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Statistical Functions --- # </span></span>
+<span id="cb1-50"><a href="#cb1-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-51"><a href="#cb1-51" aria-hidden="true" tabindex="-1"></a>correlation2covariance <span class="ot">&lt;-</span> <span class="cf">function</span>(cor_mat, <span class="at">sd_var =</span> <span class="dv">50</span>) {</span>
+<span id="cb1-52"><a href="#cb1-52" aria-hidden="true" tabindex="-1"></a>  <span class="fu">sweep</span>(<span class="fu">sweep</span>(cor_mat, <span class="dv">1</span>L, sd_var, <span class="st">"*"</span>), <span class="dv">2</span>L, sd_var, <span class="st">"*"</span>)  </span>
+<span id="cb1-53"><a href="#cb1-53" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-54"><a href="#cb1-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-55"><a href="#cb1-55" aria-hidden="true" tabindex="-1"></a>calc_cov_mat <span class="ot">&lt;-</span> <span class="cf">function</span>(rho, std_dev, <span class="at">ncond =</span> <span class="dv">2</span>) {</span>
+<span id="cb1-56"><a href="#cb1-56" aria-hidden="true" tabindex="-1"></a>  corr_matrix <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">rep</span>(rho, <span class="at">times =</span> ncond<span class="sc">^</span><span class="dv">2</span>), <span class="at">ncol =</span> ncond)</span>
+<span id="cb1-57"><a href="#cb1-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">diag</span>(corr_matrix) <span class="ot">&lt;-</span> <span class="dv">1</span></span>
+<span id="cb1-58"><a href="#cb1-58" aria-hidden="true" tabindex="-1"></a>  cov_matrix <span class="ot">&lt;-</span> <span class="fu">correlation2covariance</span>(<span class="at">cor_mat =</span> corr_matrix, <span class="at">sd_var =</span> std_dev)</span>
+<span id="cb1-59"><a href="#cb1-59" aria-hidden="true" tabindex="-1"></a>  cov_matrix</span>
+<span id="cb1-60"><a href="#cb1-60" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-61"><a href="#cb1-61" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-62"><a href="#cb1-62" aria-hidden="true" tabindex="-1"></a>fast_t <span class="ot">&lt;-</span> <span class="cf">function</span>(data_matrix) {</span>
+<span id="cb1-63"><a href="#cb1-63" aria-hidden="true" tabindex="-1"></a>  diff <span class="ot">&lt;-</span> data_matrix[, <span class="dv">1</span>] <span class="sc">-</span> data_matrix[, <span class="dv">2</span>]</span>
+<span id="cb1-64"><a href="#cb1-64" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">&lt;-</span> <span class="fu">length</span>(diff)</span>
+<span id="cb1-65"><a href="#cb1-65" aria-hidden="true" tabindex="-1"></a>  deg_fre <span class="ot">&lt;-</span> n <span class="sc">-</span> <span class="dv">1</span></span>
+<span id="cb1-66"><a href="#cb1-66" aria-hidden="true" tabindex="-1"></a>  sd_diff <span class="ot">&lt;-</span> <span class="fu">sd</span>(diff)</span>
+<span id="cb1-67"><a href="#cb1-67" aria-hidden="true" tabindex="-1"></a>  se_diff <span class="ot">&lt;-</span> sd_diff <span class="sc">/</span> <span class="fu">sqrt</span>(n)</span>
+<span id="cb1-68"><a href="#cb1-68" aria-hidden="true" tabindex="-1"></a>  mean_diff <span class="ot">&lt;-</span> <span class="fu">mean</span>(diff)</span>
+<span id="cb1-69"><a href="#cb1-69" aria-hidden="true" tabindex="-1"></a>  t_val <span class="ot">&lt;-</span> mean_diff <span class="sc">/</span> se_diff</span>
+<span id="cb1-70"><a href="#cb1-70" aria-hidden="true" tabindex="-1"></a>  t_crit <span class="ot">&lt;-</span> <span class="fu">qt</span>(.<span class="dv">975</span>, <span class="at">df =</span> deg_fre)</span>
+<span id="cb1-71"><a href="#cb1-71" aria-hidden="true" tabindex="-1"></a>  conf.int <span class="ot">&lt;-</span> <span class="fu">c</span>(mean_diff <span class="sc">-</span> (t_crit <span class="sc">*</span> se_diff), mean_diff <span class="sc">+</span> (t_crit <span class="sc">*</span> se_diff))</span>
+<span id="cb1-72"><a href="#cb1-72" aria-hidden="true" tabindex="-1"></a>  p_val <span class="ot">&lt;-</span> <span class="fu">pt</span>(<span class="sc">-</span><span class="fu">abs</span>(t_val), <span class="at">df =</span> deg_fre, <span class="at">lower.tail =</span> <span class="cn">TRUE</span>) <span class="sc">*</span> <span class="dv">2</span> <span class="co"># change this for one-tail</span></span>
+<span id="cb1-73"><a href="#cb1-73" aria-hidden="true" tabindex="-1"></a>  <span class="fu">list</span>(<span class="at">statistic =</span> t_val, <span class="at">parameter =</span> deg_fre, <span class="at">p.value =</span> p_val, <span class="at">conf.int =</span> conf.int, </span>
+<span id="cb1-74"><a href="#cb1-74" aria-hidden="true" tabindex="-1"></a>       <span class="at">estimate =</span> mean_diff, <span class="at">stderr =</span> se_diff)</span>
+<span id="cb1-75"><a href="#cb1-75" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-76"><a href="#cb1-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-77"><a href="#cb1-77" aria-hidden="true" tabindex="-1"></a>t_test_paired_data <span class="ot">&lt;-</span> <span class="cf">function</span>(paired_data, <span class="at">fast =</span> <span class="cn">TRUE</span>, <span class="at">use_names =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb1-78"><a href="#cb1-78" aria-hidden="true" tabindex="-1"></a>                               <span class="at">info_out =</span> <span class="fu">c</span>(<span class="st">"estimate"</span>, <span class="st">"statistic"</span>, <span class="st">"p.value"</span>)) {</span>
+<span id="cb1-79"><a href="#cb1-79" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (fast) {</span>
+<span id="cb1-80"><a href="#cb1-80" aria-hidden="true" tabindex="-1"></a>    test_result <span class="ot">&lt;-</span> <span class="fu">fast_t</span>(paired_data)[info_out] <span class="sc">|&gt;</span></span>
+<span id="cb1-81"><a href="#cb1-81" aria-hidden="true" tabindex="-1"></a>      <span class="fu">unlist</span>()</span>
+<span id="cb1-82"><a href="#cb1-82" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb1-83"><a href="#cb1-83" aria-hidden="true" tabindex="-1"></a>    test_result <span class="ot">&lt;-</span> <span class="fu">t.test</span>(paired_data[, <span class="dv">1</span>], paired_data[, <span class="dv">2</span>], <span class="at">paired =</span> <span class="cn">TRUE</span>)[info_out] <span class="sc">|&gt;</span></span>
+<span id="cb1-84"><a href="#cb1-84" aria-hidden="true" tabindex="-1"></a>      <span class="fu">unlist</span>()</span>
+<span id="cb1-85"><a href="#cb1-85" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-86"><a href="#cb1-86" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(use_names) {</span>
+<span id="cb1-87"><a href="#cb1-87" aria-hidden="true" tabindex="-1"></a>    true_means <span class="ot">&lt;-</span> <span class="fu">as.numeric</span>(<span class="fu">sub</span>(<span class="st">"C[0-9]+_"</span>, <span class="st">""</span>, <span class="fu">colnames</span>(paired_data)))</span>
+<span id="cb1-88"><a href="#cb1-88" aria-hidden="true" tabindex="-1"></a>    true_es <span class="ot">&lt;-</span> true_means[<span class="dv">1</span>] <span class="sc">-</span> true_means[<span class="dv">2</span>]</span>
+<span id="cb1-89"><a href="#cb1-89" aria-hidden="true" tabindex="-1"></a>    test_result <span class="ot">&lt;-</span> <span class="fu">c</span>(true_es, test_result)</span>
+<span id="cb1-90"><a href="#cb1-90" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb1-91"><a href="#cb1-91" aria-hidden="true" tabindex="-1"></a>    test_result <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="cn">NA</span>, test_result)</span>
+<span id="cb1-92"><a href="#cb1-92" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-93"><a href="#cb1-93" aria-hidden="true" tabindex="-1"></a>  <span class="fu">names</span>(test_result) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"true_es"</span>, <span class="st">"estimate"</span>, <span class="st">"statistic"</span>, <span class="st">"p.value"</span>)</span>
+<span id="cb1-94"><a href="#cb1-94" aria-hidden="true" tabindex="-1"></a>  test_result</span>
+<span id="cb1-95"><a href="#cb1-95" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-96"><a href="#cb1-96" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-97"><a href="#cb1-97" aria-hidden="true" tabindex="-1"></a>test_2x2_paired_data <span class="ot">&lt;-</span> <span class="cf">function</span>(sim_results,<span class="at">rename_cols =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb1-98"><a href="#cb1-98" aria-hidden="true" tabindex="-1"></a>  main1 <span class="ot">&lt;-</span> <span class="fu">t_test_paired_data</span>(sim_results[, <span class="dv">1</span><span class="sc">:</span><span class="dv">2</span>])</span>
+<span id="cb1-99"><a href="#cb1-99" aria-hidden="true" tabindex="-1"></a>  main2 <span class="ot">&lt;-</span> <span class="fu">t_test_paired_data</span>(sim_results[, <span class="dv">3</span><span class="sc">:</span><span class="dv">4</span>])</span>
+<span id="cb1-100"><a href="#cb1-100" aria-hidden="true" tabindex="-1"></a>  diff1 <span class="ot">&lt;-</span> sim_results[, <span class="dv">1</span>] <span class="sc">-</span> sim_results[, <span class="dv">2</span>]</span>
+<span id="cb1-101"><a href="#cb1-101" aria-hidden="true" tabindex="-1"></a>  diff2 <span class="ot">&lt;-</span> sim_results[, <span class="dv">3</span>] <span class="sc">-</span> sim_results[, <span class="dv">4</span>]</span>
+<span id="cb1-102"><a href="#cb1-102" aria-hidden="true" tabindex="-1"></a>  diff_diff <span class="ot">&lt;-</span> <span class="fu">cbind</span>(diff1, diff2)</span>
+<span id="cb1-103"><a href="#cb1-103" aria-hidden="true" tabindex="-1"></a>  diff_es <span class="ot">&lt;-</span> <span class="fu">c</span>(main1[<span class="st">"true_es"</span>], main2[<span class="st">"true_es"</span>])</span>
+<span id="cb1-104"><a href="#cb1-104" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(diff_diff) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"C"</span>, <span class="fu">seq</span>(diff_es), <span class="st">"_"</span>, diff_es)</span>
+<span id="cb1-105"><a href="#cb1-105" aria-hidden="true" tabindex="-1"></a>  interaction <span class="ot">&lt;-</span> <span class="fu">t_test_paired_data</span>(diff_diff)</span>
+<span id="cb1-106"><a href="#cb1-106" aria-hidden="true" tabindex="-1"></a>  output <span class="ot">&lt;-</span>  <span class="fu">rbind</span>(main1, main2, interaction) <span class="sc">|&gt;</span></span>
+<span id="cb1-107"><a href="#cb1-107" aria-hidden="true" tabindex="-1"></a>    <span class="fu">transform</span>(<span class="at">p.adjust =</span> <span class="fu">p.adjust</span>(p.value, <span class="st">"holm"</span>))</span>
+<span id="cb1-108"><a href="#cb1-108" aria-hidden="true" tabindex="-1"></a>  output[[<span class="st">"condition"</span>]] <span class="ot">&lt;-</span> <span class="fu">rownames</span>(output)</span>
+<span id="cb1-109"><a href="#cb1-109" aria-hidden="true" tabindex="-1"></a>  output</span>
+<span id="cb1-110"><a href="#cb1-110" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-111"><a href="#cb1-111" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-112"><a href="#cb1-112" aria-hidden="true" tabindex="-1"></a>calc_error_design <span class="ot">&lt;-</span> <span class="cf">function</span>(sim_results, <span class="at">alpha =</span> .<span class="dv">05</span>, <span class="at">rename_cols =</span> <span class="cn">TRUE</span>) {</span>
+<span id="cb1-113"><a href="#cb1-113" aria-hidden="true" tabindex="-1"></a>  <span class="fu">stopifnot</span>(rename_cols)</span>
+<span id="cb1-114"><a href="#cb1-114" aria-hidden="true" tabindex="-1"></a>  col_labels <span class="ot">&lt;-</span> <span class="fu">colnames</span>(sim_results)</span>
+<span id="cb1-115"><a href="#cb1-115" aria-hidden="true" tabindex="-1"></a>  <span class="fu">colnames</span>(sim_results) <span class="ot">&lt;-</span> <span class="fu">sub</span>(<span class="st">"cond[0-9]+_"</span>, <span class="st">""</span>, col_labels)</span>
+<span id="cb1-116"><a href="#cb1-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-117"><a href="#cb1-117" aria-hidden="true" tabindex="-1"></a>  sig_subset_unadjusted <span class="ot">&lt;-</span> <span class="fu">subset</span>(<span class="fu">as.data.frame</span>(sim_results), p.value <span class="sc">&lt;</span> alpha)</span>
+<span id="cb1-118"><a href="#cb1-118" aria-hidden="true" tabindex="-1"></a>  sig_subset_adjusted <span class="ot">&lt;-</span> <span class="fu">subset</span>(<span class="fu">as.data.frame</span>(sim_results), p.adjust <span class="sc">&lt;</span> alpha)</span>
+<span id="cb1-119"><a href="#cb1-119" aria-hidden="true" tabindex="-1"></a>  sim_true_es <span class="ot">&lt;-</span> <span class="fu">mean</span>(sig_subset_unadjusted<span class="sc">$</span>true_es)</span>
+<span id="cb1-120"><a href="#cb1-120" aria-hidden="true" tabindex="-1"></a>  nsim <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sim_results)</span>
+<span id="cb1-121"><a href="#cb1-121" aria-hidden="true" tabindex="-1"></a>  nsig_unadjusted <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sig_subset_unadjusted)</span>
+<span id="cb1-122"><a href="#cb1-122" aria-hidden="true" tabindex="-1"></a>  nsig_adjusted <span class="ot">&lt;-</span> <span class="fu">nrow</span>(sig_subset_adjusted)</span>
+<span id="cb1-123"><a href="#cb1-123" aria-hidden="true" tabindex="-1"></a>  power_unadjusted <span class="ot">&lt;-</span> nsig_unadjusted <span class="sc">/</span> nsim</span>
+<span id="cb1-124"><a href="#cb1-124" aria-hidden="true" tabindex="-1"></a>  power_adjusted <span class="ot">&lt;-</span> nsig_adjusted <span class="sc">/</span> nsim</span>
+<span id="cb1-125"><a href="#cb1-125" aria-hidden="true" tabindex="-1"></a>  type_s_unadjusted <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(sig_subset_unadjusted, estimate <span class="sc">&lt;</span> <span class="dv">0</span>)) <span class="sc">/</span> nsig_unadjusted</span>
+<span id="cb1-126"><a href="#cb1-126" aria-hidden="true" tabindex="-1"></a>  type_s_adjusted <span class="ot">&lt;-</span> <span class="fu">nrow</span>(<span class="fu">subset</span>(sig_subset_adjusted, estimate <span class="sc">&lt;</span> <span class="dv">0</span>)) <span class="sc">/</span> nsig_adjusted</span>
+<span id="cb1-127"><a href="#cb1-127" aria-hidden="true" tabindex="-1"></a>  exaggeration_ratio_unadjusted <span class="ot">&lt;-</span> <span class="fu">with</span>(sig_subset_unadjusted, </span>
+<span id="cb1-128"><a href="#cb1-128" aria-hidden="true" tabindex="-1"></a>                                        <span class="fu">mean</span>(<span class="fu">abs</span>(estimate)) <span class="sc">/</span> <span class="fu">mean</span>(true_es))</span>
+<span id="cb1-129"><a href="#cb1-129" aria-hidden="true" tabindex="-1"></a>  exaggeration_ratio_adjusted <span class="ot">&lt;-</span> <span class="fu">with</span>(sig_subset_adjusted, </span>
+<span id="cb1-130"><a href="#cb1-130" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">mean</span>(<span class="fu">abs</span>(estimate)) <span class="sc">/</span> <span class="fu">mean</span>(true_es))</span>
+<span id="cb1-131"><a href="#cb1-131" aria-hidden="true" tabindex="-1"></a>  errors <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="at">ES =</span> sim_true_es,</span>
+<span id="cb1-132"><a href="#cb1-132" aria-hidden="true" tabindex="-1"></a>              <span class="at">power_unadjusted =</span> power_unadjusted,</span>
+<span id="cb1-133"><a href="#cb1-133" aria-hidden="true" tabindex="-1"></a>              <span class="at">type_s_unadjusted =</span> type_s_unadjusted,</span>
+<span id="cb1-134"><a href="#cb1-134" aria-hidden="true" tabindex="-1"></a>              <span class="at">exaggeration_ratio_unadjusted =</span> exaggeration_ratio_unadjusted,</span>
+<span id="cb1-135"><a href="#cb1-135" aria-hidden="true" tabindex="-1"></a>              <span class="at">power_adjusted =</span> power_adjusted,</span>
+<span id="cb1-136"><a href="#cb1-136" aria-hidden="true" tabindex="-1"></a>              <span class="at">type_s_adjusted =</span> type_s_adjusted,</span>
+<span id="cb1-137"><a href="#cb1-137" aria-hidden="true" tabindex="-1"></a>              <span class="at">exaggeration_ratio_adjusted =</span> exaggeration_ratio_adjusted)</span>
+<span id="cb1-138"><a href="#cb1-138" aria-hidden="true" tabindex="-1"></a>  errors</span>
+<span id="cb1-139"><a href="#cb1-139" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-140"><a href="#cb1-140" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-141"><a href="#cb1-141" aria-hidden="true" tabindex="-1"></a><span class="co"># --- Simulation Functions --- #</span></span>
+<span id="cb1-142"><a href="#cb1-142" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-143"><a href="#cb1-143" aria-hidden="true" tabindex="-1"></a>simulate_data_from_es <span class="ot">&lt;-</span> <span class="cf">function</span>(es, <span class="at">base_mu =</span> <span class="dv">600</span>) {</span>
+<span id="cb1-144"><a href="#cb1-144" aria-hidden="true" tabindex="-1"></a>  <span class="cf">function</span>(rho, std_dev, nsubj) {</span>
+<span id="cb1-145"><a href="#cb1-145" aria-hidden="true" tabindex="-1"></a>    condition_means <span class="ot">&lt;-</span> <span class="fu">as.vector</span>(es <span class="sc">+</span> base_mu)</span>
+<span id="cb1-146"><a href="#cb1-146" aria-hidden="true" tabindex="-1"></a>    <span class="fu">list</span>(rho, std_dev)</span>
+<span id="cb1-147"><a href="#cb1-147" aria-hidden="true" tabindex="-1"></a>    cov_mat <span class="ot">&lt;-</span> <span class="fu">calc_cov_mat</span>(rho, std_dev, <span class="at">ncond =</span> <span class="fu">length</span>(es))  <span class="co"># one rho all conds</span></span>
+<span id="cb1-148"><a href="#cb1-148" aria-hidden="true" tabindex="-1"></a>    <span class="co">#cov_mat</span></span>
+<span id="cb1-149"><a href="#cb1-149" aria-hidden="true" tabindex="-1"></a>    simulation <span class="ot">&lt;-</span> MASS<span class="sc">::</span><span class="fu">mvrnorm</span>(<span class="at">n =</span> nsubj, <span class="at">mu =</span> condition_means, <span class="at">Sigma =</span> cov_mat,</span>
+<span id="cb1-150"><a href="#cb1-150" aria-hidden="true" tabindex="-1"></a>                                <span class="at">empirical =</span> <span class="cn">FALSE</span>)</span>
+<span id="cb1-151"><a href="#cb1-151" aria-hidden="true" tabindex="-1"></a>    <span class="fu">colnames</span>(simulation) <span class="ot">&lt;-</span> <span class="fu">paste0</span>(<span class="st">"C"</span>, <span class="fu">seq</span>(condition_means), <span class="st">"_"</span>, condition_means)</span>
+<span id="cb1-152"><a href="#cb1-152" aria-hidden="true" tabindex="-1"></a>    simulation</span>
+<span id="cb1-153"><a href="#cb1-153" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb1-154"><a href="#cb1-154" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-155"><a href="#cb1-155" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-156"><a href="#cb1-156" aria-hidden="true" tabindex="-1"></a>do_sim <span class="ot">&lt;-</span> <span class="cf">function</span>(sim_params, sim_func, <span class="at">Nsim =</span> <span class="dv">5000</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>){</span>
+<span id="cb1-157"><a href="#cb1-157" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replicate</span>(Nsim, <span class="fu">do.call</span>(sim_func, sim_params), <span class="at">simplify =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-158"><a href="#cb1-158" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(<span class="at">FUN =</span> matcols2lists, <span class="at">group_by =</span> <span class="dv">2</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-159"><a href="#cb1-159" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rapply</span>(t_test_paired_data, <span class="at">how =</span> <span class="st">"list"</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-160"><a href="#cb1-160" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(<span class="at">FUN =</span> rbind_list) <span class="sc">|&gt;</span></span>
+<span id="cb1-161"><a href="#cb1-161" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(<span class="at">FUN =</span> transform, <span class="at">p.adjust =</span> <span class="fu">p.adjust</span>(p.value, <span class="st">"holm"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb1-162"><a href="#cb1-162" aria-hidden="true" tabindex="-1"></a>    <span class="fu">organize_output</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-163"><a href="#cb1-163" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(<span class="at">FUN =</span> calc_error_design, <span class="at">alpha =</span> alpha) <span class="sc">|&gt;</span></span>
+<span id="cb1-164"><a href="#cb1-164" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbind_list</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-165"><a href="#cb1-165" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(sim_params)</span>
+<span id="cb1-166"><a href="#cb1-166" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb1-167"><a href="#cb1-167" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-168"><a href="#cb1-168" aria-hidden="true" tabindex="-1"></a>do_sim_2x2 <span class="ot">&lt;-</span> <span class="cf">function</span>(sim_params, sim_func, <span class="at">Nsim =</span> <span class="dv">5000</span>, <span class="at">alpha =</span> <span class="fl">0.05</span>) {</span>
+<span id="cb1-169"><a href="#cb1-169" aria-hidden="true" tabindex="-1"></a>  <span class="fu">replicate</span>(Nsim, <span class="fu">do.call</span>(sim_func, sim_params), <span class="at">simplify =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-170"><a href="#cb1-170" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(<span class="at">FUN =</span> matcols2lists, <span class="at">group_by =</span> <span class="dv">4</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-171"><a href="#cb1-171" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rapply</span>(test_2x2_paired_data, <span class="at">how =</span> <span class="st">"list"</span> )  <span class="sc">|&gt;</span></span>
+<span id="cb1-172"><a href="#cb1-172" aria-hidden="true" tabindex="-1"></a>    <span class="fu">unlist</span>(<span class="at">recursive =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb1-173"><a href="#cb1-173" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbind_list</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-174"><a href="#cb1-174" aria-hidden="true" tabindex="-1"></a>    <span class="fu">split</span>(<span class="sc">~</span>condition) <span class="sc">|&gt;</span></span>
+<span id="cb1-175"><a href="#cb1-175" aria-hidden="true" tabindex="-1"></a>    <span class="fu">lapply</span>(<span class="at">FUN =</span> calc_error_design, <span class="at">alpha =</span> alpha) <span class="sc">|&gt;</span></span>
+<span id="cb1-176"><a href="#cb1-176" aria-hidden="true" tabindex="-1"></a>    <span class="fu">rbind_list</span>() <span class="sc">|&gt;</span></span>
+<span id="cb1-177"><a href="#cb1-177" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(sim_params)</span>
+<span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div></div>
+<section id="simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" class="level2">
+<h2 class="anchored" data-anchor-id="simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming">Simulating possible scenarios for the Frequency Attenuation effect in Masked Priming</h2>
+<p>Seventeen studies were found in the literature about frequency attenuation. Out of these:</p>
+<ul>
+<li><p>All show the repetition effect for both HF and LF words</p></li>
+<li><p>Only three show a statistically significant interaction between identity priming and frequency (with lower frequency words showing more masked id priming). The effect sizes on these three are quite large (30, 31 and 32 ms), about as large as the corresponding masked id priming for HF in the experiment</p></li>
+<li><p>Overall:</p>
+<ul>
+<li>The average attenuation effect numerically observed is 13 ms</li>
+<li>The range of sample sizes is [16, 48]</li>
+<li>The range of SD for HF is [55, 146]</li>
+<li>The range of SD for LF is [60, 177]</li>
+</ul></li>
+</ul>
+<p>Thus it seems reasonable that there may be a frequency attenuation effect, but what is its size? The experiments that detected it found a very large one, but these are rare. If the effect size really is that large, why aren’t we finding the interaction as often as the main effects? Maybe the 30 ms range is an exaggeration, due to low power? Perhaps the most likely scenario is a 10-15 ms effect that can only be detected with sample sizes &lt;= 48 when it is exaggerated.</p>
+<p>So we will investigate three different interactions ESs: 5, 10, and 15 ms, across all combinations of:</p>
+<ul>
+<li>sample size, between 200 and 3000 participants (with 150-participant increments)</li>
+<li>standard deviation, between 60 and 110 ms (with 10 ms increments)</li>
+<li>correlation between related and unrelated primetype conditions, ranging between 0.7 and 0.9 (with 0.1 increments)</li>
+</ul>
+<section id="es-5-ms" class="level3">
+<h3 class="anchored" data-anchor-id="es-5-ms">ES = 5 ms</h3>
+<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulation of simple effects: Using a matrix of possible parameters</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of Effect Sizes ------#</span></span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of DD Effect Sizes ------#</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.5</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">25</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- design ----#</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.5</span>ms_base_es, freq_atten_exp2<span class="fl">.5</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.vector</span>() <span class="sc">|&gt;</span></span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_exp2<span class="fl">.5</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of N ------#</span></span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of SDs ------#</span></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.5</span>ms_min_sd, <span class="at">to =</span> freq_atten_exp2<span class="fl">.5</span>ms_max_sd, </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_exp2<span class="fl">.5</span>ms_sd_increment)</span>
+<span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of rhos ------#</span></span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.5</span>ms_min_rho, <span class="at">to =</span> freq_atten_exp2<span class="fl">.5</span>ms_max_rho, </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_exp2<span class="fl">.5</span>ms_rho_increment)</span>
+<span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- create the control matrix ---- #</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.5</span>ms_rhos_to_sim,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.5</span>ms_sds_to_sim,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.5</span>ms_n_subjs_to_sim)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_exp2<span class="fl">.5</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_exp2<span class="fl">.5</span>ms_design)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_params <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.5</span>ms_simulation_params <span class="sc">|&gt;</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_exp2<span class="fl">.5</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
+<span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="at">FUN =</span> as.list)</span>
+<span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="do">### Run simulation</span></span>
+<span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20140715</span>)</span>
+<span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_exp2<span class="fl">.5</span>ms_params, do_sim_2x2, </span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_exp2<span class="fl">.5</span>ms_simulate_effects, </span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_exp2<span class="fl">.5</span>ms_Nsim) <span class="sc">|&gt;</span></span>
+<span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">combine_sims</span>()</span>
+<span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_exp2.5ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_exp2.5ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
+<span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_exp2.5ms.RData"</span>)</span>
+<span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="do">## Plotting</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_df <span class="sc">|&gt;</span></span>
+<span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(ES <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
+<span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> nsubj, <span class="at">y =</span> power_unadjusted)) <span class="sc">+</span> </span>
+<span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>()) <span class="sc">+</span> </span>
+<span id="cb2-60"><a href="#cb2-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb2-61"><a href="#cb2-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>), <span class="at">color =</span> <span class="st">"red2"</span>) <span class="sc">+</span> </span>
+<span id="cb2-62"><a href="#cb2-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(rho <span class="sc">~</span> std_dev) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div></div>
+</section>
+<section id="es-10-ms" class="level3">
+<h3 class="anchored" data-anchor-id="es-10-ms">ES = 10 ms</h3>
+<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [3]:</pre></div><div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulation of simple effects: Using a matrix of possible parameters</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of Effect Sizes ------#</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of DD Effect Sizes ------#</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">20</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- design ----#</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.10</span>ms_base_es, freq_atten_exp2<span class="fl">.10</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.vector</span>() <span class="sc">|&gt;</span></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_exp2<span class="fl">.10</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of N ------#</span></span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of SDs ------#</span></span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.10</span>ms_min_sd, <span class="at">to =</span> freq_atten_exp2<span class="fl">.10</span>ms_max_sd, </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_exp2<span class="fl">.10</span>ms_sd_increment)</span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of rhos ------#</span></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.10</span>ms_min_rho, <span class="at">to =</span> freq_atten_exp2<span class="fl">.10</span>ms_max_rho, </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_exp2<span class="fl">.10</span>ms_rho_increment)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- create the control matrix ---- #</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.10</span>ms_rhos_to_sim,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.10</span>ms_sds_to_sim,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.10</span>ms_n_subjs_to_sim)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_exp2<span class="fl">.10</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_exp2<span class="fl">.10</span>ms_design)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_params <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_simulation_params <span class="sc">|&gt;</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_exp2<span class="fl">.10</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
+<span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="at">FUN =</span> as.list)</span>
+<span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="do">### Run simulation</span></span>
+<span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20140715</span>)</span>
+<span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_exp2<span class="fl">.10</span>ms_params, do_sim_2x2, </span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_exp2<span class="fl">.10</span>ms_simulate_effects, </span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_exp2<span class="fl">.10</span>ms_Nsim) <span class="sc">|&gt;</span></span>
+<span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">combine_sims</span>()</span>
+<span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_exp2.10ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_exp2.10ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_exp2.10ms.RData"</span>)</span>
+<span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="do">## Plotting</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df <span class="sc">|&gt;</span></span>
+<span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(ES <span class="sc">==</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
+<span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> nsubj, <span class="at">y =</span> power_unadjusted)) <span class="sc">+</span> </span>
+<span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>()) <span class="sc">+</span> </span>
+<span id="cb3-61"><a href="#cb3-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb3-62"><a href="#cb3-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>), <span class="at">color =</span> <span class="st">"red2"</span>) <span class="sc">+</span> </span>
+<span id="cb3-63"><a href="#cb3-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(rho <span class="sc">~</span> std_dev) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div></div>
+</section>
+<section id="es-15-ms" class="level3">
+<h3 class="anchored" data-anchor-id="es-15-ms">ES = 15 ms</h3>
+<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulation of simple effects: Using a matrix of possible parameters</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of Effect Sizes ------#</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of DD Effect Sizes ------#</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.15</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">15</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- design ----#</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.15</span>ms_base_es, freq_atten_exp2<span class="fl">.15</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.vector</span>() <span class="sc">|&gt;</span></span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_exp2<span class="fl">.15</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of N ------#</span></span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of SDs ------#</span></span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.15</span>ms_min_sd, <span class="at">to =</span> freq_atten_exp2<span class="fl">.15</span>ms_max_sd, </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_exp2<span class="fl">.15</span>ms_sd_increment)</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of rhos ------#</span></span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.15</span>ms_min_rho, <span class="at">to =</span> freq_atten_exp2<span class="fl">.15</span>ms_max_rho, </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_exp2<span class="fl">.15</span>ms_rho_increment)</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- create the control matrix ---- #</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.15</span>ms_rhos_to_sim,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.15</span>ms_sds_to_sim,</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.15</span>ms_n_subjs_to_sim)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_exp2<span class="fl">.15</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_exp2<span class="fl">.15</span>ms_design)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_params <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.15</span>ms_simulation_params <span class="sc">|&gt;</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_exp2<span class="fl">.15</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="at">FUN =</span> as.list)</span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="do">### Run simulation</span></span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20140715</span>)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_exp2<span class="fl">.15</span>ms_params, do_sim_2x2, </span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_exp2<span class="fl">.15</span>ms_simulate_effects, </span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_exp2<span class="fl">.15</span>ms_Nsim) <span class="sc">|&gt;</span></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">combine_sims</span>()</span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_exp2.15ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_exp2.15ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_exp2.15ms.RData"</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="do">## Plotting</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_df <span class="sc">|&gt;</span></span>
+<span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(ES <span class="sc">==</span> <span class="dv">15</span>) <span class="sc">|&gt;</span></span>
+<span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> nsubj, <span class="at">y =</span> power_unadjusted)) <span class="sc">+</span> </span>
+<span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>()) <span class="sc">+</span> </span>
+<span id="cb4-61"><a href="#cb4-61" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb4-62"><a href="#cb4-62" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fu">c</span>(<span class="fl">0.8</span>, <span class="fl">0.5</span>, <span class="fl">0.1</span>), <span class="at">color =</span> <span class="st">"red2"</span>) <span class="sc">+</span> </span>
+<span id="cb4-63"><a href="#cb4-63" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(rho <span class="sc">~</span> std_dev) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div></div>
+</section>
+</section>
+     </main>
+<!-- /main column -->  <script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>  </div> <!-- /content --> 
+  
+</body></html>

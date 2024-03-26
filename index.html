@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.26">
+<meta name="generator" content="quarto-1.5.27">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -46,7 +46,7 @@ div.csl-indent {
 }</style>
 
 
-<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script><script src="site_libs/clipboard/clipboard.min.js"></script>
 <script src="site_libs/quarto-html/quarto.js"></script>
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
@@ -59,6 +59,9 @@ div.csl-indent {
 <script src="site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.6/require.min.js" integrity="sha512-c3Nl8+7g4LMSTdrm621y7kf9v3SDPnhxLNhcjFJbKECVnmZHTdo+IRO05sNLTH/D3vA6u1X32ehoLC7WFVdheg==" crossorigin="anonymous"></script>
+
+<script type="application/javascript">define('jquery', [],function() {return window.jQuery;})</script>
 
   <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
@@ -429,7 +432,7 @@ window.Quarto = {
   <li><a href="#experiment-2-1" id="toc-experiment-2-1" class="nav-link" data-scroll-target="#experiment-2-1">Experiment 2</a></li>
   </ul></li>
   </ul>
-<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="index-preview.html"><i class="bi bi-journal-code"></i>Article Notebook</a></li></ul></div></nav>
+<div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="index-preview.html"><i class="bi bi-journal-code"></i>Article Notebook</a></li><li><a href="notebooks/intro_lit-review_power-analysis-preview.html"><i class="bi bi-journal-code"></i>Script A: literature review</a></li><li><a href="notebooks/experiment-1_analysis-preview.html"><i class="bi bi-journal-code"></i>Script B: Experiment 1</a></li><li><a href="notebooks/experiment-2_analysis-preview.html"><i class="bi bi-journal-code"></i>Script C: Experiment 2</a></li><li><a href="notebooks/power-analysis-sims-preview.html"><i class="bi bi-journal-code"></i>Script D: Power analysis simulations</a></li></ul></div></nav>
 </div>
 <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
 </div>
@@ -458,23 +461,23 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
 <div aria-describedby="tbl-litReview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="tcklqzklef" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tcklqzklef table {
+<div id="zrosqcdpip" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#zrosqcdpip table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tcklqzklef thead, #tcklqzklef tbody, #tcklqzklef tfoot, #tcklqzklef tr, #tcklqzklef td, #tcklqzklef th {
+#zrosqcdpip thead, #zrosqcdpip tbody, #zrosqcdpip tfoot, #zrosqcdpip tr, #zrosqcdpip td, #zrosqcdpip th {
   border-style: none;
 }
 
-#tcklqzklef p {
+#zrosqcdpip p {
   margin: 0;
   padding: 0;
 }
 
-#tcklqzklef .gt_table {
+#zrosqcdpip .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -500,12 +503,12 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-left-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_caption {
+#zrosqcdpip .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tcklqzklef .gt_title {
+#zrosqcdpip .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -517,7 +520,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-bottom-width: 0;
 }
 
-#tcklqzklef .gt_subtitle {
+#zrosqcdpip .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -529,7 +532,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-top-width: 0;
 }
 
-#tcklqzklef .gt_heading {
+#zrosqcdpip .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -541,13 +544,13 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-right-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_bottom_border {
+#zrosqcdpip .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_col_headings {
+#zrosqcdpip .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -562,7 +565,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-right-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_col_heading {
+#zrosqcdpip .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -582,7 +585,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   overflow-x: hidden;
 }
 
-#tcklqzklef .gt_column_spanner_outer {
+#zrosqcdpip .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -594,15 +597,15 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   padding-right: 4px;
 }
 
-#tcklqzklef .gt_column_spanner_outer:first-child {
+#zrosqcdpip .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tcklqzklef .gt_column_spanner_outer:last-child {
+#zrosqcdpip .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tcklqzklef .gt_column_spanner {
+#zrosqcdpip .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -614,11 +617,11 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   width: 100%;
 }
 
-#tcklqzklef .gt_spanner_row {
+#zrosqcdpip .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tcklqzklef .gt_group_heading {
+#zrosqcdpip .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -644,7 +647,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   text-align: left;
 }
 
-#tcklqzklef .gt_empty_group_heading {
+#zrosqcdpip .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -659,15 +662,15 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   vertical-align: middle;
 }
 
-#tcklqzklef .gt_from_md > :first-child {
+#zrosqcdpip .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tcklqzklef .gt_from_md > :last-child {
+#zrosqcdpip .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tcklqzklef .gt_row {
+#zrosqcdpip .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -686,7 +689,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   overflow-x: hidden;
 }
 
-#tcklqzklef .gt_stub {
+#zrosqcdpip .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -699,7 +702,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   padding-right: 5px;
 }
 
-#tcklqzklef .gt_stub_row_group {
+#zrosqcdpip .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -713,15 +716,15 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   vertical-align: top;
 }
 
-#tcklqzklef .gt_row_group_first td {
+#zrosqcdpip .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tcklqzklef .gt_row_group_first th {
+#zrosqcdpip .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tcklqzklef .gt_summary_row {
+#zrosqcdpip .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -731,16 +734,16 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   padding-right: 5px;
 }
 
-#tcklqzklef .gt_first_summary_row {
+#zrosqcdpip .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_first_summary_row.thick {
+#zrosqcdpip .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tcklqzklef .gt_last_summary_row {
+#zrosqcdpip .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -750,7 +753,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-bottom-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_grand_summary_row {
+#zrosqcdpip .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -760,7 +763,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   padding-right: 5px;
 }
 
-#tcklqzklef .gt_first_grand_summary_row {
+#zrosqcdpip .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -770,7 +773,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-top-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_last_grand_summary_row_top {
+#zrosqcdpip .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -780,11 +783,11 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-bottom-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_striped {
+#zrosqcdpip .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tcklqzklef .gt_table_body {
+#zrosqcdpip .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -793,7 +796,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-bottom-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_footnotes {
+#zrosqcdpip .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -807,7 +810,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-right-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_footnote {
+#zrosqcdpip .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -816,7 +819,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   padding-right: 5px;
 }
 
-#tcklqzklef .gt_sourcenotes {
+#zrosqcdpip .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -830,7 +833,7 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   border-right-color: #D3D3D3;
 }
 
-#tcklqzklef .gt_sourcenote {
+#zrosqcdpip .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -838,63 +841,63 @@ Table&nbsp;1: Summary of the masked repetition priming effects as a function of 
   padding-right: 5px;
 }
 
-#tcklqzklef .gt_left {
+#zrosqcdpip .gt_left {
   text-align: left;
 }
 
-#tcklqzklef .gt_center {
+#zrosqcdpip .gt_center {
   text-align: center;
 }
 
-#tcklqzklef .gt_right {
+#zrosqcdpip .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tcklqzklef .gt_font_normal {
+#zrosqcdpip .gt_font_normal {
   font-weight: normal;
 }
 
-#tcklqzklef .gt_font_bold {
+#zrosqcdpip .gt_font_bold {
   font-weight: bold;
 }
 
-#tcklqzklef .gt_font_italic {
+#zrosqcdpip .gt_font_italic {
   font-style: italic;
 }
 
-#tcklqzklef .gt_super {
+#zrosqcdpip .gt_super {
   font-size: 65%;
 }
 
-#tcklqzklef .gt_footnote_marks {
+#zrosqcdpip .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tcklqzklef .gt_asterisk {
+#zrosqcdpip .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tcklqzklef .gt_indent_1 {
+#zrosqcdpip .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tcklqzklef .gt_indent_2 {
+#zrosqcdpip .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tcklqzklef .gt_indent_3 {
+#zrosqcdpip .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tcklqzklef .gt_indent_4 {
+#zrosqcdpip .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tcklqzklef .gt_indent_5 {
+#zrosqcdpip .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1255,23 +1258,23 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
 <div aria-describedby="tbl-exFreqSkew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="gijtfkbrxa" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#gijtfkbrxa table {
+<div id="ylnoxlsixx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ylnoxlsixx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#gijtfkbrxa thead, #gijtfkbrxa tbody, #gijtfkbrxa tfoot, #gijtfkbrxa tr, #gijtfkbrxa td, #gijtfkbrxa th {
+#ylnoxlsixx thead, #ylnoxlsixx tbody, #ylnoxlsixx tfoot, #ylnoxlsixx tr, #ylnoxlsixx td, #ylnoxlsixx th {
   border-style: none;
 }
 
-#gijtfkbrxa p {
+#ylnoxlsixx p {
   margin: 0;
   padding: 0;
 }
 
-#gijtfkbrxa .gt_table {
+#ylnoxlsixx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1297,12 +1300,12 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-left-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_caption {
+#ylnoxlsixx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#gijtfkbrxa .gt_title {
+#ylnoxlsixx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1314,7 +1317,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-bottom-width: 0;
 }
 
-#gijtfkbrxa .gt_subtitle {
+#ylnoxlsixx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1326,7 +1329,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-top-width: 0;
 }
 
-#gijtfkbrxa .gt_heading {
+#ylnoxlsixx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1338,13 +1341,13 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-right-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_bottom_border {
+#ylnoxlsixx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_col_headings {
+#ylnoxlsixx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1359,7 +1362,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-right-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_col_heading {
+#ylnoxlsixx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1379,7 +1382,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   overflow-x: hidden;
 }
 
-#gijtfkbrxa .gt_column_spanner_outer {
+#ylnoxlsixx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1391,15 +1394,15 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   padding-right: 4px;
 }
 
-#gijtfkbrxa .gt_column_spanner_outer:first-child {
+#ylnoxlsixx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#gijtfkbrxa .gt_column_spanner_outer:last-child {
+#ylnoxlsixx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#gijtfkbrxa .gt_column_spanner {
+#ylnoxlsixx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1411,11 +1414,11 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   width: 100%;
 }
 
-#gijtfkbrxa .gt_spanner_row {
+#ylnoxlsixx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#gijtfkbrxa .gt_group_heading {
+#ylnoxlsixx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1441,7 +1444,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   text-align: left;
 }
 
-#gijtfkbrxa .gt_empty_group_heading {
+#ylnoxlsixx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1456,15 +1459,15 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   vertical-align: middle;
 }
 
-#gijtfkbrxa .gt_from_md > :first-child {
+#ylnoxlsixx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#gijtfkbrxa .gt_from_md > :last-child {
+#ylnoxlsixx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#gijtfkbrxa .gt_row {
+#ylnoxlsixx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1483,7 +1486,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   overflow-x: hidden;
 }
 
-#gijtfkbrxa .gt_stub {
+#ylnoxlsixx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1496,7 +1499,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   padding-right: 5px;
 }
 
-#gijtfkbrxa .gt_stub_row_group {
+#ylnoxlsixx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1510,15 +1513,15 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   vertical-align: top;
 }
 
-#gijtfkbrxa .gt_row_group_first td {
+#ylnoxlsixx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#gijtfkbrxa .gt_row_group_first th {
+#ylnoxlsixx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#gijtfkbrxa .gt_summary_row {
+#ylnoxlsixx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1528,16 +1531,16 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   padding-right: 5px;
 }
 
-#gijtfkbrxa .gt_first_summary_row {
+#ylnoxlsixx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_first_summary_row.thick {
+#ylnoxlsixx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#gijtfkbrxa .gt_last_summary_row {
+#ylnoxlsixx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1547,7 +1550,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-bottom-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_grand_summary_row {
+#ylnoxlsixx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1557,7 +1560,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   padding-right: 5px;
 }
 
-#gijtfkbrxa .gt_first_grand_summary_row {
+#ylnoxlsixx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1567,7 +1570,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-top-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_last_grand_summary_row_top {
+#ylnoxlsixx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1577,11 +1580,11 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-bottom-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_striped {
+#ylnoxlsixx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#gijtfkbrxa .gt_table_body {
+#ylnoxlsixx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1590,7 +1593,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-bottom-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_footnotes {
+#ylnoxlsixx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1604,7 +1607,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-right-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_footnote {
+#ylnoxlsixx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1613,7 +1616,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   padding-right: 5px;
 }
 
-#gijtfkbrxa .gt_sourcenotes {
+#ylnoxlsixx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1627,7 +1630,7 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   border-right-color: #D3D3D3;
 }
 
-#gijtfkbrxa .gt_sourcenote {
+#ylnoxlsixx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1635,63 +1638,63 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
   padding-right: 5px;
 }
 
-#gijtfkbrxa .gt_left {
+#ylnoxlsixx .gt_left {
   text-align: left;
 }
 
-#gijtfkbrxa .gt_center {
+#ylnoxlsixx .gt_center {
   text-align: center;
 }
 
-#gijtfkbrxa .gt_right {
+#ylnoxlsixx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#gijtfkbrxa .gt_font_normal {
+#ylnoxlsixx .gt_font_normal {
   font-weight: normal;
 }
 
-#gijtfkbrxa .gt_font_bold {
+#ylnoxlsixx .gt_font_bold {
   font-weight: bold;
 }
 
-#gijtfkbrxa .gt_font_italic {
+#ylnoxlsixx .gt_font_italic {
   font-style: italic;
 }
 
-#gijtfkbrxa .gt_super {
+#ylnoxlsixx .gt_super {
   font-size: 65%;
 }
 
-#gijtfkbrxa .gt_footnote_marks {
+#ylnoxlsixx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#gijtfkbrxa .gt_asterisk {
+#ylnoxlsixx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#gijtfkbrxa .gt_indent_1 {
+#ylnoxlsixx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#gijtfkbrxa .gt_indent_2 {
+#ylnoxlsixx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#gijtfkbrxa .gt_indent_3 {
+#ylnoxlsixx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#gijtfkbrxa .gt_indent_4 {
+#ylnoxlsixx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#gijtfkbrxa .gt_indent_5 {
+#ylnoxlsixx .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -1824,17 +1827,19 @@ Table&nbsp;2: Example of frequency count imbalances (in occurrences per million)
 <p>The results reported in <a href="#tbl-litReview" class="quarto-xref">Table&nbsp;1</a> reveal a wide range of possible statistical power attained by previous studies, depending solely on the combination of plausible standard deviation and correlation across conditions. For instance, the study with the smallest sample size <span class="citation" data-cites="ForsterEtal1987">(<a href="#ref-ForsterEtal1987" role="doc-biblioref">Forster et al. 1987</a>, <span class="math inline">\(N=16\)</span>)</span> had a 2% to 24% chance of detecting a 15 ms frequency attenuation effect and a 4% to 84% chance for a 30 ms effect. Similarly, the study with the largest sample size <span class="citation" data-cites="RajaramNeely1992">(<a href="#ref-RajaramNeely1992" role="doc-biblioref">Rajaram and Neely 1992</a>, <span class="math inline">\(N=48\)</span>)</span> exhibited a range of 4% to 76% for a 15 ms frequency attenuation effect and 9% to 100% for a 30 ms effect. As a consequence of the limited reporting of relevant statistical information in past studies, it is nearly impossible to determine if any of them were adequately powered to detect the effect of interest.</p>
 <p>A second concern arising from the ambiguity surrounding statistical power in the literature is the potential impact of a prevalence of low-powered experiments on the scientific record. An excess of such experiments increases the risk of observed statistically significant effects being spurious <span class="citation" data-cites="Button2013">(<a href="#ref-Button2013" role="doc-biblioref">Button et al. 2013</a>)</span>. As highlighted in <a href="#tbl-litReview" class="quarto-xref">Table&nbsp;1</a>, only 4 out of 18 studies demonstrate a statistically significant FAE. The absence of clarity regarding the statistical power of previous research poses challenges in assessing the likelihood of these significant findings being spurious.</p>
 <p>Finally, it is widely acknowledged that experiments with approximately 50% power are akin to a coin toss in their ability to detect a true effect <span class="citation" data-cites="Cohen1992">(<a href="#ref-Cohen1992" role="doc-biblioref">Cohen 1992</a>)</span>. A less-appreciated fact is that, in the presence of even lower power (&lt;25%), statistically significant results can substantially overestimate the effect size – a type-M error <span class="citation" data-cites="GelmanCarlin2014">(<a href="#ref-GelmanCarlin2014" role="doc-biblioref">Gelman and Carlin 2014</a>)</span>. When power drops to levels below 10%, a statistically significant result may occur even when the observed effect goes in the opposite direction of the true effect – a type-S error <span class="citation" data-cites="GelmanCarlin2014">(<a href="#ref-GelmanCarlin2014" role="doc-biblioref">Gelman and Carlin 2014</a>)</span>. Our power simulations for within-subjects data revealed a similar relationship between statistical power, type-M, and type-S errors in line with the observations detailed by <span class="citation" data-cites="GelmanCarlin2014">Gelman and Carlin (<a href="#ref-GelmanCarlin2014" role="doc-biblioref">2014</a>)</span> for the independent samples <span class="math inline">\(t\)</span>-test. For instance, at 10% power (a possibility for virtually all previous studies, as indicated in <a href="#tbl-litReview" class="quarto-xref">Table&nbsp;1</a>), a statistically significant result could indicate an overestimation of the magnitude of the frequency attenuation effect by a factor between 2 and 5, with a 5% chance of incorrectly determining the direction of the effect.</p>
+<div class="quarto-embed-nb-cell">
 <div id="cell-fig-power" class="cell">
-<div class="cell-output-display">
+<div class="cell-output cell-output-display">
 <div id="fig-power" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<a href="index_files/figure-html/fig-power-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Power simulations for a FAE = 10 ms, for all combinations of standard deviation (sd), correlation (cor), and sample size. The red line identifies the threshold of 80% power."><img src="index_files/figure-html/fig-power-1.png" class="img-fluid figure-img" width="768"></a>
+<a href="index_files/figure-html/notebooks-intro_lit-review_power-analysis-fig-power-output-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Figure&nbsp;1: Power simulations for a FAE = 10 ms, for all combinations of standard deviation (sd), correlation (cor), and sample size. The red line identifies the threshold of 80% power."><img src="index_files/figure-html/notebooks-intro_lit-review_power-analysis-fig-power-output-1.png" class="img-fluid figure-img"></a>
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Power simulations for a FAE = 10 ms, for all combinations of standard deviation (sd), correlation (cor), and sample size. The red line identifies the threshold of 80% power.
 </figcaption>
 </figure>
+</div>
 </div>
 </div>
 </div>
@@ -1859,23 +1864,23 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
 <div aria-describedby="tbl-words_exp1-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="junhenhxkm" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#junhenhxkm table {
+<div id="wufydriwpv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wufydriwpv table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#junhenhxkm thead, #junhenhxkm tbody, #junhenhxkm tfoot, #junhenhxkm tr, #junhenhxkm td, #junhenhxkm th {
+#wufydriwpv thead, #wufydriwpv tbody, #wufydriwpv tfoot, #wufydriwpv tr, #wufydriwpv td, #wufydriwpv th {
   border-style: none;
 }
 
-#junhenhxkm p {
+#wufydriwpv p {
   margin: 0;
   padding: 0;
 }
 
-#junhenhxkm .gt_table {
+#wufydriwpv .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1901,12 +1906,12 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-left-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_caption {
+#wufydriwpv .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#junhenhxkm .gt_title {
+#wufydriwpv .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1918,7 +1923,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-bottom-width: 0;
 }
 
-#junhenhxkm .gt_subtitle {
+#wufydriwpv .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1930,7 +1935,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-top-width: 0;
 }
 
-#junhenhxkm .gt_heading {
+#wufydriwpv .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1942,13 +1947,13 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-right-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_bottom_border {
+#wufydriwpv .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_col_headings {
+#wufydriwpv .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1963,7 +1968,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-right-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_col_heading {
+#wufydriwpv .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1983,7 +1988,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   overflow-x: hidden;
 }
 
-#junhenhxkm .gt_column_spanner_outer {
+#wufydriwpv .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1995,15 +2000,15 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   padding-right: 4px;
 }
 
-#junhenhxkm .gt_column_spanner_outer:first-child {
+#wufydriwpv .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#junhenhxkm .gt_column_spanner_outer:last-child {
+#wufydriwpv .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#junhenhxkm .gt_column_spanner {
+#wufydriwpv .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2015,11 +2020,11 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   width: 100%;
 }
 
-#junhenhxkm .gt_spanner_row {
+#wufydriwpv .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#junhenhxkm .gt_group_heading {
+#wufydriwpv .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2045,7 +2050,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   text-align: left;
 }
 
-#junhenhxkm .gt_empty_group_heading {
+#wufydriwpv .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2060,15 +2065,15 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   vertical-align: middle;
 }
 
-#junhenhxkm .gt_from_md > :first-child {
+#wufydriwpv .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#junhenhxkm .gt_from_md > :last-child {
+#wufydriwpv .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#junhenhxkm .gt_row {
+#wufydriwpv .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2087,7 +2092,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   overflow-x: hidden;
 }
 
-#junhenhxkm .gt_stub {
+#wufydriwpv .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2100,7 +2105,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   padding-right: 5px;
 }
 
-#junhenhxkm .gt_stub_row_group {
+#wufydriwpv .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2114,15 +2119,15 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   vertical-align: top;
 }
 
-#junhenhxkm .gt_row_group_first td {
+#wufydriwpv .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#junhenhxkm .gt_row_group_first th {
+#wufydriwpv .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#junhenhxkm .gt_summary_row {
+#wufydriwpv .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2132,16 +2137,16 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   padding-right: 5px;
 }
 
-#junhenhxkm .gt_first_summary_row {
+#wufydriwpv .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_first_summary_row.thick {
+#wufydriwpv .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#junhenhxkm .gt_last_summary_row {
+#wufydriwpv .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2151,7 +2156,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-bottom-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_grand_summary_row {
+#wufydriwpv .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2161,7 +2166,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   padding-right: 5px;
 }
 
-#junhenhxkm .gt_first_grand_summary_row {
+#wufydriwpv .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2171,7 +2176,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-top-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_last_grand_summary_row_top {
+#wufydriwpv .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2181,11 +2186,11 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-bottom-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_striped {
+#wufydriwpv .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#junhenhxkm .gt_table_body {
+#wufydriwpv .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2194,7 +2199,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-bottom-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_footnotes {
+#wufydriwpv .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2208,7 +2213,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-right-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_footnote {
+#wufydriwpv .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2217,7 +2222,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   padding-right: 5px;
 }
 
-#junhenhxkm .gt_sourcenotes {
+#wufydriwpv .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2231,7 +2236,7 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   border-right-color: #D3D3D3;
 }
 
-#junhenhxkm .gt_sourcenote {
+#wufydriwpv .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2239,63 +2244,63 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
   padding-right: 5px;
 }
 
-#junhenhxkm .gt_left {
+#wufydriwpv .gt_left {
   text-align: left;
 }
 
-#junhenhxkm .gt_center {
+#wufydriwpv .gt_center {
   text-align: center;
 }
 
-#junhenhxkm .gt_right {
+#wufydriwpv .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#junhenhxkm .gt_font_normal {
+#wufydriwpv .gt_font_normal {
   font-weight: normal;
 }
 
-#junhenhxkm .gt_font_bold {
+#wufydriwpv .gt_font_bold {
   font-weight: bold;
 }
 
-#junhenhxkm .gt_font_italic {
+#wufydriwpv .gt_font_italic {
   font-style: italic;
 }
 
-#junhenhxkm .gt_super {
+#wufydriwpv .gt_super {
   font-size: 65%;
 }
 
-#junhenhxkm .gt_footnote_marks {
+#wufydriwpv .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#junhenhxkm .gt_asterisk {
+#wufydriwpv .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#junhenhxkm .gt_indent_1 {
+#wufydriwpv .gt_indent_1 {
   text-indent: 5px;
 }
 
-#junhenhxkm .gt_indent_2 {
+#wufydriwpv .gt_indent_2 {
   text-indent: 10px;
 }
 
-#junhenhxkm .gt_indent_3 {
+#wufydriwpv .gt_indent_3 {
   text-indent: 15px;
 }
 
-#junhenhxkm .gt_indent_4 {
+#wufydriwpv .gt_indent_4 {
   text-indent: 20px;
 }
 
-#junhenhxkm .gt_indent_5 {
+#wufydriwpv .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -2385,33 +2390,33 @@ Table&nbsp;3: Experiment 1. Descriptive statistics of the word item used. For bo
 </section>
 <section id="sec-exp1-results" class="level2" data-number="3.3">
 <h2 data-number="3.3" class="anchored" data-anchor-id="sec-exp1-results"><span class="header-section-number">3.3</span> Results</h2>
-<p>For each frequency bin, priming effects were calculated for each subject by subtracting the subject’s mean RT to the related condition from the subject’s mean RT to the unrelated condition. Unstandardized (in ms) and standardized effect sizes (i.e., Cohen’s <em>d</em>) were then calculated for each condition. <a href="#tbl-statsResults" class="quarto-xref">Table&nbsp;4</a> below reports the descriptive and inferential statistics of the experiment. Both frequency conditions show statistically significant repetition priming effects (<em>MOP_HF</em> = 23, CI_95% = [19, 27], <em>t</em>(281) = 10.4, <span class="math inline">\(p&lt;.0001\)</span>; <em>MOP_LF</em> = 30, CI_95% = [24, 36], <em>t</em>(281) = 9.75, <span class="math inline">\(p&lt;.0001\)</span>), whereas the non-word priming effects were right at the alpha-level (<em>MOP_</em> = -4, CI_95% = [-8, 0], <em>t</em>(281) = -1.91, <span class="math inline">\(p=0.057\)</span>). The low-frequency repetition priming effect was 7-ms larger than that of the high-frequency words, but this FAE effect was only marginally significant (<em>M_FAE</em> = 7, CI_95% = [-1, 15]), <em>t</em>(281) = 1.88, <span class="math inline">\(p=0.06\)</span>). As for the error analysis, we found a significant priming effect in all conditions (high: <em>t</em>(281)=2.51, <span class="math inline">\(p&lt;.0001\)</span>; low: <em>t</em>(281)=6.39, <span class="math inline">\(p&lt;.0001\)</span>; non-word: <em>t</em>(281)=-2.24, <span class="math inline">\(p&lt;.0001\)</span>).</p>
+<p>For each frequency bin, priming effects were calculated for each subject by subtracting the subject’s mean RT to the related condition from the subject’s mean RT to the unrelated condition. Unstandardized (in ms) and standardized effect sizes (i.e., Cohen’s <em>d</em>) were then calculated for each condition. <a href="#tbl-exp1-statsResults" class="quarto-xref">Table&nbsp;4</a> below reports the descriptive and inferential statistics of the experiment. Both frequency conditions show statistically significant repetition priming effects (<em>MOP_HF</em> = 23, CI_95% = [19, 27], <em>t</em>(281) = 10.4, <span class="math inline">\(p&lt;.0001\)</span>; <em>MOP_LF</em> = 30, CI_95% = [24, 36], <em>t</em>(281) = 9.75, <span class="math inline">\(p&lt;.0001\)</span>), whereas the non-word priming effects were right at the alpha-level (<em>MOP_</em> = -4, CI_95% = [-8, 0], <em>t</em>(281) = -1.91, <span class="math inline">\(p=0.057\)</span>). The low-frequency repetition priming effect was 7-ms larger than that of the high-frequency words, but this FAE effect was only marginally significant (<em>M_FAE</em> = 7, CI_95% = [-1, 15]), <em>t</em>(281) = 1.88, <span class="math inline">\(p=0.06\)</span>). As for the error analysis, we found a significant priming effect in all conditions (high: <em>t</em>(281)=2.51, <span class="math inline">\(p&lt;.0001\)</span>; low: <em>t</em>(281)=6.39, <span class="math inline">\(p&lt;.0001\)</span>; non-word: <em>t</em>(281)=-2.24, <span class="math inline">\(p&lt;.0001\)</span>).</p>
 <div class="cell" data-tbl-pos="h">
-<div id="tbl-statsResults" class="cell quarto-float anchored" data-tbl-pos="h">
+<div id="tbl-exp1-statsResults" class="cell quarto-float anchored" data-tbl-pos="h">
 <figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-statsResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-exp1-statsResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em> MOP: magnitude of priming.
 </figcaption>
-<div aria-describedby="tbl-statsResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<div aria-describedby="tbl-exp1-statsResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="xxbxdoojth" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#xxbxdoojth table {
+<div id="tnvpgtpibl" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tnvpgtpibl table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#xxbxdoojth thead, #xxbxdoojth tbody, #xxbxdoojth tfoot, #xxbxdoojth tr, #xxbxdoojth td, #xxbxdoojth th {
+#tnvpgtpibl thead, #tnvpgtpibl tbody, #tnvpgtpibl tfoot, #tnvpgtpibl tr, #tnvpgtpibl td, #tnvpgtpibl th {
   border-style: none;
 }
 
-#xxbxdoojth p {
+#tnvpgtpibl p {
   margin: 0;
   padding: 0;
 }
 
-#xxbxdoojth .gt_table {
+#tnvpgtpibl .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -2437,12 +2442,12 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-left-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_caption {
+#tnvpgtpibl .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#xxbxdoojth .gt_title {
+#tnvpgtpibl .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -2454,7 +2459,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-bottom-width: 0;
 }
 
-#xxbxdoojth .gt_subtitle {
+#tnvpgtpibl .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -2466,7 +2471,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-top-width: 0;
 }
 
-#xxbxdoojth .gt_heading {
+#tnvpgtpibl .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -2478,13 +2483,13 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-right-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_bottom_border {
+#tnvpgtpibl .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_col_headings {
+#tnvpgtpibl .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2499,7 +2504,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-right-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_col_heading {
+#tnvpgtpibl .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2519,7 +2524,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   overflow-x: hidden;
 }
 
-#xxbxdoojth .gt_column_spanner_outer {
+#tnvpgtpibl .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2531,15 +2536,15 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   padding-right: 4px;
 }
 
-#xxbxdoojth .gt_column_spanner_outer:first-child {
+#tnvpgtpibl .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#xxbxdoojth .gt_column_spanner_outer:last-child {
+#tnvpgtpibl .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#xxbxdoojth .gt_column_spanner {
+#tnvpgtpibl .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -2551,11 +2556,11 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   width: 100%;
 }
 
-#xxbxdoojth .gt_spanner_row {
+#tnvpgtpibl .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#xxbxdoojth .gt_group_heading {
+#tnvpgtpibl .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2581,7 +2586,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   text-align: left;
 }
 
-#xxbxdoojth .gt_empty_group_heading {
+#tnvpgtpibl .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -2596,15 +2601,15 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   vertical-align: middle;
 }
 
-#xxbxdoojth .gt_from_md > :first-child {
+#tnvpgtpibl .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#xxbxdoojth .gt_from_md > :last-child {
+#tnvpgtpibl .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#xxbxdoojth .gt_row {
+#tnvpgtpibl .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2623,7 +2628,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   overflow-x: hidden;
 }
 
-#xxbxdoojth .gt_stub {
+#tnvpgtpibl .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2636,7 +2641,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#xxbxdoojth .gt_stub_row_group {
+#tnvpgtpibl .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -2650,15 +2655,15 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   vertical-align: top;
 }
 
-#xxbxdoojth .gt_row_group_first td {
+#tnvpgtpibl .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#xxbxdoojth .gt_row_group_first th {
+#tnvpgtpibl .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#xxbxdoojth .gt_summary_row {
+#tnvpgtpibl .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2668,16 +2673,16 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#xxbxdoojth .gt_first_summary_row {
+#tnvpgtpibl .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_first_summary_row.thick {
+#tnvpgtpibl .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#xxbxdoojth .gt_last_summary_row {
+#tnvpgtpibl .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2687,7 +2692,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-bottom-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_grand_summary_row {
+#tnvpgtpibl .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -2697,7 +2702,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#xxbxdoojth .gt_first_grand_summary_row {
+#tnvpgtpibl .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2707,7 +2712,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-top-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_last_grand_summary_row_top {
+#tnvpgtpibl .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -2717,11 +2722,11 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-bottom-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_striped {
+#tnvpgtpibl .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#xxbxdoojth .gt_table_body {
+#tnvpgtpibl .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -2730,7 +2735,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-bottom-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_footnotes {
+#tnvpgtpibl .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2744,7 +2749,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-right-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_footnote {
+#tnvpgtpibl .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -2753,7 +2758,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#xxbxdoojth .gt_sourcenotes {
+#tnvpgtpibl .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -2767,7 +2772,7 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   border-right-color: #D3D3D3;
 }
 
-#xxbxdoojth .gt_sourcenote {
+#tnvpgtpibl .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -2775,63 +2780,63 @@ Table&nbsp;4: Experiment 1. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#xxbxdoojth .gt_left {
+#tnvpgtpibl .gt_left {
   text-align: left;
 }
 
-#xxbxdoojth .gt_center {
+#tnvpgtpibl .gt_center {
   text-align: center;
 }
 
-#xxbxdoojth .gt_right {
+#tnvpgtpibl .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#xxbxdoojth .gt_font_normal {
+#tnvpgtpibl .gt_font_normal {
   font-weight: normal;
 }
 
-#xxbxdoojth .gt_font_bold {
+#tnvpgtpibl .gt_font_bold {
   font-weight: bold;
 }
 
-#xxbxdoojth .gt_font_italic {
+#tnvpgtpibl .gt_font_italic {
   font-style: italic;
 }
 
-#xxbxdoojth .gt_super {
+#tnvpgtpibl .gt_super {
   font-size: 65%;
 }
 
-#xxbxdoojth .gt_footnote_marks {
+#tnvpgtpibl .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#xxbxdoojth .gt_asterisk {
+#tnvpgtpibl .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#xxbxdoojth .gt_indent_1 {
+#tnvpgtpibl .gt_indent_1 {
   text-indent: 5px;
 }
 
-#xxbxdoojth .gt_indent_2 {
+#tnvpgtpibl .gt_indent_2 {
   text-indent: 10px;
 }
 
-#xxbxdoojth .gt_indent_3 {
+#tnvpgtpibl .gt_indent_3 {
   text-indent: 15px;
 }
 
-#xxbxdoojth .gt_indent_4 {
+#tnvpgtpibl .gt_indent_4 {
   text-indent: 20px;
 }
 
-#xxbxdoojth .gt_indent_5 {
+#tnvpgtpibl .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3007,23 +3012,23 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
 <div aria-describedby="tbl-words_exp2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="zedoyeavsq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#zedoyeavsq table {
+<div id="vbwmychqap" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#vbwmychqap table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#zedoyeavsq thead, #zedoyeavsq tbody, #zedoyeavsq tfoot, #zedoyeavsq tr, #zedoyeavsq td, #zedoyeavsq th {
+#vbwmychqap thead, #vbwmychqap tbody, #vbwmychqap tfoot, #vbwmychqap tr, #vbwmychqap td, #vbwmychqap th {
   border-style: none;
 }
 
-#zedoyeavsq p {
+#vbwmychqap p {
   margin: 0;
   padding: 0;
 }
 
-#zedoyeavsq .gt_table {
+#vbwmychqap .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3049,12 +3054,12 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-left-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_caption {
+#vbwmychqap .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#zedoyeavsq .gt_title {
+#vbwmychqap .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3066,7 +3071,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-bottom-width: 0;
 }
 
-#zedoyeavsq .gt_subtitle {
+#vbwmychqap .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3078,7 +3083,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-top-width: 0;
 }
 
-#zedoyeavsq .gt_heading {
+#vbwmychqap .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3090,13 +3095,13 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-right-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_bottom_border {
+#vbwmychqap .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_col_headings {
+#vbwmychqap .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3111,7 +3116,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-right-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_col_heading {
+#vbwmychqap .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3131,7 +3136,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   overflow-x: hidden;
 }
 
-#zedoyeavsq .gt_column_spanner_outer {
+#vbwmychqap .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3143,15 +3148,15 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   padding-right: 4px;
 }
 
-#zedoyeavsq .gt_column_spanner_outer:first-child {
+#vbwmychqap .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#zedoyeavsq .gt_column_spanner_outer:last-child {
+#vbwmychqap .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#zedoyeavsq .gt_column_spanner {
+#vbwmychqap .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3163,11 +3168,11 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   width: 100%;
 }
 
-#zedoyeavsq .gt_spanner_row {
+#vbwmychqap .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#zedoyeavsq .gt_group_heading {
+#vbwmychqap .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3193,7 +3198,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   text-align: left;
 }
 
-#zedoyeavsq .gt_empty_group_heading {
+#vbwmychqap .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3208,15 +3213,15 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   vertical-align: middle;
 }
 
-#zedoyeavsq .gt_from_md > :first-child {
+#vbwmychqap .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#zedoyeavsq .gt_from_md > :last-child {
+#vbwmychqap .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#zedoyeavsq .gt_row {
+#vbwmychqap .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3235,7 +3240,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   overflow-x: hidden;
 }
 
-#zedoyeavsq .gt_stub {
+#vbwmychqap .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3248,7 +3253,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   padding-right: 5px;
 }
 
-#zedoyeavsq .gt_stub_row_group {
+#vbwmychqap .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3262,15 +3267,15 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   vertical-align: top;
 }
 
-#zedoyeavsq .gt_row_group_first td {
+#vbwmychqap .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#zedoyeavsq .gt_row_group_first th {
+#vbwmychqap .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#zedoyeavsq .gt_summary_row {
+#vbwmychqap .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3280,16 +3285,16 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   padding-right: 5px;
 }
 
-#zedoyeavsq .gt_first_summary_row {
+#vbwmychqap .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_first_summary_row.thick {
+#vbwmychqap .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#zedoyeavsq .gt_last_summary_row {
+#vbwmychqap .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3299,7 +3304,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-bottom-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_grand_summary_row {
+#vbwmychqap .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3309,7 +3314,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   padding-right: 5px;
 }
 
-#zedoyeavsq .gt_first_grand_summary_row {
+#vbwmychqap .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3319,7 +3324,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-top-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_last_grand_summary_row_top {
+#vbwmychqap .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3329,11 +3334,11 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-bottom-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_striped {
+#vbwmychqap .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#zedoyeavsq .gt_table_body {
+#vbwmychqap .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3342,7 +3347,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-bottom-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_footnotes {
+#vbwmychqap .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3356,7 +3361,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-right-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_footnote {
+#vbwmychqap .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3365,7 +3370,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   padding-right: 5px;
 }
 
-#zedoyeavsq .gt_sourcenotes {
+#vbwmychqap .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3379,7 +3384,7 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   border-right-color: #D3D3D3;
 }
 
-#zedoyeavsq .gt_sourcenote {
+#vbwmychqap .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3387,63 +3392,63 @@ Table&nbsp;5: Experiment 2. Descriptive statistics of the word items used. For b
   padding-right: 5px;
 }
 
-#zedoyeavsq .gt_left {
+#vbwmychqap .gt_left {
   text-align: left;
 }
 
-#zedoyeavsq .gt_center {
+#vbwmychqap .gt_center {
   text-align: center;
 }
 
-#zedoyeavsq .gt_right {
+#vbwmychqap .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#zedoyeavsq .gt_font_normal {
+#vbwmychqap .gt_font_normal {
   font-weight: normal;
 }
 
-#zedoyeavsq .gt_font_bold {
+#vbwmychqap .gt_font_bold {
   font-weight: bold;
 }
 
-#zedoyeavsq .gt_font_italic {
+#vbwmychqap .gt_font_italic {
   font-style: italic;
 }
 
-#zedoyeavsq .gt_super {
+#vbwmychqap .gt_super {
   font-size: 65%;
 }
 
-#zedoyeavsq .gt_footnote_marks {
+#vbwmychqap .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#zedoyeavsq .gt_asterisk {
+#vbwmychqap .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#zedoyeavsq .gt_indent_1 {
+#vbwmychqap .gt_indent_1 {
   text-indent: 5px;
 }
 
-#zedoyeavsq .gt_indent_2 {
+#vbwmychqap .gt_indent_2 {
   text-indent: 10px;
 }
 
-#zedoyeavsq .gt_indent_3 {
+#vbwmychqap .gt_indent_3 {
   text-indent: 15px;
 }
 
-#zedoyeavsq .gt_indent_4 {
+#vbwmychqap .gt_indent_4 {
   text-indent: 20px;
 }
 
-#zedoyeavsq .gt_indent_5 {
+#vbwmychqap .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -3541,23 +3546,23 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
 <div aria-describedby="tbl-exp2-statsResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
 <div>
-<div id="vqzoqemmen" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#vqzoqemmen table {
+<div id="dumndzsfir" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#dumndzsfir table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#vqzoqemmen thead, #vqzoqemmen tbody, #vqzoqemmen tfoot, #vqzoqemmen tr, #vqzoqemmen td, #vqzoqemmen th {
+#dumndzsfir thead, #dumndzsfir tbody, #dumndzsfir tfoot, #dumndzsfir tr, #dumndzsfir td, #dumndzsfir th {
   border-style: none;
 }
 
-#vqzoqemmen p {
+#dumndzsfir p {
   margin: 0;
   padding: 0;
 }
 
-#vqzoqemmen .gt_table {
+#dumndzsfir .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -3583,12 +3588,12 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-left-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_caption {
+#dumndzsfir .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#vqzoqemmen .gt_title {
+#dumndzsfir .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -3600,7 +3605,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-bottom-width: 0;
 }
 
-#vqzoqemmen .gt_subtitle {
+#dumndzsfir .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -3612,7 +3617,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-top-width: 0;
 }
 
-#vqzoqemmen .gt_heading {
+#dumndzsfir .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -3624,13 +3629,13 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-right-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_bottom_border {
+#dumndzsfir .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_col_headings {
+#dumndzsfir .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3645,7 +3650,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-right-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_col_heading {
+#dumndzsfir .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3665,7 +3670,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   overflow-x: hidden;
 }
 
-#vqzoqemmen .gt_column_spanner_outer {
+#dumndzsfir .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3677,15 +3682,15 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   padding-right: 4px;
 }
 
-#vqzoqemmen .gt_column_spanner_outer:first-child {
+#dumndzsfir .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#vqzoqemmen .gt_column_spanner_outer:last-child {
+#dumndzsfir .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#vqzoqemmen .gt_column_spanner {
+#dumndzsfir .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -3697,11 +3702,11 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   width: 100%;
 }
 
-#vqzoqemmen .gt_spanner_row {
+#dumndzsfir .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#vqzoqemmen .gt_group_heading {
+#dumndzsfir .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3727,7 +3732,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   text-align: left;
 }
 
-#vqzoqemmen .gt_empty_group_heading {
+#dumndzsfir .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -3742,15 +3747,15 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   vertical-align: middle;
 }
 
-#vqzoqemmen .gt_from_md > :first-child {
+#dumndzsfir .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#vqzoqemmen .gt_from_md > :last-child {
+#dumndzsfir .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#vqzoqemmen .gt_row {
+#dumndzsfir .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3769,7 +3774,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   overflow-x: hidden;
 }
 
-#vqzoqemmen .gt_stub {
+#dumndzsfir .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3782,7 +3787,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#vqzoqemmen .gt_stub_row_group {
+#dumndzsfir .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -3796,15 +3801,15 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   vertical-align: top;
 }
 
-#vqzoqemmen .gt_row_group_first td {
+#dumndzsfir .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#vqzoqemmen .gt_row_group_first th {
+#dumndzsfir .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#vqzoqemmen .gt_summary_row {
+#dumndzsfir .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3814,16 +3819,16 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#vqzoqemmen .gt_first_summary_row {
+#dumndzsfir .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_first_summary_row.thick {
+#dumndzsfir .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#vqzoqemmen .gt_last_summary_row {
+#dumndzsfir .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3833,7 +3838,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-bottom-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_grand_summary_row {
+#dumndzsfir .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -3843,7 +3848,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#vqzoqemmen .gt_first_grand_summary_row {
+#dumndzsfir .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3853,7 +3858,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-top-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_last_grand_summary_row_top {
+#dumndzsfir .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -3863,11 +3868,11 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-bottom-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_striped {
+#dumndzsfir .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#vqzoqemmen .gt_table_body {
+#dumndzsfir .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -3876,7 +3881,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-bottom-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_footnotes {
+#dumndzsfir .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3890,7 +3895,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-right-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_footnote {
+#dumndzsfir .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -3899,7 +3904,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#vqzoqemmen .gt_sourcenotes {
+#dumndzsfir .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -3913,7 +3918,7 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   border-right-color: #D3D3D3;
 }
 
-#vqzoqemmen .gt_sourcenote {
+#dumndzsfir .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -3921,63 +3926,63 @@ Table&nbsp;6: Experiment 2. Summary of the word priming results. <em>Legend.</em
   padding-right: 5px;
 }
 
-#vqzoqemmen .gt_left {
+#dumndzsfir .gt_left {
   text-align: left;
 }
 
-#vqzoqemmen .gt_center {
+#dumndzsfir .gt_center {
   text-align: center;
 }
 
-#vqzoqemmen .gt_right {
+#dumndzsfir .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#vqzoqemmen .gt_font_normal {
+#dumndzsfir .gt_font_normal {
   font-weight: normal;
 }
 
-#vqzoqemmen .gt_font_bold {
+#dumndzsfir .gt_font_bold {
   font-weight: bold;
 }
 
-#vqzoqemmen .gt_font_italic {
+#dumndzsfir .gt_font_italic {
   font-style: italic;
 }
 
-#vqzoqemmen .gt_super {
+#dumndzsfir .gt_super {
   font-size: 65%;
 }
 
-#vqzoqemmen .gt_footnote_marks {
+#dumndzsfir .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#vqzoqemmen .gt_asterisk {
+#dumndzsfir .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#vqzoqemmen .gt_indent_1 {
+#dumndzsfir .gt_indent_1 {
   text-indent: 5px;
 }
 
-#vqzoqemmen .gt_indent_2 {
+#dumndzsfir .gt_indent_2 {
   text-indent: 10px;
 }
 
-#vqzoqemmen .gt_indent_3 {
+#dumndzsfir .gt_indent_3 {
   text-indent: 15px;
 }
 
-#vqzoqemmen .gt_indent_4 {
+#dumndzsfir .gt_indent_4 {
   text-indent: 20px;
 }
 
-#vqzoqemmen .gt_indent_5 {
+#dumndzsfir .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -4301,23 +4306,23 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<div id="hrlnydjcjj" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#hrlnydjcjj table {
+<div id="qymlvfnhjp" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#qymlvfnhjp table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#hrlnydjcjj thead, #hrlnydjcjj tbody, #hrlnydjcjj tfoot, #hrlnydjcjj tr, #hrlnydjcjj td, #hrlnydjcjj th {
+#qymlvfnhjp thead, #qymlvfnhjp tbody, #qymlvfnhjp tfoot, #qymlvfnhjp tr, #qymlvfnhjp td, #qymlvfnhjp th {
   border-style: none;
 }
 
-#hrlnydjcjj p {
+#qymlvfnhjp p {
   margin: 0;
   padding: 0;
 }
 
-#hrlnydjcjj .gt_table {
+#qymlvfnhjp .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -4343,12 +4348,12 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-left-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_caption {
+#qymlvfnhjp .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#hrlnydjcjj .gt_title {
+#qymlvfnhjp .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -4360,7 +4365,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-bottom-width: 0;
 }
 
-#hrlnydjcjj .gt_subtitle {
+#qymlvfnhjp .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -4372,7 +4377,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-top-width: 0;
 }
 
-#hrlnydjcjj .gt_heading {
+#qymlvfnhjp .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -4384,13 +4389,13 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-right-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_bottom_border {
+#qymlvfnhjp .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_col_headings {
+#qymlvfnhjp .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4405,7 +4410,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-right-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_col_heading {
+#qymlvfnhjp .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4425,7 +4430,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   overflow-x: hidden;
 }
 
-#hrlnydjcjj .gt_column_spanner_outer {
+#qymlvfnhjp .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4437,15 +4442,15 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 4px;
 }
 
-#hrlnydjcjj .gt_column_spanner_outer:first-child {
+#qymlvfnhjp .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#hrlnydjcjj .gt_column_spanner_outer:last-child {
+#qymlvfnhjp .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#hrlnydjcjj .gt_column_spanner {
+#qymlvfnhjp .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -4457,11 +4462,11 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   width: 100%;
 }
 
-#hrlnydjcjj .gt_spanner_row {
+#qymlvfnhjp .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#hrlnydjcjj .gt_group_heading {
+#qymlvfnhjp .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4487,7 +4492,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   text-align: left;
 }
 
-#hrlnydjcjj .gt_empty_group_heading {
+#qymlvfnhjp .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -4502,15 +4507,15 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   vertical-align: middle;
 }
 
-#hrlnydjcjj .gt_from_md > :first-child {
+#qymlvfnhjp .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#hrlnydjcjj .gt_from_md > :last-child {
+#qymlvfnhjp .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#hrlnydjcjj .gt_row {
+#qymlvfnhjp .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4529,7 +4534,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   overflow-x: hidden;
 }
 
-#hrlnydjcjj .gt_stub {
+#qymlvfnhjp .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4542,7 +4547,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#hrlnydjcjj .gt_stub_row_group {
+#qymlvfnhjp .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -4556,15 +4561,15 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   vertical-align: top;
 }
 
-#hrlnydjcjj .gt_row_group_first td {
+#qymlvfnhjp .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#hrlnydjcjj .gt_row_group_first th {
+#qymlvfnhjp .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#hrlnydjcjj .gt_summary_row {
+#qymlvfnhjp .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4574,16 +4579,16 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#hrlnydjcjj .gt_first_summary_row {
+#qymlvfnhjp .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_first_summary_row.thick {
+#qymlvfnhjp .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#hrlnydjcjj .gt_last_summary_row {
+#qymlvfnhjp .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4593,7 +4598,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-bottom-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_grand_summary_row {
+#qymlvfnhjp .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -4603,7 +4608,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#hrlnydjcjj .gt_first_grand_summary_row {
+#qymlvfnhjp .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4613,7 +4618,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-top-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_last_grand_summary_row_top {
+#qymlvfnhjp .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -4623,11 +4628,11 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-bottom-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_striped {
+#qymlvfnhjp .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#hrlnydjcjj .gt_table_body {
+#qymlvfnhjp .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -4636,7 +4641,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-bottom-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_footnotes {
+#qymlvfnhjp .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4650,7 +4655,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-right-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_footnote {
+#qymlvfnhjp .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -4659,7 +4664,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#hrlnydjcjj .gt_sourcenotes {
+#qymlvfnhjp .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -4673,7 +4678,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-right-color: #D3D3D3;
 }
 
-#hrlnydjcjj .gt_sourcenote {
+#qymlvfnhjp .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -4681,63 +4686,63 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#hrlnydjcjj .gt_left {
+#qymlvfnhjp .gt_left {
   text-align: left;
 }
 
-#hrlnydjcjj .gt_center {
+#qymlvfnhjp .gt_center {
   text-align: center;
 }
 
-#hrlnydjcjj .gt_right {
+#qymlvfnhjp .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#hrlnydjcjj .gt_font_normal {
+#qymlvfnhjp .gt_font_normal {
   font-weight: normal;
 }
 
-#hrlnydjcjj .gt_font_bold {
+#qymlvfnhjp .gt_font_bold {
   font-weight: bold;
 }
 
-#hrlnydjcjj .gt_font_italic {
+#qymlvfnhjp .gt_font_italic {
   font-style: italic;
 }
 
-#hrlnydjcjj .gt_super {
+#qymlvfnhjp .gt_super {
   font-size: 65%;
 }
 
-#hrlnydjcjj .gt_footnote_marks {
+#qymlvfnhjp .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#hrlnydjcjj .gt_asterisk {
+#qymlvfnhjp .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#hrlnydjcjj .gt_indent_1 {
+#qymlvfnhjp .gt_indent_1 {
   text-indent: 5px;
 }
 
-#hrlnydjcjj .gt_indent_2 {
+#qymlvfnhjp .gt_indent_2 {
   text-indent: 10px;
 }
 
-#hrlnydjcjj .gt_indent_3 {
+#qymlvfnhjp .gt_indent_3 {
   text-indent: 15px;
 }
 
-#hrlnydjcjj .gt_indent_4 {
+#qymlvfnhjp .gt_indent_4 {
   text-indent: 20px;
 }
 
-#hrlnydjcjj .gt_indent_5 {
+#qymlvfnhjp .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -6780,23 +6785,23 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
 <div class="cell">
 <div class="cell-output-display">
 <div>
-<div id="ahqbpjdgyb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#ahqbpjdgyb table {
+<div id="ckkwicehaq" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#ckkwicehaq table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#ahqbpjdgyb thead, #ahqbpjdgyb tbody, #ahqbpjdgyb tfoot, #ahqbpjdgyb tr, #ahqbpjdgyb td, #ahqbpjdgyb th {
+#ckkwicehaq thead, #ckkwicehaq tbody, #ckkwicehaq tfoot, #ckkwicehaq tr, #ckkwicehaq td, #ckkwicehaq th {
   border-style: none;
 }
 
-#ahqbpjdgyb p {
+#ckkwicehaq p {
   margin: 0;
   padding: 0;
 }
 
-#ahqbpjdgyb .gt_table {
+#ckkwicehaq .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -6822,12 +6827,12 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-left-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_caption {
+#ckkwicehaq .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#ahqbpjdgyb .gt_title {
+#ckkwicehaq .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -6839,7 +6844,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-bottom-width: 0;
 }
 
-#ahqbpjdgyb .gt_subtitle {
+#ckkwicehaq .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -6851,7 +6856,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-top-width: 0;
 }
 
-#ahqbpjdgyb .gt_heading {
+#ckkwicehaq .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -6863,13 +6868,13 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-right-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_bottom_border {
+#ckkwicehaq .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_col_headings {
+#ckkwicehaq .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -6884,7 +6889,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-right-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_col_heading {
+#ckkwicehaq .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6904,7 +6909,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   overflow-x: hidden;
 }
 
-#ahqbpjdgyb .gt_column_spanner_outer {
+#ckkwicehaq .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -6916,15 +6921,15 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 4px;
 }
 
-#ahqbpjdgyb .gt_column_spanner_outer:first-child {
+#ckkwicehaq .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#ahqbpjdgyb .gt_column_spanner_outer:last-child {
+#ckkwicehaq .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#ahqbpjdgyb .gt_column_spanner {
+#ckkwicehaq .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -6936,11 +6941,11 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   width: 100%;
 }
 
-#ahqbpjdgyb .gt_spanner_row {
+#ckkwicehaq .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#ahqbpjdgyb .gt_group_heading {
+#ckkwicehaq .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -6966,7 +6971,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   text-align: left;
 }
 
-#ahqbpjdgyb .gt_empty_group_heading {
+#ckkwicehaq .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -6981,15 +6986,15 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   vertical-align: middle;
 }
 
-#ahqbpjdgyb .gt_from_md > :first-child {
+#ckkwicehaq .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#ahqbpjdgyb .gt_from_md > :last-child {
+#ckkwicehaq .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#ahqbpjdgyb .gt_row {
+#ckkwicehaq .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7008,7 +7013,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   overflow-x: hidden;
 }
 
-#ahqbpjdgyb .gt_stub {
+#ckkwicehaq .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7021,7 +7026,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#ahqbpjdgyb .gt_stub_row_group {
+#ckkwicehaq .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -7035,15 +7040,15 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   vertical-align: top;
 }
 
-#ahqbpjdgyb .gt_row_group_first td {
+#ckkwicehaq .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#ahqbpjdgyb .gt_row_group_first th {
+#ckkwicehaq .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#ahqbpjdgyb .gt_summary_row {
+#ckkwicehaq .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7053,16 +7058,16 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#ahqbpjdgyb .gt_first_summary_row {
+#ckkwicehaq .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_first_summary_row.thick {
+#ckkwicehaq .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#ahqbpjdgyb .gt_last_summary_row {
+#ckkwicehaq .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7072,7 +7077,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-bottom-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_grand_summary_row {
+#ckkwicehaq .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -7082,7 +7087,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#ahqbpjdgyb .gt_first_grand_summary_row {
+#ckkwicehaq .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7092,7 +7097,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-top-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_last_grand_summary_row_top {
+#ckkwicehaq .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -7102,11 +7107,11 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-bottom-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_striped {
+#ckkwicehaq .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#ahqbpjdgyb .gt_table_body {
+#ckkwicehaq .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -7115,7 +7120,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-bottom-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_footnotes {
+#ckkwicehaq .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7129,7 +7134,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-right-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_footnote {
+#ckkwicehaq .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -7138,7 +7143,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#ahqbpjdgyb .gt_sourcenotes {
+#ckkwicehaq .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -7152,7 +7157,7 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   border-right-color: #D3D3D3;
 }
 
-#ahqbpjdgyb .gt_sourcenote {
+#ckkwicehaq .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -7160,63 +7165,63 @@ Zevin, Jason D, and Mark S Seidenberg. 2002. <span>“Age of Acquisition Effects
   padding-right: 5px;
 }
 
-#ahqbpjdgyb .gt_left {
+#ckkwicehaq .gt_left {
   text-align: left;
 }
 
-#ahqbpjdgyb .gt_center {
+#ckkwicehaq .gt_center {
   text-align: center;
 }
 
-#ahqbpjdgyb .gt_right {
+#ckkwicehaq .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#ahqbpjdgyb .gt_font_normal {
+#ckkwicehaq .gt_font_normal {
   font-weight: normal;
 }
 
-#ahqbpjdgyb .gt_font_bold {
+#ckkwicehaq .gt_font_bold {
   font-weight: bold;
 }
 
-#ahqbpjdgyb .gt_font_italic {
+#ckkwicehaq .gt_font_italic {
   font-style: italic;
 }
 
-#ahqbpjdgyb .gt_super {
+#ckkwicehaq .gt_super {
   font-size: 65%;
 }
 
-#ahqbpjdgyb .gt_footnote_marks {
+#ckkwicehaq .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#ahqbpjdgyb .gt_asterisk {
+#ckkwicehaq .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#ahqbpjdgyb .gt_indent_1 {
+#ckkwicehaq .gt_indent_1 {
   text-indent: 5px;
 }
 
-#ahqbpjdgyb .gt_indent_2 {
+#ckkwicehaq .gt_indent_2 {
   text-indent: 10px;
 }
 
-#ahqbpjdgyb .gt_indent_3 {
+#ckkwicehaq .gt_indent_3 {
   text-indent: 15px;
 }
 
-#ahqbpjdgyb .gt_indent_4 {
+#ckkwicehaq .gt_indent_4 {
   text-indent: 20px;
 }
 
-#ahqbpjdgyb .gt_indent_5 {
+#ckkwicehaq .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -8624,7 +8629,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 });
 </script>
 </div> <!-- /content -->
-<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom","selector":".lightbox","loop":false});
+<script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","selector":".lightbox","loop":false,"closeEffect":"zoom"});
 window.onload = () => {
   lightboxQuarto.on('slide_before_load', (data) => {
     const { slideIndex, slideNode, slideConfig, player, trigger } = data;
