@@ -45,24 +45,21 @@ editor_options:
 
 # Introduction {#sec-intro}
 
-```{r libraries}
+```{r}
+#| label: libraries and workspace
 #| echo: false
 #| warning: false
 #| error: false
 #| message: false
 #| output: false
 
-library(osfr)
-library(here)
 library(tidyverse)
 library(knitr)
 library(gt)
 library(gtExtras)
-library(rstatix)
-library(moderndive)
-library(ggh4x)
-library(ggpubr)
 library(zoo)
+
+load('frequency-effects_data.RData')
 ```
 
 The masked priming technique has been an invaluable tool in visual word recognition research. It has allowed researchers to study the conditions under which orthographic, phonological, morphological, and semantic information impact access to visual word forms while mitigating strategic effects and minimizing the influence of controlled processes [@Forster1998]. First introduced in its traditional form by @ForsterDavis1984 [see also @EvettHumphreys1981], this technique involves a forward mask (i.e., usually a string of hashes, #####), followed by a prime string presented for very short time ($SOA < 60$ ms),^[*SOA: Stimulus Onset Asynchrony*, i.e. the time between the start of one stimulus (in our case, the prime stimulus) and the start of another stimulus (the target stimulus). In the standard repetition priming design, no backward mask occurs between the prime and the target, and therefore SOA equals the duration of prime presentation.] and a target string presented immediately after. Because the prime presentation is so brief and masked by preceding and subsequent stimuli, most participants report not being aware that a prime string had been presented, and can at most report a screen flicker just before the target presentation [@ForsterEtal2003].
@@ -90,28 +87,12 @@ However, as @tbl-litReview shows, there are nonetheless a few studies that do re
 Finally, as @tbl-litReview shows, it is noteworthy that 15 out of 18 previous studies showed numerically larger masked priming effects for low frequency words as opposed to high frequency words, irrespective of statistical significance. Similarly, the average repetition effect for low frequency words in the studies reviewed in @tbl-litReview is 13 ms larger when compared to that of high frequency words. These results are not in line with the predictions dictated by the _entry opening model_, and seem to align better with the predictions made by _interactive activation models_ and _memory recruitment_ models.
 
 \blandscape
-```{r lit-review effects}
+```{r}
 #| echo: false
 #| warning: false
 #| error: false
 #| label: tbl-litReview
 #| tbl-cap: "Summary of the masked repetition priming effects as a function of word frequency reported in the literature. The power range estimates were calculated by simulating 10,000 datasets with the corresponding sample size (N) and FAE = 15 ms and 30 ms."
-#| 
-lit_effects_tbl_filename <- "supplemental-data/MaskedPrimingDatabase-IDPriming-InteractionFrequency.csv"
-
-lit_effects <- read_csv(lit_effects_tbl_filename)
-
-power_estimates_15 <- read_csv("supplemental-data/power_estimate2.dataset.range.csv") %>%
-  select(nsubj, minPower, maxPower) %>%
-  mutate(across(minPower:maxPower, ~round(., 2))) %>%
-  mutate(minPower = paste0("[", minPower), maxPower = paste0(maxPower, "]")) %>%
-  unite("Power range", minPower:maxPower, sep = " ")
-
-power_estimates_30 <- read_csv("supplemental-data/power_estimate3.dataset.range.csv") %>%
-  select(nsubj, minPower, maxPower) %>%
-  mutate(across(minPower:maxPower, ~round(., 2))) %>%
-  mutate(minPower = paste0("[", minPower), maxPower = paste0(maxPower, "]")) %>%
-  unite("Power range", minPower:maxPower, sep = " ")
 
 lit_effects %>%
   left_join(., power_estimates_15, by=join_by("N" == "nsubj"), multiple="first") %>%
@@ -161,13 +142,6 @@ lit_effects %>%
    sub_missing(
     missing_text = " "
   )
-
-litReview.stats <- lit_effects %>%
-    select(PAPER, MOP_HF, MOP_LF) %>%
-    pivot_longer(MOP_HF:MOP_LF, names_to = "frequency.condition", values_to="mean.priming") %>%
-    mutate(frequency.condition = factor(frequency.condition, levels=c("MOP_LF", "MOP_HF"))) %>%
-    t_test(mean.priming ~ frequency.condition, paired=T, detailed=T)
-
 ```
 \elandscape
 
@@ -187,15 +161,12 @@ Due to the well-documented concerns over the reliability of the @KuceraFrancis19
 
 [^frequency-databases]: A separate, though relevant issue which cannot be addressed here is to how to mitigate the discrepancies across the databases available, but see @Yap2009, and @Brysbaert2011 for proposals about combining the frequency counts from different corpora.\label{fn-databases}
 
-```{r corpora_frequency_skew}
+```{r}
 #| echo: false
 #| warning: false
 #| error: false
 #| label: tbl-exFreqSkew
 #| tbl-cap: "Example of frequency count imbalances (in occurrences per million) across the frequency norms of Kucera & Francis (KF), HAL and SUBTLEX~US~ for 4 to 6 letter words."
-
-freqSkew <- list.files(path="supplemental-data/", pattern="_skew_", full.names = T) %>%
-  lapply(function(x) read_csv(x)) %>% bind_rows()
 
 freqSkew %>% 
   gt() %>%
@@ -233,36 +204,7 @@ A second concern arising from the ambiguity surrounding statistical power in the
 
 Finally, it is widely acknowledged that experiments with approximately 50% power are akin to a coin toss in their ability to detect a true effect [@Cohen1992]. A less-appreciated fact is that, in the presence of even lower power (<25%), statistically significant results can substantially overestimate the effect size -- a type-M error [@GelmanCarlin2014]. When power drops to levels below 10%, a statistically significant result may occur even when the observed effect goes in the opposite direction of the true effect -- a type-S error [@GelmanCarlin2014]. Our power simulations for within-subjects data revealed a similar relationship between statistical power, type-M, and type-S errors in line with the observations detailed by @GelmanCarlin2014 for the independent samples $t$-test. For instance, at 10% power (a possibility for virtually all previous studies, as indicated in @tbl-litReview), a statistically significant result could indicate an overestimation of the magnitude of the frequency attenuation effect by a factor between 2 and 5, with a 5% chance of incorrectly determining the direction of the effect.
 
-```{r power-analysis, fig.height=8, fig.width=8}
-#| label: fig-power
-#| fig-cap: "Power simulations for a FAE = 10 ms, for all combinations of standard deviation (sd), correlation (cor), and sample size. The red line identifies the threshold of 80% power."
-
-load("supplemental-data/freq_atten_exp2.10ms.RData")
-
-freq_atten_exp2.10ms_df.sub <- freq_atten_exp2.10ms_df %>% 
-  filter(ES == 10) %>%
-  filter(std_dev >= 80 & std_dev <= 120) %>%
-  filter(rho >= 0.7 & rho <= 0.9)
-
-freq_atten_exp2.10ms_df.sub |>
-  ggplot(aes(y = power_unadjusted, x = nsubj)) + 
-    geom_line() + 
-    geom_point() +
-    geom_hline(yintercept = 0.8, color = "red2") + 
-    facet_grid(rho ~ std_dev) +
-  scale_x_continuous(sec.axis = sec_axis(~ . , name = "sd", breaks = NULL, labels = NULL)) +
-  scale_y_continuous(sec.axis = sec_axis(~ . , name = "cor", breaks = NULL, labels = NULL)) +
-  theme_bw()+
-    theme(#axis.line = element_line(colour = "black"),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(), 
-      panel.border = element_blank(),
-      legend.position="none"
-      #panel.background = element_blank() 
-     )+
-  labs(title="FAE = 10 ms", y = "power (adjusted)", x = "sample size")
-
-``` 
+{{< embed notebooks/intro_lit-review_power-analysis.qmd#fig-power >}}
 
 The two studies reported here were designed to mitigate these two confounding issues: the overreliance on the @KuceraFrancis1967 frequency data as well as a potential lack of statistical power observed in previous research. As a large increase in statistical power requires a large sample size, Experiment 1 aimed to assess the suitability of using *Labvanced* [@Labvanced2017], an online platform for running web browser-based experiments, for running masked priming studies online.
 
@@ -281,26 +223,12 @@ Two hundred five-letter English words were selected from the English Lexicon Pro
 [^low-freq]: The experiment also included an even lower frequency condition (range: [3.0 5.01]; mean: 4.39, SD: 0.50), thus summing up to six hundred trials being presented in the experiment. However, the average error rate for this condition was 44% and 33 (out of the 50) target words used in the same condition had a error rate higher than 30%. This suggested that they might have not known these words at all (see @Kinoshita2006). For this reason, this condition was completely removed from analysis and will not be mentioned in the rest of this article.
 
 
-```{r stimuli}
+```{r}
 #| echo: false
 #| warning: false
 #| error: false
 #| label: tbl-words_exp1
 #| tbl-cap: "Experiment 1. Descriptive statistics of the word item used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison."
-
-exp1_wordlists_folder <- "./materials/experiment1/"
-
-stimuli <- read.csv(paste0(exp1_wordlists_folder, "frequency-effects_experiment1_stimuli.csv"))
-database <- read.csv(paste0(exp1_wordlists_folder, "stim-database.csv"))
-
-stimuli <- merge(stimuli, database, by='Word', all.x=T, all.y=F)
-stimuli <- stimuli[c(-559,-596),] #one word and one non-word were duplicated as being considered both non-words and words
-
-words <- stimuli %>% filter(type != 'non-word') 
-nonwords <- stimuli %>% filter(type == 'non-word')
-
-words$freq.bin <- factor(words$freq.bin, levels = c("high", "mid"))
-words$type <- as.factor(words$type)
 
 words %>% 
   filter(freq.bin != 'low') %>%
@@ -350,321 +278,34 @@ Participants were given 5 breaks throughout the experiment. When the experiment 
 
 ## Data analysis {#sec-exp1-analysis}
 
-```{r experiment 1 -- open dataset}
-#| echo: false
-
-# load the raw data dataframe
-exp1_data_folder <- "experiment1"
-exp1_rawdata_filename <- "experiment_1_preprocessed_data.csv"
-
-## 02. check if the rawdata file exists. if not, download it from OSF.
-if (!file.exists(here(exp1_data_folder, exp1_rawdata_filename))) {
-  osf_retrieve_file("ej8dh") |> 
-    osf_download(path = here(exp1_data_folder),
-                 conflicts = "overwrite") 
-}
-
-## 03. read the data into R.
-exp1_rawdata <- here(exp1_data_folder, exp1_rawdata_filename) |>
-  read.csv(na = c("", "NA")) %>%
-  filter(condition_rec != 'low') %>% # deleting the low-low frequency bin
-  mutate(condition_rec = fct_recode(condition_rec, low = "mid"), # renaming the mid-frequency bin as low
-         primeTime = primeDuration - maskDuration) # calculating the actual SOA
-
-exp1_info <- list()
-exp1_info$intended_prime_duration <- 33
-exp1_info$prime_dur_lb <- 25
-exp1_info$prime_dur_ub <- 60
-exp1_info$rt_lb <- 200
-exp1_info$rt_ub <- 1800
-exp1_info$freq_conditions <- c("high", "low", "non-word")
-exp1_info$n_recruited <- exp1_rawdata$Rec_Session_Id |>
-  unique() |>
-  length()
-
-exp1_rawdata.sub <- exp1_rawdata %>%
-  filter(!is.na(TimeMeasure_Mean) & !is.na(primeDuration) & !is.na(responseError))
-            
-
-exp1_info$summary <- with(
-  transform(exp1_rawdata.sub,
-    RT_inrange = ifelse(RT >= exp1_info$rt_lb & RT <= exp1_info$rt_ub, 1, 0),
-    Prime_inrange = ifelse((primeDuration - maskDuration) >= exp1_info$prime_dur_lb &
-                             (primeDuration - maskDuration) <= exp1_info$prime_dur_ub, 1, 0),
-    list = Group_Nr),
-  {
-    data.frame(aggregate(Start_Time ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp1_rawdata.sub, unique),
-               aggregate(End_Time_Local ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp1_rawdata.sub, unique),
-              aggregate(cbind(list, SelectedGender, SelectedAge, TimeMeasure_Mean, TimeMeasure_Std) ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp1_rawdata.sub, unique),
-      aggregate(cbind(responseError, RT_inrange, Prime_inrange) ~ Rec_Session_Id + Crowdsourcing_SubjId, mean, data=exp1_rawdata.sub)
-  )
-}
-)
-
-exp1_info$summary <- exp1_info$summary[, -grep("Rec_Session_Id.|Crowdsourcing_SubjId.", colnames(exp1_info$summary))] # remove all extra aggregating columns (subj ID)
-
-exp1_info$summary$Duration <- interval(ymd_hms(exp1_info$summary$Start_Time), 
-                                             ymd_hms(exp1_info$summary$End_Time_Local)) |>
-                                      lapply(function(interval_value) {interval_value/dminutes(1)}) |> 
-                                           unlist()
-
-```
-
 Analysis scripts and an abridged version of the data collected can be found on online (<https://osf.io/ej8dh>). We performed three different steps of analyses (in sequential order), with the goal of only keeping data that pass a set of stringent including criteria (`r format(nrow(exp1_rawdata.sub), big.mark=",", scientific=F)` observations in total). After removing participants and items with high error rates, we implemented a novel pre-processing step looking at the distribution of the actual durations of prime stimuli of each trial and for each subject. This was necessary to understand the performance capabilities of experiments set up by *Labvanced*, and how accurate they are in keeping the prime duration constant. Finally, we removed RT outliers.
 
 ### Step 1: subject and item performance {#sec-exp1-analysis-performance}
-
-```{r exp1 -- item and subject performance}
-#| echo: false
-#| message: false
-#| error: false
-#| warning: false
-
-exp1_step1_goodsubj <- exp1_info$summary |>
-  subset(responseError <= .3) 
-
-exp1_step1_subj_remain <- exp1_step1_goodsubj |> nrow()
-
-exp1_step1_item.err <- exp1_rawdata.sub %>% group_by(condition_rec, target_rec) %>%
-  summarise(word.percent=mean(responseError)*100) %>% 
-  filter(word.percent > 30)
-
-exp1_subj_filter_1 <- exp1_step1_goodsubj$Rec_Session_Id
-exp1_item_filter_1 <- exp1_step1_item.err$target_rec
-
-exp1_data_step1 <- exp1_rawdata.sub |>
-  subset(condition_rec %in% exp1_info$freq_conditions) |>
-  subset(Rec_Session_Id %in% exp1_subj_filter_1 & 
-         !target_rec %in% exp1_item_filter_1)
-```
 
 Item and subject error rates were calculated, with a cutoff of 30%. Only `r exp1_step1_item.err %>% filter(condition_rec=='low') %>% count() %>% pull()` low-frequency words (*`r exp1_step1_item.err %>% filter(condition_rec=='low') %>% mutate(target_rec=tolower(target_rec)) %>% pull(target_rec)`*), `r exp1_step1_item.err %>% filter(condition_rec=='non-word') %>% count() %>% pull()` non-words (*`r exp1_step1_item.err %>% filter(condition_rec=='non-words') %>% mutate(target_rec=tolower(target_rec)) %>% pull(target_rec)`*), and `r exp1_info$n_recruited - exp1_step1_subj_remain` participants were removed, with `r exp1_step1_subj_remain` participants remaining.
 
 ### Step 2: prime durations {#sec-exp1-analysis-primeTime}
 
-```{r experiment 1 -- prime duration filter}
-#| echo: false
-#| message: false
-#| warning: false
-#| error: false
-  
-exp1_summary.primeTime <- exp1_rawdata.sub %>% 
-  summarise(meanPrimeTime = round(mean(primeTime), 2), 
-            sdPrimeTime = round(sd(primeTime), 2))
-
-exp1_primeTimeRangeSummary <- exp1_rawdata.sub %>% 
-  group_by(primeTime) %>%
-  mutate(range = ifelse(primeTime < exp1_info$prime_dur_lb, "below", 
-                        ifelse(primeTime > exp1_info$prime_dur_ub, "above",
-                               "in range"))) %>% 
-  group_by(range) %>% tally() %>% ungroup() %>%
-  mutate(range.percent = round((n*100)/nrow(exp1_rawdata.sub),2))
-
-exp1_data_step2 <- exp1_data_step1  |>
-  subset(primeTime >= exp1_info$prime_dur_lb & primeTime <= exp1_info$prime_dur_ub)
-
-exp1_step2_subj_remain <- exp1_data_step2$Rec_Session_Id |>
-  unique() |>
-  length()
-
-exp1_step2_trials_remain <- nrow(exp1_data_step2)
-
-```
-
 During the experiment, the duration of presentation of the prime word was recorded for every trial. Both the mean (mean = `r round(exp1_summary.primeTime$meanPrimeTime, 2)` ms) and the median (median = `r median(exp1_rawdata.sub$primeTime)` ms)  of the actual prime durations were slightly larger than the intended prime duration (33 ms). This distribution suggests that, while overall the visual presentation was kept in most trials at the intended duration, it was not 100% as precise and accurate as dedicated presentation software installed on lab computers. This was expected and likely due to the inherent difficulty with timing precision of visual presentations in web browsers and the great variation of devices used by the participants. Both of these issues may be impossible to control, at least at the current state of browser development. However, in masked priming, in which the duration of the prime is essential part of the design itself, such fluctuations may indeed hinder proper elicitation of the priming response. As a way to counteract the potential influence that such fluctuations might have had on the priming response, we only kept trials whose prime durations were within a pre-set range from the intended prime duration of 33 ms. Taking a standard 60-Hz monitor as reference, the lower and the upper bounds were set respectively at `r exp1_info$prime_dur_lb` ms (i.e., the intended prime duration minus half of a full refresh cycle: $33-8~ ms$; noting that @Angele2023 already showed that no repetition priming effects are obtained with a 16.7ms prime duration) and `r exp1_info$prime_dur_ub` ms (i.e., the commonly accepted upper threshold of subliminal processing), so to remove as much as possible any trial that could have been consciously seen by participants. In the experiment tested, only `r round((exp1_primeTimeRangeSummary$n[1] + exp1_primeTimeRangeSummary$n[2])*100/nrow(exp1_rawdata.sub))`% of the trials were out of the range selected. We take this as further corroborating evidence that *Labvanced* is pretty good at presenting stimuli at short durations, and the present, rather minimal fluctuations were due to external, and virtually incontrollable factors (such as CPU power, internet connection speed, and number of active operations in the background). The the out-of-range trial removal was performed on the data after the error rate removal procedure. A total of `r exp1_step2_subj_remain` participants and `r format(exp1_step2_trials_remain, big.mark=",", scientific=F)` observations were included in the next steps of analysis.
 
 ### Step 3: RT distribution {#sec-exp1-analysis-RT}
-
-```{r experiment 1 -- RT distributions; errors; minimal trial per condition}
-#| echo: false
-#| message: false
-#| error: false
-#| warning: false
-
-# RT outliers 
-exp1_data_step3 <- exp1_data_step2 |> 
-  subset(RT >= exp1_info$rt_lb & RT <= exp1_info$rt_ub)
-
-exp1_step3_subj_remain <- exp1_data_step3$Rec_Session_Id |>
-  unique() |>
-  length()
-
-exp1_step3_trials_remain <- nrow(exp1_data_step3)
-
-# error trial removal
-
-exp1_data_step3b <- exp1_data_step3  |>
-  subset(responseError == 0)
-
-exp1_step3b_subj_remain <- exp1_data_step3b$Rec_Session_Id |>
-  unique() |>
-  length()
-
-exp1_step3b_trials_remain <- nrow(exp1_data_step3b)
-
-# remove subjects with less than 12 trials in at least one condition*primetype combination (half of the total number of items per combination)
-rt_data_labels <- c("Rec_Session_Id", "condition_rec", "primetype_rec", "RT")
-
-exp1_subj_filter_2 <- exp1_data_step3b[, rt_data_labels] |>
-  aggregate(RT ~ ., FUN = length, drop = FALSE) |>
-  subset(RT < 12, select = Rec_Session_Id) |>
-  unique() |>
-  unlist()
-
-exp1_data_final <- exp1_data_step3b |>
-  subset(!(Rec_Session_Id %in% exp1_subj_filter_2))
-
-exp1_final_subj_remain <- exp1_data_final$Rec_Session_Id |>
-  unique() |> 
-  length()
-  
-exp1_final_trials_remain <- nrow(exp1_data_final)
-
-```
 
 Finally, individual trials were excluded if their RT was below 200 ms and 1800 ms. `r exp1_step2_trials_remain - exp1_step3_trials_remain` observations were excluded at this stage of analysis (i.e., `r round((exp1_step3_trials_remain/exp1_step2_trials_remain)*100, 2)`% of the dataset). After removing incorrect trials, to ensure more accurate estimates, we also made sure that each condition (frequency*primetype) for each each participant ended up with at least half of the total number of trials presented (i.e., 12). A total of `r format(exp1_final_trials_remain, big.mark=",", scientific=F)` observations and `r exp1_final_subj_remain` subjects were included in the statistical analysis below.
 
 ## Results {#sec-exp1-results}
 
-```{r experiment 1 -- error/RT priming analysis}
-#| echo: false
-#| message: false
-#| error: false
-#| warning: false
-
-# error rates averages
-### N.B.: to calculate error rates, will have to apply the 12-trial removal procedure after the RT removal procedure and without removing the error trials
-exp1_subj_filter_2_with.errors <- exp1_data_step3[, rt_data_labels] |> #exp1_data_step3 is the dataset after RT removal and before the error trial removal
-  aggregate(RT ~ ., FUN = length, drop = FALSE) |>
-  subset(RT < 12, select = Rec_Session_Id) |>
-  unique() |>
-  unlist()
-
-exp1_data_final_with.errors <- exp1_data_step3 |>
-  subset(!(Rec_Session_Id %in% exp1_subj_filter_2))
-
-exp1_error.rates <- exp1_data_final_with.errors %>%
-  mutate(primetype_rec = factor(primetype_rec, levels=c("unrelated", "related")),
-         condition_rec = factor(condition_rec, levels=c("high", "low", "non-word"))) %>%
-  group_by(condition_rec, primetype_rec, Rec_Session_Id) %>%
-  summarise(error.percent=mean(responseError)*100)
-
-# RT averages
-exp1_rt.avg_subj <- exp1_data_final %>% 
-  group_by(Rec_Session_Id, condition_rec, primetype_rec) %>%
-  summarise(meanRT = mean(RT))
-
-exp1_rt_cor <- exp1_data_final %>% 
-  group_by(Rec_Session_Id, condition_rec, primetype_rec) %>%
-  dplyr::summarise(meanRT=mean(RT)) %>%
-  select(Rec_Session_Id, condition_rec, primetype_rec, meanRT) %>% 
-  pivot_wider(names_from='primetype_rec', values_from=c('meanRT')) %>%
-  group_by(condition_rec) %>%
-  summarise(cor=cor(unrelated, related))
-
-# RT + error averages (by subject)
-exp1_avgs_subj <- merge(exp1_rt.avg_subj, exp1_error.rates, by=c("Rec_Session_Id", "condition_rec", "primetype_rec"))
-
-exp1_mop.err_across <- exp1_avgs_subj %>%
-  group_by(condition_rec, primetype_rec) %>%
-  summarise(gd.mean=mean(meanRT, na.rm=T), sd=sd(meanRT, na.rm=T), mean.error=mean(error.percent)) %>%
-  pivot_wider(id_cols="condition_rec", names_from=primetype_rec, values_from=c(gd.mean, sd, mean.error)) %>%
-  left_join(exp1_rt_cor, by="condition_rec")
-
-#### ERROR PRIMING CALCULATIONS ####
-# we will just run stats for this, no numerical calculations (e.g., priming)
-
-### MAIN EFFECTS
-#### t-test
-exp1_errors_stats_main <- exp1_error.rates %>% 
-  group_by(condition_rec) %>%
-  t_test(error.percent ~ primetype_rec, paired=T)
-
-#### RT PRIMING CALCULATIONS ####
-
-### MAIN EFFECTS
-#### by subject
-exp1_mop_subj <- exp1_rt.avg_subj %>% 
-  pivot_wider(names_from=primetype_rec, values_from=meanRT) %>%
-  mutate(priming = unrelated-related)
-
-#### descriptive stats
-exp1_gdavg_mop <- exp1_mop_subj %>%
-  group_by(condition_rec) %>%
-  summarise(MOP = mean(priming), se = sd(priming)/sqrt(n()), ci=(qt(0.975, n()-1)*se),
-            sd=sd(priming), ES=round(MOP/sd, 2))
-
-#### summary table
-exp1_gdavg_mop_summary <- exp1_gdavg_mop %>%
-  left_join(., exp1_mop.err_across, by='condition_rec') %>%
-  mutate(across(c(2:5, 7:12), round), across(c(13), round, 2)) %>%
-  mutate(ci.lb = paste0("[", MOP-ci), ci.ub = paste0(MOP+ci, "]")) %>%
-  unite("CI", ci.lb:ci.ub, sep = " ") %>% select(-ci, -se) %>% 
-  rename(factor = "condition_rec") %>%
-  relocate(gd.mean_related:cor, .before=MOP) %>% 
-  relocate(gd.mean_related, .after=gd.mean_unrelated) %>%
-  relocate(CI, .after=MOP)
-
-#### t-test
-exp1_rt_stats_main <- exp1_rt.avg_subj %>%
-  mutate(primetype_rec = fct_relevel(primetype_rec, "unrelated", "related")) %>%
-  group_by(condition_rec) %>%
-  t_test(meanRT ~ primetype_rec, paired=T) %>% select(-2:-6) %>%
-  rename(factor = "condition_rec", t='statistic') %>%
-  mutate_if(is.numeric, list(~as.character(signif(., 3))))
-
-### INTERACTION EFFECT
-
-#### descriptive stats
-exp1_gdavg_fae <- exp1_mop_subj %>%
-  select(-unrelated, -related) %>%
-  pivot_wider(names_from="condition_rec", values_from="priming") %>%
-  mutate(interaction = low-high) %>% ungroup() %>%
-  summarise(factor = "frequency:primetype", 
-            sd=sd(interaction), se = sd/sqrt(n()), ci = (qt(0.975, n()-1)*se)) %>%
-  mutate(across(c(2:4), round))
-
-##### summary table
-exp1_gdavg_fae_summary <- exp1_mop_subj %>% 
-  select(-unrelated, -related) %>% ungroup() %>%
-  pivot_wider(names_from="condition_rec", values_from="priming") %>%
-  summarise(mean_high = round(mean(high)), mean_low = round(mean(low)), cor=round(cor(high, low), 3)) %>%
-  bind_cols(., exp1_gdavg_fae) %>%
-  mutate(MOP = mean_low-mean_high, ES = round(MOP/sd, 2), ci.lb = paste0("[", MOP-ci), ci.ub = paste0(MOP+ci, "]")) %>%
-  unite("CI", ci.lb:ci.ub, sep = " ") %>% select(-ci, -se) %>% 
-  relocate(CI, .after=MOP) %>%
-  relocate(factor, .before=mean_high)
-  
-#### t-test
-exp1_rt_stats_interaction <- exp1_mop_subj %>% ungroup() %>%
-  filter(condition_rec != 'non-word') %>%
-  mutate(condition_rec = fct_relevel(condition_rec, "low", "high")) %>%
-  t_test(priming ~ condition_rec, paired=TRUE) %>% 
-  mutate_if(is.numeric, list(~as.character(signif(., 3)))) %>%
-  select(-1, -4:-5) %>%
-  unite("factor", group1:group2) %>%
-  rename(t='statistic') %>%
-  mutate(factor = "frequency:primetype")
-```
-
-For each frequency bin, priming effects were calculated for each subject by subtracting the subject's mean RT to the related condition from the subject's mean RT to the unrelated condition. Unstandardized (in ms) and standardized effect sizes (i.e., Cohen's *d*) were then calculated for each condition. @tbl-statsResults below reports the descriptive and inferential statistics of the experiment. Both frequency conditions show statistically significant repetition priming effects (*MOP_HF* = 23, CI_95% = [19, 27], *t*(281) = 10.4, $p<.0001$; *MOP_LF* = 30, CI_95% = [24, 36], *t*(281) = 9.75, $p<.0001$), whereas the non-word priming effects were right at the alpha-level (*MOP_* = -4, CI_95% = [-8, 0], *t*(281) = -1.91, $p=0.057$). The low-frequency repetition priming effect was 7-ms larger than that of the high-frequency words, but this FAE effect was only marginally significant (*M_FAE* = 7, CI_95% = [-1, 15]), *t*(281) = 1.88, $p=0.06$). As for the error analysis, we found a significant priming effect in all conditions (high: *t*(281)=2.51, $p<.0001$; low: *t*(281)=6.39, $p<.0001$; non-word: *t*(281)=-2.24, $p<.0001$). 
+For each frequency bin, priming effects were calculated for each subject by subtracting the subject's mean RT to the related condition from the subject's mean RT to the unrelated condition. Unstandardized (in ms) and standardized effect sizes (i.e., Cohen's *d*) were then calculated for each condition. @tbl-exp1-statsResults below reports the descriptive and inferential statistics of the experiment. Both frequency conditions show statistically significant repetition priming effects (*MOP_HF* = 23, CI_95% = [19, 27], *t*(281) = 10.4, $p<.0001$; *MOP_LF* = 30, CI_95% = [24, 36], *t*(281) = 9.75, $p<.0001$), whereas the non-word priming effects were right at the alpha-level (*MOP_* = -4, CI_95% = [-8, 0], *t*(281) = -1.91, $p=0.057$). The low-frequency repetition priming effect was 7-ms larger than that of the high-frequency words, but this FAE effect was only marginally significant (*M_FAE* = 7, CI_95% = [-1, 15]), *t*(281) = 1.88, $p=0.06$). As for the error analysis, we found a significant priming effect in all conditions (high: *t*(281)=2.51, $p<.0001$; low: *t*(281)=6.39, $p<.0001$; non-word: *t*(281)=-2.24, $p<.0001$). 
 
 \blandscape
-```{r experiment 1 -- table summary}
+```{r}
 #| echo: false
 #| message: false
 #| error: false
 #| warning: false
-#| label: tbl-statsResults
+#| label: tbl-exp1-statsResults
 #| tbl-cap: "Experiment 1. Summary of the word priming results. *Legend.* MOP: magnitude of priming."
 #| tbl-pos: 'h'
 
-exp1_summary.results_mop <- merge(exp1_gdavg_mop_summary, exp1_rt_stats_main, by='factor')
-exp1_summary.results_fae <- merge(exp1_gdavg_fae_summary, exp1_rt_stats_interaction, by='factor') |>
-  select(-mean_high, -mean_low)
-
-exp1_summary.results <- bind_rows(exp1_summary.results_mop, exp1_summary.results_fae)
-  
 exp1_summary.results %>%
   relocate(c("sd_unrelated", "mean.error_unrelated"), .before=gd.mean_related) %>%
   gt() %>%
@@ -715,35 +356,9 @@ The findings from Experiment 1, as well as those reported by @Angele2023 and @Ca
 
 Our analysis identified a sample size of 1,250 participants as optimal, ensuring robust statistical power (> 80%) across various parameter combinations (@fig-power-1250), especially for raw FAEs equal to or exceeding 10 ms —- a value closely aligned with the average FAE calculated from previous studies (refer to @tbl-litReview). In light of the observed limitations in the temporal accuracy and precision of current online stimulus delivery programs (discussed in @sec-exp1-analysis-primeTime), which necessitated substantial subject and data exclusion in Experiment 1, we aimed for an intended sample size of 2,600. This decision was made to enhance the likelihood of obtaining our target sample size of 1,250 participants after applying all the necessary exclusion criteria to the data.
 
-```{r power-analysis-1250}
+```{r}
 #| label: fig-power-1250
 #| fig-cap: "Power simulations with a sample size of 1,250, for all combinations of standard deviation (sd), pairwise correlation (cor), and interaction effect size. The red line identifies the threshold of 80% power."
-
-load("/Users/rp3650/Library/CloudStorage/GoogleDrive-robpetrosino@gmail.com/My Drive/Academics/projects/morphology/morphological-decomposition/sub-projects/frequency-effects/frequency-effects_power-analysis/freq_atten_exp2.5ms.RData")
-
-load("/Users/rp3650/Library/CloudStorage/GoogleDrive-robpetrosino@gmail.com/My Drive/Academics/projects/morphology/morphological-decomposition/sub-projects/frequency-effects/frequency-effects_power-analysis/freq_atten_exp2.10ms.RData")
-
-load("/Users/rp3650/Library/CloudStorage/GoogleDrive-robpetrosino@gmail.com/My Drive/Academics/projects/morphology/morphological-decomposition/sub-projects/frequency-effects/frequency-effects_power-analysis/freq_atten_exp2.15ms.RData")
-
-freq_atten_exp2.5ms_df.sub <- freq_atten_exp2.5ms_df %>% 
-  filter(ES == 5) %>%
-  filter(std_dev >= 80 & std_dev <= 120) %>%
-  filter(rho >= 0.7 & rho <= 0.9)
-
-freq_atten_exp2.10ms_df.sub <- freq_atten_exp2.10ms_df %>% 
-  filter(ES == 10) %>%
-  filter(std_dev >= 80 & std_dev <= 120) %>%
-  filter(rho >= 0.7 & rho <= 0.9)
-
-freq_atten_exp2.15ms_df.sub <- freq_atten_exp2.15ms_df %>% 
-  filter(ES == 15 & grepl("interaction", row.names(freq_atten_exp2.15ms_df))) %>%
-  filter(std_dev >= 80 & std_dev <= 120) %>%
-  filter(rho >= 0.7 & rho <= 0.9)
-
-power_pred_df <- bind_rows(freq_atten_exp2.5ms_df.sub, freq_atten_exp2.10ms_df.sub, freq_atten_exp2.15ms_df.sub) 
-
-power_pred_df.sub1250 <- power_pred_df %>%
-  filter(nsubj == 1700)
 
 power_pred_df.sub1250 |>
   ggplot(aes(y = power_unadjusted, x = ES)) + 
@@ -777,18 +392,12 @@ We preregistered the results of the power analysis, the goals, and the design an
 
 One-hundred and four five-letter words, half of low frequency (between 7 and 24 in the SUBTLEX$_{US}$ frequency per million) and half of high frequency (between 57 and 2,961 in the SUBTLEX$_{US}$ frequency per million) were sampled from ELP [@balota2007], but this time based on the SUBTLEX$_{US}$ frequency counts rather than HAL as experiment 1. @tbl-words_exp2 shows that although the SUBTLEX$_{US}$ frequency ranges of the two conditions were very far from one another (similarly to what was done in Experiment 1; @sec-exp1-methods-materials), they still show some overlap in when HAL frequencies are used. As mentioned before, this seems to be a general problem when considering different frequency databases at the same time for a smaller set of stimuli that need to be manipulated and controlled in different ways (see also fn. \ref{fn-databases}). From each word set, fifty words were randomly chosen to be presented as targets and related primes (the *related* condition), and the remaining fifty were presented as unrelated primes (the *unrelated* condition). All words used were monomorphemic nouns, adjectives, or verbs, thus excluding particles, prepositions, and derived or inflected forms.
 
-```{r stimuli}
+```{r}
 #| echo: false
 #| warning: false
 #| error: false
 #| label: tbl-words_exp2
 #| tbl-cap: "Experiment 2. Descriptive statistics of the word items used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison."
-words_exp2 <- read.csv('./materials/experiment2/frequency-effects_experiment2_stimuli.csv') %>% filter(type=='word')
-
-needs_mutated <- function(x) {
-  if(!is.numeric(x)) return(FALSE)
-  max(x, na.rm = TRUE) > 100
-}
 
 words_exp2 %>%
   group_by(freq.bin) %>%
@@ -830,318 +439,26 @@ Experiment 2 was conducted in the same way as experiment 1 (see @sec-exp1-method
 
 ## Data analysis {#sec-exp2-analysis}
 
-```{r experiment 2 -- open dataset}
-# load the raw data dataframe
-exp2_data_folder <- "experiment2"
-exp2_rawdata_filename <- "experiment_2_preprocessed_data.csv"
-
-## 02. check if the rawdata file exists. if not, download it from OSF.
-if (!file.exists(here(exp2_data_folder, exp2_rawdata_filename))) {
-  osf_retrieve_file("vn3r2") |> 
-    osf_download(path = here(exp2_data_folder),
-                 conflicts = "overwrite") 
-}
-
-## 03. read the data into R.
-exp2_rawdata <- here(exp2_data_folder, exp2_rawdata_filename) |>
-  read.csv(na = c("", "NA")) %>%
-  mutate(primeTime = primeDuration - maskDuration) # calculating the actual SOA
-
-exp2_info <- list()
-exp2_info$intended_prime_duration <- 33
-exp2_info$prime_dur_lb <- 25
-exp2_info$prime_dur_ub <- 60
-exp2_info$rt_lb <- 200
-exp2_info$rt_ub <- 1800
-exp2_info$freq_conditions <- c("high", "low", "non-word")
-exp2_info$n_recruited <- exp2_rawdata$Rec_Session_Id |>
-  unique() |>
-  length()
-
-exp2_rawdata.sub <- exp2_rawdata %>%
-  filter(!is.na(TimeMeasure_Mean) & !is.na(primeDuration) & !is.na(responseError))
-            
-exp2_info$summary <- with(
-  transform(exp2_rawdata.sub,
-    RT_inrange = ifelse(RT >= exp2_info$rt_lb & RT <= exp2_info$rt_ub, 1, 0),
-    Prime_inrange = ifelse((primeDuration - maskDuration) >= exp2_info$prime_dur_lb &
-                             (primeDuration - maskDuration) <= exp2_info$prime_dur_ub, 1, 0)),
-  {
-    data.frame(aggregate(Start_Time ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp2_rawdata.sub, unique),
-               aggregate(End_Time_Local ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp2_rawdata.sub, unique),
-              aggregate(cbind(list, SelectedGender, SelectedAge, TimeMeasure_Mean, TimeMeasure_Std) ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp2_rawdata.sub, unique),
-      aggregate(cbind(responseError, RT_inrange, Prime_inrange) ~ Rec_Session_Id + Crowdsourcing_SubjId, mean, data=exp2_rawdata.sub)
-  )
-}
-)
-
-exp2_info$summary <- exp2_info$summary[, -grep("Rec_Session_Id.|Crowdsourcing_SubjId.", colnames(exp2_info$summary))] # remove all extra aggregating columns (subj ID)
-
-exp2_info$summary$Duration <- interval(ymd_hms(exp2_info$summary$Start_Time), 
-                                             ymd_hms(exp2_info$summary$End_Time_Local)) |>
-                                      lapply(function(interval_value) {interval_value/dminutes(1)}) |> 
-                                           unlist()
-```
-
 Analysis scripts and an abridged version of the data collected can be found online (<https://osf.io/vn3r2>), and consisted of `r format(nrow(exp2_rawdata.sub), big.mark=",", scientific=F)` observations in total. We performed the same three steps of analysis described for experiment 1 (@sec-exp1-analysis).
 
 ### Step 1: subject and item performance {#sec-exp2-analysis-performance}
-
-```{r experiment 2 -- item and subject performance}
-#| echo: false
-#| message: false
-#| error: false
-#| warning: false
-
-exp2_step1_goodsubj <- exp2_info$summary |>
-  subset(responseError <= .3) 
-
-exp2_step1_subj_remain <- exp2_step1_goodsubj |> nrow()
-
-exp2_step1_item.err <- exp2_rawdata.sub %>% group_by(condition_rec, target_rec) %>%
-  summarise(word.percent=mean(responseError)*100) %>% 
-  filter(word.percent > 30)
-
-exp2_subj_filter_1 <- exp2_step1_goodsubj$Rec_Session_Id
-exp2_item_filter_1 <- exp2_step1_item.err$target_rec
-
-exp2_data_step1 <- exp2_rawdata.sub |>
-  subset(condition_rec %in% exp2_info$freq_conditions) |>
-  subset(Rec_Session_Id %in% exp2_subj_filter_1 & 
-         !target_rec %in% exp2_item_filter_1)
-
-```
 
 Similarly to experiment 1, item and subject error rates were calculated. The item error rate was never below above 14%, so no item was excluded from analysis. `r exp2_info$n_recruited - exp2_step1_subj_remain` subjects were removed because their error rate was above 30%. Thus, a total of `r format(nrow(exp2_data_step1), big.mark=",", scientific=F)` observations and `r format(exp2_step1_subj_remain, big.mark=',', scientific=F)` participants were included in further analyses.
 
 ### Step 2: prime durations {#sec-exp2-analysis-primeTime}
 
-```{r experiment 2 -- prime duration filter}
-#| echo: false
-#| message: false
-#| warning: false
-#| error: false
-  
-exp2_summary.primeTime <- exp2_rawdata.sub %>% 
-  summarise(meanPrimeTime = round(mean(primeTime), 2), 
-            sdPrimeTime = round(sd(primeTime), 2))
-
-exp2_primeTimeRangeSummary <- exp2_rawdata.sub %>% 
-  group_by(primeTime) %>%
-  mutate(range = ifelse(primeTime < exp2_info$prime_dur_lb, "below", 
-                        ifelse(primeTime > exp2_info$prime_dur_ub, "above",
-                               "in range"))) %>% 
-  group_by(range) %>% tally() %>% ungroup() %>%
-  mutate(range.percent = round((n*100)/nrow(exp2_rawdata.sub),2))
-
-exp2_data_step2 <- exp2_data_step1  |>
-  subset(primeTime >= exp2_info$prime_dur_lb & primeTime <= exp2_info$prime_dur_ub)
-
-exp2_step2_subj_remain <- exp2_data_step2$Rec_Session_Id |>
-  unique() |>
-  length()
-
-exp2_step2_trials_remain <- nrow(exp2_data_step2)
-```
-
 Prime fluctuations were dealt with in the same way as in experiment 1 (@sec-exp1-analysis-primeTime). As compared to experiment 1, this time the mean (mean = `r round(exp2_summary.primeTime$meanPrimeTime, 2)` ms, sd = `r round(exp2_summary.primeTime$sdPrimeTime, 2)`) and the median (median = `r median(exp2_rawdata.sub$primeTime)` ms)  were closer to the intended prime duration (33 ms). The prime duration cut-off set for experiment 1 (i.e., any trial whose prime duration was out of the 25-60ms range) removed `r round((exp2_primeTimeRangeSummary$n[1] + exp2_primeTimeRangeSummary$n[2])*100/nrow(exp2_rawdata.sub))` % of the trials. No participant was excluded, for a total of `r format(exp2_step2_trials_remain, big.mark=",", scientific=F)` observations.
 
 ### Step 3: RT distribution {#sec-exp2-analysis-RT}
-
-```{r experiment 2 - RT distributions; errors; minimal trial per condition}
-#| echo: false
-#| message: false
-#| error: false
-#| warning: false
-
-# RT outliers 
-exp2_data_step3 <- exp2_data_step2 |> 
-  subset(RT >= exp2_info$rt_lb & RT <= exp2_info$rt_ub)
-
-exp2_step3_subj_remain <- exp2_data_step3$Rec_Session_Id |>
-  unique() |>
-  length()
-
-exp2_step3_trials_remain <- nrow(exp2_data_step3)
-
-# error trial removal
-
-exp2_data_step3b <- exp2_data_step3  |>
-  subset(responseError == 0)
-
-exp2_step3b_subj_remain <- exp2_data_step3b$Rec_Session_Id |>
-  unique() |>
-  length()
-
-exp2_step3b_trials_remain <- nrow(exp2_data_step3b)
-
-# remove subjects with less than 12 trials in at least one condition*primetype combination (half of the total number of items per combination)
-rt_data_labels <- c("Rec_Session_Id", "condition_rec", "primetype_rec", "RT")
-
-exp2_subj_filter_2 <- exp2_data_step3b[, rt_data_labels] |>
-  aggregate(RT ~ ., FUN = length, drop = FALSE) |>
-  subset(RT < 7, select = Rec_Session_Id) |>
-  unique() |>
-  unlist()
-
-### we also want to sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed
-exp2_subj_filter_conditions <- 
-  exp2_data_step3b %>%
-  group_by(Rec_Session_Id) %>% 
-  distinct(condition_rec, primetype_rec) %>% 
-  tally() %>% filter(n != 6) %>% pull(Rec_Session_Id)
-
-exp2_data_final <- exp2_data_step3b |>
-  subset(!(Rec_Session_Id %in% exp2_subj_filter_2) & !(Rec_Session_Id %in% exp2_subj_filter_conditions))
-
-exp2_final_subj_remain <- exp2_data_final$Rec_Session_Id |>
-  unique() |> 
-  length()
-  
-exp2_final_trials_remain <- nrow(exp2_data_final)
-
-```
 
 After removing the incorrect responses, similarly to what we did for experiment 1 (@sec-exp1-analysis-RT), `r 100-round(exp2_step3_trials_remain*100/exp2_step2_trials_remain, 2)`% of the trials were excluded if the relative RT was below 200 ms and above 1800 ms, Finally, `r length(exp2_subj_filter_2)` subjects were removed because the number of trials within the same condition was less than 7 (i.e., about half of the total number of trials being presented within the same condition, i.e. 13). A total of `r format(exp2_final_trials_remain, big.mark=",", scientific=F)` observations and `r format(exp2_final_subj_remain, big.mark=",", scientific=F)` subjects were included in the statistical analysis below. 
 
 ## Results {#sec-exp2-results}
 
-```{r experiment 2 -- error/priming analysis}
-#| echo: false
-#| message: false
-#| error: false
-#| warning: false
-
-# error rates averages
-### we also want to sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed. Crucially the trial calculations are made on the dataset *before* the trial error removal step
-exp2_subj_filter_2_with.errors <- exp2_data_step3[, rt_data_labels] |>
-  aggregate(RT ~ ., FUN = length, drop = FALSE) |>
-  subset(RT < 7, select = Rec_Session_Id) |>
-  unique() |>
-  unlist()
-# this step just makes sure that the same subjects will be removed from both datasets
-exp2_subj_filter_2_with.errors <- union(exp2_subj_filter_2_with.errors, exp2_subj_filter_2)
-
-### just making sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed
-exp2_subj_filter_conditions_with.errors <- 
-  exp2_data_step3 %>%
-  group_by(Rec_Session_Id) %>% 
-  distinct(condition_rec, primetype_rec) %>% 
-  tally() %>% filter(n != 6) %>% pull(Rec_Session_Id)
-
-exp2_data_final_with.errors <- exp2_data_step3 |>
-  subset(!(Rec_Session_Id %in% exp2_subj_filter_2_with.errors) & 
-           !(Rec_Session_Id %in% exp2_subj_filter_conditions_with.errors)) 
-
-exp2_error.rates <- exp2_data_final_with.errors %>%
-  mutate(primetype_rec = factor(primetype_rec, levels=c("unrelated", "related")),
-         condition_rec = factor(condition_rec, levels=c("high", "low", "non-word"))) %>%
-  group_by(condition_rec, primetype_rec, Rec_Session_Id) %>%
-  summarise(error.percent=mean(responseError)*100)
-
-# RT averages
-exp2_rt.avg_subj <- exp2_data_final %>% 
-  group_by(Rec_Session_Id, condition_rec, primetype_rec) %>%
-  summarise(meanRT = mean(RT))
-
-exp2_rt_cor <- exp2_data_final %>% 
-  group_by(Rec_Session_Id, condition_rec, primetype_rec) %>%
-  dplyr::summarise(meanRT=mean(RT)) %>%
-  select(Rec_Session_Id, condition_rec, primetype_rec, meanRT) %>% 
-  pivot_wider(names_from='primetype_rec', values_from=c('meanRT')) %>%
-  group_by(condition_rec) %>%
-  summarise(cor=cor(unrelated, related))
-
-# RT + error averages (by subject)
-exp2_avgs_subj <- merge(exp2_rt.avg_subj, exp2_error.rates, by=c("Rec_Session_Id", "condition_rec", "primetype_rec"))
-
-exp2_mop.err_across <- exp2_avgs_subj %>%
-  group_by(condition_rec, primetype_rec) %>%
-  summarise(gd.mean=mean(meanRT, na.rm=T), sd=sd(meanRT, na.rm=T), mean.error=mean(error.percent)) %>%
-  pivot_wider(id_cols="condition_rec", names_from=primetype_rec, values_from=c(gd.mean, sd, mean.error)) %>%
-  left_join(exp2_rt_cor, by="condition_rec")
-
-#### ERROR PRIMING CALCULATIONS ####
-# we will just run stats for this, no numerical calculations (e.g., priming)
-
-### MAIN EFFECTS
-#### t-test
-exp2_errors_stats_main <- exp2_error.rates %>% 
-  group_by(condition_rec) %>%
-  t_test(error.percent ~ primetype_rec, paired=T)
-
-#### RT PRIMING CALCULATIONS ####
-
-### MAIN EFFECTS
-#### by subject
-exp2_mop_subj <- exp2_rt.avg_subj %>% 
-  pivot_wider(names_from=primetype_rec, values_from=meanRT) %>%
-  mutate(priming = unrelated-related)
-
-#### descriptive stats
-exp2_gdavg_mop <- exp2_mop_subj %>%
-  group_by(condition_rec) %>%
-  summarise(MOP = mean(priming), se = sd(priming)/sqrt(n()), ci=(qt(0.975, n()-1)*se),
-            sd=sd(priming), ES=round(MOP/sd, 2))
-
-#### summary table
-exp2_gdavg_mop_summary <- exp2_gdavg_mop %>%
-  left_join(., exp2_mop.err_across, by='condition_rec') %>%
-  mutate(across(c(2:5, 7:12), round), across(c(13), round, 2)) %>%
-  mutate(ci.lb = paste0("[", MOP-ci), ci.ub = paste0(MOP+ci, "]")) %>%
-  unite("CI", ci.lb:ci.ub, sep = " ") %>% select(-ci, -se) %>% 
-  rename(factor = "condition_rec") %>%
-  relocate(gd.mean_related:cor, .before=MOP) %>% 
-  relocate(gd.mean_related, .after=gd.mean_unrelated) %>%
-  relocate(CI, .after=MOP)
-
-#### t-test
-exp2_rt_stats_main <- exp2_rt.avg_subj %>%
-  mutate(primetype_rec = fct_relevel(primetype_rec, "unrelated", "related")) %>%
-  group_by(condition_rec) %>%
-  t_test(meanRT ~ primetype_rec, paired=T) %>% select(-2:-6) %>%
-  rename(factor = "condition_rec", t='statistic') %>%
-  mutate_if(is.numeric, list(~as.character(signif(., 3))))
-
-### INTERACTION EFFECT
-
-#### descriptive stats
-exp2_gdavg_fae <- exp2_mop_subj %>%
-  select(-unrelated, -related) %>%
-  pivot_wider(names_from="condition_rec", values_from="priming") %>%
-  mutate(interaction = low-high) %>% ungroup() %>%
-  summarise(factor = "frequency:primetype", 
-            sd=sd(interaction), se = sd/sqrt(n()), ci = (qt(0.975, n()-1)*se)) %>%
-  mutate(across(c(2:4), round))
-
-##### summary table
-exp2_gdavg_fae_summary <- exp2_mop_subj %>% 
-  select(-unrelated, -related) %>% ungroup() %>%
-  pivot_wider(names_from="condition_rec", values_from="priming") %>%
-  summarise(mean_high = round(mean(high)), mean_low = round(mean(low)), cor=round(cor(high, low), 3)) %>%
-  bind_cols(., exp2_gdavg_fae) %>%
-  mutate(MOP = mean_low-mean_high, ES = round(MOP/sd, 2), ci.lb = paste0("[", MOP-ci), ci.ub = paste0(MOP+ci, "]")) %>%
-  unite("CI", ci.lb:ci.ub, sep = " ") %>% select(-ci, -se) %>% 
-  relocate(CI, .after=MOP) %>%
-  relocate(factor, .before=mean_high)
-  
-#### t-test
-exp2_rt_stats_interaction <- exp2_mop_subj %>% ungroup() %>%
-  filter(condition_rec != 'non-word') %>%
-  mutate(condition_rec = fct_relevel(condition_rec, "low", "high")) %>%
-  t_test(priming ~ condition_rec, paired=TRUE) %>% 
-  mutate_if(is.numeric, list(~as.character(signif(., 3)))) %>%
-  select(-1, -4:-5) %>%
-  unite("factor", group1:group2) %>%
-  rename(t='statistic') %>%
-  mutate(factor = "frequency:primetype")
-
-```
-
 For each frequency condition, priming effects were calculated in the same way as experiment 1. @tbl-exp2-statsResults below report the descriptive statistics of the experiment. All three conditions showed statistically significant repetition priming effects (*MOP_HF* = 18, CI_95% = [16 20], t(2340) = 19.7, $p<.0001$; *MOP_LF* = 28, CI_95% = [26 30], *t*(2340) = 27.8, $p<.0001$; *MOP_NW* = -2, CI_95% = [-4 0], t(2340) = -2.33, $p<.0001$). The low-frequency word repetition priming effect was 10 ms larger than the high-frequency word repetition priming effect, and this FAE effect was statistically significant (*M_FAE* = 10, CI_95% = [7 13]), *t*(2340) = 7.24, $p<.0001$). As for the word error analysis, we found significant priming effects in the word conditions (high: *t*(2340)=9.95, *p*<.0001; low: *t*(2340)=16.9, *p*<.0001), as well as in the non-word condition (non-word: *t*(2340)=-3.27, *p*=.001). 
 
 \blandscape
-```{r experiment 2 -- table summary}
+```{r}
 #| echo: false
 #| message: false
 #| error: false
@@ -1150,12 +467,6 @@ For each frequency condition, priming effects were calculated in the same way as
 #| tbl-cap: "Experiment 2. Summary of the word priming results. *Legend.* MOP: magnitude of priming."
 #| tbl-pos: 'h'
 
-exp2_summary.results_mop <- merge(exp2_gdavg_mop_summary, exp2_rt_stats_main, by='factor')
-exp2_summary.results_fae <- merge(exp2_gdavg_fae_summary, exp2_rt_stats_interaction, by='factor') |>
-  select(-mean_high, -mean_low)
-
-exp2_summary.results <- bind_rows(exp2_summary.results_mop, exp2_summary.results_fae)
-  
 exp2_summary.results %>%
   relocate(c("sd_unrelated", "mean.error_unrelated"), .before=gd.mean_related) %>%
   gt() %>%
@@ -1229,17 +540,6 @@ These results not only contribute to our understanding of masked priming but als
 
 # Wordlists {.unnumbered}
 
-```{r}
-#| echo: false
-#| message: false
-#| error: false
-#| warning: false
-
-library(readxl)
-exp1.wordlist <- read_csv("materials/experiment1/frequency-effects_experiment1_word-lists_final.csv") %>% select(-related)
-exp2.wordlist <- read_csv("materials/experiment2/frequency-effects_experiment2_word-lists_final.csv")
-```
-
 ### Experiment 1 {.unnumbered}
 
 ```{r}
@@ -1247,14 +547,6 @@ exp2.wordlist <- read_csv("materials/experiment2/frequency-effects_experiment2_w
 #| message: false
 #| warning: false
 #| error: false 
-
-trial.means <- exp1_data_final %>%
-  group_by(condition_rec, primetype_rec, target_rec, prime_rec) %>%
-  summarise(meanRT = round(mean(RT)), sdRT = round(sd(RT))) %>%
-  pivot_wider(id_cols=target_rec, names_from=primetype_rec, values_from = c(meanRT, sdRT)) %>%
-  ungroup() %>% mutate(target = tolower(target_rec)) %>% select(-target_rec) %>%
-  relocate(target, .before=meanRT_unrelated) %>%
-  relocate(sdRT_unrelated, .after=meanRT_unrelated)
 
 exp1.wordlist %>% 
   left_join(., trial.means, by=join_by(word == target)) %>%
@@ -1287,14 +579,6 @@ exp1.wordlist %>%
 #| message: false
 #| warning: false
 #| error: false 
-
-trial.means_exp2 <- exp2_data_final %>%
-  group_by(condition_rec, primetype_rec, target_rec, prime_rec) %>%
-  summarise(meanRT = round(mean(RT)), sdRT = round(sd(RT))) %>%
-  pivot_wider(id_cols=target_rec, names_from=primetype_rec, values_from = c(meanRT, sdRT)) %>%
-  ungroup() %>% mutate(target = tolower(target_rec)) %>% select(-target_rec) %>%
-  relocate(target, .before=meanRT_unrelated) %>%
-  relocate(sdRT_unrelated, .after=meanRT_unrelated)
 
 exp2.wordlist %>% 
   left_join(., trial.means_exp2, by=join_by(word == target)) %>%
