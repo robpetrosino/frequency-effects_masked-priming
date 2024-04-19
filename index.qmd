@@ -58,6 +58,7 @@ library(knitr)
 library(gt)
 library(gtExtras)
 library(zoo)
+library(here)
 
 wd <- getwd()
 data_filename <- "frequency-effects_data.RData"

@@ -24,9 +24,9 @@ library(here)
 #| label: fig-power-1250
 #| fig-cap: "Power simulations with a sample size of 1,250, for all combinations of standard deviation (sd), pairwise correlation (cor), and interaction effect size. The red line identifies the threshold of 80% power."
 
-load('./supplemental-data/freq_atten_exp2.5ms.RData') # ES = 5 ms
-load('./supplemental-data/freq_atten_exp2.10ms.RData') # ES = 10 ms
-load('./supplemental-data/freq_atten_exp2.15ms.RData') # ES = 15 ms
+load('../supplemental-data/freq_atten_exp2.5ms.RData') # ES = 5 ms
+load('../supplemental-data/freq_atten_exp2.10ms.RData') # ES = 10 ms
+load('../supplemental-data/freq_atten_exp2.15ms.RData') # ES = 15 ms
 
 freq_atten_exp2.5ms_df.sub <- freq_atten_exp2.5ms_df %>% 
   filter(ES == 5) %>%
@@ -78,7 +78,7 @@ power_pred_df.sub1250 |>
 #| label: tbl-words_exp2
 #| tbl-cap: "Experiment 2. Descriptive statistics of the word items used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison."
 #| 
-words_exp2 <- read.csv('./materials/experiment2/frequency-effects_experiment2_stimuli.csv') %>% filter(type=='word')
+words_exp2 <- read.csv('../materials/experiment2/frequency-effects_experiment2_stimuli.csv') %>% filter(type=='word')
 
 needs_mutated <- function(x) {
   if(!is.numeric(x)) return(FALSE)

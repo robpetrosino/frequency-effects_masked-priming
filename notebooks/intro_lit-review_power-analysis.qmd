@@ -28,17 +28,17 @@ library(ggpubr)
 #| tbl-cap: "Summary of the masked repetition priming effects as a function of word frequency reported in the literature. The power range estimates were calculated by simulating 10,000 datasets with the corresponding sample size (N) and FAE = 15 ms and 30 ms."
 #| 
 
-lit_effects_tbl_filename <- "./supplemental-data/MaskedPrimingDatabase-IDPriming-InteractionFrequency.csv"
+lit_effects_tbl_filename <- "../supplemental-data/MaskedPrimingDatabase-IDPriming-InteractionFrequency.csv"
 
 lit_effects <- read_csv(lit_effects_tbl_filename)
 
-power_estimates_15 <- read_csv("./supplemental-data/power_estimate2.dataset.range.csv") %>%
+power_estimates_15 <- read_csv("../supplemental-data/power_estimate2.dataset.range.csv") %>%
   select(nsubj, minPower, maxPower) %>%
   mutate(across(minPower:maxPower, ~round(., 2))) %>%
   mutate(minPower = paste0("[", minPower), maxPower = paste0(maxPower, "]")) %>%
   unite("Power range", minPower:maxPower, sep = " ")
 
-power_estimates_30 <- read_csv("./supplemental-data/power_estimate3.dataset.range.csv") %>%
+power_estimates_30 <- read_csv("../supplemental-data/power_estimate3.dataset.range.csv") %>%
   select(nsubj, minPower, maxPower) %>%
   mutate(across(minPower:maxPower, ~round(., 2))) %>%
   mutate(minPower = paste0("[", minPower), maxPower = paste0(maxPower, "]")) %>%

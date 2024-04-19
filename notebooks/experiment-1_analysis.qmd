@@ -28,7 +28,7 @@ library(here)
 #| label: tbl-words_exp1
 #| tbl-cap: "Experiment 1. Descriptive statistics of the word item used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison."
 
-exp1_wordlists_folder <- "./materials/experiment1/"
+exp1_wordlists_folder <- "../materials/experiment1/"
 
 stimuli <- read.csv(paste0(exp1_wordlists_folder, "frequency-effects_experiment1_stimuli.csv"))
 database <- read.csv(paste0(exp1_wordlists_folder, "stim-database.csv"))
