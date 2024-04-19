@@ -89,17 +89,18 @@ is not easy to explain, as it seems to hint at two different mechanisms that are
 
 However, as @tbl-litReview shows, there are nonetheless a few studies that do report significant FAEs in masked repetition priming [@BodnerMasson2001; @Kinoshita2006; @NorrisKinoshita2008, @Nievas2010]. @BodnerMasson2001 argues that when stimuli are presented in alternating case (e.g., _pHoNe_), this increases the lexical decision difficulty and therefore generates an extra incentive to draw on the memory resource created by the brief processing of the prime. Under such conditions, they were able to observe a statistically significant FAE.
 
-In the same vein, @Kinoshita2006 noticed that in earlier studies the low frequency words often had very high error rates, and suggested that perhaps many participants did not know them. If participants treated a substantial number of low frequency words as nonwords, and nonwords do not exhibit repetition priming under masked conditions, it could artificially depress the repetition priming effect for the low frequency condition alone, which could make any existing FAE harder to detect. In two separate experiments, @Kinoshita2006 showed that larger repetition priming effects for low frequency words were only obtained when the low frequency words were vetted to make sure the participants knew them prior to the experiment. Following up on @Kinoshita2006, @NorrisKinoshita2008 were also able to find an interaction between lexical frequency and repetition in masked repetition priming, as was @Nievas2010 (exp 1B) in Spanish.
+In the same vein, @Kinoshita2006 noticed that in earlier studies the low frequency words often had very high error rates, and suggested that perhaps many participants did not know them. If participants treated a substantial number of low frequency words as nonwords, and nonwords do not exhibit repetition priming under masked conditions, it could artificially depress the repetition priming effect for the low frequency condition alone, which could make any existing FAE harder to detect. In two separate experiments, @Kinoshita2006 showed that larger repetition priming effects for low frequency words were only obtained when the low frequency words were vetted to make sure the participants knew them prior to the experiment. Following up on @Kinoshita2006, @NorrisKinoshita2008 were also able to find an interaction between lexical frequency and repetition in masked repetition priming, as was @Nievas2010 in Spanish (exp. 1B).
 
 Finally, as @tbl-litReview shows, it is noteworthy that 15 out of 18 previous studies showed numerically larger masked priming effects for low frequency words as opposed to high frequency words, irrespective of statistical significance. Similarly, the average repetition effect for low frequency words in the studies reviewed in @tbl-litReview is 13 ms larger when compared to that of high frequency words. These results are not in line with the predictions dictated by the _entry opening model_, and seem to align better with the predictions made by _interactive activation models_ and _memory recruitment_ models.
 
 \blandscape
+\small
 ```{r}
 #| echo: false
 #| warning: false
 #| error: false
 #| label: tbl-litReview
-#| tbl-cap: "Summary of the masked repetition priming effects as a function of word frequency reported in the literature. The statistical power range estimates were calculated by simulation with the corresponding sample size (N) and for two FAE magnitudes (15 ms and 30 ms). Simulations were performed across a range of correlation values between conditions (from 0.6 to 0.9, in increments of 0.1) as well as plausible standard deviations per conditions (from 60 ms to 180 ms, in increments of 10 ms), with 10,000 simulated datasets for each combination of parameters), "
+#| tbl-cap: "Summary of the masked repetition priming effects as a function of word frequency reported in the literature. The statistical power range estimates were calculated by simulation with the corresponding sample size (N) and for two representative FAE magnitudes. Simulations were performed across a range of correlation values between conditions (from 0.6 to 0.9, in increments of 0.1) as well as plausible standard deviations per conditions (from 60 ms to 180 ms, in increments of 10 ms), with 10,000 simulated datasets for each combination of parameters."
 
 lit_effects %>%
   left_join(., power_estimates_15, by=join_by("N" == "nsubj"), multiple="first") %>%
@@ -127,14 +128,6 @@ lit_effects %>%
               `Power range_15` = "FAE=15ms",
               `Power range_30` = "FAE=30ms"
   ) %>%
-  tab_footnote( 
-    footnote = "SOA for each subject determined by pre-test", 
-    locations = cells_body(column = "PRIME_DURATION", rows = 14)
-  ) %>%
-  tab_footnote(
-    footnote = "Reported in Masson & Bodner (2003)",
-    locations = cells_stub(rows = 16) 
-  ) %>% 
   grand_summary_rows(
     columns = c(MOP_HF, MOP_LF, MOP_Interaction),
     fns = list(Mean ~ round(mean(.)),
@@ -148,6 +141,14 @@ lit_effects %>%
   ) %>%
    sub_missing(
     missing_text = " "
+  ) %>%
+  tab_footnote( 
+    footnote = "SOA for each subject determined by pre-test", 
+    locations = cells_body(column = "PRIME_DURATION", rows = 14)
+  ) %>%
+  tab_footnote(
+    footnote = "Reported in Masson & Bodner (2003)",
+    locations = cells_stub(rows = 16) 
   )
 ```
 \elandscape
@@ -211,8 +212,6 @@ A second concern arising from the ambiguity surrounding statistical power in the
 
 Finally, it is widely acknowledged that experiments with approximately 50% power are akin to a coin toss in their ability to detect a true effect [@Cohen1992]. A less-appreciated fact is that, in the presence of even lower power (<25%), statistically significant results can substantially overestimate the effect size -- a type-M error [@GelmanCarlin2014]. When power drops to levels below 10%, a statistically significant result may occur even when the observed effect goes in the opposite direction of the true effect -- a type-S error [@GelmanCarlin2014]. Our power simulations for within-subjects data revealed a similar relationship between statistical power, type-M, and type-S errors in line with the observations detailed by @GelmanCarlin2014 for the independent samples $t$-test. For instance, at 10% power (a possibility for virtually all previous studies, as indicated in @tbl-litReview), a statistically significant result could indicate an overestimation of the magnitude of the frequency attenuation effect by a factor between 2 and 5, with up to a 5% chance of incorrectly determining the direction of the effect.
 
-{{< embed notebooks/intro_lit-review_power-analysis.qmd#fig-power >}}
-
 The two studies reported here were designed to mitigate these two confounding issues: the overreliance on the @KuceraFrancis1967 frequency data as well as a potential lack of statistical power observed in previous research. As a large increase in statistical power requires a large sample size, Experiment 1 aimed to assess the suitability of using *Labvanced* [@Labvanced2017], an online platform for running web browser-based experiments, for running masked priming studies online.
 
 # Experiment 1 {#sec-exp1}
@@ -229,13 +228,13 @@ Three hundred participants (145 females; _mean age_ = 38; _sd_ = 12) were recrui
 
 ### Design {#sec-exp1-methods-design}
 
-The masked priming procedured relied on a lexical decision task (LDT), in which a 2 (Frequency: _high_ vs _low_)[^low-freq] x 2 (prime type: _repetition_ vs _unrelated_) factorial design was used. Both factors were manipulated within-subjects. The dependent variables were lexical decision latency (in miliseconds) and error rate (in percentages).
+The masked priming procedured relied on a lexical decision task (LDT), in which a 2 (frequency: _high_ vs _low_)[^low-freq] x 2 (prime type: _repetition_ vs _unrelated_) factorial design was used. Both factors were manipulated within-subjects. The dependent variables were lexical decision latency (in miliseconds) and error rate (in percentages).
 
 ### Materials {#sec-exp1-methods-materials}
 
-Two hundred five-letter English words were selected from the English Lexicon Project [ELP\; @balota2007], in which 100 words were selected from an upper and a lower frequency range, respectively (see \ref{fn-low-freq}). It was not possible to identify two frequency ranges that were well separated from one another for both the HAL [@LundBurgess1996] and the SUBTLEX$_{US}$ [@BrysbaertNew2009] frequency databases. As @tbl-words_exp1 shows, we managed to do this only for the former, whereas some overlap was present in the latter. This is expected given the different source of the two databases (see above, and footnote. \ref{fn-databases}). The two word subsets corresponded to the two word frequency conditions being tested: the high-frequency, and low-frequency conditions. In each condition, fifty words were randomly chosen to be presented as targets and related primes (for the related prime type condition), and the remaining fifty were presented as unrelated primes (for the unrelated prime type condition).
+Two hundred five-letter English words were selected from the English Lexicon Project [ELP\; @balota2007], in which 100 words were selected from an upper and a lower frequency range, respectively (but see fn. \ref{fn-low-freq}). It was not possible to identify two frequency ranges that were well separated from one another for both the HAL [@LundBurgess1996] and the SUBTLEX$_{US}$ [@BrysbaertNew2009] frequency databases. As @tbl-words_exp1 shows, we managed to do this only for the former, whereas some overlap was present in the latter. This is expected given the different source of the two databases (see above, and fn. \ref{fn-databases}). The two word subsets corresponded to the two word frequency conditions being tested: the high-frequency, and low-frequency conditions. In each condition, fifty words were randomly chosen to be presented as targets and related primes (for the related prime type condition), and the remaining fifty were presented as unrelated primes (for the unrelated prime type condition).
 
-[^low-freq]: The experiment also included an even lower frequency condition (range: [3.0 5.01]; mean: 4.39, SD: 0.50), thus summing up to six hundred trials being presented in the experiment. However, the average error rate for this condition was 44% and 33 (out of the 50) target words used in the same condition had a error rate higher than 30%. This suggested that they might have not known these words (see @Kinoshita2006). For this reason, this condition was completely removed from analysis.
+[^low-freq]: The experiment also included an even lower frequency condition (range: [3.0 5.01]; mean: 4.39, SD: 0.50), thus summing up to six hundred trials being presented in the experiment. However, the average error rate for this condition was 44% and 33 (out of the 50) target words used in the same condition had a error rate higher than 30%. This suggested that they might have not known these words (see @Kinoshita2006). For this reason, this condition was completely removed from analysis.\label{fn-low-freq}
 
 
 ```{r}
@@ -294,7 +293,7 @@ Analysis scripts and an abridged version of the data collected can be found on o
 
 ### Step 1: subject and item performance {#sec-exp1-analysis-performance}
 
-Item and subject error rates were calculated, with a cutoff of 30%. Only `r exp1_step1_item.err %>% filter(condition_rec=='low') %>% count() %>% pull()` low-frequency words (*`r exp1_step1_item.err %>% filter(condition_rec=='low') %>% mutate(target_rec=tolower(target_rec)) %>% pull(target_rec)`*), `r exp1_step1_item.err %>% filter(condition_rec=='non-word') %>% count() %>% pull()` non-words (*`r exp1_step1_item.err %>% filter(condition_rec=='non-words') %>% mutate(target_rec=tolower(target_rec)) %>% pull(target_rec)`*), and `r exp1_info$n_recruited - exp1_step1_subj_remain` participants were removed, with `r exp1_step1_subj_remain` participants remaining.
+Item and subject error rates were calculated, with a cutoff of 30%. Only `r exp1_step1_item.err %>% filter(condition_rec=='low') %>% count() %>% pull()` low-frequency words (*`r exp1_step1_item.err %>% filter(condition_rec=='low') %>% mutate(target_rec=tolower(target_rec)) %>% pull(target_rec)`*), `r exp1_step1_item.err %>% filter(condition_rec=='non-word') %>% count() %>% pull()` non-words (*`r exp1_step1_item.err %>% filter(condition_rec=='non-word') %>% mutate(target_rec=tolower(target_rec)) %>% pull(target_rec)`*), and `r exp1_info$n_recruited - exp1_step1_subj_remain` participants were removed, with `r exp1_step1_subj_remain` participants remaining.
 
 ### Step 2: prime durations {#sec-exp1-analysis-primeTime}
 
@@ -556,8 +555,6 @@ In summary, our study successfully replicated and expanded upon the work of @Ang
 ::: {#refs}
 :::
 
-\newpage
-
 # Wordlists {.unnumbered}
 
 ### Experiment 1 {.unnumbered}
@@ -567,6 +564,16 @@ In summary, our study successfully replicated and expanded upon the work of @Ang
 #| message: false
 #| warning: false
 #| error: false 
+
+exp1.wordlist <- read.csv("./materials/experiment1/frequency-effects_experiment1_word-lists_final.csv")
+
+trial.means <- exp1_data_final %>%
+  group_by(condition_rec, primetype_rec, target_rec, prime_rec) %>%
+  summarise(meanRT = round(mean(RT)), sdRT = round(sd(RT))) %>%
+  pivot_wider(id_cols=target_rec, names_from=primetype_rec, values_from = c(meanRT, sdRT)) %>%
+  ungroup() %>% mutate(target = tolower(target_rec)) %>% select(-target_rec) %>%
+  relocate(target, .before=meanRT_unrelated) %>%
+  relocate(sdRT_unrelated, .after=meanRT_unrelated)
 
 exp1.wordlist %>% 
   left_join(., trial.means, by=join_by(word == target)) %>%
@@ -586,10 +593,10 @@ exp1.wordlist %>%
     contains("mean") ~ "mean",
     contains("sd") ~ "SD"
   ) %>%
-   sub_missing(
+  sub_missing(
     missing_text = "--"
   )
-  
+
 ```
 
 ### Experiment 2 {.unnumbered}
@@ -599,6 +606,16 @@ exp1.wordlist %>%
 #| message: false
 #| warning: false
 #| error: false 
+
+exp2.wordlist <- read.csv("./materials/experiment2/frequency-effects_experiment2_word-lists_final.csv")
+
+trial.means_exp2 <- exp2_data_final %>%
+  group_by(condition_rec, primetype_rec, target_rec, prime_rec) %>%
+  summarise(meanRT = round(mean(RT)), sdRT = round(sd(RT))) %>%
+  pivot_wider(id_cols=target_rec, names_from=primetype_rec, values_from = c(meanRT, sdRT)) %>%
+  ungroup() %>% mutate(target = tolower(target_rec)) %>% select(-target_rec) %>%
+  relocate(target, .before=meanRT_unrelated) %>%
+  relocate(sdRT_unrelated, .after=meanRT_unrelated)
 
 exp2.wordlist %>% 
   left_join(., trial.means_exp2, by=join_by(word == target)) %>%
@@ -618,8 +635,9 @@ exp2.wordlist %>%
     contains("mean") ~ "mean",
     contains("sd") ~ "SD"
   ) %>%
-   sub_missing(
+  sub_missing(
     missing_text = "--"
   )
-  
+
 ```
+
