@@ -1,0 +1,424 @@
+---
+title: "Simulating Power in within-subject psycholinguistic experiments using unstandardized measures of effect size"
+author: "Diogo Almeida & Roberto Petrosino"
+
+execute:
+  eval: false
+  
+format: 
+  html:
+    code-fold: true
+---
+
+```{r}
+library(ggplot2)
+library(MASS)
+
+# --- Utility Functions --- #
+
+invert_argument_docall <- function(func){
+  function(data){
+    do.call(func, data)
+  }
+} 
+
+rbind_list <- invert_argument_docall(rbind)
+
+matcols2lists <- function(data_matrix, group_by = 2) {
+  ncols <- ncol(data_matrix)
+  stopifnot(!(ncols%%group_by))
+  start_indices <- seq(from = 1, to = ncols, by = group_by)
+  n_conditions <- length(start_indices)
+  grouped_conditions <- vector(mode = "list", length = n_conditions)
+  for (first_item in start_indices) {
+    grouped_conditions[[which(start_indices == first_item)]] <- data_matrix[, seq(first_item, first_item + group_by - 1)]
+  }
+  grouped_conditions
+}
+
+organize_output <- function(simdata_list) {
+  step_1 <- lapply(simdata_list, FUN = t)
+  n_conds <- ncol(step_1[[1]])
+  n_measures <- nrow(step_1[[1]])
+  measure_labels <- rownames(step_1[[1]])
+  c_lbl <- paste0("cond", rep(1:n_conds, each = n_measures), "_", rep(measure_labels, n_conds))
+  step_2 <- step_1 |>
+    rapply(as.vector, how = "list") |>
+    rbind_list()
+  colnames(step_2) <- c_lbl
+  step_2 |>
+    matcols2lists(group_by = n_measures)
+}
+
+combine_sims <- function(sim_list) {
+  n_conds <- nrow(sim_list[[1]])
+  n_sims <- length(sim_list)
+  sim_df <- rbind_list(sim_list)
+  sim_df[["simulation"]]  <- paste0("simulation_", rep(1:n_sims, each = n_conds))
+  sim_df[["condition"]] <- paste0("condition_", rep(1:n_conds, times = n_sims))
+  sim_df
+}
+
+# --- Statistical Functions --- # 
+
+correlation2covariance <- function(cor_mat, sd_var = 50) {
+  sweep(sweep(cor_mat, 1L, sd_var, "*"), 2L, sd_var, "*")  
+}
+
+calc_cov_mat <- function(rho, std_dev, ncond = 2) {
+  corr_matrix <- matrix(rep(rho, times = ncond^2), ncol = ncond)
+  diag(corr_matrix) <- 1
+  cov_matrix <- correlation2covariance(cor_mat = corr_matrix, sd_var = std_dev)
+  cov_matrix
+}
+
+fast_t <- function(data_matrix) {
+  diff <- data_matrix[, 1] - data_matrix[, 2]
+  n <- length(diff)
+  deg_fre <- n - 1
+  sd_diff <- sd(diff)
+  se_diff <- sd_diff / sqrt(n)
+  mean_diff <- mean(diff)
+  t_val <- mean_diff / se_diff
+  t_crit <- qt(.975, df = deg_fre)
+  conf.int <- c(mean_diff - (t_crit * se_diff), mean_diff + (t_crit * se_diff))
+  p_val <- pt(-abs(t_val), df = deg_fre, lower.tail = TRUE) * 2 # change this for one-tail
+  list(statistic = t_val, parameter = deg_fre, p.value = p_val, conf.int = conf.int, 
+       estimate = mean_diff, stderr = se_diff)
+}
+
+t_test_paired_data <- function(paired_data, fast = TRUE, use_names = TRUE,
+                               info_out = c("estimate", "statistic", "p.value")) {
+  if (fast) {
+    test_result <- fast_t(paired_data)[info_out] |>
+      unlist()
+  } else {
+    test_result <- t.test(paired_data[, 1], paired_data[, 2], paired = TRUE)[info_out] |>
+      unlist()
+  }
+  if(use_names) {
+    true_means <- as.numeric(sub("C[0-9]+_", "", colnames(paired_data)))
+    true_es <- true_means[1] - true_means[2]
+    test_result <- c(true_es, test_result)
+  } else {
+    test_result <- c(NA, test_result)
+  }
+  names(test_result) <- c("true_es", "estimate", "statistic", "p.value")
+  test_result
+}
+
+test_2x2_paired_data <- function(sim_results,rename_cols = TRUE) {
+  main1 <- t_test_paired_data(sim_results[, 1:2])
+  main2 <- t_test_paired_data(sim_results[, 3:4])
+  diff1 <- sim_results[, 1] - sim_results[, 2]
+  diff2 <- sim_results[, 3] - sim_results[, 4]
+  diff_diff <- cbind(diff1, diff2)
+  diff_es <- c(main1["true_es"], main2["true_es"])
+  colnames(diff_diff) <- paste0("C", seq(diff_es), "_", diff_es)
+  interaction <- t_test_paired_data(diff_diff)
+  output <-  rbind(main1, main2, interaction) |>
+    transform(p.adjust = p.adjust(p.value, "holm"))
+  output[["condition"]] <- rownames(output)
+  output
+}
+
+calc_error_design <- function(sim_results, alpha = .05, rename_cols = TRUE) {
+  stopifnot(rename_cols)
+  col_labels <- colnames(sim_results)
+  colnames(sim_results) <- sub("cond[0-9]+_", "", col_labels)
+
+  sig_subset_unadjusted <- subset(as.data.frame(sim_results), p.value < alpha)
+  sig_subset_adjusted <- subset(as.data.frame(sim_results), p.adjust < alpha)
+  sim_true_es <- mean(sig_subset_unadjusted$true_es)
+  nsim <- nrow(sim_results)
+  nsig_unadjusted <- nrow(sig_subset_unadjusted)
+  nsig_adjusted <- nrow(sig_subset_adjusted)
+  power_unadjusted <- nsig_unadjusted / nsim
+  power_adjusted <- nsig_adjusted / nsim
+  type_s_unadjusted <- nrow(subset(sig_subset_unadjusted, estimate < 0)) / nsig_unadjusted
+  type_s_adjusted <- nrow(subset(sig_subset_adjusted, estimate < 0)) / nsig_adjusted
+  exaggeration_ratio_unadjusted <- with(sig_subset_unadjusted, 
+                                        mean(abs(estimate)) / mean(true_es))
+  exaggeration_ratio_adjusted <- with(sig_subset_adjusted, 
+                                      mean(abs(estimate)) / mean(true_es))
+  errors <- c(ES = sim_true_es,
+              power_unadjusted = power_unadjusted,
+              type_s_unadjusted = type_s_unadjusted,
+              exaggeration_ratio_unadjusted = exaggeration_ratio_unadjusted,
+              power_adjusted = power_adjusted,
+              type_s_adjusted = type_s_adjusted,
+              exaggeration_ratio_adjusted = exaggeration_ratio_adjusted)
+  errors
+}
+
+# --- Simulation Functions --- #
+
+simulate_data_from_es <- function(es, base_mu = 600) {
+  function(rho, std_dev, nsubj) {
+    condition_means <- as.vector(es + base_mu)
+    list(rho, std_dev)
+    cov_mat <- calc_cov_mat(rho, std_dev, ncond = length(es))  # one rho all conds
+    #cov_mat
+    simulation <- MASS::mvrnorm(n = nsubj, mu = condition_means, Sigma = cov_mat,
+                                empirical = FALSE)
+    colnames(simulation) <- paste0("C", seq(condition_means), "_", condition_means)
+    simulation
+  }
+}
+
+do_sim <- function(sim_params, sim_func, Nsim = 5000, alpha = 0.05){
+  replicate(Nsim, do.call(sim_func, sim_params), simplify = FALSE) |>
+    lapply(FUN = matcols2lists, group_by = 2) |>
+    rapply(t_test_paired_data, how = "list") |>
+    lapply(FUN = rbind_list) |>
+    lapply(FUN = transform, p.adjust = p.adjust(p.value, "holm")) |>
+    organize_output() |>
+    lapply(FUN = calc_error_design, alpha = alpha) |>
+    rbind_list() |>
+    data.frame(sim_params)
+}
+
+do_sim_2x2 <- function(sim_params, sim_func, Nsim = 5000, alpha = 0.05) {
+  replicate(Nsim, do.call(sim_func, sim_params), simplify = FALSE) |>
+    lapply(FUN = matcols2lists, group_by = 4) |>
+    rapply(test_2x2_paired_data, how = "list" )  |>
+    unlist(recursive = FALSE) |>
+    rbind_list() |>
+    split(~condition) |>
+    lapply(FUN = calc_error_design, alpha = alpha) |>
+    rbind_list() |>
+    data.frame(sim_params)
+}
+
+
+```
+
+## Simulating possible scenarios for the Frequency Attenuation effect in Masked Priming
+
+Seventeen studies were found in the literature about frequency attenuation. Out of these:
+
+-   All show the repetition effect for both HF and LF words
+
+-   Only three show a statistically significant interaction between identity priming and frequency (with lower frequency words showing more masked id priming). The effect sizes on these three are quite large (30, 31 and 32 ms), about as large as the corresponding masked id priming for HF in the experiment
+
+- Overall:
+  -   The average attenuation effect numerically observed is 13 ms
+  -   The range of sample sizes is \[16, 48\]
+  -   The range of SD for HF is \[55, 146\]
+  -   The range of SD for LF is \[60, 177\]
+
+Thus it seems reasonable that there may be a frequency attenuation effect, but what is its size? The experiments that detected it found a very large one, but these are rare. If the effect size really is that large, why aren't we finding the interaction as often as the main effects? Maybe the 30 ms range is an exaggeration, due to low power? Perhaps the most likely scenario is a 10-15 ms effect that can only be detected with sample sizes \<= 48 when it is exaggerated.
+
+So we will investigate three different interactions ESs: 5, 10, and 15 ms, across all combinations of:
+
+  -   sample size, between 200 and 3000 participants (with 150-participant increments)
+  -   standard deviation, between 60 and 110 ms (with 10 ms increments)
+  -   correlation between related and unrelated primetype conditions, ranging between 0.7 and 0.9 (with 0.1 increments)
+  
+### ES = 5 ms
+
+```{r analysis for the new experiment: 5 ms Difference ES}
+#| cache: true
+
+## Simulation of simple effects: Using a matrix of possible parameters
+freq_atten_exp2.5ms_Nsim <- 10000
+
+# ---- range of Effect Sizes ------#
+# ---- range of DD Effect Sizes ------#
+freq_atten_exp2.5ms_base_es <- 60
+freq_atten_exp2.5ms_dd_to_sim <- freq_atten_exp2.5ms_base_es - c(30, 25) # this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. 
+
+# ---- design ----#
+freq_atten_exp2.5ms_design <- expand.grid(freq_atten_exp2.5ms_base_es, freq_atten_exp2.5ms_dd_to_sim) |>
+  t() |>
+  as.vector() |>
+  setNames(paste0("ES", 1:(length(freq_atten_exp2.5ms_dd_to_sim)*2)))
+
+# ---- range of N ------#
+freq_atten_exp2.5ms_n_subjs_to_sim <- seq(200, 3000, by = 150)
+
+# ---- range of SDs ------#
+freq_atten_exp2.5ms_min_sd <- 60
+freq_atten_exp2.5ms_max_sd <- 180
+freq_atten_exp2.5ms_sd_increment <- 10
+freq_atten_exp2.5ms_sds_to_sim <- seq(from = freq_atten_exp2.5ms_min_sd, to = freq_atten_exp2.5ms_max_sd, 
+                                by = freq_atten_exp2.5ms_sd_increment)
+
+# ---- range of rhos ------#
+freq_atten_exp2.5ms_min_rho <- .6
+freq_atten_exp2.5ms_max_rho <- .9
+freq_atten_exp2.5ms_rho_increment <- .1
+freq_atten_exp2.5ms_rhos_to_sim <- seq(from = freq_atten_exp2.5ms_min_rho, to = freq_atten_exp2.5ms_max_rho, 
+                                 by = freq_atten_exp2.5ms_rho_increment)
+
+# ---- create the control matrix ---- #
+freq_atten_exp2.5ms_simulation_params <- expand.grid(freq_atten_exp2.5ms_rhos_to_sim,
+                                               freq_atten_exp2.5ms_sds_to_sim,
+                                               freq_atten_exp2.5ms_n_subjs_to_sim)
+colnames(freq_atten_exp2.5ms_simulation_params) <- c("rho", "std_dev", "nsubj")
+freq_atten_exp2.5ms_simulate_effects <- simulate_data_from_es(freq_atten_exp2.5ms_design)
+freq_atten_exp2.5ms_params <- freq_atten_exp2.5ms_simulation_params |>
+  split(seq(nrow(freq_atten_exp2.5ms_simulation_params))) |>
+  lapply(FUN = as.list)
+
+### Run simulation
+set.seed(20140715)
+t0 <- Sys.time()
+freq_atten_exp2.5ms_df <- lapply(freq_atten_exp2.5ms_params, do_sim_2x2, 
+                               freq_atten_exp2.5ms_simulate_effects, 
+                               Nsim = freq_atten_exp2.5ms_Nsim) |>
+  combine_sims()
+Sys.time() - t0
+save("freq_atten_exp2.5ms_df", file = "freq_atten_exp2.5ms.RData", compress=TRUE)
+
+load("freq_atten_exp2.5ms.RData")
+
+## Plotting
+freq_atten_exp2.5ms_df |>
+  subset(ES == 5) |>
+  ggplot(aes(x = nsubj, y = power_unadjusted)) + 
+    geom_line(aes()) + 
+    geom_point() +
+    geom_hline(yintercept = c(0.8, 0.5, 0.1), color = "red2") + 
+    facet_grid(rho ~ std_dev) 
+
+```
+
+### ES = 10 ms
+
+```{r analysis for the new experiment: 10 ms Difference ES}
+#| cache: true
+
+## Simulation of simple effects: Using a matrix of possible parameters
+freq_atten_exp2.10ms_Nsim <- 10000
+
+# ---- range of Effect Sizes ------#
+# ---- range of DD Effect Sizes ------#
+freq_atten_exp2.10ms_base_es <- 60
+freq_atten_exp2.10ms_dd_to_sim <- freq_atten_exp2.10ms_base_es - c(30, 20) # this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. 
+
+# ---- design ----#
+freq_atten_exp2.10ms_design <- expand.grid(freq_atten_exp2.10ms_base_es, freq_atten_exp2.10ms_dd_to_sim) |>
+  t() |>
+  as.vector() |>
+  setNames(paste0("ES", 1:(length(freq_atten_exp2.10ms_dd_to_sim)*2)))
+
+# ---- range of N ------#
+freq_atten_exp2.10ms_n_subjs_to_sim <- seq(200, 3000, by = 150)
+
+# ---- range of SDs ------#
+freq_atten_exp2.10ms_min_sd <- 60
+freq_atten_exp2.10ms_max_sd <- 180
+freq_atten_exp2.10ms_sd_increment <- 10
+freq_atten_exp2.10ms_sds_to_sim <- seq(from = freq_atten_exp2.10ms_min_sd, to = freq_atten_exp2.10ms_max_sd, 
+                                by = freq_atten_exp2.10ms_sd_increment)
+
+# ---- range of rhos ------#
+freq_atten_exp2.10ms_min_rho <- .6
+freq_atten_exp2.10ms_max_rho <- .9
+freq_atten_exp2.10ms_rho_increment <- .1
+freq_atten_exp2.10ms_rhos_to_sim <- seq(from = freq_atten_exp2.10ms_min_rho, to = freq_atten_exp2.10ms_max_rho, 
+                                 by = freq_atten_exp2.10ms_rho_increment)
+
+# ---- create the control matrix ---- #
+freq_atten_exp2.10ms_simulation_params <- expand.grid(freq_atten_exp2.10ms_rhos_to_sim,
+                                               freq_atten_exp2.10ms_sds_to_sim,
+                                               freq_atten_exp2.10ms_n_subjs_to_sim)
+colnames(freq_atten_exp2.10ms_simulation_params) <- c("rho", "std_dev", "nsubj")
+freq_atten_exp2.10ms_simulate_effects <- simulate_data_from_es(freq_atten_exp2.10ms_design)
+freq_atten_exp2.10ms_params <- freq_atten_exp2.10ms_simulation_params |>
+  split(seq(nrow(freq_atten_exp2.10ms_simulation_params))) |>
+  lapply(FUN = as.list)
+
+### Run simulation
+set.seed(20140715)
+t0 <- Sys.time()
+freq_atten_exp2.10ms_df <- lapply(freq_atten_exp2.10ms_params, do_sim_2x2, 
+                               freq_atten_exp2.10ms_simulate_effects, 
+                               Nsim = freq_atten_exp2.10ms_Nsim) |>
+  combine_sims()
+Sys.time() - t0
+save("freq_atten_exp2.10ms_df", file = "freq_atten_exp2.10ms.RData", compress=TRUE)
+
+
+load("freq_atten_exp2.10ms.RData")
+
+## Plotting
+freq_atten_exp2.10ms_df |>
+  subset(ES == 10) |>
+  ggplot(aes(x = nsubj, y = power_unadjusted)) + 
+    geom_line(aes()) + 
+    geom_point() +
+    geom_hline(yintercept = c(0.8, 0.5, 0.1), color = "red2") + 
+    facet_grid(rho ~ std_dev) 
+```
+
+### ES = 15 ms
+
+```{r analysis for the new experiment: 15 ms Difference ES}
+#| cache: true
+
+## Simulation of simple effects: Using a matrix of possible parameters
+freq_atten_exp2.15ms_Nsim <- 10000
+
+# ---- range of Effect Sizes ------#
+# ---- range of DD Effect Sizes ------#
+freq_atten_exp2.15ms_base_es <- 60
+freq_atten_exp2.15ms_dd_to_sim <- freq_atten_exp2.15ms_base_es - c(30, 15) # this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. 
+
+# ---- design ----#
+freq_atten_exp2.15ms_design <- expand.grid(freq_atten_exp2.15ms_base_es, freq_atten_exp2.15ms_dd_to_sim) |>
+  t() |>
+  as.vector() |>
+  setNames(paste0("ES", 1:(length(freq_atten_exp2.15ms_dd_to_sim)*2)))
+
+# ---- range of N ------#
+freq_atten_exp2.15ms_n_subjs_to_sim <- seq(200, 3000, by = 150)
+
+# ---- range of SDs ------#
+freq_atten_exp2.15ms_min_sd <- 60
+freq_atten_exp2.15ms_max_sd <- 180
+freq_atten_exp2.15ms_sd_increment <- 10
+freq_atten_exp2.15ms_sds_to_sim <- seq(from = freq_atten_exp2.15ms_min_sd, to = freq_atten_exp2.15ms_max_sd, 
+                                by = freq_atten_exp2.15ms_sd_increment)
+
+# ---- range of rhos ------#
+freq_atten_exp2.15ms_min_rho <- .6
+freq_atten_exp2.15ms_max_rho <- .9
+freq_atten_exp2.15ms_rho_increment <- .1
+freq_atten_exp2.15ms_rhos_to_sim <- seq(from = freq_atten_exp2.15ms_min_rho, to = freq_atten_exp2.15ms_max_rho, 
+                                 by = freq_atten_exp2.15ms_rho_increment)
+
+# ---- create the control matrix ---- #
+freq_atten_exp2.15ms_simulation_params <- expand.grid(freq_atten_exp2.15ms_rhos_to_sim,
+                                               freq_atten_exp2.15ms_sds_to_sim,
+                                               freq_atten_exp2.15ms_n_subjs_to_sim)
+colnames(freq_atten_exp2.15ms_simulation_params) <- c("rho", "std_dev", "nsubj")
+freq_atten_exp2.15ms_simulate_effects <- simulate_data_from_es(freq_atten_exp2.15ms_design)
+freq_atten_exp2.15ms_params <- freq_atten_exp2.15ms_simulation_params |>
+  split(seq(nrow(freq_atten_exp2.15ms_simulation_params))) |>
+  lapply(FUN = as.list)
+
+### Run simulation
+set.seed(20140715)
+t0 <- Sys.time()
+freq_atten_exp2.15ms_df <- lapply(freq_atten_exp2.15ms_params, do_sim_2x2, 
+                               freq_atten_exp2.15ms_simulate_effects, 
+                               Nsim = freq_atten_exp2.15ms_Nsim) |>
+  combine_sims()
+Sys.time() - t0
+save("freq_atten_exp2.15ms_df", file = "freq_atten_exp2.15ms.RData", compress=TRUE)
+
+
+load("freq_atten_exp2.15ms.RData")
+
+## Plotting
+freq_atten_exp2.15ms_df |>
+  subset(ES == 15) |>
+  ggplot(aes(x = nsubj, y = power_unadjusted)) + 
+    geom_line(aes()) + 
+    geom_point() +
+    geom_hline(yintercept = c(0.8, 0.5, 0.1), color = "red2") + 
+    facet_grid(rho ~ std_dev) 
+
+```

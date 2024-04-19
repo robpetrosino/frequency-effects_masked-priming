@@ -1,0 +1,18 @@
+"nsubj","minPower","maxPower","rho_min","std_dev_min","rho_max","std_dev_max","file_name","PAPER","EXP.","#"
+16,0.0229,0.2403,0.6,170,0.9,60,"freq_atten_estimate2_LitRev.1.csv","Forster et al. 1987","1",1
+20,0.024,0.3317,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.2.csv","Sereno 1991","1",2
+24,0.0246,0.4046,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.3.csv","Forster & Davis 1991","5",3
+24,0.0246,0.4046,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.3.csv","Bodner & Masson 1997","1",4
+24,0.0246,0.4046,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.3.csv","Bodner & Masson 1997","3",5
+24,0.0246,0.4046,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.3.csv","Forster et al. 2003","1",6
+24,0.0246,0.4046,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.3.csv","Kinoshita 2006","1",7
+24,0.0246,0.4046,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.3.csv","Kinoshita 2006","2",8
+24,0.0246,0.4046,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.3.csv","Norris & Kinoshita 2008","1",9
+27,0.028,0.4636,0.6,130,0.9,60,"freq_atten_estimate2_LitRev.4.csv","Forster et al. 1987","4",10
+28,0.0263,0.4836,0.7,180,0.9,60,"freq_atten_estimate2_LitRev.5.csv","Forster & Davis 1984","1",11
+30,0.0277,0.5246,0.6,170,0.9,60,"freq_atten_estimate2_LitRev.6.csv","Nievas 2010","1b",12
+30,0.0277,0.5246,0.6,170,0.9,60,"freq_atten_estimate2_LitRev.6.csv","Nievas 2010","2a",13
+36,0.0287,0.6275,0.6,180,0.9,60,"freq_atten_estimate2_LitRev.7.csv","Segui & Grainger 1990","4",14
+40,0.034,0.6791,0.7,160,0.9,60,"freq_atten_estimate2_LitRev.8.csv","Bodner & Masson 2001","2A-B, 3, 6",15
+48,0.0354,0.7622,0.8,170,0.9,60,"freq_atten_estimate2_LitRev.9.csv","Rajaram & Neely 1992","1",16
+48,0.0354,0.7622,0.8,170,0.9,60,"freq_atten_estimate2_LitRev.9.csv","Rajaram & Neely 1992","2",17

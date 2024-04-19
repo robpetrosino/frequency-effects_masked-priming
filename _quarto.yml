@@ -1,0 +1,30 @@
+project:
+  type: manuscript
+
+execute:
+  freeze: auto
+  
+notebook-links: global
+
+manuscript:
+  notebooks:
+    - notebook: notebooks/intro_lit-review_power-analysis.qmd
+      title: "Script A: literature review"
+    - notebook: notebooks/experiment-1_analysis.qmd
+      title: "Script B: Experiment 1"
+    - notebook: notebooks/experiment-2_analysis.qmd
+      title: "Script C: Experiment 2"
+    - notebook: notebooks/power-analysis-sims.qmd
+      title: "Script D: Power analysis simulations"
+
+format:
+  html:
+    toc: true
+    comments:
+      hypothesis: true
+  docx: default
+  jats: default
+  agu-pdf: default
+
+
+

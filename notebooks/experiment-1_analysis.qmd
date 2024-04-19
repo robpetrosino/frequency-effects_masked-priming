@@ -1,0 +1,426 @@
+---
+title: "Script B: Experiment 1"
+format: html
+---
+
+## Libraries
+
+```{r libraries}
+#| echo: false
+#| warning: false
+#| error: false
+#| message: false
+library(osfr)
+library(tidyverse)
+library(knitr)
+library(gt)
+library(gtExtras)
+library(rstatix)
+library(ggpubr)
+library(here)
+```
+
+## Materials
+
+```{r}
+#| warning: false
+#| error: false
+#| label: tbl-words_exp1
+#| tbl-cap: "Experiment 1. Descriptive statistics of the word item used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison."
+
+exp1_wordlists_folder <- "./materials/experiment1/"
+
+stimuli <- read.csv(paste0(exp1_wordlists_folder, "frequency-effects_experiment1_stimuli.csv"))
+database <- read.csv(paste0(exp1_wordlists_folder, "stim-database.csv"))
+
+stimuli <- merge(stimuli, database, by='Word', all.x=T, all.y=F)
+stimuli <- stimuli[c(-559,-596),] #one word and one non-word were duplicated as being considered both non-words and words
+
+words <- stimuli %>% filter(type != 'non-word') 
+nonwords <- stimuli %>% filter(type == 'non-word')
+
+words$freq.bin <- factor(words$freq.bin, levels = c("high", "mid"))
+words$type <- as.factor(words$type)
+
+words %>% 
+  filter(freq.bin != 'low') %>%
+  mutate(Freq_HAL.Pm = (Freq_HAL * (10^6) / (131*10^6))) %>% # CHECK IF THE TRANSFORM HERE IS CORRECT
+  mutate(freq.bin = fct_recode(freq.bin, low = "mid")) %>% 
+  dplyr::group_by(freq.bin) %>%
+  dplyr::summarise(N = n(),
+            minFreq= min(Freq_HAL.Pm, na.rm = T), maxFreq=max(Freq_HAL.Pm, na.rm = T),
+            meanFreq = mean(Freq_HAL.Pm, na.rm = T), sdFreq = sd(Freq_HAL.Pm, na.rm = T),
+            minSUBFreq= min(SUBTLWF, na.rm = T), maxSUBFreq=max(SUBTLWF, na.rm = T),
+            meanSUBFreq = mean(SUBTLWF, na.rm = T), sdSUBFreq = sd(SUBTLWF, na.rm = T),
+            #meanRT=mean(as.numeric(I_Mean_RT), na.rm = T), sdRT=sd(as.numeric(I_Mean_RT), na.rm = T),
+            #meanLength = mean(Length, na.rm = T), sdLength=sd(Length, na.rm = T)
+            ) %>% 
+  mutate(
+    across(-freq.bin, ~ if_else(.<1, round(., 2), round(.)))
+  ) %>% 
+  gt() %>%
+  tab_spanner(
+    label = md("**HAL**"), 
+    columns = c(minFreq: sdFreq)
+  ) %>%
+  tab_spanner(
+    label = md("**SUBTLEX~US~**"), 
+    columns = c(minSUBFreq: sdSUBFreq)
+  ) %>%
+  cols_label(freq.bin = "frequency", 
+             minFreq = "min", maxFreq = "max", meanFreq = "mean", sdFreq = "SD", 
+             minSUBFreq = "min", maxSUBFreq = "max", meanSUBFreq = "mean", sdSUBFreq = "SD") %>%
+  gt_add_divider(columns=c("maxFreq", "maxSUBFreq"), weight=px(1))
+  
+```
+
+## Data analysis
+
+```{r}
+#| label: exp1_raw-dataset
+#| warning: false
+#| error: false
+
+# load the raw data dataframe
+exp1_data_folder <- "experiment1"
+exp1_rawdata_filename <- "experiment_1_preprocessed_data.csv"
+
+## 02. check if the rawdata file exists. if not, download it from OSF.
+if (!file.exists(here(exp1_data_folder, exp1_rawdata_filename))) {
+  osf_retrieve_file("ej8dh") |> 
+    osf_download(path = here(exp1_data_folder),
+                 conflicts = "overwrite") 
+}
+
+## 03. read the data into R.
+exp1_rawdata <- here(exp1_data_folder, exp1_rawdata_filename) |>
+  read.csv(na = c("", "NA")) %>%
+  filter(condition_rec != 'low') %>% # deleting the low-low frequency bin
+  mutate(condition_rec = fct_recode(condition_rec, low = "mid"), # renaming the mid-frequency bin as low
+         primeTime = primeDuration - maskDuration) # calculating the actual SOA
+
+exp1_info <- list()
+exp1_info$intended_prime_duration <- 33
+exp1_info$prime_dur_lb <- 25
+exp1_info$prime_dur_ub <- 60
+exp1_info$rt_lb <- 200
+exp1_info$rt_ub <- 1800
+exp1_info$freq_conditions <- c("high", "low", "non-word")
+exp1_info$n_recruited <- exp1_rawdata$Rec_Session_Id |>
+  unique() |>
+  length()
+
+exp1_rawdata.sub <- exp1_rawdata %>%
+  filter(!is.na(TimeMeasure_Mean) & !is.na(primeDuration) & !is.na(responseError))
+            
+
+exp1_info$summary <- with(
+  transform(exp1_rawdata.sub,
+    RT_inrange = ifelse(RT >= exp1_info$rt_lb & RT <= exp1_info$rt_ub, 1, 0),
+    Prime_inrange = ifelse((primeDuration - maskDuration) >= exp1_info$prime_dur_lb &
+                             (primeDuration - maskDuration) <= exp1_info$prime_dur_ub, 1, 0),
+    list = Group_Nr),
+  {
+    data.frame(aggregate(Start_Time ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp1_rawdata.sub, unique),
+               aggregate(End_Time_Local ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp1_rawdata.sub, unique),
+              aggregate(cbind(list, SelectedGender, SelectedAge, TimeMeasure_Mean, TimeMeasure_Std) ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp1_rawdata.sub, unique),
+      aggregate(cbind(responseError, RT_inrange, Prime_inrange) ~ Rec_Session_Id + Crowdsourcing_SubjId, mean, data=exp1_rawdata.sub)
+  )
+}
+)
+
+exp1_info$summary <- exp1_info$summary[, -grep("Rec_Session_Id.|Crowdsourcing_SubjId.", colnames(exp1_info$summary))] # remove all extra aggregating columns (subj ID)
+
+exp1_info$summary$Duration <- interval(ymd_hms(exp1_info$summary$Start_Time), 
+                                             ymd_hms(exp1_info$summary$End_Time_Local)) |>
+                                      lapply(function(interval_value) {interval_value/dminutes(1)}) |> 
+                                           unlist()
+
+```
+
+### Step 1: subject and item performance 
+
+```{r}
+#| label: exp1_performance
+#| message: false
+#| error: false
+#| warning: false
+
+exp1_step1_goodsubj <- exp1_info$summary |>
+  subset(responseError <= .3) 
+
+exp1_step1_subj_remain <- exp1_step1_goodsubj |> nrow()
+
+exp1_step1_item.err <- exp1_rawdata.sub %>% group_by(condition_rec, target_rec) %>%
+  summarise(word.percent=mean(responseError)*100) %>% 
+  filter(word.percent > 30)
+
+exp1_subj_filter_1 <- exp1_step1_goodsubj$Rec_Session_Id
+exp1_item_filter_1 <- exp1_step1_item.err$target_rec
+
+exp1_data_step1 <- exp1_rawdata.sub |>
+  subset(condition_rec %in% exp1_info$freq_conditions) |>
+  subset(Rec_Session_Id %in% exp1_subj_filter_1 & 
+         !target_rec %in% exp1_item_filter_1)
+```
+
+### Step 2: prime durations
+
+```{r}
+#| label: exp1_prime-durations
+#| message: false
+#| warning: false
+#| error: false
+  
+exp1_summary.primeTime <- exp1_rawdata.sub %>% 
+  summarise(meanPrimeTime = round(mean(primeTime), 2), 
+            sdPrimeTime = round(sd(primeTime), 2))
+
+exp1_primeTimeRangeSummary <- exp1_rawdata.sub %>% 
+  group_by(primeTime) %>%
+  mutate(range = ifelse(primeTime < exp1_info$prime_dur_lb, "below", 
+                        ifelse(primeTime > exp1_info$prime_dur_ub, "above",
+                               "in range"))) %>% 
+  group_by(range) %>% tally() %>% ungroup() %>%
+  mutate(range.percent = round((n*100)/nrow(exp1_rawdata.sub),2))
+
+exp1_data_step2 <- exp1_data_step1  |>
+  subset(primeTime >= exp1_info$prime_dur_lb & primeTime <= exp1_info$prime_dur_ub)
+
+exp1_step2_subj_remain <- exp1_data_step2$Rec_Session_Id |>
+  unique() |>
+  length()
+
+exp1_step2_trials_remain <- nrow(exp1_data_step2)
+
+```
+
+### Step 3: RT distribution
+
+```{r}
+#| label: exp1_RT-outliers
+#| message: false
+#| error: false
+#| warning: false
+
+# RT outliers 
+exp1_data_step3 <- exp1_data_step2 |> 
+  subset(RT >= exp1_info$rt_lb & RT <= exp1_info$rt_ub)
+
+exp1_step3_subj_remain <- exp1_data_step3$Rec_Session_Id |>
+  unique() |>
+  length()
+
+exp1_step3_trials_remain <- nrow(exp1_data_step3)
+
+# error trial removal
+
+exp1_data_step3b <- exp1_data_step3  |>
+  subset(responseError == 0)
+
+exp1_step3b_subj_remain <- exp1_data_step3b$Rec_Session_Id |>
+  unique() |>
+  length()
+
+exp1_step3b_trials_remain <- nrow(exp1_data_step3b)
+
+# remove subjects with less than 12 trials in at least one condition*primetype combination (half of the total number of items per combination)
+rt_data_labels <- c("Rec_Session_Id", "condition_rec", "primetype_rec", "RT")
+
+exp1_subj_filter_2 <- exp1_data_step3b[, rt_data_labels] |>
+  aggregate(RT ~ ., FUN = length, drop = FALSE) |>
+  subset(RT < 12, select = Rec_Session_Id) |>
+  unique() |>
+  unlist()
+
+exp1_data_final <- exp1_data_step3b |>
+  subset(!(Rec_Session_Id %in% exp1_subj_filter_2))
+
+exp1_final_subj_remain <- exp1_data_final$Rec_Session_Id |>
+  unique() |> 
+  length()
+  
+exp1_final_trials_remain <- nrow(exp1_data_final)
+
+```
+
+## Results
+
+```{r}
+#| label: exp1_results
+#| message: false
+#| error: false
+#| warning: false
+
+# error rates averages
+### N.B.: to calculate error rates, will have to apply the 12-trial removal procedure after the RT removal procedure and without removing the error trials
+exp1_subj_filter_2_with.errors <- exp1_data_step3[, rt_data_labels] |> #exp1_data_step3 is the dataset after RT removal and before the error trial removal
+  aggregate(RT ~ ., FUN = length, drop = FALSE) |>
+  subset(RT < 12, select = Rec_Session_Id) |>
+  unique() |>
+  unlist()
+
+exp1_data_final_with.errors <- exp1_data_step3 |>
+  subset(!(Rec_Session_Id %in% exp1_subj_filter_2))
+
+exp1_error.rates <- exp1_data_final_with.errors %>%
+  mutate(primetype_rec = factor(primetype_rec, levels=c("unrelated", "related")),
+         condition_rec = factor(condition_rec, levels=c("high", "low", "non-word"))) %>%
+  group_by(condition_rec, primetype_rec, Rec_Session_Id) %>%
+  summarise(error.percent=mean(responseError)*100)
+
+# RT averages
+exp1_rt.avg_subj <- exp1_data_final %>% 
+  group_by(Rec_Session_Id, condition_rec, primetype_rec) %>%
+  summarise(meanRT = mean(RT))
+
+exp1_rt_cor <- exp1_data_final %>% 
+  group_by(Rec_Session_Id, condition_rec, primetype_rec) %>%
+  dplyr::summarise(meanRT=mean(RT)) %>%
+  select(Rec_Session_Id, condition_rec, primetype_rec, meanRT) %>% 
+  pivot_wider(names_from='primetype_rec', values_from=c('meanRT')) %>%
+  group_by(condition_rec) %>%
+  summarise(cor=cor(unrelated, related))
+
+# RT + error averages (by subject)
+exp1_avgs_subj <- merge(exp1_rt.avg_subj, exp1_error.rates, by=c("Rec_Session_Id", "condition_rec", "primetype_rec"))
+
+exp1_mop.err_across <- exp1_avgs_subj %>%
+  group_by(condition_rec, primetype_rec) %>%
+  summarise(gd.mean=mean(meanRT, na.rm=T), sd=sd(meanRT, na.rm=T), mean.error=mean(error.percent)) %>%
+  pivot_wider(id_cols="condition_rec", names_from=primetype_rec, values_from=c(gd.mean, sd, mean.error)) %>%
+  left_join(exp1_rt_cor, by="condition_rec")
+
+#### ERROR PRIMING CALCULATIONS ####
+# we will just run stats for this, no numerical calculations (e.g., priming)
+
+### MAIN EFFECTS
+#### t-test
+exp1_errors_stats_main <- exp1_error.rates %>% 
+  group_by(condition_rec) %>%
+  t_test(error.percent ~ primetype_rec, paired=T)
+
+#### RT PRIMING CALCULATIONS ####
+
+### 2x2 ANOVA
+exp1_mop_anova <- exp1_rt.avg_subj |>
+  transform(Rec_Session_Id = factor(Rec_Session_Id)) |>
+  subset(condition_rec %in% c("high", "low")) |>
+  aov(meanRT ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
+
+### MAIN EFFECTS
+#### by subject
+exp1_mop_subj <- exp1_rt.avg_subj %>% 
+  pivot_wider(names_from=primetype_rec, values_from=meanRT) %>%
+  mutate(priming = unrelated-related)
+
+#### descriptive stats
+exp1_gdavg_mop <- exp1_mop_subj %>%
+  group_by(condition_rec) %>%
+  summarise(MOP = mean(priming), se = sd(priming)/sqrt(n()), ci=(qt(0.975, n()-1)*se),
+            sd=sd(priming), ES=round(MOP/sd, 2))
+
+#### summary table
+exp1_gdavg_mop_summary <- exp1_gdavg_mop %>%
+  left_join(., exp1_mop.err_across, by='condition_rec') %>%
+  mutate(across(c(2:5, 7:12), round), across(c(13), round, 2)) %>%
+  mutate(ci.lb = paste0("[", MOP-ci), ci.ub = paste0(MOP+ci, "]")) %>%
+  unite("CI", ci.lb:ci.ub, sep = " ") %>% select(-ci, -se) %>% 
+  rename(factor = "condition_rec") %>%
+  relocate(gd.mean_related:cor, .before=MOP) %>% 
+  relocate(gd.mean_related, .after=gd.mean_unrelated) %>%
+  relocate(CI, .after=MOP)
+
+#### t-test
+exp1_rt_stats_main <- exp1_rt.avg_subj %>%
+  mutate(primetype_rec = fct_relevel(primetype_rec, "unrelated", "related")) %>%
+  group_by(condition_rec) %>%
+  t_test(meanRT ~ primetype_rec, paired=T) %>% select(-2:-6) %>%
+  rename(factor = "condition_rec", t='statistic') %>%
+  mutate_if(is.numeric, list(~as.character(signif(., 3))))
+
+### INTERACTION EFFECT
+#### descriptive stats
+exp1_gdavg_fae <- exp1_mop_subj %>%
+  select(-unrelated, -related) %>%
+  pivot_wider(names_from="condition_rec", values_from="priming") %>%
+  mutate(interaction = low-high) %>% ungroup() %>%
+  summarise(factor = "frequency:primetype", 
+            sd=sd(interaction), se = sd/sqrt(n()), ci = (qt(0.975, n()-1)*se)) %>%
+  mutate(across(c(2:4), round))
+
+##### summary table
+exp1_gdavg_fae_summary <- exp1_mop_subj %>% 
+  select(-unrelated, -related) %>% ungroup() %>%
+  pivot_wider(names_from="condition_rec", values_from="priming") %>%
+  summarise(mean_high = round(mean(high)), mean_low = round(mean(low)), cor=round(cor(high, low), 3)) %>%
+  bind_cols(., exp1_gdavg_fae) %>%
+  mutate(MOP = mean_low-mean_high, ES = round(MOP/sd, 2), ci.lb = paste0("[", MOP-ci), ci.ub = paste0(MOP+ci, "]")) %>%
+  unite("CI", ci.lb:ci.ub, sep = " ") %>% select(-ci, -se) %>% 
+  relocate(CI, .after=MOP) %>%
+  relocate(factor, .before=mean_high)
+  
+#### t-test
+exp1_rt_stats_interaction <- exp1_mop_subj %>% ungroup() %>%
+  filter(condition_rec != 'non-word') %>%
+  mutate(condition_rec = fct_relevel(condition_rec, "low", "high")) %>%
+  t_test(priming ~ condition_rec, paired=TRUE) %>% 
+  mutate_if(is.numeric, list(~as.character(signif(., 3)))) %>%
+  select(-1, -4:-5) %>%
+  unite("factor", group1:group2) %>%
+  rename(t='statistic') %>%
+  mutate(factor = "frequency:primetype")
+```
+
+#### Stats summary
+
+```{r}
+#| message: false
+#| error: false
+#| warning: false
+#| label: tbl-statsResults
+#| tbl-cap: "Experiment 1. Summary of the word priming results. *Legend.* MOP: magnitude of priming."
+#| tbl-pos: 'h'
+
+exp1_summary.results_mop <- merge(exp1_gdavg_mop_summary, exp1_rt_stats_main, by='factor')
+exp1_summary.results_fae <- merge(exp1_gdavg_fae_summary, exp1_rt_stats_interaction, by='factor') |>
+  select(-mean_high, -mean_low)
+
+exp1_summary.results <- bind_rows(exp1_summary.results_mop, exp1_summary.results_fae)
+  
+exp1_summary.results %>%
+  relocate(c("sd_unrelated", "mean.error_unrelated"), .before=gd.mean_related) %>%
+  gt() %>%
+  cols_label(
+    CI = "95% CI",
+    contains("mean") ~ "mean",
+    contains("sd") ~ "SD", 
+    contains("error") ~ "Error (%)"
+  ) %>%
+  tab_spanner(
+    label = "unrelated RT",
+    columns = c(2:4)
+  ) %>%
+  tab_spanner(
+    label = "repetition RT",
+    columns = c(5:7)
+  ) %>%
+  tab_spanner(
+    label = 'priming effects',
+    columns = c(9:12)
+  ) %>%
+  tab_spanner(
+    label = md("_t_-test"),
+    columns = c(13:15)
+  ) %>%
+  cols_label(
+    sd = md("SD~p~")
+  ) %>%
+  cols_label(
+    t = md("_t_"),
+    p = md("_p_"),
+  ) %>%
+   sub_missing(
+    missing_text = " "
+  )
+```
