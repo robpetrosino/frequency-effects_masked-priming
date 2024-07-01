@@ -302,12 +302,15 @@ exp1_errors_stats_main <- exp1_error.rates %>%
 
 #### RT PRIMING CALCULATIONS ####
 
+<<<<<<< HEAD
 ### 2x2 ANOVA
 exp1_mop_anova <- exp1_rt.avg_subj |>
   transform(Rec_Session_Id = factor(Rec_Session_Id)) |>
   subset(condition_rec %in% c("high", "low")) |>
   aov(meanRT ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
 
+=======
+>>>>>>> diogo-edits
 ### MAIN EFFECTS
 #### by subject
 exp1_mop_subj <- exp1_rt.avg_subj %>% 
@@ -340,6 +343,10 @@ exp1_rt_stats_main <- exp1_rt.avg_subj %>%
   mutate_if(is.numeric, list(~as.character(signif(., 3))))
 
 ### INTERACTION EFFECT
+<<<<<<< HEAD
+=======
+
+>>>>>>> diogo-edits
 #### descriptive stats
 exp1_gdavg_fae <- exp1_mop_subj %>%
   select(-unrelated, -related) %>%

@@ -354,6 +354,7 @@ exp2_errors_stats_main <- exp2_error.rates %>%
 #### RT PRIMING CALCULATIONS ####
 
 ### MAIN EFFECTS
+<<<<<<< HEAD
 
 ### 2x2 ANOVA
 exp2_mop_anova <- exp2_rt.avg_subj |>
@@ -361,6 +362,8 @@ exp2_mop_anova <- exp2_rt.avg_subj |>
   subset(condition_rec %in% c("high", "low")) |>
   aov(meanRT ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
 
+=======
+>>>>>>> diogo-edits
 #### by subject
 exp2_mop_subj <- exp2_rt.avg_subj %>% 
   pivot_wider(names_from=primetype_rec, values_from=meanRT) %>%
