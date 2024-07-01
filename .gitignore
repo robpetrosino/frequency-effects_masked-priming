@@ -8,6 +8,7 @@
 /trackchanges.sty
 .Rproj.user
 .Rhistory
+<<<<<<< HEAD
 .RData
 .httr-oauth
 .DS_Store
@@ -18,3 +19,12 @@ experiment2/
 
 frequency-effects_data.RData
 
+=======
+.Rdata
+.httr-oauth
+.DS_Store
+
+experiment1/
+experiment2/
+
+>>>>>>> diogo-edits
