@@ -1,0 +1,149 @@
+
+As evident in @tbl-litReview, conducting a properly powered experiment for a FAE close to the averaged value calculated from previous studies requires a sample size that would be impractical to pursue in standard university research settings, i.e. typically quiet lab rooms with a small number of research computers. In response to this challenge, the present study was exclusively conducted online, leveraging the growing trend in online behavioral research facilitated by HTML5 capabilities and the availability of advanced web software such as *jsPsych* [@deLeeuw2014], *PsychoJS* (the JavaScript counterpart of *PsychoPy*, @PeirceEtal2019), *Gorilla* [@Anwyl2020], and *Labvanced* [@Labvanced2017]. Notably, three recent studies have already demonstrated the viability of conducting masked priming experiments online, employing different software tools: @Angele2023 with *PsychoJS*, @Cayado2023 with *Gorilla* and @PetrosinoEtal2023 with *Labvanced*. In this study, we opted for *Labvanced* [@Labvanced2017], given our previous successful experience with it [@PetrosinoEtal2023]. Similar to *Gorilla*, *Labvanced* eliminates local installation issues, ensuring cross-platform consistency and simplifying experimental design without necessitating proficiency in additional programming languages.
+
+We determined the sample size large enough to guarantee an acceptable statistical power ($>80%$) by a full-fledged power analysis specifically targeting what we construed as the smallest theoretically interesting FAE (i.e., 5ms). The details of the power analysis is available as supplemental material of the paper. Similarly, the code used for the power simulations, along with the simulated datasets are available online (<https://osf.io/r7d2q/>). Our analysis identified a sample size of 1,250 participants as optimal, ensuring robust statistical power especially for a raw FAE equal to or exceeding 10 ms —- a value closely aligned with the average FAE calculated from previous studies (cf. @tbl-litReview). In light of the limitations in the temporal accuracy and precision of current online stimulus delivery programs (observed in several pilots and previous published studies conducted in our lab), we aimed for an intended sample size of 2,600. This decision was made to enhance the likelihood of obtaining a sample size of at least 1,250 participants after applying all the necessary exclusion criteria to the data. In addition, sample sizes exceeding 1,250 can only help increase the precision of the estimated effect size.
+
+In this experiment, the prime duration was set at 33 ms. The motivation for the choice of such a short prime duration (as compared to the literature, in which it is usually between 50 and 60 ms; see @tbl-litReview) is threefold. First, previous experiments on *Labvanced* [@PetrosinoEtal2023] showed that, due to the inherent difficulties in presenting stimuli for very short set durations in the browser, a longer set duration would increase the number of trials in which the prime duration would rise above the subliminal threshold (usually thought to be around 60 ms) due to timing inaccuracies and missing screen refreshes, which could trigger the adoption of experiment-wide strategies in the task, and ultimately contaminate the masked priming response [@Zimmerman2012]. Second, @Angele2023, @Cayado2023 and @PetrosinoEtal2023 have demonstrated that a 33 ms priming duration is sufficient to elicit repetition priming effects in online experiments. Finally, setting such a short prime duration prevents virtually everyone from consciously perceiving the prime word [@ForsterEtal2003, @Nievas2010], and thus presents a less contaminated estimate of early putatively automatic processes in word recognition.
+
+## Methods {#sec-exp1-methods}
+
+### Preregistration {#sec-exp1-prereg}
+
+We preregistered the results of the power analysis, the goals, the design and analysis plan for this experiment prior to data collection. The preregistration, detailing the experimental hypotheses, the desired sample size as well as the planned analyses is available online (<https://doi.org/10.17605/OSF.IO/3NFQP>).
+
+### Participants {#sec-exp1-methods-participants}
+
+Two thousand and six hundred participants (1,445 females; _mean age_ = 42, _sd age_ = 14) were recruited on Prolific (<https://www.prolific.com>). Several criteria were selected to ensure recruitment of native speakers of U.S. English. Participants had to be born in the Unites States of America, speak English as their first and only language, and have no self-reported language-related disorder. We encouraged participants to avoid any sort of distraction throughout the experiment, and to close any program that may be running in the background. Because the experiment was run online, participants could not be monitored during data collection. Finally, to further reduce variability across participants' devices, we restricted the experiment to be run on Google Chrome only, which is the most used browser worldwide [@w3counterGlobalStats], and reportedly performs better than any other across operating systems [likely thanks to the _Blink_ engine\; see @LukacsGaspar2023].
+
+### Design {#sec-exp1-methods-design}
+
+The masked priming procedure relied on a lexical decision task (LDT), in which a 2 (frequency: _high_ vs _low_) x 2 (prime type: _repetition_ vs _unrelated_) factorial design was used. Both factors were manipulated within-subjects. The dependent variables were lexical decision latency (RT, in milliseconds) and error rate (in percentages).
+
+### Materials {#sec-exp1-methods-materials}
+
+One-hundred and four five-letter words, half of low frequency (between 7 and 24 in the SUBTLEX$_{US}$ frequency per million) and half of high frequency (between 57 and 2,961 in the SUBTLEX$_{US}$ frequency per million) were sampled from ELP [@balota2007], but this time based on the SUBTLEX$_{US}$ frequency counts rather than HAL. @tbl-words_exp1 shows that although the SUBTLEX$_{US}$ frequency ranges of the two conditions were very far from one another they still show some overlap when HAL frequencies are used. As mentioned before, this seems to be a general problem when jointly considering different frequency databases for a smaller set of stimuli that need to be manipulated and controlled in different ways (see also fn. \ref{fn-databases} and @Adelman2014). From each condition, 26 words were selected to be presented as targets and related primes (the *repetition* condition), and the remaining 26 were presented as unrelated primes (the *unrelated* condition). All word items were also controlled for orthographic neighborhood (i.e., Coltheart's _N_): $t \approx 0$. All words used were monomorphemic nouns, adjectives, or verbs, thus excluding particles, prepositions, and derived or inflected forms.
+
+
+```{r}
+#| echo: false
+#| warning: false
+#| error: false
+#| label: tbl-words_exp1
+#| tbl-cap: "Experiment 1. Descriptive statistics of the word items used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison."
+
+words %>%
+  group_by(freq.bin) %>%
+  mutate(Freq_HAL.Pm = (Freq_HAL * 10^6)/(131 * 10^6)) %>%
+  summarise(N = n(),
+            minFreq= min(Freq_HAL.Pm, na.rm = T), maxFreq=max(Freq_HAL.Pm, na.rm = T),
+            meanFreq = mean(Freq_HAL.Pm, na.rm = T), sdFreq = sd(Freq_HAL.Pm, na.rm = T),
+            minSUBFreq= min(SUBTLWF, na.rm = T), maxSUBFreq=max(SUBTLWF, na.rm = T),
+            meanSUBFreq = mean(SUBTLWF, na.rm = T), sdSUBFreq = sd(SUBTLWF, na.rm = T),
+            minN = min(Ortho_N, na.rm=T), maxN = max(Ortho_N, na.rm=T),
+            meanN = mean(Ortho_N, na.rm=T), sdN = sd(Ortho_N, na.rm = T)
+            #meanRT=mean(as.numeric(I_Mean_RT), na.rm = T), sdRT=sd(as.numeric(I_Mean_RT), na.rm = T),
+            #meanLength = mean(Length, na.rm = T), sdLength=sd(Length, na.rm = T)
+            ) %>% 
+  mutate(across(c(3:10), round), across(11:14, round, 2))  %>% 
+  #mutate_if(needs_mutated, ~round(.)) %>%
+  gt() %>%
+  cols_label(
+    freq.bin = "frequency", 
+    minFreq = "min", maxFreq = "max", meanFreq = "mean", sdFreq = "SD", 
+    minSUBFreq = "min", maxSUBFreq = "max", meanSUBFreq = "mean", sdSUBFreq = "SD",
+    minN = "min", maxN = "max", meanN = "mean", sdN = "SD") %>%
+  tab_spanner(
+    label=md("**HAL**"),
+    columns=3:6
+  ) %>%
+  tab_spanner(
+    label=md("**SUBTLEX~US~**"),
+    columns=7:10
+  ) %>%
+  tab_spanner(
+    label=md("**Orthographic _N_**"),
+    columns=11:14
+  )
+```
+
+One-hundred and four five-letter, phono-orthographically legal non-words were randomly selected from the ELP database as well. Half of them (i.e., 52) were randomly selected to be presented as targets; the other half was instead used as unrelated non-word primes. None of the non-words contained any existing English morpheme. Both the words and non-words used in the experiments are reported in the appendix below. In addition, all items had a reported error rate smaller than 10%, so to ensure that they were all clearly distinguishable by participants.
+
+### Procedure {#sec-exp1-methods-proc}
+
+Each recruited participant was assigned one of two word lists, which differed only in the relatedness of the prime with respect to the target; otherwise, the two lists presented the same set of target words and nonwords (i.e., 104 pairs for each list). In one list, the three conditions (the high- and low-frequency word conditions, and the non-word condition) had half of the target items being preceded by themselves (the *repetition* condition) and half of the target items being preceded by one of the unrelated primes belonging to the same frequency bin (the *unrelated* condition). In the other list, these assignments were reversed. The order of stimulus presentation was randomized for each participant.
+
+After being recruited in the _Prolific_ online platform, participants were asked to click on a link redirecting them to the Labvanced online service. During the experiment, they were asked to perform a lexical decision task by pressing either the 'J' (for word) or 'F' (for non-word) keys on their keyboard. Each trial consisted of three different stimuli appearing at the center of the screen: a series of five hashes (#####) presented for 500 ms, followed by a prime word presented for 33 ms, and finally the target word; the target word disappeared from the screen as soon as a decision was made.
+
+Participants were given 5 breaks throughout the experiment. When the experiment was over, the participants were then redirected to Prolific in order to validate their submission. The median time to finish the experiment was 6 minutes. Each participant was paid with a standard rate of GBP 9/hour.
+
+## Data analysis {#sec-exp1-analysis}
+
+Analysis scripts and an abridged version of the data collected can be found online (<https://osf.io/vn3r2>), and consisted of `r format(nrow(exp1_rawdata.sub), big.mark=",", scientific=F)` observations in total. We performed the same three steps of analysis described for experiment 1 (@sec-exp1-analysis).
+
+### Step 1: subject and item performance {#sec-exp1-analysis-performance}
+
+Item and subject error rates were calculated. The item error rate was never above 14%, so no item was excluded from analysis. `r exp1_info$n_recruited - exp1_step1_subj_remain` subjects were removed because their error rate was above 30%. Thus, a total of `r format(nrow(exp1_data_step1), big.mark=",", scientific=F)` observations and `r format(exp1_step1_subj_remain, big.mark=',', scientific=F)` participants were included in further analyses.
+
+### Step 2: prime durations {#sec-exp1-analysis-primeTime}
+
+Prime fluctuations were dealt with in the same way as in experiment 1 (@sec-exp1-analysis-primeTime). The mean (mean = `r round(exp1_summary.primeTime$meanPrimeTime, 2)` ms, sd = `r round(exp1_summary.primeTime$sdPrimeTime, 2)`) and the median (median = `r median(exp1_rawdata.sub$primeTime)` ms)  prime durations were closer to the intended value (33 ms). The same prime duration cut-off set for experiment 1 (i.e., any trial whose prime duration was out of the 25-60ms range) removed `r round((exp1_primeTimeRangeSummary$n[1] + exp1_primeTimeRangeSummary$n[2])*100/nrow(exp1_rawdata.sub))` % of the trials. No participant was excluded, for a total of `r format(exp1_step2_trials_remain, big.mark=",", scientific=F)` observations.
+
+### Step 3: RT analysis {#sec-exp1-analysis-RT}
+
+After removing the incorrect responses, similarly to experiment 1 (@sec-exp1-analysis-RT), `r 100-round(exp1_step3_trials_remain*100/exp1_step2_trials_remain, 2)`% of the trials were excluded if their corresponding RT was below 200 ms or above 1800 ms. Finally, `r length(exp1_subj_filter_2)` subjects were removed because the number of trials within the same condition was less than 7 (i.e., about half of the total number of trials being presented within the same condition, i.e. 13). A total of `r format(exp1_final_trials_remain, big.mark=",", scientific=F)` observations and `r format(exp1_final_subj_remain, big.mark=",", scientific=F)` subjects were included in the statistical analysis below. 
+
+## Results {#sec-exp1-results}
+
+@tbl-exp1-statsResults below report the descriptive statistics of the experiment. For each frequency condition, priming effects were calculated in the same way as in experiment 1. A 2x2 repeated-measures ANOVA (condition, 2 levels: high vs. low; primetype, 2 levels: unrelated vs. repetition) revealed significant main effects (condition: *F*(1, 2340)=1572, *p*<.0001; primetype: *F*(1, 2340)=1113, *p*<.0001) and interaction *F*(1, 2340)=52.48, *p*<.0001). Planned comparisons confirmed statistically significant repetition priming effects for both word conditions (*MOP_HF*=18 ms, *CI_95%*=[16 20], *t*(2340)=19.7, *p*<.0001; *MOP_LF* = 28 ms, *CI_95%*=[26 30], *t*(2340)=27.8, *p*<.0001), with the low-frequency word repetition priming effect being 10 ms larger than the high-frequency word repetition priming effect. This FAE effect was statistically significant (*M_FAE*=10 ms, *CI_95%*=[7 13]), *t*(2340)=7.24, *p*<.0001l). A very small but statistically significant inhibitory priming effect was observed in the non-word condition (*MOP_NW*=-2 ms, *CI_95%*=[-4 0], *t*(2340)=-2.33, *p*<.0001). As for the word error analysis, we found significant priming effects in the form of fewer errors in repeated compared to unrelated trials in the all conditions (high: *t*(2340)=9.95, *p*<.0001; low: *t*(2340)=16.9, *p*<.0001; non-word: *t*(2340)=-3.27, *p*=.001).
+
+\blandscape
+```{r}
+#| echo: false
+#| message: false
+#| error: false
+#| warning: false
+#| label: tbl-exp1-statsResults
+#| tbl-cap: "Experiment 1. Summary of the word priming results. *Legend.* MOP: magnitude of priming."
+#| tbl-pos: 'h'
+
+exp1_summary.results %>%
+  relocate(c("sd_unrelated", "mean.error_unrelated"), .before=gd.mean_related) %>%
+  gt() %>%
+  cols_label(
+    CI = "95% CI",
+    contains("mean") ~ "mean",
+    contains("sd") ~ "SD", 
+    contains("error") ~ "Error (%)"
+  ) %>%
+  tab_spanner(
+    label = "unrelated RT",
+    columns = c(2:4)
+  ) %>%
+  tab_spanner(
+    label = "repetition RT",
+    columns = c(5:7)
+  ) %>%
+  tab_spanner(
+    label = 'priming effects',
+    columns = c(9:12)
+  ) %>%
+  tab_spanner(
+    label = md("_t_-test"),
+    columns = c(13:15)
+  ) %>%
+  cols_label(
+    sd = md("SD~p~")
+  ) %>%
+  cols_label(
+    t = md("_t_"),
+    p = md("_p_"),
+  ) %>%
+   sub_missing(
+    missing_text = " "
+  )
+```
+\elandscape
+
+## Discussion {#sec-exp1-discussion}
+
+Experiment 1 was designed to investigate whether Frequency Attenuation Effects (FAE) can be detected under masked priming conditions (with SOA = 33 ms). We managed to recruit a very large sample size ($N=`r as.numeric(exp1_final_subj_remain)`$) to ensure adequate statistical power for detecting even small effect sizes. Our results not only showed statistically significant main effects of repetition for high and low frequency words alike, but also detected a statistically significant interaction: the low-frequency condition yielded priming effects that were 10 ms larger than the high-frequency condition with a margin of error as narrow as 5 ms. The absence of a robust non-word masked priming response has been used as an additional piece of evidence supporting the view that the masked priming response stems from lexical memory and is devoid of episodic influences [e.g., @Forster1999]. The results of this experiment align with the previous evidence in showing at best very small inhibitory masked repetition priming for non-words, with very high precision: the 95% CI indicates the plausible range for the masked repetition priming effect for non-words to be between -4 and 0 ms when prime duration is 33 ms.

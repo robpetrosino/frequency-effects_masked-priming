@@ -1,0 +1,182 @@
+
+```{r}
+#| label: libraries and workspace
+#| echo: false
+#| warning: false
+#| error: false
+#| message: false
+#| output: false
+
+library(tidyverse)
+library(knitr)
+library(gt)
+library(gtExtras)
+library(zoo)
+library(here)
+
+wd <- getwd()
+data_filename <- "frequency-effects_data.RData"
+
+## check if the RData file (with all the variables) exists. If not, download it from OSF.
+if (!file.exists(here(wd, data_filename))) {
+  osf_retrieve_file("mz42h") |> 
+    osf_download(path = here(wd),
+                 conflicts = "overwrite") 
+}
+
+## Load the data
+data <- here(wd, data_filename) |> load()
+
+```
+
+The masked priming technique has been an invaluable tool in visual word recognition research. It has allowed researchers to study the conditions under which orthographic, phonological, morphological, and semantic information impact access to visual word forms while mitigating strategic effects and minimizing the influence of controlled processes [@Forster1998]. First introduced in its traditional form by @ForsterDavis1984 [see also @EvettHumphreys1981], this technique involves a forward mask (i.e., usually a string of hashes, #####), followed by a prime string presented for very short time ($SOA < 60$ ms), and a target string presented immediately after. Because the prime presentation is so brief and masked by preceding and subsequent stimuli, most participants report not being aware that a prime string has been presented, and can at most report a screen flicker just before the target presentation [@ForsterEtal2003].
+
+Among possible manipulations of prime-target relatedness, masked repetition priming (in which the same word is presented as both the prime and target within the same trial: e.g., *love-LOVE*) has been well studied, because its response seems to be qualitatively different from the unmasked counterpart ($SOA > 60 ms$): while high-frequency words benefit less from repetition than low-frequency words in the unmasked design [*frequency attenuation effect*, henceforth FAE\; @ScarboroughEtal1977], this does not seem to be the case when the prime is masked [@ForsterDavis1984; @ForsterEtal1987; @SeguiGrainger1990; @Sereno1991; @ForsterDavis1991; @RajaramNeely1992; @BodnerMasson1997; @ForsterEtal2003; @Nievas2010].
+
+This asymmetry in sensitivity to lexical frequency between the masked and unmasked repetition priming responses has been important in distinguishing among different models of priming in visual word recognition. More specifically, _interactive activation models_ [@McClellandRumelhart1981; @GraingerJacobs1996; @ColtheartEtal2001] conceive of priming as a "head start" in processing due to the pre-activation of the target word due to the presentation of the prime. Thus, according to _interactive activation_ models, priming is ultimately caused by a single mechanism, making the qualitatively different profiles for repetition priming in masked and unmasked conditions a difficult empirical finding to explain.
+
+Similarly, episodic models [e.g., @Jacoby1981; @Jacoby1983] posit a different single mechanism for priming effects: the activation/retrieval of the episodic memory trace of the encounter with the prime word. These models therefore encounter the same type of difficulty in accounting for qualitatively different patterns of repetition priming effects in masked and unmasked conditions. A similar type of model, called the _memory recruitment model_ makes very similar predictions to the episodic memory models, positing a non-lexical source for priming effects [@BodnerMasson1997; @MassonBodner2003; @Bodner2014]. Repetition priming effects under this view stem from the exploitation, strategically or automatically, of a memory resource created by the encounter with the prime word. The frequency attenuation effect, under episodic and memory recruitment models alike, is predicted on the basis that low frequency primes, being more distinctive stimuli, create a more potent and effective memory resource compared to high frequency primes.
+
+In contrast, other models appear to successfuly sidestep the problem posed by the qualitatively different repetition priming profiles observed in masked and unmasked conditions. One such model is the _entry-opening model_ [also known as the _bin model_\; @ForsterDavis1984]. According to this model, when the visual stimulus is presented, lexical entries are assigned to specific bins based on orthographic similarity. In the first stage (fast search stage), a fast, frequency-ordered search goes through the entries within a given bin, and compares each one with the the input stimulus, assigning to each entry a goodness-of-fit score. This comparison is fast and crude, and sorts entries into (a) perfect (i.e., no difference is detected between the input and the entry), (b) close (i.e., small differences are detected), and (c) irrelevant matches (i.e., substantial difference are detected). Any entry of type (a) or (b) is opened, so that the entry can be further analyzed and compared to the input in the subsequent verification stage. Under a masked presentation, the entry of the prime word is opened at the fast search stage, but the short duration of the stimulus prevents it from reaching the evaluation stage. Crucially, the entry is nonetheless left open. Upon the presentation of the target stimulus, the access procedure will follow its two stage course, with a frequency-sensitive fast search and a subsequent entry opening for evaluation/verification. In this view, the fast search for the target word proceeds normally, but the evaluation/verification procedure starts and ends sooner than it otherwise would, because the target entry has already been left open after the brief processing of the prime. Thus, the _entry-opening model_ explains the masked repetition priming as the benefit from having the entry of the target word already open by the time the second stage of recognition starts. Crucially, this occurs *after* the target word is initially accessed, which happens in order of frequency. Put differently, according to the _entry-opening model_, masked repetition priming occurs because of the time savings from not having to open the entry, which is a frequency-insensitive process (i.e., every entry takes the same time to be opened), but *after* the frequency-sensitive first access stage. As a consequence, the _entry-opening model_ predicts a frequency-insensitive masked repetition priming effect, which is what has been traditionally reported in the literature (see @tbl-litReview). In addition, it also (correctly) predicts that pseudowords should not benefit from masked repetition priming, as they have no entries in the mental lexicon to be left open after the brief processing of the prime.
+
+```{.content-hidden}
+NOTE: decided to remove footnote about SOA. This is background knowledge that does not need to be explained, I think: ^[*SOA: Stimulus Onset Asynchrony*, i.e. the time between the start of one stimulus (in our case, the prime stimulus) and the start of another stimulus (the target stimulus). In the standard repetition priming design, no backward mask occurs between the prime and the target, and therefore SOA equals the duration of prime presentation.]
+NOTE: DECIDED TO REMOVE DISCUSSION OF BAYESIAN READER. This is basically because the predictions of this model are really unclear for the FAE. On the one hand, the model claims that masked priming occurs because the prime and target are treated as the same event, which predicts simply a frequency effect, but no interaction with repetition. However, Norris & Kinoshita (2008) do report the FAE, and it seems that their simulations of the model do predict a small FAE. However, they never explain this, or make this prediction explicit. They only say that they replicated the results from Kinoshita 2006 and leave it at that. In their 2018 EEG paper, they do not obtain an FAE behaviorally, but they seem indifferent to it. In none of the papers from Bayesian reader it seems that the FAE is actually discussed. The closest we get is in one paper I need to remember where they claim that a mix of high and low frequency words will create underestimates for the priors of frequent words and overestimates for priors of low frequency words. We can always add all these caveats if a reviewer wants it.
+##-----
+Finally, a more recent model called the Bayesian Reader (CITATION: Norris, 2006) conceives of visual word perception as a Bayesian inference problem, and is thus highly sensitive to task demands, as different tasks generate different perceptual hypotheses to be tested. When it comes to the frequency attenuation effect in masked priming, the predictions of the model are a little unclear. On the one hand, the Bayesian Reader model posits that under masked priming, the perceptual system is "tricked" into treating the prime and target presentations as a single event.  
+##-----
+, but only when the frequency counts of @BrysbaertNew2009 are used, and caution that
+##-----
+We take this as evidence that *Labvanced* is able to consistently present stimuli at short durations. Prime duration fluctuations were however observed, and they were likely due to external factors outside of experimenter control (such as computer hardware, internet connection speed, and number of active operations in the background). 
+```
+
+```{.content-hidden}
+is not easy to explain, as it seems to hint at two different mechanisms that are activated accordingly. In persisting activation models [@McClellandRumelhart1981; @GraingerJacobs1996; @ColtheartEtal2001], priming is seen as the "head start" effect that the prior presentation of the prime gives to the activation of the target. Therefore, regardless of the prime-target SOA, the priming magnitude is expected to be either inversely proportional to word frequency, especially if word frequency is encoded in terms of changes in connection strengths (or activation thresholds). In memory recruitment models [a.o., @BodnerMasson1997; @MassonBodner2003], priming is seen as the effect whereby the prior recruitment of the memory representation of the prime assist with the identification of the memory representation of the target. Similar to persistent activation models, memory recruitment models predict that, whatever the SOA is, the priming magnitude and word frequency inversely interact, since word frequency is encoded as episodic distinctiveness. As the episodic representations of low-frequency words are more distinctive (because they are by definition less heard and used), they would trigger a greater response than the high-frequency words. In contrast, in 
+```
+
+However, as @tbl-litReview shows, there are nonetheless a few studies that do report significant FAEs in masked repetition priming [@BodnerMasson2001; @Kinoshita2006; @NorrisKinoshita2008, @Nievas2010]. @BodnerMasson2001 argues that when stimuli are presented in alternating case (e.g., _pHoNe_), this increases the lexical decision difficulty and therefore generates an extra incentive to draw on the memory resource created by the brief processing of the prime. Under such conditions, they were able to observe a statistically significant FAE.
+
+In the same vein, @Kinoshita2006 noticed that in earlier studies the low frequency words often had very high error rates, and suggested that perhaps many participants did not know them. If participants treated a substantial number of low frequency words as nonwords, and nonwords do not exhibit repetition priming under masked conditions, it could artificially depress the repetition priming effect for the low frequency condition alone, which could make any existing FAE harder to detect. In two separate experiments, @Kinoshita2006 showed that larger repetition priming effects for low frequency words were only obtained when the low frequency words were vetted to make sure the participants knew them prior to the experiment. Following up on @Kinoshita2006, @NorrisKinoshita2008 were also able to find an interaction between lexical frequency and repetition in masked repetition priming, as was @Nievas2010 in Spanish (exp. 1B).
+
+Finally, as @tbl-litReview shows, it is noteworthy that 15 out of 18 previous studies showed numerically larger masked priming effects for low frequency words as opposed to high frequency words, irrespective of statistical significance. Similarly, the average repetition effect for low frequency words in the studies reviewed in @tbl-litReview is 13 ms larger when compared to that of high frequency words. These results are not in line with the predictions dictated by the _entry opening model_, and seem to align better with the predictions made by _interactive activation models_ and _memory recruitment_ models.
+
+\blandscape
+\small
+```{r}
+#| echo: false
+#| warning: false
+#| error: false
+#| label: tbl-litReview
+#| tbl-cap: "Summary of the masked repetition priming effects as a function of word frequency reported in the literature. The statistical power range estimates were calculated by simulation with the corresponding sample size (N) and for two representative FAE magnitudes. Simulations were performed across a range of correlation values between conditions (from 0.6 to 0.9, in increments of 0.1) as well as plausible standard deviations per conditions (from 60 ms to 180 ms, in increments of 10 ms), with 10,000 simulated datasets for each combination of parameters."
+
+lit_effects %>%
+  left_join(., power_estimates_15, by=join_by("N" == "nsubj"), multiple="first") %>%
+  left_join(., power_estimates_30, by=join_by("N" == "nsubj"), multiple="first", suffix = c("_15", "_30")) %>%
+  mutate(across(MOP_HF:MOP_Interaction, as.numeric)) %>%
+  #group_by(N) %>%
+  gt(rowname_col = "PAPER") %>%
+  #tab_options(row.striping.include_table_body = FALSE) %>% 
+  tab_stubhead(label = "Study") %>%
+  tab_spanner(
+    label = "MOP (ms)", columns = c(MOP_HF, MOP_LF)
+  ) %>% 
+  tab_spanner(
+    label = "FAE (ms)", columns = c(MOP_Interaction, `p<.05?`)
+  ) %>%
+  tab_spanner(
+    label = "Power range [min max]", columns = c(`Power range_15`, `Power range_30`)
+  ) %>%
+  cols_label( LANGUAGE = "Language", 
+              PRIME_DURATION = "SOA",
+              MOP_HF = "HF", 
+              MOP_LF = "LF", 
+              MOP_Interaction = "ES",
+              `p<.05?` = md("_p_<.05?"),
+              `Power range_15` = "FAE=15ms",
+              `Power range_30` = "FAE=30ms"
+  ) %>%
+  grand_summary_rows(
+    columns = c(MOP_HF, MOP_LF, MOP_Interaction),
+    fns = list(Mean ~ round(mean(.)),
+               SD ~ round(sd(.))), 
+    missing_text = " " 
+  ) %>%
+  grand_summary_rows(
+    columns = c(MOP_Interaction),
+    fns = list(Correlation ~ round(cor(MOP_HF, MOP_LF), 2)), 
+    missing_text = " " 
+  ) %>%
+   sub_missing(
+    missing_text = " "
+  ) %>%
+  tab_footnote( 
+    footnote = "SOA for each subject determined by pre-test", 
+    locations = cells_body(column = "PRIME_DURATION", rows = 14)
+  ) %>%
+  tab_footnote(
+    footnote = "Reported in Masson & Bodner (2003)",
+    locations = cells_stub(rows = 16) 
+  )
+```
+\elandscape
+
+# The present study {#sec-study}
+
+It is somewhat surprising that the status of the FAE in masked priming remains largely unresolved in the literature, given its non-negligible average magnitude across studies and its theoretical significance in elucidating the underlying cognitive processes of masked priming.
+
+One possible interpretation of the conflicting past findings revolves around the fact that only 4 out of 18 studies demonstrate a statistically significant FAE. Notably, this number potentially diminishes further when considering that, among these four studies, the FAE is detected only through the pooling of data across multiple studies employing a unique alternating-case stimulus presentation [@BodnerMasson2001; @MassonBodner2003]. This line of reasoning suggests a qualitatively distinct profile between masked and unmasked repetition priming, with the FAE more firmly established in the latter.
+
+Conversely, one could argue that 15 out of 18 studies exhibit numerically larger repetition effect sizes for low-frequency words compared to high-frequency words —- a pattern that is challenging to reconcile with a genuine absence of interaction between frequency and masked repetition. Additionally, the average FAE across all studies stands at 13 ms, a modest yet non-negligible effect size. In fact, the naïve assumption that the two conditions are similar enough across experiments could justify the use of a *t*-test with statistically significant results: *M_FAE* = 13, CI_95% = [7, 20]), *t*(17) = 4.24, $p=.0005$. These considerations suggest that a genuine FAE may exist in masked priming but might be smaller than the magnitudes that are statistically detectable in most previous experiments. This interpretation is supported by the results from @Adelman2014 in a large scale, multi-site lab-based study on orthographic priming. They report a small but reliable FAE, but caution this effect could simply be an orthographic neighborhood effect masquerading as a frequency effect, due to the high correlations between the two variables. 
+
+In addition, another potential contributor to past discrepancies is the reliance on the dated @KuceraFrancis1967 word frequency database, which 15 out of 18 studies have depended on. This poses a potential problem, as this frequency database has consistently demonstrated inferior predictive performance in psycholinguistic experiments, particularly with low-frequency words, compared to more contemporary databases [@Burgess1998; @Zevin2002; @Balota2004; @BrysbaertNew2009; @Yap2009; @Brysbaert2011; @Gimenes2016; @Herdaugdelen2017; @Brysbaert2018]. Both of these issues are addressed in the subsequent sections.
+
+## Issues with frequency databases {#sec-study-freq}
+
+Due to the well-documented concerns over the reliability of the @KuceraFrancis1967 frequency database for psycholinguistic experiments [@Burgess1998; @Zevin2002; @Balota2004; @BrysbaertNew2009; @Yap2009; @Brysbaert2011; @Gimenes2016; @Herdaugdelen2017; @Brysbaert2018], our studies exclusively sourced materials from the HAL [@LundBurgess1996] and SUBTLEX$_{US}$ [@BrysbaertNew2009] databases, which reflect more recent linguistic usage and offer better validation in behavioral experiments [e.g., @Balota2004; @BrysbaertNew2009; @Yap2009; @Brysbaert2011; @Gimenes2016; @Herdaugdelen2017]. While these databases outperform @KuceraFrancis1967 in predicting psycholinguistic task outcomes, it is important to note potential discrepancies in individual frequency counts, particularly in the low and mid-frequency ranges. It is possible that this variation, attributable to the primary genre of their sources (USENET groups for HAL and movie subtitles for SUBTLEX$_{US}$),[^frequency-databases] may not have an oversized impact on megastudies with very large word samples [e.g., @Balota2004; @BrysbaertNew2009; @Yap2009; @Brysbaert2011; @Gimenes2016; @Herdaugdelen2017]. However, corpus-specific frequency skew can become significant when dealing with smaller samples of words, as is the case in most masked priming studies (cf. @Adelman2014). @tbl-exFreqSkew illustrates the potential discrepancy in considering words as high or low frequency based on the different aforementioned databases.
+
+[^frequency-databases]: A separate, though relevant issue which cannot be addressed here is to how to mitigate the discrepancies across the databases available, but see @Yap2009, and @Brysbaert2011 for proposals about combining the frequency counts from different corpora.\label{fn-databases}
+
+```{r}
+#| echo: false
+#| warning: false
+#| error: false
+#| label: tbl-exFreqSkew
+#| tbl-cap: "Example of frequency count imbalances (in occurrences per million) across the frequency norms of Kucera & Francis (KF), HAL and SUBTLEX~US~ for 4 to 6 letter words."
+
+freqSkew %>% 
+  gt() %>%
+  cols_label(
+    `SUBTLEX-US` = md("SUBTLEX~US~")
+  ) %>%
+  fmt_number(decimals = 0, drop_trailing_zeros = TRUE) %>%
+  tab_row_group(
+    label = md("_Skew in KF_"),
+    rows = 1:5
+  ) %>%
+  tab_row_group(
+    label = md("_Skew in HAL_"),
+    rows = 6:10
+  ) %>%
+  tab_row_group(
+    label = md("_Skew in SUBTLEX~US~_"),
+    rows = 11:15
+  ) %>%
+  row_group_order(groups = c("_Skew in KF_", "_Skew in HAL_", "_Skew in SUBTLEX~US~_"))
+
+```
+
+## Issues with statistical power {#sec-study-power}
+
+The inconsistency of past findings regarding the FAE in masked priming has been linked to a potential lack of statistical power in previous research [@BodnerMasson1997; @BodnerMasson2001; @MassonBodner2003; @Adelman2014]. This is a reasonable concern, as interactions like the FAE often require larger sample sizes for statistical detection [@PotvinSchtuz2000; @BrysbaertStevens2018] compared to main effects. We outline below three ways in which neglecting statistical power might frustrate our understanding of FAE in masked repetition priming.
+
+First, our literature review revealed crucial gaps in the reporting of relevant statistical information, which impedes the assessment of the statistical power attained by past experiments. The inconsistent reporting of each conditions' standard deviations (in only 7 out of 18 studies) and the complete absence of reporting of the correlation structure between conditions complicates power assessments. Researchers are thus forced to explore a range of plausible values for standard deviations and correlation structures on their own.
+
+@tbl-litReview details our attempt to conduct power simulations for two hypothesized frequency attenuation effect sizes: 15 ms (close to the averaged FAE of 13 ms) and 30 ms (close to the only three observed statistically significant FAE in English). Standard deviations (ranging between 60 ms and 180 ms, in 10 ms increments) and correlation between conditions (uniformly set to range between 0.6 and 0.9, with 0.1 unit increments) were simulated for each study's sample size, with 10,000 replications for each simulation. These range of values were derived from our literature review and previous in lab and online experiments [@Petrosino2020; @PetrosinoEtal2023]. For each simulated dataset, a paired _t_-test was performed comparing the repetition effect for high frequency words and low frequency words. This calculation is mathematically identical to the interaction term in a 2x2 factorial repeated-measures design^[the resulting *t* value, when squared, is equal to the *F* value for the interaction calculated in the 2x2 repeated-measures ANOVA), but it is less computationally expensive to perform in large scale simulations. Power to detect this interaction was then calculated as the proportion of statistically significant tests (\alpha = 5%) obtained across replications. All else being equal, standard deviations and correlations between conditions have opposite effects on statistical power: increases in standard deviations lead to less power, while increases in correlation between conditions lead to more power.
+
+The results reported in @tbl-litReview reveal a wide range of possible statistical power attained by previous studies, depending solely on the combination of plausible standard deviation and correlation across conditions. For instance, the study with the smallest sample size [@ForsterEtal1987, _N_=16] had a 2% to 24% chance of detecting a 15 ms frequency attenuation effect and a 4% to 84% chance to detect a 30 ms effect. Similarly, the study with the largest sample size [@RajaramNeely1992, _N_=48] exhibited a range of 4% to 76% for a 15 ms frequency attenuation effect and 9% to 100% for a 30 ms effect. As a consequence of the limited reporting of relevant statistical information in past studies, it is nearly impossible to determine if any of them were adequately powered to detect the effect of interest.
+
+A second concern arising from the ambiguity surrounding statistical power in the literature is the potential impact of a prevalence of low-powered experiments on the scientific record. An excess of such experiments increases the risk of observed statistically significant effects being spurious [@Button2013]. As highlighted in @tbl-litReview, only 4 out of 18 studies demonstrate a statistically significant FAE. The absence of clarity regarding the statistical power of previous research poses challenges in assessing the likelihood of these significant findings being spurious.
+
+Finally, it is widely acknowledged that experiments with approximately 50% power are akin to a coin toss in their ability to detect a true effect [@Cohen1992]. A less-appreciated fact is that, in the presence of even lower power (<25%), statistically significant results can substantially overestimate the effect size -- a type-M error [@GelmanCarlin2014]. When power drops to levels below 10%, a statistically significant result may occur even when the observed effect goes in the opposite direction of the true effect -- a type-S error [@GelmanCarlin2014]. Our power simulations for within-subjects data revealed a similar relationship between statistical power, type-M, and type-S errors in line with the observations detailed by @GelmanCarlin2014 for the independent samples $t$-test. For instance, at 10% power (a possibility for virtually all previous studies, as indicated in @tbl-litReview), a statistically significant result could indicate an overestimation of the magnitude of the frequency attenuation effect by a factor between 2 and 5, with up to a 5% chance of incorrectly determining the direction of the effect.
+
+The two studies reported here were designed to mitigate these two confounding issues: the overreliance on the @KuceraFrancis1967 frequency data as well as a potential lack of statistical power observed in previous research. As a large increase in statistical power requires a large sample size, Experiment 1 aimed to assess the suitability of using *Labvanced* [@Labvanced2017], an online platform for running web browser-based experiments, for running masked priming studies online.

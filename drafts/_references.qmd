@@ -1,0 +1,89 @@
+
+::: {#refs}
+:::
+
+{{< pagebreak >}}
+
+# Wordlists {.unnumbered}
+
+## Experiment 1 {.unnumbered}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| error: false 
+
+exp.wordlist <- read.csv("./materials/experiments-1-2/frequency-effects_experiments-1-2_word-lists_final.csv")
+
+exp1_trial.means <- exp1_data_final %>%
+  group_by(condition_rec, primetype_rec, target_rec, prime_rec) %>%
+  summarise(meanRT = round(mean(RT)), sdRT = round(sd(RT))) %>%
+  pivot_wider(id_cols=target_rec, names_from=primetype_rec, values_from = c(meanRT, sdRT)) %>%
+  ungroup() %>% mutate(target = tolower(target_rec)) %>% select(-target_rec) %>%
+  relocate(target, .before=meanRT_unrelated) %>%
+  relocate(sdRT_unrelated, .after=meanRT_unrelated)
+
+exp.wordlist %>% 
+  left_join(., exp1_trial.means, by=join_by(word == target)) %>%
+  mutate(condition = ifelse(condition=="low", md("*low frequency condition*"), 
+                            ifelse(condition=='high', md("*high frequency condition*"), "non-word"))) %>%
+  gt(groupname_col = "condition", process_md=T) %>%
+  tab_spanner(
+    label = "RT (to unrelated)",
+    columns = contains("RT_unrelated")
+  ) %>%
+  tab_spanner(
+    label = "RT (to repetition)",
+    columns = contains("RT_related")
+  ) %>%
+  cols_label(
+    unrelated = "unrelated prime",
+    contains("mean") ~ "mean",
+    contains("sd") ~ "SD"
+  ) %>%
+  sub_missing(
+    missing_text = "--"
+  )
+
+```
+
+## Experiment 2 {.unnumbered}
+
+```{r}
+#| echo: false
+#| message: false
+#| warning: false
+#| error: false 
+
+exp2_trial.means <- exp2_data_final %>%
+  group_by(condition_rec, primetype_rec, target_rec, prime_rec) %>%
+  summarise(meanRT = round(mean(RT)), sdRT = round(sd(RT))) %>%
+  pivot_wider(id_cols=target_rec, names_from=primetype_rec, values_from = c(meanRT, sdRT)) %>%
+  ungroup() %>% mutate(target = tolower(target_rec)) %>% select(-target_rec) %>%
+  relocate(target, .before=meanRT_unrelated) %>%
+  relocate(sdRT_unrelated, .after=meanRT_unrelated)
+
+exp.wordlist %>% 
+  left_join(., exp2_trial.means, by=join_by(word == target)) %>%
+  mutate(condition = ifelse(condition=="low", md("*low frequency condition*"), 
+                            ifelse(condition=='high', md("*high frequency condition*"), "non-word"))) %>%
+  gt(groupname_col = "condition", process_md=T) %>%
+  tab_spanner(
+    label = "RT (to unrelated)",
+    columns = contains("RT_unrelated")
+  ) %>%
+  tab_spanner(
+    label = "RT (to repetition)",
+    columns = contains("RT_related")
+  ) %>%
+  cols_label(
+    unrelated = "unrelated prime",
+    contains("mean") ~ "mean",
+    contains("sd") ~ "SD"
+  ) %>%
+  sub_missing(
+    missing_text = "--"
+  )
+
+```

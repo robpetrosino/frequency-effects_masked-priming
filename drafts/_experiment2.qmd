@@ -1,0 +1,249 @@
+
+The results of experiment 1 showed that with the right sample size, the repetition priming response may indeed be modulated by word frequency. However, the experiment was carried out with a unusually short prime duration (i.e., 33 ms). In previous pilot experiments carried out at longer durations (e.g., 48 ms), we observed that the distribution of the prime duration tended to be more positively skewed, with a substantial increase of the number of trials with a prime duration above the subliminal threshold of 60 ms. While being aware of these methodological limitations, we carried out a follow-up experiment that elicited the repetition priming response to the same materials used in experiment 1, with a longer prime duration (i.e., 48 ms), which is more in line with the literature on the topic. The aim for this experiment was three-fold. From the methodological point of view, it may show that a shorter prime duration in online masked priming experiment may prevent unnecessary data loss, while still providing reliable results. From the theoretical point of view, it may provide further evidence on two separate issues. First, it may inform on the interaction between priming and prime duration. In particular, we expect the longer prime duration to elicit a larger facilitation, and therefore a larger magnitude of priming. Second, and more importantly for the question being asked here, it may further inform on the size of the interaction between priming and word frequency. 
+
+## Methods {#sec-exp2-methods}
+
+### Participants {#sec-exp2-methods-participants}
+
+Two thousand and six hundred participants (1,551 females; _mean age_ = 39, _sd age_ = 12) were recruited on Prolific (<https://www.prolific.com>) with the same criteria specified for experiment 1 (@sec-exp1-methods-participants). Prior to recruitment, the participants participating in experiment 1 were excluded from the pool, so that the participants recruited for experiment 2 was completely different from the participants recruited for experiment 1. 
+
+### Design {#sec-exp2-methods-design}
+
+The experimental design was identical to experiment 1.
+
+### Materials {#sec-exp2-methods-materials}
+
+The experimental items were the same as experiment 1.
+
+### Procedure {#sec-exp2-methods-proc}
+
+Experiment 2 followed the same procedures as experiment 1 (see @sec-exp1-methods-proc). The median time to finish the experiment was the same as experiment 1 (i.e., about 6 minutes).
+
+## Data analysis {#sec-exp2-analysis}
+
+Analysis scripts and an abridged version of the data collected can be found online (<https://osf.io/k3gpc>), and consisted of `r format(nrow(exp2_rawdata.sub), big.mark=",", scientific=F)` observations in total. We performed the same three steps of analysis described for experiment 1 (@sec-exp1-analysis).
+
+### Step 1: subject and item performance {#sec-exp2-analysis-performance}
+
+Item and subject error rates were calculated. Similarly to experiment 1, the item error rate was never above 12%, so no item was excluded from analysis. `r exp2_info$n_recruited - exp2_step1_subj_remain` subjects were removed because their error rate was above 30%. Thus, a total of `r format(nrow(exp2_data_step1), big.mark=",", scientific=F)` observations and `r format(exp2_step1_subj_remain, big.mark=',', scientific=F)` participants were included in further analyses.
+
+### Step 2: prime durations {#sec-exp2-analysis-primeTime}
+
+Prime fluctuations were dealt with in the same way as in experiment 1 (@sec-exp1-analysis-primeTime). The mean (mean = `r round(exp2_summary.primeTime$meanPrimeTime, 2)` ms, sd = `r round(exp2_summary.primeTime$sdPrimeTime, 2)`) and the median (median = `r median(exp2_rawdata.sub$primeTime)` ms) prime durations were closer to the intended value (50 ms). The same prime duration cut-off set for experiment 1 (i.e., any trial whose prime duration was out of the 25-60ms range) removed `r round((exp2_primeTimeRangeSummary$n[1] + exp2_primeTimeRangeSummary$n[2])*100/nrow(exp2_rawdata.sub))` % of the trials. As compared to experiment 1, experiment 2 had therefore a 7% larger percentage of removed out-of-range trials, the majority of which (`r round(exp2_primeTimeRangeSummary$range.percent[1])`%) were above the subliminal threshold. This is in sharp contrast with the distribution of the prime durations in experiment 1, where the trials above the range amounted to only `r round(exp1_primeTimeRangeSummary$range.percent[1])`% of the dataset. As observed in previous studies and pilot conducted in our lab, this distribution suggests that setting the prime duration closer to either limit of a given range has the side effect of allowing for more fluctuations around either limit, thus potentially leading to greater data loss (see also further below). No participant was excluded, for a total of `r format(exp2_step2_trials_remain, big.mark=",", scientific=F)` observations.
+
+### Step 3: RT analysis {#sec-exp2-analysis-RT}
+
+After removing the incorrect responses, similarly to experiment 1 (@sec-exp1-analysis-RT), `r 100-round(exp2_step3_trials_remain*100/exp2_step2_trials_remain, 2)`% of the trials were excluded if their corresponding RT was below 200 ms or above 1800 ms. Finally, `r length(exp2_subj_filter_2)` subjects were removed because the number of trials within the same condition was less than 7 (i.e., about half of the total number of trials being presented within the same condition, i.e. 13). A total of `r format(exp2_final_trials_remain, big.mark=",", scientific=F)` observations and `r format(exp2_final_subj_remain, big.mark=",", scientific=F)` subjects were included in the statistical analysis below. The substantial number of subjects being removed at this final stage was the ultimate side effect of the increased number of out-of-range trials that were removed during the previous step of analysis, and provides further evidence of the risks with setting the prime duration closer to the upper bound of the subliminal range.
+
+## Results {#sec-exp2-results}
+
+@tbl-exp2-statsResults below report the descriptive statistics of the experiment. For experiment 2, we followed the same statistical analysis as experiment 1. A 2x2 repeated-measures ANOVA (condition, 2 levels: high vs. low; primetype, 2 levels: unrelated vs. repetition) revealed significant main effects (condition: *F*(1, 1923)=987.4, *p*<.0001; primetype: *F*(1, 1923)=1447, *p*<.0001) and interaction *F*(1, 1923)=36.82, *p*<.0001). Planned comparisons confirmed statistically significant repetition priming effects for both word conditions (*MOP_HF*=26 ms, *CI_95%*=[24 28], *t*(1923)=24.6, *p*<.0001; *MOP_LF* = 35 ms, *CI_95%*=[33 37], *t*(1923)=30.2, *p*<.0001), with the low-frequency word repetition priming effect being 10 ms larger than the high-frequency word repetition priming effect. This FAE effect was statistically significant (*M_FAE*=9 ms, *CI_95%*=[6 12]), *t*(1920)=6.07, *p*<.0001). A very small but statistically significant inhibitory priming effect was observed in the non-word condition (*MOP_NW*=-4 ms, *CI_95%*=[-6 -2], *t*(1923)=-3.53, *p*=.0004). As for the word error analysis, we found significant priming effects in the form of fewer errors in repeated compared to unrelated trials in the all conditions (high: *t*(1923)=9.30, *p*<.0001; low: *t*(1923)=15.8, *p*<.0001; non-word: *t*(1923)=-2.32, *p*=.002).
+
+\blandscape
+```{r}
+#| echo: false
+#| message: false
+#| error: false
+#| warning: false
+#| label: tbl-exp2-statsResults
+#| tbl-cap: "Experiment 2. Summary of the word priming results. *Legend.* MOP: magnitude of priming."
+#| tbl-pos: 'h'
+
+exp2_summary.results %>%
+  relocate(c("sd_unrelated", "mean.error_unrelated"), .before=gd.mean_related) %>%
+  gt() %>%
+  cols_label(
+    CI = "95% CI",
+    contains("mean") ~ "mean",
+    contains("sd") ~ "SD", 
+    contains("error") ~ "Error (%)"
+  ) %>%
+  tab_spanner(
+    label = "unrelated RT",
+    columns = c(2:4)
+  ) %>%
+  tab_spanner(
+    label = "repetition RT",
+    columns = c(5:7)
+  ) %>%
+  tab_spanner(
+    label = 'priming effects',
+    columns = c(9:12)
+  ) %>%
+  tab_spanner(
+    label = md("_t_-test"),
+    columns = c(13:15)
+  ) %>%
+  cols_label(
+    sd = md("SD~p~")
+  ) %>%
+  cols_label(
+    t = md("_t_"),
+    p = md("_p_"),
+  ) %>%
+   sub_missing(
+    missing_text = " "
+  )
+```
+\elandscape
+
+## Discussion {#sec-exp2-discussion}
+
+Experiment 2 was designed to investigate whether a frequency attenuation effect akin to the one detected in experiment 1 at SOA of 33 ms can be detected at the longer, and most commonly used SOA of 48 ms. To this end, we used the same stimuli and recruited the same sample size as experiment 1, and only set the prime duration accordingly. First, we found that the masked repetition priming to both high and low-frequency words were respectively about 8 ms larger in experiment 2 than in experiment 1, resulting from the longer prime duration [@ForsterEtal2003]. Nevertheless, the significant interaction effect size amounted to 9 ms, which is only 1 ms away from the estimate of the interaction in experiment 1 (10 ms), but well within its 95% CI (which ranged from 7 ms to 13 ms). Finally, similarly to experiment 1, the magnitude of non-word masked repetition priming response in experiment 2 was inhibitory, though slightly larger (-4 ms, as compared to -2 ms of experiment 1).
+
+At the face value, experiment 2 is very similar to experiment 1 on several respects. First, they involved the exact the same stimuli and the same sample size from the same pool (i.e., the Prolific pool; crucially though, different participants were recruited for each experiment). Second, they were both analyzed with the exact same analysis pipeline, and, in particular, with the same criterion to detect trials with outlying prime durations. Third, the estimates (means, SDs, error percentages, and correlations) of both experiments are numerically very close to one another, with the maximal differences almost exclusively present in the repetition conditions. For these reasons, one may therefore argue against its methodological and theoretical validity, and may deem the differences of the magnitude of priming across the two experiments might have just been due to sampling error having two major sources. The first source of sampling error is the inherent imprecision in the presentation of the prime. Regardless of the preset duration of the prime, there was an inherent inaccuracy in the actual presentation of the prime in both experiments. The analysis pipeline (and, in particular, with the criterion to detect trials with outlying prime durations) described in detail above might have therefore led to two datasets with a similar distribution of the prime durations. @fig-prime-distributions shows the distributions of the prime durations for both datasets after the last analysis step. The two distributions minimally overlap, with most of the trials peaking at about the relative preset duration (i.e., 33 and 48 ms). The difference between the two distribution was also statistically significant: $t(394431)=-868.47, p<.0001$.
+
+```{r}
+#| echo: false
+#| warning: false
+#| error: false
+#| label: fig-prime-distributions
+#| fig-cap: "Distribution of the prime durations across the two experiments."
+
+exps_data_final <- bind_rows(exp1_data_final_with.errors, exp2_data_final_with.errors, .id='experiment') %>%
+  mutate(experiment = factor(experiment))
+
+exps_data_final %>% #filter(experiment=="1") %>%
+  ggplot(aes(x=primeTime, color=experiment, fill=experiment))+
+  geom_histogram(binwidth=1, alpha=0.2, position = "nudge")+
+  #geom_density(alpha=0.2, bw=0.7) + #if we want smooth curves
+  theme_bw() + 
+  theme(panel.grid.major = element_blank(),
+      panel.grid.minor = element_blank(), 
+      panel.border = element_blank(),
+      legend.position="bottom") +
+  scale_x_continuous() +
+  labs(x = "prime duration", y = "number of trials")
+
+exps_prime.durations_tTest <- t.test(primeTime ~ experiment, data=exps_data_final, var.equal=T)
+
+```
+
+The second source of sampling error is equally unavoidable and present in every study: participant selection, and is ensured by the fact that recruiting sample sizes approaching infinity is virtually impossible. One way to gauge the extent to which such source of sampling error might have affected the differences in the effect sizes of the two experiments is to calculate the _prediction intervals_ on the results of experiment 1, and check if the results of experiment 2 fall within them. Unlike confidence intervals, the lesser-known prediction intervals are calculated around the original study's mean (rather than the population mean), and express the amount of deviation that a future replication of the study may allow for due to sampling error [@SpenceStanley2016]. In our case, if the results of experiment 2 falls within the prediction interval above, it would suggest that the deviation between the two experiment was just due to sampling error, and therefore experiment 2 is a replication of experiment 1. Conversely, if the results of experiment 2 falls within the prediction interval above, it would suggest that the deviation between the two studies could not be due to sampling error, and therefore experiment 2 is not a replication of experiment 1. The prediction intervals for the means of the three conditions and the interaction between the two word condition (i.e., FAE) of experiment 1 were calculated by using the function `pi.m()` of the R package `predictionInterval` (available in the [CRAN repository](https://cran.r-project.org/web/packages/predictionInterval/predictionInterval.pdf)), and are reported in @tbl-pis below. In experiment 2, while the estimates of the non-word condition and the FAE fall within the relative prediction interval (*MOP_NW* = -4 ms, *PI_95%* = [-5 1]; *FAE* = 9 ms, *PI_95%* = [6 14]), the estimates of both word conditions are respectively 5 and 4 ms above the corresponding PIs (*MOP_HF* = 26 ms, *PI_95%* = [15 21]; *MOP_LF* = 35 ms, *PI_95%* = [25 31]). Our interpretation of these results is three-fold. First, the fact that the the word priming effects of experiment 2 (for both the high and low-frequency conditions) are outside the prediction intervals of experiment 1 suggest that the effects elicited in experiment 2 may not be considered as mere replications of the effects elicited in experiment 1. Rather, they corroborate the view that priming may significantly benefit from a longer prime duration. Second, the masked repetition non-word priming effect size being replicated in both experiments further corroborates the commonly-accepted view that the masked priming response taps into lexical memory, rather than pure orthographic decoding. Finally, and more importantly for the main purpose of the paper, the estimate of the FAE of experiment falling within the relative prediction interval further confirms the presence of an interaction effect between priming and frequency, while not being contingent on the duration of the prime.
+
+```{r}
+#| echo: false
+#| warning: false
+#| error: false
+#| label: tbl-pis
+#| tbl-cap: "Prediction intervals calculated on the means and standard deviations (SD) of the conditions tested in experiment 1."
+#| tbl-pos: 'h'
+
+library(predictionInterval)
+
+exp1_high <- pi.m(M = exp1_summary.results$MOP[1], SD = exp1_summary.results$sd[1], n = as.numeric(exp1_summary.results$df[1]) + 1, rep.n = as.numeric(exp2_summary.results$df[1]) + 1)
+exp1_low <- pi.m(M = exp1_summary.results$MOP[2], SD = exp1_summary.results$sd[2], n = as.numeric(exp1_summary.results$df[2]) + 1, rep.n = as.numeric(exp2_summary.results$df[2]) + 1)
+exp1_nw <- pi.m(M = exp1_summary.results$MOP[3], SD = exp1_summary.results$sd[3], n = as.numeric(exp1_summary.results$df[3]) + 1, rep.n = as.numeric(exp2_summary.results$df[3]) + 1)
+exp1_fae <- pi.m(M = exp1_summary.results$MOP[4], SD = exp1_summary.results$sd[4], n = as.numeric(exp1_summary.results$df[4]) + 1, rep.n = as.numeric(exp2_summary.results$df[4]) + 1)
+
+pis <- data.frame(
+         factor = c(exp1_info$freq_conditions, "frequency:primetype"),
+         M = c(exp1_summary.results$MOP[1], exp1_summary.results$MOP[2], exp1_summary.results$MOP[3], exp1_summary.results$MOP[4]),
+         SD = c(exp1_summary.results$sd[1], exp1_summary.results$sd[2], exp1_summary.results$sd[3], exp1_summary.results$sd[4]),
+         N = rep(c(as.numeric(exp1_summary.results$df[1]) + 1), 4),
+         rep.n = rep(c(as.numeric(exp2_summary.results$df[1]) + 1), 4),
+         pi.lb = c(exp1_high$lower_prediction_interval, 
+                   exp1_low$lower_prediction_interval, 
+                   exp1_nw$lower_prediction_interval,
+                   exp1_fae$lower_prediction_interval),
+         pi.ub = c(exp1_high$upper_prediction_interval, 
+                   exp1_low$upper_prediction_interval, 
+                   exp1_nw$upper_prediction_interval,
+                   exp1_fae$upper_prediction_interval)
+        )
+
+pis %>% 
+  mutate(across(c(6:7), round),
+         pi.lb = paste0("[", pi.lb),
+         pi.ub = paste0(pi.ub, "]")) %>%
+  unite("95% PI", pi.lb:pi.ub, sep=" ") %>%
+  gt() %>%
+  cols_label(
+    M = "mean",
+    N = "experiment 1",
+    rep.n = "experiment 2") %>%
+  tab_spanner(
+    label = "sample size",
+    columns = c(4:5)
+  )
+  
+```
+
+```{r}
+#| label: prediction intervals (d-values)
+#| echo: false
+#| warning: false
+#| error: false
+#| include: false
+
+pooled_std <- function(sd1, sd2, n1, n2) {
+  dfs = n1+n2-2
+  term1 = sd1^2*(n1-1)
+  term2 = sd2^2*(n2-1)
+  
+  sp = sqrt((term1+term2)/dfs)
+  return(sp)
+}
+
+d_value <- function(m1, m2, sd1, sd2, n1, n2){
+  sp = pooled_std(sd1, sd2, n1, n2)
+  d = (m1-m2)/sp
+  return(d)
+}
+
+exp1_high_d <- d_value(exp1_summary.results$gd.mean_unrelated[1],
+                       exp1_summary.results$gd.mean_related[1],
+                       exp1_summary.results$sd_unrelated[1],
+                       exp1_summary.results$sd_related[1], 
+                       as.numeric(exp1_summary.results$df[1])+1, 
+                       as.numeric(exp1_summary.results$df[1])+1)
+
+exp1_low_d <- d_value(exp1_summary.results$gd.mean_unrelated[2],
+                       exp1_summary.results$gd.mean_related[2],
+                       exp1_summary.results$sd_unrelated[2],
+                       exp1_summary.results$sd_related[2], 
+                       as.numeric(exp1_summary.results$df[2])+1, 
+                       as.numeric(exp1_summary.results$df[2])+1)
+
+exp1_nw_d <- d_value(exp1_summary.results$gd.mean_unrelated[3],
+                       exp1_summary.results$gd.mean_related[3],
+                       exp1_summary.results$sd_unrelated[3],
+                       exp1_summary.results$sd_related[3], 
+                       as.numeric(exp1_summary.results$df[3])+1, 
+                       as.numeric(exp1_summary.results$df[3])+1)
+
+exp1_d_high <- pi.d(d=exp1_high_d, 
+                    n1=as.numeric(exp1_summary.results$df[1])+1,
+                    n2=as.numeric(exp1_summary.results$df[1])+1, 
+                    rep.n1 = as.numeric(exp2_summary.results$df[1])+1,
+                    rep.n2 =as.numeric(exp2_summary.results$df[1])+1)
+
+exp1_d_low <- pi.d(d=exp1_low_d, 
+                    n1=as.numeric(exp1_summary.results$df[2])+1,
+                    n2=as.numeric(exp1_summary.results$df[2])+1, 
+                    rep.n1 = as.numeric(exp2_summary.results$df[2])+1,
+                    rep.n2 =as.numeric(exp2_summary.results$df[2])+1)
+
+exp1_d_nw <- pi.d(d=exp1_nw_d, 
+                    n1=as.numeric(exp1_summary.results$df[3])+1,
+                    n2=as.numeric(exp1_summary.results$df[3])+1, 
+                    rep.n1 = as.numeric(exp2_summary.results$df[3])+1,
+                    rep.n2 =as.numeric(exp2_summary.results$df[3])+1)
+
+pis_d <- data.frame(
+          factor = exp1_info$freq_conditions,
+          d = c(exp1_high_d, exp1_low_d, exp1_nw_d),
+          N = rep(c(as.numeric(exp1_summary.results$df[1]) + 1), 3),
+          rep.n = rep(c(as.numeric(exp2_summary.results$df[1]) + 1), 3),
+          pi.lb = c(exp1_d_high$lower_prediction_interval, 
+                   exp1_d_low$lower_prediction_interval, 
+                   exp1_d_nw$lower_prediction_interval),
+          pi.ub = c(exp1_d_high$upper_prediction_interval, 
+                   exp1_d_low$upper_prediction_interval, 
+                   exp1_d_nw$upper_prediction_interval)
+          )
+
+# N.B. these PIs were calculated on the d-values that were in turn calculated over pooled variance, whereas Cohen's d is usually calculated over SD. So the comparison of these PIs with the calculated d's in the table of experiment 2 might not be methodologically sound. One option could be to just give the Cohen's d-values calculated in the table of experiment 1, and take it from there.
+```
+
+

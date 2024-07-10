@@ -13,8 +13,7 @@
 .DS_Store
 
 
-experiment1/
-experiment2/
+/data/
 
 frequency-effects_data.RData
 
