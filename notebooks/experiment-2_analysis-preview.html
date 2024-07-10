@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.5.31">
+    <meta name="generator" content="quarto-1.6.1">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -156,9 +156,6 @@
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
-<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
-<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
-<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
      <script async="" src="https://hypothes.is/embed.js"></script>
 <script>
   window.document.addEventListener("DOMContentLoaded", function (_event) {
@@ -207,9 +204,7 @@
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#power-analysis" id="toc-power-analysis" class="nav-link active" data-scroll-target="#power-analysis">Power analysis</a></li>
-  <li><a href="#materials" id="toc-materials" class="nav-link" data-scroll-target="#materials">Materials</a></li>
-  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link" data-scroll-target="#data-analysis">Data analysis</a>
+  <li><a href="#data-analysis" id="toc-data-analysis" class="nav-link active" data-scroll-target="#data-analysis">Data analysis</a>
   <ul class="collapse">
   <li><a href="#step-1-subject-and-item-performance" id="toc-step-1-subject-and-item-performance" class="nav-link" data-scroll-target="#step-1-subject-and-item-performance">Step 1: subject and item performance</a></li>
   <li><a href="#step-2-prime-durations" id="toc-step-2-prime-durations" class="nav-link" data-scroll-target="#step-2-prime-durations">Step 2: prime durations</a></li>
@@ -256,876 +251,370 @@ The following object is masked from 'package:stats':
 <pre><code>here() starts at /Users/rp3650/Library/CloudStorage/GoogleDrive-robpetrosino@gmail.com/My Drive/Academics/projects/morphology/morphological-decomposition/sub-projects/frequency-effects/frequency-effect_masked-priming</code></pre>
 </div>
 </div></div>
-<section id="power-analysis" class="level2">
-<h2 class="anchored" data-anchor-id="power-analysis">Power analysis</h2>
-<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div id="cell-fig-power-1250" class="cell">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'../supplemental-data/freq_atten_exp2.5ms.RData'</span>) <span class="co"># ES = 5 ms</span></span>
-<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'../supplemental-data/freq_atten_exp2.10ms.RData'</span>) <span class="co"># ES = 10 ms</span></span>
-<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'../supplemental-data/freq_atten_exp2.15ms.RData'</span>) <span class="co"># ES = 15 ms</span></span>
-<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.5</span>ms_df <span class="sc">%&gt;%</span> </span>
-<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(std_dev <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> std_dev <span class="sc">&lt;=</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rho <span class="sc">&gt;=</span> <span class="fl">0.7</span> <span class="sc">&amp;</span> rho <span class="sc">&lt;=</span> <span class="fl">0.9</span>)</span>
-<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_df <span class="sc">%&gt;%</span> </span>
-<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(std_dev <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> std_dev <span class="sc">&lt;=</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rho <span class="sc">&gt;=</span> <span class="fl">0.7</span> <span class="sc">&amp;</span> rho <span class="sc">&lt;=</span> <span class="fl">0.9</span>)</span>
-<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.15</span>ms_df <span class="sc">%&gt;%</span> </span>
-<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">15</span> <span class="sc">&amp;</span> <span class="fu">grepl</span>(<span class="st">"interaction"</span>, <span class="fu">row.names</span>(freq_atten_exp2<span class="fl">.15</span>ms_df))) <span class="sc">%&gt;%</span></span>
-<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(std_dev <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> std_dev <span class="sc">&lt;=</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rho <span class="sc">&gt;=</span> <span class="fl">0.7</span> <span class="sc">&amp;</span> rho <span class="sc">&lt;=</span> <span class="fl">0.9</span>)</span>
-<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>power_pred_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(freq_atten_exp2<span class="fl">.5</span>ms_df.sub, freq_atten_exp2<span class="fl">.10</span>ms_df.sub, freq_atten_exp2<span class="fl">.15</span>ms_df.sub) </span>
-<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>power_pred_df.sub1250 <span class="ot">&lt;-</span> power_pred_df <span class="sc">%&gt;%</span></span>
-<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nsubj <span class="sc">==</span> <span class="dv">1250</span>)</span>
-<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>power_pred_df.sub1250 <span class="sc">|&gt;</span></span>
-<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> power_unadjusted, <span class="at">x =</span> ES)) <span class="sc">+</span> </span>
-<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"red2"</span>) <span class="sc">+</span> </span>
-<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(rho <span class="sc">~</span> std_dev) <span class="sc">+</span></span>
-<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">5</span>), <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">15</span>), <span class="at">labels=</span><span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">5</span>),</span>
-<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . , <span class="at">name =</span> <span class="st">"sd"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
-<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>), <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>),</span>
-<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . , <span class="at">name =</span> <span class="st">"cor"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
-<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="co">#axis.line = element_line(colour = "black"),</span></span>
-<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), </span>
-<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">"none"</span></span>
-<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>      <span class="co">#panel.background = element_blank() </span></span>
-<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>     )<span class="sc">+</span></span>
-<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"N=1,250"</span>, <span class="at">y =</span> <span class="st">"power (unadjusted)"</span>, <span class="at">x =</span> <span class="st">"FAE size (ms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output-display">
-<div id="fig-power-1250" class="quarto-figure quarto-figure-center quarto-float anchored">
-<figure class="quarto-float quarto-float-fig figure">
-<div aria-describedby="fig-power-1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
-<a href="experiment-2_analysis_files/figure-html/fig-power-1250-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Power simulations with a sample size of 1,250, for all combinations of standard deviation (sd), pairwise correlation (cor), and interaction effect size. The red line identifies the threshold of 80% power."><img src="experiment-2_analysis_files/figure-html/fig-power-1250-1.png" class="img-fluid figure-img" width="672"></a>
-</div>
-<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Power simulations with a sample size of 1,250, for all combinations of standard deviation (sd), pairwise correlation (cor), and interaction effect size. The red line identifies the threshold of 80% power.
-</figcaption>
-</figure>
-</div>
-</div>
-</div></div>
-</section>
-<section id="materials" class="level2">
-<h2 class="anchored" data-anchor-id="materials">Materials</h2>
-<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div class="cell">
-
-<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>words_exp2 <span class="ot">&lt;-</span> <span class="fu">read.csv</span>(<span class="st">'../materials/experiment2/frequency-effects_experiment2_stimuli.csv'</span>) <span class="sc">%&gt;%</span> <span class="fu">filter</span>(type<span class="sc">==</span><span class="st">'word'</span>)</span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>needs_mutated <span class="ot">&lt;-</span> <span class="cf">function</span>(x) {</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span>(<span class="sc">!</span><span class="fu">is.numeric</span>(x)) <span class="fu">return</span>(<span class="cn">FALSE</span>)</span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">max</span>(x, <span class="at">na.rm =</span> <span class="cn">TRUE</span>) <span class="sc">&gt;</span> <span class="dv">100</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>words_exp2 <span class="sc">%&gt;%</span></span>
-<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(freq.bin) <span class="sc">%&gt;%</span></span>
-<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">Freq_HAL.Pm =</span> (Freq_HAL <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>)<span class="sc">/</span>(<span class="dv">131</span> <span class="sc">*</span> <span class="dv">10</span><span class="sc">^</span><span class="dv">6</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">N =</span> <span class="fu">n</span>(),</span>
-<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>            <span class="at">minFreq=</span> <span class="fu">min</span>(Freq_HAL.Pm, <span class="at">na.rm =</span> T), <span class="at">maxFreq=</span><span class="fu">max</span>(Freq_HAL.Pm, <span class="at">na.rm =</span> T),</span>
-<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>            <span class="at">meanFreq =</span> <span class="fu">mean</span>(Freq_HAL.Pm, <span class="at">na.rm =</span> T), <span class="at">sdFreq =</span> <span class="fu">sd</span>(Freq_HAL.Pm, <span class="at">na.rm =</span> T),</span>
-<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>            <span class="at">minSUBFreq=</span> <span class="fu">min</span>(SUBTLWF, <span class="at">na.rm =</span> T), <span class="at">maxSUBFreq=</span><span class="fu">max</span>(SUBTLWF, <span class="at">na.rm =</span> T),</span>
-<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a>            <span class="at">meanSUBFreq =</span> <span class="fu">mean</span>(SUBTLWF, <span class="at">na.rm =</span> T), <span class="at">sdSUBFreq =</span> <span class="fu">sd</span>(SUBTLWF, <span class="at">na.rm =</span> T),</span>
-<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a>            <span class="co">#meanRT=mean(as.numeric(I_Mean_RT), na.rm = T), sdRT=sd(as.numeric(I_Mean_RT), na.rm = T),</span></span>
-<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>            <span class="co">#meanLength = mean(Length, na.rm = T), sdLength=sd(Length, na.rm = T)</span></span>
-<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a>            ) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, <span class="sc">~</span><span class="fu">round</span>(.)) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(needs_mutated, <span class="sc">~</span><span class="fu">round</span>(.)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
-<span id="cb8-24"><a href="#cb8-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">freq.bin =</span> <span class="st">"frequency"</span>, </span>
-<span id="cb8-25"><a href="#cb8-25" aria-hidden="true" tabindex="-1"></a>    <span class="at">minFreq =</span> <span class="st">"min"</span>, <span class="at">maxFreq =</span> <span class="st">"max"</span>, <span class="at">meanFreq =</span> <span class="st">"mean"</span>, <span class="at">sdFreq =</span> <span class="st">"SD"</span>, </span>
-<span id="cb8-26"><a href="#cb8-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">minSUBFreq =</span> <span class="st">"min"</span>, <span class="at">maxSUBFreq =</span> <span class="st">"max"</span>, <span class="at">meanSUBFreq =</span> <span class="st">"mean"</span>, <span class="at">sdSUBFreq =</span> <span class="st">"SD"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-27"><a href="#cb8-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb8-28"><a href="#cb8-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">label=</span><span class="fu">md</span>(<span class="st">"**HAL**"</span>),</span>
-<span id="cb8-29"><a href="#cb8-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns=</span><span class="dv">3</span><span class="sc">:</span><span class="dv">6</span></span>
-<span id="cb8-30"><a href="#cb8-30" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb8-31"><a href="#cb8-31" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb8-32"><a href="#cb8-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">label=</span><span class="fu">md</span>(<span class="st">"**SUBTLEX~US~**"</span>),</span>
-<span id="cb8-33"><a href="#cb8-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns=</span><span class="dv">7</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb8-34"><a href="#cb8-34" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-words_exp2" class="cell quarto-float anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-words_exp2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Experiment 2. Descriptive statistics of the word items used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison.
-</figcaption>
-<div aria-describedby="tbl-words_exp2-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<div>
-<div id="srnhqghblz" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#srnhqghblz table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#srnhqghblz thead, #srnhqghblz tbody, #srnhqghblz tfoot, #srnhqghblz tr, #srnhqghblz td, #srnhqghblz th {
-  border-style: none;
-}
-
-#srnhqghblz p {
-  margin: 0;
-  padding: 0;
-}
-
-#srnhqghblz .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#srnhqghblz .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#srnhqghblz .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#srnhqghblz .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#srnhqghblz .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#srnhqghblz .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#srnhqghblz .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#srnhqghblz .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#srnhqghblz .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#srnhqghblz .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#srnhqghblz .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#srnhqghblz .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#srnhqghblz .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#srnhqghblz .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#srnhqghblz .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#srnhqghblz .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#srnhqghblz .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#srnhqghblz .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#srnhqghblz .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#srnhqghblz .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#srnhqghblz .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#srnhqghblz .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#srnhqghblz .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#srnhqghblz .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#srnhqghblz .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#srnhqghblz .gt_left {
-  text-align: left;
-}
-
-#srnhqghblz .gt_center {
-  text-align: center;
-}
-
-#srnhqghblz .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#srnhqghblz .gt_font_normal {
-  font-weight: normal;
-}
-
-#srnhqghblz .gt_font_bold {
-  font-weight: bold;
-}
-
-#srnhqghblz .gt_font_italic {
-  font-style: italic;
-}
-
-#srnhqghblz .gt_super {
-  font-size: 65%;
-}
-
-#srnhqghblz .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#srnhqghblz .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#srnhqghblz .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#srnhqghblz .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#srnhqghblz .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#srnhqghblz .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#srnhqghblz .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-
-<table class="gt_table do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="header gt_col_headings gt_spanner_row">
-<th rowspan="2" id="frequency" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">frequency</th>
-<th rowspan="2" id="N" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">N</th>
-<th colspan="4" id="<strong>HAL</strong>" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner"><strong>HAL</strong></span></th>
-<th colspan="4" id="<strong>SUBTLEX<sub>US</sub></strong>" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner"><strong>SUBTLEX<sub>US</sub></strong></span></th>
-</tr>
-<tr class="odd gt_col_headings">
-<th id="min" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">min</th>
-<th id="max" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">max</th>
-<th id="mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mean</th>
-<th id="SD" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">SD</th>
-<th id="min" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">min</th>
-<th id="max" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">max</th>
-<th id="mean" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">mean</th>
-<th id="SD" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">SD</th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd">
-<td class="gt_row gt_left" headers="freq.bin">high</td>
-<td class="gt_row gt_right" headers="N">52</td>
-<td class="gt_row gt_right" headers="minFreq">45</td>
-<td class="gt_row gt_right" headers="maxFreq">4984</td>
-<td class="gt_row gt_right" headers="meanFreq">573</td>
-<td class="gt_row gt_right" headers="sdFreq">808</td>
-<td class="gt_row gt_right" headers="minSUBFreq">57</td>
-<td class="gt_row gt_right" headers="maxSUBFreq">2691</td>
-<td class="gt_row gt_right" headers="meanSUBFreq">210</td>
-<td class="gt_row gt_right" headers="sdSUBFreq">388</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="freq.bin">low</td>
-<td class="gt_row gt_right" headers="N">52</td>
-<td class="gt_row gt_right" headers="minFreq">6</td>
-<td class="gt_row gt_right" headers="maxFreq">570</td>
-<td class="gt_row gt_right" headers="meanFreq">64</td>
-<td class="gt_row gt_right" headers="sdFreq">93</td>
-<td class="gt_row gt_right" headers="minSUBFreq">7</td>
-<td class="gt_row gt_right" headers="maxSUBFreq">24</td>
-<td class="gt_row gt_right" headers="meanSUBFreq">13</td>
-<td class="gt_row gt_right" headers="sdSUBFreq">5</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</div>
-</figure>
-</div></div></div>
-</div></div>
-</section>
 <section id="data-analysis" class="level2">
 <h2 class="anchored" data-anchor-id="data-analysis">Data analysis</h2>
-<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load the raw data dataframe</span></span>
-<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>exp2_data_folder <span class="ot">&lt;-</span> <span class="st">"experiment2"</span></span>
-<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>exp2_rawdata_filename <span class="ot">&lt;-</span> <span class="st">"experiment_2_preprocessed_data.csv"</span></span>
-<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 02. check if the rawdata file exists. if not, download it from OSF.</span></span>
-<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(exp2_data_folder, exp2_rawdata_filename))) {</span>
-<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osf_retrieve_file</span>(<span class="st">"vn3r2"</span>) <span class="sc">|&gt;</span> </span>
-<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osf_download</span>(<span class="at">path =</span> <span class="fu">here</span>(exp2_data_folder),</span>
-<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">conflicts =</span> <span class="st">"overwrite"</span>) </span>
-<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 03. read the data into R.</span></span>
-<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>exp2_rawdata <span class="ot">&lt;-</span> <span class="fu">here</span>(exp2_data_folder, exp2_rawdata_filename) <span class="sc">|&gt;</span></span>
-<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">primeTime =</span> primeDuration <span class="sc">-</span> maskDuration) <span class="co"># calculating the actual SOA</span></span>
-<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>exp2_info <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
-<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>intended_prime_duration <span class="ot">&lt;-</span> <span class="dv">33</span></span>
-<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>prime_dur_lb <span class="ot">&lt;-</span> <span class="dv">25</span></span>
-<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>prime_dur_ub <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>rt_lb <span class="ot">&lt;-</span> <span class="dv">200</span></span>
-<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>rt_ub <span class="ot">&lt;-</span> <span class="dv">1800</span></span>
-<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>freq_conditions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>, <span class="st">"non-word"</span>)</span>
-<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>n_recruited <span class="ot">&lt;-</span> exp2_rawdata<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
-<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
-<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>exp2_rawdata.sub <span class="ot">&lt;-</span> exp2_rawdata <span class="sc">%&gt;%</span></span>
-<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(TimeMeasure_Mean) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(primeDuration) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(responseError))</span>
-<span id="cb9-31"><a href="#cb9-31" aria-hidden="true" tabindex="-1"></a>            </span>
-<span id="cb9-32"><a href="#cb9-32" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>summary <span class="ot">&lt;-</span> <span class="fu">with</span>(</span>
-<span id="cb9-33"><a href="#cb9-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(exp2_rawdata.sub,</span>
-<span id="cb9-34"><a href="#cb9-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">RT_inrange =</span> <span class="fu">ifelse</span>(RT <span class="sc">&gt;=</span> exp2_info<span class="sc">$</span>rt_lb <span class="sc">&amp;</span> RT <span class="sc">&lt;=</span> exp2_info<span class="sc">$</span>rt_ub, <span class="dv">1</span>, <span class="dv">0</span>),</span>
-<span id="cb9-35"><a href="#cb9-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">Prime_inrange =</span> <span class="fu">ifelse</span>((primeDuration <span class="sc">-</span> maskDuration) <span class="sc">&gt;=</span> exp2_info<span class="sc">$</span>prime_dur_lb <span class="sc">&amp;</span></span>
-<span id="cb9-36"><a href="#cb9-36" aria-hidden="true" tabindex="-1"></a>                             (primeDuration <span class="sc">-</span> maskDuration) <span class="sc">&lt;=</span> exp2_info<span class="sc">$</span>prime_dur_ub, <span class="dv">1</span>, <span class="dv">0</span>)),</span>
-<span id="cb9-37"><a href="#cb9-37" aria-hidden="true" tabindex="-1"></a>  {</span>
-<span id="cb9-38"><a href="#cb9-38" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="fu">aggregate</span>(Start_Time <span class="sc">~</span> Rec_Session_Id <span class="sc">+</span> Crowdsourcing_SubjId, <span class="at">data=</span>exp2_rawdata.sub, unique),</span>
-<span id="cb9-39"><a href="#cb9-39" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aggregate</span>(End_Time_Local <span class="sc">~</span> Rec_Session_Id <span class="sc">+</span> Crowdsourcing_SubjId, <span class="at">data=</span>exp2_rawdata.sub, unique),</span>
-<span id="cb9-40"><a href="#cb9-40" aria-hidden="true" tabindex="-1"></a>              <span class="fu">aggregate</span>(<span class="fu">cbind</span>(list, SelectedGender, SelectedAge, TimeMeasure_Mean, TimeMeasure_Std) <span class="sc">~</span> Rec_Session_Id <span class="sc">+</span> Crowdsourcing_SubjId, <span class="at">data=</span>exp2_rawdata.sub, unique),</span>
-<span id="cb9-41"><a href="#cb9-41" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aggregate</span>(<span class="fu">cbind</span>(responseError, RT_inrange, Prime_inrange) <span class="sc">~</span> Rec_Session_Id <span class="sc">+</span> Crowdsourcing_SubjId, mean, <span class="at">data=</span>exp2_rawdata.sub)</span>
-<span id="cb9-42"><a href="#cb9-42" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb9-43"><a href="#cb9-43" aria-hidden="true" tabindex="-1"></a>}</span>
-<span id="cb9-44"><a href="#cb9-44" aria-hidden="true" tabindex="-1"></a>)</span>
-<span id="cb9-45"><a href="#cb9-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-46"><a href="#cb9-46" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>summary <span class="ot">&lt;-</span> exp2_info<span class="sc">$</span>summary[, <span class="sc">-</span><span class="fu">grep</span>(<span class="st">"Rec_Session_Id.|Crowdsourcing_SubjId."</span>, <span class="fu">colnames</span>(exp2_info<span class="sc">$</span>summary))] <span class="co"># remove all extra aggregating columns (subj ID)</span></span>
-<span id="cb9-47"><a href="#cb9-47" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb9-48"><a href="#cb9-48" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>summary<span class="sc">$</span>Duration <span class="ot">&lt;-</span> <span class="fu">interval</span>(<span class="fu">ymd_hms</span>(exp2_info<span class="sc">$</span>summary<span class="sc">$</span>Start_Time), </span>
-<span id="cb9-49"><a href="#cb9-49" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">ymd_hms</span>(exp2_info<span class="sc">$</span>summary<span class="sc">$</span>End_Time_Local)) <span class="sc">|&gt;</span></span>
-<span id="cb9-50"><a href="#cb9-50" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">lapply</span>(<span class="cf">function</span>(interval_value) {interval_value<span class="sc">/</span><span class="fu">dminutes</span>(<span class="dv">1</span>)}) <span class="sc">|&gt;</span> </span>
-<span id="cb9-51"><a href="#cb9-51" aria-hidden="true" tabindex="-1"></a>                                           <span class="fu">unlist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># load the raw data dataframe</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a>exp2_data_folder <span class="ot">&lt;-</span> <span class="st">"data/experiment2"</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>exp2_rawdata_filename <span class="ot">&lt;-</span> <span class="st">"experiment_2_preprocessed_data.csv"</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a><span class="do">## 02. check if the rawdata file exists. if not, download it from OSF.</span></span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">file.exists</span>(<span class="fu">here</span>(exp2_data_folder, exp2_rawdata_filename))) {</span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">osf_retrieve_file</span>(<span class="st">"k3gpc"</span>) <span class="sc">|&gt;</span> </span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>    <span class="fu">osf_download</span>(<span class="at">path =</span> <span class="fu">here</span>(exp2_data_folder),</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>                 <span class="at">conflicts =</span> <span class="st">"overwrite"</span>) </span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a><span class="do">## 03. read the data into R.</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>exp2_rawdata <span class="ot">&lt;-</span> <span class="fu">here</span>(exp2_data_folder, exp2_rawdata_filename) <span class="sc">|&gt;</span></span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">read.csv</span>(<span class="at">na =</span> <span class="fu">c</span>(<span class="st">""</span>, <span class="st">"NA"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">primeTime =</span> primeDuration <span class="sc">-</span> maskDuration) <span class="sc">%&gt;%</span> <span class="co"># calculating the actual SOA</span></span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">list =</span> <span class="st">"Group_Nr"</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>exp2_info <span class="ot">&lt;-</span> <span class="fu">list</span>()</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>intended_prime_duration <span class="ot">&lt;-</span> <span class="dv">33</span></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>prime_dur_lb <span class="ot">&lt;-</span> <span class="dv">25</span></span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>prime_dur <span class="ot">&lt;-</span> <span class="dv">50</span></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>prime_dur_ub <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>rt_lb <span class="ot">&lt;-</span> <span class="dv">200</span></span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>rt_ub <span class="ot">&lt;-</span> <span class="dv">1800</span></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>freq_conditions <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>, <span class="st">"non-word"</span>)</span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>n_recruited <span class="ot">&lt;-</span> exp2_rawdata<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>exp2_rawdata.sub <span class="ot">&lt;-</span> exp2_rawdata <span class="sc">%&gt;%</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(<span class="sc">!</span><span class="fu">is.na</span>(TimeMeasure_Mean) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(primeDuration) <span class="sc">&amp;</span> <span class="sc">!</span><span class="fu">is.na</span>(responseError))</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>exp2_subj.error <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(Crowdsourcing_SubjId) <span class="sc">%&gt;%</span></span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean.error =</span> <span class="fu">mean</span>(responseError))</span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>            </span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>summary <span class="ot">&lt;-</span> <span class="fu">with</span>(</span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(exp2_rawdata.sub,</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">RT_inrange =</span> <span class="fu">ifelse</span>(RT <span class="sc">&gt;=</span> exp2_info<span class="sc">$</span>rt_lb <span class="sc">&amp;</span> RT <span class="sc">&lt;=</span> exp2_info<span class="sc">$</span>rt_ub, <span class="dv">1</span>, <span class="dv">0</span>),</span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">Prime_inrange =</span> <span class="fu">ifelse</span>((primeDuration <span class="sc">-</span> maskDuration) <span class="sc">&gt;=</span> exp2_info<span class="sc">$</span>prime_dur_lb <span class="sc">&amp;</span></span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>                             (primeDuration <span class="sc">-</span> maskDuration) <span class="sc">&lt;=</span> exp2_info<span class="sc">$</span>prime_dur_ub, <span class="dv">1</span>, <span class="dv">0</span>)),</span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>  {</span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>    <span class="fu">data.frame</span>(<span class="fu">aggregate</span>(Start_Time <span class="sc">~</span> Rec_Session_Id <span class="sc">+</span> Crowdsourcing_SubjId, <span class="at">data=</span>exp2_rawdata.sub, unique),</span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aggregate</span>(End_Time_Local <span class="sc">~</span> Rec_Session_Id <span class="sc">+</span> Crowdsourcing_SubjId, <span class="at">data=</span>exp2_rawdata.sub, unique),</span>
+<span id="cb7-45"><a href="#cb7-45" aria-hidden="true" tabindex="-1"></a>               <span class="fu">aggregate</span>(<span class="fu">cbind</span>(list, SelectedGender, SelectedAge) <span class="sc">~</span> Rec_Session_Id <span class="sc">+</span> Crowdsourcing_SubjId, <span class="at">data=</span>exp2_rawdata.sub, unique),</span>
+<span id="cb7-46"><a href="#cb7-46" aria-hidden="true" tabindex="-1"></a>      <span class="fu">aggregate</span>(<span class="fu">cbind</span>(responseError, RT_inrange, Prime_inrange) <span class="sc">~</span> Rec_Session_Id <span class="sc">+</span> Crowdsourcing_SubjId, mean, <span class="at">data=</span>exp2_rawdata.sub)</span>
+<span id="cb7-47"><a href="#cb7-47" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb7-48"><a href="#cb7-48" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb7-49"><a href="#cb7-49" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb7-50"><a href="#cb7-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-51"><a href="#cb7-51" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>summary <span class="ot">&lt;-</span> exp2_info<span class="sc">$</span>summary[, <span class="sc">-</span><span class="fu">grep</span>(<span class="st">"Rec_Session_Id.|Crowdsourcing_SubjId."</span>, <span class="fu">colnames</span>(exp2_info<span class="sc">$</span>summary))] <span class="co"># remove all extra aggregating columns (subj ID)</span></span>
+<span id="cb7-52"><a href="#cb7-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-53"><a href="#cb7-53" aria-hidden="true" tabindex="-1"></a>exp2_info<span class="sc">$</span>summary<span class="sc">$</span>Duration <span class="ot">&lt;-</span> <span class="fu">interval</span>(<span class="fu">ymd_hms</span>(exp2_info<span class="sc">$</span>summary<span class="sc">$</span>Start_Time), </span>
+<span id="cb7-54"><a href="#cb7-54" aria-hidden="true" tabindex="-1"></a>                                             <span class="fu">ymd_hms</span>(exp2_info<span class="sc">$</span>summary<span class="sc">$</span>End_Time_Local)) <span class="sc">|&gt;</span></span>
+<span id="cb7-55"><a href="#cb7-55" aria-hidden="true" tabindex="-1"></a>                                      <span class="fu">lapply</span>(<span class="cf">function</span>(interval_value) {interval_value<span class="sc">/</span><span class="fu">dminutes</span>(<span class="dv">1</span>)}) <span class="sc">|&gt;</span> </span>
+<span id="cb7-56"><a href="#cb7-56" aria-hidden="true" tabindex="-1"></a>                                           <span class="fu">unlist</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <section id="step-1-subject-and-item-performance" class="level3">
 <h3 class="anchored" data-anchor-id="step-1-subject-and-item-performance">Step 1: subject and item performance</h3>
-<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>exp2_step1_goodsubj <span class="ot">&lt;-</span> exp2_info<span class="sc">$</span>summary <span class="sc">|&gt;</span></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(responseError <span class="sc">&lt;=</span> .<span class="dv">3</span>) </span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>exp2_step1_subj_remain <span class="ot">&lt;-</span> exp2_step1_goodsubj <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>exp2_step1_item.err <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(condition_rec, target_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">word.percent=</span><span class="fu">mean</span>(responseError)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word.percent <span class="sc">&gt;</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>exp2_step1_goodsubj <span class="ot">&lt;-</span> exp2_info<span class="sc">$</span>summary <span class="sc">|&gt;</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(responseError <span class="sc">&lt;=</span> .<span class="dv">3</span>) </span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>exp2_step1_subj_remain <span class="ot">&lt;-</span> exp2_step1_goodsubj <span class="sc">|&gt;</span> <span class="fu">nrow</span>()</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>exp2_step1_item.err <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">%&gt;%</span> <span class="fu">group_by</span>(condition_rec, target_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">word.percent=</span><span class="fu">mean</span>(responseError)<span class="sc">*</span><span class="dv">100</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(word.percent <span class="sc">&gt;</span> <span class="dv">30</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'condition_rec'. You can override using the
 `.groups` argument.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_1 <span class="ot">&lt;-</span> exp2_step1_goodsubj<span class="sc">$</span>Rec_Session_Id</span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>exp2_item_filter_1 <span class="ot">&lt;-</span> exp2_step1_item.err<span class="sc">$</span>target_rec</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>exp2_data_step1 <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">|&gt;</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(condition_rec <span class="sc">%in%</span> exp2_info<span class="sc">$</span>freq_conditions) <span class="sc">|&gt;</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_1 <span class="sc">&amp;</span> </span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span>target_rec <span class="sc">%in%</span> exp2_item_filter_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_1 <span class="ot">&lt;-</span> exp2_step1_goodsubj<span class="sc">$</span>Rec_Session_Id</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>exp2_item_filter_1 <span class="ot">&lt;-</span> exp2_step1_item.err<span class="sc">$</span>target_rec</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>exp2_data_step1 <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">|&gt;</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(condition_rec <span class="sc">%in%</span> exp2_info<span class="sc">$</span>freq_conditions) <span class="sc">|&gt;</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_1 <span class="sc">&amp;</span> </span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         <span class="sc">!</span>target_rec <span class="sc">%in%</span> exp2_item_filter_1)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 </section>
 <section id="step-2-prime-durations" class="level3">
 <h3 class="anchored" data-anchor-id="step-2-prime-durations">Step 2: prime durations</h3>
-<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>exp2_summary.primeTime <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">%&gt;%</span> </span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanPrimeTime =</span> <span class="fu">round</span>(<span class="fu">mean</span>(primeTime), <span class="dv">2</span>), </span>
-<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sdPrimeTime =</span> <span class="fu">round</span>(<span class="fu">sd</span>(primeTime), <span class="dv">2</span>))</span>
-<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>exp2_primeTimeRangeSummary <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">%&gt;%</span> </span>
-<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(primeTime) <span class="sc">%&gt;%</span></span>
-<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">range =</span> <span class="fu">ifelse</span>(primeTime <span class="sc">&lt;</span> exp2_info<span class="sc">$</span>prime_dur_lb, <span class="st">"below"</span>, </span>
-<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">ifelse</span>(primeTime <span class="sc">&gt;</span> exp2_info<span class="sc">$</span>prime_dur_ub, <span class="st">"above"</span>,</span>
-<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"in range"</span>))) <span class="sc">%&gt;%</span> </span>
-<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(range) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">range.percent =</span> <span class="fu">round</span>((n<span class="sc">*</span><span class="dv">100</span>)<span class="sc">/</span><span class="fu">nrow</span>(exp2_rawdata.sub),<span class="dv">2</span>))</span>
-<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>exp2_data_step2 <span class="ot">&lt;-</span> exp2_data_step1  <span class="sc">|&gt;</span></span>
-<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(primeTime <span class="sc">&gt;=</span> exp2_info<span class="sc">$</span>prime_dur_lb <span class="sc">&amp;</span> primeTime <span class="sc">&lt;=</span> exp2_info<span class="sc">$</span>prime_dur_ub)</span>
-<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>exp2_step2_subj_remain <span class="ot">&lt;-</span> exp2_data_step2<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
-<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
-<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>exp2_step2_trials_remain <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp2_data_step2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>exp2_summary.primeTime <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">%&gt;%</span> </span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanPrimeTime =</span> <span class="fu">round</span>(<span class="fu">mean</span>(primeTime), <span class="dv">2</span>), </span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>            <span class="at">sdPrimeTime =</span> <span class="fu">round</span>(<span class="fu">sd</span>(primeTime), <span class="dv">2</span>))</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>exp2_primeTimeRangeSummary <span class="ot">&lt;-</span> exp2_rawdata.sub <span class="sc">%&gt;%</span> </span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(primeTime) <span class="sc">%&gt;%</span></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">range =</span> <span class="fu">ifelse</span>(primeTime <span class="sc">&lt;</span> exp2_info<span class="sc">$</span>prime_dur_lb, <span class="st">"below"</span>, </span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>                        <span class="fu">ifelse</span>(primeTime <span class="sc">&gt;</span> exp2_info<span class="sc">$</span>prime_dur_ub, <span class="st">"above"</span>,</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>                               <span class="st">"in range"</span>))) <span class="sc">%&gt;%</span> </span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(range) <span class="sc">%&gt;%</span> <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">range.percent =</span> <span class="fu">round</span>((n<span class="sc">*</span><span class="dv">100</span>)<span class="sc">/</span><span class="fu">nrow</span>(exp2_rawdata.sub),<span class="dv">2</span>))</span>
+<span id="cb11-13"><a href="#cb11-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-14"><a href="#cb11-14" aria-hidden="true" tabindex="-1"></a>exp2_data_step2 <span class="ot">&lt;-</span> exp2_data_step1  <span class="sc">|&gt;</span></span>
+<span id="cb11-15"><a href="#cb11-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(primeTime <span class="sc">&gt;=</span> exp2_info<span class="sc">$</span>prime_dur_lb <span class="sc">&amp;</span> primeTime <span class="sc">&lt;=</span> exp2_info<span class="sc">$</span>prime_dur_ub)</span>
+<span id="cb11-16"><a href="#cb11-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-17"><a href="#cb11-17" aria-hidden="true" tabindex="-1"></a>exp2_step2_subj_remain <span class="ot">&lt;-</span> exp2_data_step2<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
+<span id="cb11-18"><a href="#cb11-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb11-19"><a href="#cb11-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
+<span id="cb11-20"><a href="#cb11-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-21"><a href="#cb11-21" aria-hidden="true" tabindex="-1"></a>exp2_step2_trials_remain <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp2_data_step2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 </section>
 <section id="sec-exp2-analysis-RT" class="level3">
 <h3 class="anchored" data-anchor-id="sec-exp2-analysis-RT">Step 3: RT distribution</h3>
-<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co"># RT outliers </span></span>
-<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>exp2_data_step3 <span class="ot">&lt;-</span> exp2_data_step2 <span class="sc">|&gt;</span> </span>
-<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(RT <span class="sc">&gt;=</span> exp2_info<span class="sc">$</span>rt_lb <span class="sc">&amp;</span> RT <span class="sc">&lt;=</span> exp2_info<span class="sc">$</span>rt_ub)</span>
-<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>exp2_step3_subj_remain <span class="ot">&lt;-</span> exp2_data_step3<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
-<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
-<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>exp2_step3_trials_remain <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp2_data_step3)</span>
-<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co"># error trial removal</span></span>
-<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>exp2_data_step3b <span class="ot">&lt;-</span> exp2_data_step3  <span class="sc">|&gt;</span></span>
-<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(responseError <span class="sc">==</span> <span class="dv">0</span>)</span>
-<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>exp2_step3b_subj_remain <span class="ot">&lt;-</span> exp2_data_step3b<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
-<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
-<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a>exp2_step3b_trials_remain <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp2_data_step3b)</span>
-<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-23"><a href="#cb14-23" aria-hidden="true" tabindex="-1"></a><span class="co"># remove subjects with less than 12 trials in at least one condition*primetype combination (half of the total number of items per combination)</span></span>
-<span id="cb14-24"><a href="#cb14-24" aria-hidden="true" tabindex="-1"></a>rt_data_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Rec_Session_Id"</span>, <span class="st">"condition_rec"</span>, <span class="st">"primetype_rec"</span>, <span class="st">"RT"</span>)</span>
-<span id="cb14-25"><a href="#cb14-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-26"><a href="#cb14-26" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_2 <span class="ot">&lt;-</span> exp2_data_step3b[, rt_data_labels] <span class="sc">|&gt;</span></span>
-<span id="cb14-27"><a href="#cb14-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aggregate</span>(RT <span class="sc">~</span> ., <span class="at">FUN =</span> length, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb14-28"><a href="#cb14-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(RT <span class="sc">&lt;</span> <span class="dv">7</span>, <span class="at">select =</span> Rec_Session_Id) <span class="sc">|&gt;</span></span>
-<span id="cb14-29"><a href="#cb14-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb14-30"><a href="#cb14-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>()</span>
-<span id="cb14-31"><a href="#cb14-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-32"><a href="#cb14-32" aria-hidden="true" tabindex="-1"></a><span class="do">### we also want to sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed</span></span>
-<span id="cb14-33"><a href="#cb14-33" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_conditions <span class="ot">&lt;-</span> </span>
-<span id="cb14-34"><a href="#cb14-34" aria-hidden="true" tabindex="-1"></a>  exp2_data_step3b <span class="sc">%&gt;%</span></span>
-<span id="cb14-35"><a href="#cb14-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rec_Session_Id) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-36"><a href="#cb14-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(condition_rec, primetype_rec) <span class="sc">%&gt;%</span> </span>
-<span id="cb14-37"><a href="#cb14-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">!=</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Rec_Session_Id)</span>
-<span id="cb14-38"><a href="#cb14-38" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-39"><a href="#cb14-39" aria-hidden="true" tabindex="-1"></a>exp2_data_final <span class="ot">&lt;-</span> exp2_data_step3b <span class="sc">|&gt;</span></span>
-<span id="cb14-40"><a href="#cb14-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="sc">!</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_2) <span class="sc">&amp;</span> <span class="sc">!</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_conditions))</span>
-<span id="cb14-41"><a href="#cb14-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb14-42"><a href="#cb14-42" aria-hidden="true" tabindex="-1"></a>exp2_final_subj_remain <span class="ot">&lt;-</span> exp2_data_final<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
-<span id="cb14-43"><a href="#cb14-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span> </span>
-<span id="cb14-44"><a href="#cb14-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
-<span id="cb14-45"><a href="#cb14-45" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb14-46"><a href="#cb14-46" aria-hidden="true" tabindex="-1"></a>exp2_final_trials_remain <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp2_data_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># RT outliers </span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>exp2_data_step3 <span class="ot">&lt;-</span> exp2_data_step2 <span class="sc">|&gt;</span> </span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(RT <span class="sc">&gt;=</span> exp2_info<span class="sc">$</span>rt_lb <span class="sc">&amp;</span> RT <span class="sc">&lt;=</span> exp2_info<span class="sc">$</span>rt_ub)</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>exp2_step3_subj_remain <span class="ot">&lt;-</span> exp2_data_step3<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>exp2_step3_trials_remain <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp2_data_step3)</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a><span class="co"># error trial removal</span></span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>exp2_data_step3b <span class="ot">&lt;-</span> exp2_data_step3  <span class="sc">|&gt;</span></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(responseError <span class="sc">==</span> <span class="dv">0</span>)</span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>exp2_step3b_subj_remain <span class="ot">&lt;-</span> exp2_data_step3b<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>exp2_step3b_trials_remain <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp2_data_step3b)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a><span class="co"># remove subjects with less than 7 trials in at least one condition*primetype combination (half of the total number of items per combination)</span></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>rt_data_labels <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"Rec_Session_Id"</span>, <span class="st">"condition_rec"</span>, <span class="st">"primetype_rec"</span>, <span class="st">"RT"</span>)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_2 <span class="ot">&lt;-</span> exp2_data_step3b[, rt_data_labels] <span class="sc">|&gt;</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aggregate</span>(RT <span class="sc">~</span> ., <span class="at">FUN =</span> length, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(RT <span class="sc">&lt;</span> <span class="dv">7</span>, <span class="at">select =</span> Rec_Session_Id) <span class="sc">|&gt;</span></span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>()</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a><span class="do">### we also want to sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed</span></span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_conditions <span class="ot">&lt;-</span> </span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>  exp2_data_step3b <span class="sc">%&gt;%</span></span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rec_Session_Id) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(condition_rec, primetype_rec) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">!=</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Rec_Session_Id)</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>exp2_data_final <span class="ot">&lt;-</span> exp2_data_step3b <span class="sc">|&gt;</span></span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="sc">!</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_2) <span class="sc">&amp;</span> <span class="sc">!</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_conditions)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition_rec =</span> <span class="fu">as.factor</span>(condition_rec), <span class="at">primetype_rec=</span><span class="fu">as.factor</span>(primetype_rec))</span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>exp2_final_subj_remain <span class="ot">&lt;-</span> exp2_data_final<span class="sc">$</span>Rec_Session_Id <span class="sc">|&gt;</span></span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span> </span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>  <span class="fu">length</span>()</span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>exp2_final_trials_remain <span class="ot">&lt;-</span> <span class="fu">nrow</span>(exp2_data_final)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 </section>
 </section>
 <section id="results" class="level2">
 <h2 class="anchored" data-anchor-id="results">Results</h2>
-<div class="cell-container"><div class="cell-decorator"><pre>In [9]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># error rates averages</span></span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="do">### we also want to sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed. Crucially the trial calculations are made on the dataset *before* the trial error removal step</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_2_with.errors <span class="ot">&lt;-</span> exp2_data_step3[, rt_data_labels] <span class="sc">|&gt;</span></span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aggregate</span>(RT <span class="sc">~</span> ., <span class="at">FUN =</span> length, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(RT <span class="sc">&lt;</span> <span class="dv">7</span>, <span class="at">select =</span> Rec_Session_Id) <span class="sc">|&gt;</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>()</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a><span class="co"># this step just makes sure that the same subjects will be removed from both datasets</span></span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_2_with.errors <span class="ot">&lt;-</span> <span class="fu">union</span>(exp2_subj_filter_2_with.errors, exp2_subj_filter_2)</span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a><span class="do">### just making sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed</span></span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_conditions_with.errors <span class="ot">&lt;-</span> </span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>  exp2_data_step3 <span class="sc">%&gt;%</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rec_Session_Id) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(condition_rec, primetype_rec) <span class="sc">%&gt;%</span> </span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">!=</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Rec_Session_Id)</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>exp2_data_final_with.errors <span class="ot">&lt;-</span> exp2_data_step3 <span class="sc">|&gt;</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="sc">!</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_2_with.errors) <span class="sc">&amp;</span> </span>
-<span id="cb15-21"><a href="#cb15-21" aria-hidden="true" tabindex="-1"></a>           <span class="sc">!</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_conditions_with.errors)) </span>
-<span id="cb15-22"><a href="#cb15-22" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-23"><a href="#cb15-23" aria-hidden="true" tabindex="-1"></a>exp2_error.rates <span class="ot">&lt;-</span> exp2_data_final_with.errors <span class="sc">%&gt;%</span></span>
-<span id="cb15-24"><a href="#cb15-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">primetype_rec =</span> <span class="fu">factor</span>(primetype_rec, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"unrelated"</span>, <span class="st">"related"</span>)),</span>
-<span id="cb15-25"><a href="#cb15-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">condition_rec =</span> <span class="fu">factor</span>(condition_rec, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>, <span class="st">"non-word"</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb15-26"><a href="#cb15-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec, primetype_rec, Rec_Session_Id) <span class="sc">%&gt;%</span></span>
-<span id="cb15-27"><a href="#cb15-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">error.percent=</span><span class="fu">mean</span>(responseError)<span class="sc">*</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="co"># error rates averages</span></span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a><span class="do">### we also want to sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed. Crucially the trial calculations are made on the dataset *before* the trial error removal step</span></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_2_with.errors <span class="ot">&lt;-</span> exp2_data_step3[, rt_data_labels] <span class="sc">|&gt;</span></span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aggregate</span>(RT <span class="sc">~</span> ., <span class="at">FUN =</span> length, <span class="at">drop =</span> <span class="cn">FALSE</span>) <span class="sc">|&gt;</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(RT <span class="sc">&lt;</span> <span class="dv">7</span>, <span class="at">select =</span> Rec_Session_Id) <span class="sc">|&gt;</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unique</span>() <span class="sc">|&gt;</span></span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unlist</span>()</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a><span class="co"># this step just makes sure that the same subjects will be removed from both datasets</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_2_with.errors <span class="ot">&lt;-</span> <span class="fu">union</span>(exp2_subj_filter_2_with.errors, exp2_subj_filter_2)</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a><span class="do">### just making sure that all subjects have all conditions; in case some subject had all the trials for a given condition lost down the road, they will be removed</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>exp2_subj_filter_conditions_with.errors <span class="ot">&lt;-</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>  exp2_data_step3 <span class="sc">%&gt;%</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rec_Session_Id) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">distinct</span>(condition_rec, primetype_rec) <span class="sc">%&gt;%</span> </span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tally</span>() <span class="sc">%&gt;%</span> <span class="fu">filter</span>(n <span class="sc">!=</span> <span class="dv">6</span>) <span class="sc">%&gt;%</span> <span class="fu">pull</span>(Rec_Session_Id)</span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>exp2_data_final_with.errors <span class="ot">&lt;-</span> exp2_data_step3 <span class="sc">|&gt;</span></span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(<span class="sc">!</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_2_with.errors) <span class="sc">&amp;</span> </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>           <span class="sc">!</span>(Rec_Session_Id <span class="sc">%in%</span> exp2_subj_filter_conditions_with.errors)) </span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>exp2_error.rates <span class="ot">&lt;-</span> exp2_data_final_with.errors <span class="sc">%&gt;%</span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">primetype_rec =</span> <span class="fu">factor</span>(primetype_rec, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"unrelated"</span>, <span class="st">"related"</span>)),</span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>         <span class="at">condition_rec =</span> <span class="fu">factor</span>(condition_rec, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>, <span class="st">"non-word"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb13-26"><a href="#cb13-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec, primetype_rec, Rec_Session_Id) <span class="sc">%&gt;%</span></span>
+<span id="cb13-27"><a href="#cb13-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">error.percent=</span><span class="fu">mean</span>(responseError)<span class="sc">*</span><span class="dv">100</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'condition_rec', 'primetype_rec'. You can
 override using the `.groups` argument.</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># RT averages</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>exp2_rt.avg_subj <span class="ot">&lt;-</span> exp2_data_final <span class="sc">%&gt;%</span> </span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rec_Session_Id, condition_rec, primetype_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanRT =</span> <span class="fu">mean</span>(RT))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>`summarise()` has grouped output by 'Rec_Session_Id', 'condition_rec'. You can
+override using the `.groups` argument.</code></pre>
+</div>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="co"># RT averages</span></span>
-<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>exp2_rt.avg_subj <span class="ot">&lt;-</span> exp2_data_final <span class="sc">%&gt;%</span> </span>
-<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rec_Session_Id, condition_rec, primetype_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">meanRT =</span> <span class="fu">mean</span>(RT))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>exp2_rt_cor <span class="ot">&lt;-</span> exp2_data_final <span class="sc">%&gt;%</span> </span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rec_Session_Id, condition_rec, primetype_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">meanRT=</span><span class="fu">mean</span>(RT)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Rec_Session_Id, condition_rec, primetype_rec, meanRT) <span class="sc">%&gt;%</span> </span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span><span class="st">'primetype_rec'</span>, <span class="at">values_from=</span><span class="fu">c</span>(<span class="st">'meanRT'</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cor=</span><span class="fu">cor</span>(unrelated, related))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'Rec_Session_Id', 'condition_rec'. You can
 override using the `.groups` argument.</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>exp2_rt_cor <span class="ot">&lt;-</span> exp2_data_final <span class="sc">%&gt;%</span> </span>
-<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(Rec_Session_Id, condition_rec, primetype_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>  dplyr<span class="sc">::</span><span class="fu">summarise</span>(<span class="at">meanRT=</span><span class="fu">mean</span>(RT)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(Rec_Session_Id, condition_rec, primetype_rec, meanRT) <span class="sc">%&gt;%</span> </span>
-<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span><span class="st">'primetype_rec'</span>, <span class="at">values_from=</span><span class="fu">c</span>(<span class="st">'meanRT'</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">cor=</span><span class="fu">cor</span>(unrelated, related))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>`summarise()` has grouped output by 'Rec_Session_Id', 'condition_rec'. You can
-override using the `.groups` argument.</code></pre>
-</div>
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># RT + error averages (by subject)</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>exp2_avgs_subj <span class="ot">&lt;-</span> <span class="fu">merge</span>(exp2_rt.avg_subj, exp2_error.rates, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"Rec_Session_Id"</span>, <span class="st">"condition_rec"</span>, <span class="st">"primetype_rec"</span>))</span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a>exp2_mop.err_across <span class="ot">&lt;-</span> exp2_avgs_subj <span class="sc">%&gt;%</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec, primetype_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gd.mean=</span><span class="fu">mean</span>(meanRT, <span class="at">na.rm=</span>T), <span class="at">sd=</span><span class="fu">sd</span>(meanRT, <span class="at">na.rm=</span>T), <span class="at">mean.error=</span><span class="fu">mean</span>(error.percent)) <span class="sc">%&gt;%</span></span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols=</span><span class="st">"condition_rec"</span>, <span class="at">names_from=</span>primetype_rec, <span class="at">values_from=</span><span class="fu">c</span>(gd.mean, sd, mean.error)) <span class="sc">%&gt;%</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(exp2_rt_cor, <span class="at">by=</span><span class="st">"condition_rec"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># RT + error averages (by subject)</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>exp2_avgs_subj <span class="ot">&lt;-</span> <span class="fu">merge</span>(exp2_rt.avg_subj, exp2_error.rates, <span class="at">by=</span><span class="fu">c</span>(<span class="st">"Rec_Session_Id"</span>, <span class="st">"condition_rec"</span>, <span class="st">"primetype_rec"</span>))</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>exp2_mop.err_across <span class="ot">&lt;-</span> exp2_avgs_subj <span class="sc">%&gt;%</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec, primetype_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">gd.mean=</span><span class="fu">mean</span>(meanRT, <span class="at">na.rm=</span>T), <span class="at">sd=</span><span class="fu">sd</span>(meanRT, <span class="at">na.rm=</span>T), <span class="at">mean.error=</span><span class="fu">mean</span>(error.percent)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">id_cols=</span><span class="st">"condition_rec"</span>, <span class="at">names_from=</span>primetype_rec, <span class="at">values_from=</span><span class="fu">c</span>(gd.mean, sd, mean.error)) <span class="sc">%&gt;%</span></span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(exp2_rt_cor, <span class="at">by=</span><span class="st">"condition_rec"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>`summarise()` has grouped output by 'condition_rec'. You can override using the
 `.groups` argument.</code></pre>
 </div>
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">#### ERROR PRIMING CALCULATIONS ####</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we will just run stats for this, no numerical calculations (e.g., priming)</span></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">### MAIN EFFECTS</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">#### t-test</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>exp2_errors_stats_main <span class="ot">&lt;-</span> exp2_error.rates <span class="sc">%&gt;%</span> </span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(error.percent <span class="sc">~</span> primetype_rec, <span class="at">paired=</span>T)</span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="do">#### RT PRIMING CALCULATIONS ####</span></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="do">### MAIN EFFECTS</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="do">### 2x2 ANOVA</span></span>
+<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>exp2_mop_anova <span class="ot">&lt;-</span> exp2_rt.avg_subj <span class="sc">|&gt;</span></span>
+<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">Rec_Session_Id =</span> <span class="fu">factor</span>(Rec_Session_Id)) <span class="sc">|&gt;</span></span>
+<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(condition_rec <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(meanRT <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> <span class="fu">Error</span>(Rec_Session_Id<span class="sc">/</span>(condition_rec <span class="sc">*</span> primetype_rec)), <span class="at">data =</span> _)</span>
+<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="do">### GLMER </span></span>
+<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: Matrix
+
+Attaching package: 'Matrix'
+
+The following objects are masked from 'package:tidyr':
+
+    expand, pack, unpack</code></pre>
+</div>
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="do">#### ERROR PRIMING CALCULATIONS ####</span></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we will just run stats for this, no numerical calculations (e.g., priming)</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="do">### MAIN EFFECTS</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a><span class="do">#### t-test</span></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>exp2_errors_stats_main <span class="ot">&lt;-</span> exp2_error.rates <span class="sc">%&gt;%</span> </span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(error.percent <span class="sc">~</span> primetype_rec, <span class="at">paired=</span>T)</span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="do">#### RT PRIMING CALCULATIONS ####</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a><span class="do">### MAIN EFFECTS</span></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="do">### 2x2 ANOVA</span></span>
-<span id="cb23-16"><a href="#cb23-16" aria-hidden="true" tabindex="-1"></a>exp2_mop_anova <span class="ot">&lt;-</span> exp2_rt.avg_subj <span class="sc">|&gt;</span></span>
-<span id="cb23-17"><a href="#cb23-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">Rec_Session_Id =</span> <span class="fu">factor</span>(Rec_Session_Id)) <span class="sc">|&gt;</span></span>
-<span id="cb23-18"><a href="#cb23-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(condition_rec <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb23-19"><a href="#cb23-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(meanRT <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> <span class="fu">Error</span>(Rec_Session_Id<span class="sc">/</span>(condition_rec <span class="sc">*</span> primetype_rec)), <span class="at">data =</span> _)</span>
-<span id="cb23-20"><a href="#cb23-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-21"><a href="#cb23-21" aria-hidden="true" tabindex="-1"></a><span class="do">#### by subject</span></span>
-<span id="cb23-22"><a href="#cb23-22" aria-hidden="true" tabindex="-1"></a>exp2_mop_subj <span class="ot">&lt;-</span> exp2_rt.avg_subj <span class="sc">%&gt;%</span> </span>
-<span id="cb23-23"><a href="#cb23-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>primetype_rec, <span class="at">values_from=</span>meanRT) <span class="sc">%&gt;%</span></span>
-<span id="cb23-24"><a href="#cb23-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">priming =</span> unrelated<span class="sc">-</span>related)</span>
-<span id="cb23-25"><a href="#cb23-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-26"><a href="#cb23-26" aria-hidden="true" tabindex="-1"></a><span class="do">#### descriptive stats</span></span>
-<span id="cb23-27"><a href="#cb23-27" aria-hidden="true" tabindex="-1"></a>exp2_gdavg_mop <span class="ot">&lt;-</span> exp2_mop_subj <span class="sc">%&gt;%</span></span>
-<span id="cb23-28"><a href="#cb23-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb23-29"><a href="#cb23-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MOP =</span> <span class="fu">mean</span>(priming), <span class="at">se =</span> <span class="fu">sd</span>(priming)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()), <span class="at">ci=</span>(<span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span>se),</span>
-<span id="cb23-30"><a href="#cb23-30" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd=</span><span class="fu">sd</span>(priming), <span class="at">ES=</span><span class="fu">round</span>(MOP<span class="sc">/</span>sd, <span class="dv">2</span>))</span>
-<span id="cb23-31"><a href="#cb23-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-32"><a href="#cb23-32" aria-hidden="true" tabindex="-1"></a><span class="do">#### summary table</span></span>
-<span id="cb23-33"><a href="#cb23-33" aria-hidden="true" tabindex="-1"></a>exp2_gdavg_mop_summary <span class="ot">&lt;-</span> exp2_gdavg_mop <span class="sc">%&gt;%</span></span>
-<span id="cb23-34"><a href="#cb23-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., exp2_mop.err_across, <span class="at">by=</span><span class="st">'condition_rec'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-35"><a href="#cb23-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">7</span><span class="sc">:</span><span class="dv">12</span>), round), <span class="fu">across</span>(<span class="fu">c</span>(<span class="dv">13</span>), round, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-36"><a href="#cb23-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ci.lb =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, MOP<span class="sc">-</span>ci), <span class="at">ci.ub =</span> <span class="fu">paste0</span>(MOP<span class="sc">+</span>ci, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb23-37"><a href="#cb23-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"CI"</span>, ci.lb<span class="sc">:</span>ci.ub, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ci, <span class="sc">-</span>se) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-38"><a href="#cb23-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">factor =</span> <span class="st">"condition_rec"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb23-39"><a href="#cb23-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(gd.mean_related<span class="sc">:</span>cor, <span class="at">.before=</span>MOP) <span class="sc">%&gt;%</span> </span>
-<span id="cb23-40"><a href="#cb23-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(gd.mean_related, <span class="at">.after=</span>gd.mean_unrelated) <span class="sc">%&gt;%</span></span>
-<span id="cb23-41"><a href="#cb23-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(CI, <span class="at">.after=</span>MOP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>Loading required package: carData
+
+Attaching package: 'car'
+
+The following object is masked from 'package:dplyr':
+
+    recode
+
+The following object is masked from 'package:purrr':
+
+    some</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">contrasts =</span> <span class="fu">c</span>(<span class="st">"contr.sum"</span>, <span class="st">"contr.poly"</span>))</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>exp2_mop_glmer <span class="ot">&lt;-</span> <span class="fu">glmer</span>(RT <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Crowdsourcing_SubjId) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>target_rec), <span class="at">data =</span> exp2_data_final, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link=</span><span class="st">"identity"</span>), <span class="at">control=</span><span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">"bobyqa"</span>, <span class="at">optCtrl=</span><span class="fu">list</span>(<span class="at">maxfun=</span><span class="fl">1e6</span>)))</span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exp2_mop_glmer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
+  Approximation) [glmerMod]
+ Family: Gamma  ( identity )
+Formula: RT ~ condition_rec * primetype_rec + (1 | Crowdsourcing_SubjId) +  
+    (1 | target_rec)
+   Data: exp2_data_final
+Control: glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1e+06))
+
+     AIC      BIC   logLik deviance df.resid 
+ 2051808  2051899 -1025895  2051790   168186 
+
+Scaled residuals: 
+    Min      1Q  Median      3Q     Max 
+-3.4411 -0.5829 -0.1749  0.3419 12.8540 
+
+Random effects:
+ Groups               Name        Variance Std.Dev.
+ Crowdsourcing_SubjId (Intercept) 1842.747 42.9272 
+ target_rec           (Intercept)  136.400 11.6790 
+ Residual                            0.041  0.2025 
+Number of obs: 168195, groups:  Crowdsourcing_SubjId, 1924; target_rec, 104
+
+Fixed effects:
+                              Estimate Std. Error  t value Pr(&gt;|z|)    
+(Intercept)                   619.6174     0.4438 1396.289  &lt; 2e-16 ***
+condition_rec1                -27.3993     0.5686  -48.188  &lt; 2e-16 ***
+condition_rec2                 -3.9749     0.5796   -6.858 6.97e-12 ***
+primetype_rec1                 -9.6640     0.2344  -41.238  &lt; 2e-16 ***
+condition_rec1:primetype_rec1  -3.4741     0.3095  -11.224  &lt; 2e-16 ***
+condition_rec2:primetype_rec1  -7.7058     0.3156  -24.417  &lt; 2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+
+Correlation of Fixed Effects:
+            (Intr) cndt_1 cndt_2 prmt_1 c_1:_1
+conditn_rc1  0.059                            
+conditn_rc2 -0.166 -0.204                     
+primtyp_rc1  0.111  0.006 -0.188              
+cndtn_r1:_1  0.140 -0.027 -0.081  0.055       
+cndtn_r2:_1  0.021  0.058 -0.021  0.182 -0.421</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(exp2_mop_glmer, <span class="at">type =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
+
+Response: RT
+                                Chisq Df Pr(&gt;Chisq)    
+(Intercept)                 1949622.3  1  &lt; 2.2e-16 ***
+condition_rec                  2613.3  2  &lt; 2.2e-16 ***
+primetype_rec                  1700.5  1  &lt; 2.2e-16 ***
+condition_rec:primetype_rec    1158.9  2  &lt; 2.2e-16 ***
+---
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="do">##### PRIMING CALCULATIONS</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="do">#### by subject</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>exp2_mop_subj <span class="ot">&lt;-</span> exp2_rt.avg_subj <span class="sc">%&gt;%</span> </span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span>primetype_rec, <span class="at">values_from=</span>meanRT) <span class="sc">%&gt;%</span></span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">priming =</span> unrelated<span class="sc">-</span>related)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a><span class="do">#### descriptive stats</span></span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>exp2_gdavg_mop <span class="ot">&lt;-</span> exp2_mop_subj <span class="sc">%&gt;%</span></span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">MOP =</span> <span class="fu">mean</span>(priming), <span class="at">se =</span> <span class="fu">sd</span>(priming)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()), <span class="at">ci=</span>(<span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span>se),</span>
+<span id="cb29-12"><a href="#cb29-12" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd=</span><span class="fu">sd</span>(priming), <span class="at">ES=</span><span class="fu">round</span>(MOP<span class="sc">/</span>sd, <span class="dv">2</span>))</span>
+<span id="cb29-13"><a href="#cb29-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb29-14"><a href="#cb29-14" aria-hidden="true" tabindex="-1"></a><span class="do">#### summary table</span></span>
+<span id="cb29-15"><a href="#cb29-15" aria-hidden="true" tabindex="-1"></a>exp2_gdavg_mop_summary <span class="ot">&lt;-</span> exp2_gdavg_mop <span class="sc">%&gt;%</span></span>
+<span id="cb29-16"><a href="#cb29-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., exp2_mop.err_across, <span class="at">by=</span><span class="st">'condition_rec'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-17"><a href="#cb29-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">5</span>, <span class="dv">7</span><span class="sc">:</span><span class="dv">12</span>), round), <span class="fu">across</span>(<span class="fu">c</span>(<span class="dv">13</span>), round, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-18"><a href="#cb29-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">ci.lb =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, MOP<span class="sc">-</span>ci), <span class="at">ci.ub =</span> <span class="fu">paste0</span>(MOP<span class="sc">+</span>ci, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb29-19"><a href="#cb29-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"CI"</span>, ci.lb<span class="sc">:</span>ci.ub, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ci, <span class="sc">-</span>se) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-20"><a href="#cb29-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">factor =</span> <span class="st">"condition_rec"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb29-21"><a href="#cb29-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(gd.mean_related<span class="sc">:</span>cor, <span class="at">.before=</span>MOP) <span class="sc">%&gt;%</span> </span>
+<span id="cb29-22"><a href="#cb29-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(gd.mean_related, <span class="at">.after=</span>gd.mean_unrelated) <span class="sc">%&gt;%</span></span>
+<span id="cb29-23"><a href="#cb29-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(CI, <span class="at">.after=</span>MOP)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Warning: There was 1 warning in `mutate()`.
 ℹ In argument: `across(c(13), round, 2)`.
@@ -1139,118 +628,117 @@ Supply arguments directly to `.fns` through an anonymous function instead.
   # Now
   across(a:b, \(x) mean(x, na.rm = TRUE))</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="do">#### t-test</span></span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>exp2_rt_stats_main <span class="ot">&lt;-</span> exp2_rt.avg_subj <span class="sc">%&gt;%</span></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">primetype_rec =</span> <span class="fu">fct_relevel</span>(primetype_rec, <span class="st">"unrelated"</span>, <span class="st">"related"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(meanRT <span class="sc">~</span> primetype_rec, <span class="at">paired=</span>T) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:-</span><span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">factor =</span> <span class="st">"condition_rec"</span>, <span class="at">t=</span><span class="st">'statistic'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, <span class="fu">list</span>(<span class="sc">~</span><span class="fu">as.character</span>(<span class="fu">signif</span>(., <span class="dv">3</span>))))</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="do">### INTERACTION EFFECT</span></span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="do">#### descriptive stats</span></span>
-<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a>exp2_gdavg_fae <span class="ot">&lt;-</span> exp2_mop_subj <span class="sc">%&gt;%</span></span>
-<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>unrelated, <span class="sc">-</span>related) <span class="sc">%&gt;%</span></span>
-<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span><span class="st">"condition_rec"</span>, <span class="at">values_from=</span><span class="st">"priming"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interaction =</span> low<span class="sc">-</span>high) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">factor =</span> <span class="st">"frequency:primetype"</span>, </span>
-<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd=</span><span class="fu">sd</span>(interaction), <span class="at">se =</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()), <span class="at">ci =</span> (<span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span>se)) <span class="sc">%&gt;%</span></span>
-<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>), round))</span>
-<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a><span class="do">##### summary table</span></span>
-<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>exp2_gdavg_fae_summary <span class="ot">&lt;-</span> exp2_mop_subj <span class="sc">%&gt;%</span> </span>
-<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>unrelated, <span class="sc">-</span>related) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span><span class="st">"condition_rec"</span>, <span class="at">values_from=</span><span class="st">"priming"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_high =</span> <span class="fu">round</span>(<span class="fu">mean</span>(high)), <span class="at">mean_low =</span> <span class="fu">round</span>(<span class="fu">mean</span>(low)), <span class="at">cor=</span><span class="fu">round</span>(<span class="fu">cor</span>(high, low), <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(., exp2_gdavg_fae) <span class="sc">%&gt;%</span></span>
-<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MOP =</span> mean_low<span class="sc">-</span>mean_high, <span class="at">ES =</span> <span class="fu">round</span>(MOP<span class="sc">/</span>sd, <span class="dv">2</span>), <span class="at">ci.lb =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, MOP<span class="sc">-</span>ci), <span class="at">ci.ub =</span> <span class="fu">paste0</span>(MOP<span class="sc">+</span>ci, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"CI"</span>, ci.lb<span class="sc">:</span>ci.ub, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ci, <span class="sc">-</span>se) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(CI, <span class="at">.after=</span>MOP) <span class="sc">%&gt;%</span></span>
-<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(factor, <span class="at">.before=</span>mean_high)</span>
-<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="do">#### t-test</span></span>
-<span id="cb25-33"><a href="#cb25-33" aria-hidden="true" tabindex="-1"></a>exp2_rt_stats_interaction <span class="ot">&lt;-</span> exp2_mop_subj <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb25-34"><a href="#cb25-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(condition_rec <span class="sc">!=</span> <span class="st">'non-word'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-35"><a href="#cb25-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition_rec =</span> <span class="fu">fct_relevel</span>(condition_rec, <span class="st">"low"</span>, <span class="st">"high"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb25-36"><a href="#cb25-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(priming <span class="sc">~</span> condition_rec, <span class="at">paired=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb25-37"><a href="#cb25-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate_if</span>(is.numeric, <span class="fu">list</span>(<span class="sc">~</span><span class="fu">as.character</span>(<span class="fu">signif</span>(., <span class="dv">3</span>)))) <span class="sc">%&gt;%</span></span>
-<span id="cb25-38"><a href="#cb25-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">4</span><span class="sc">:-</span><span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-39"><a href="#cb25-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"factor"</span>, group1<span class="sc">:</span>group2) <span class="sc">%&gt;%</span></span>
-<span id="cb25-40"><a href="#cb25-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">t=</span><span class="st">'statistic'</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb25-41"><a href="#cb25-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">factor =</span> <span class="st">"frequency:primetype"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="do">#### t-test</span></span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>exp2_rt_stats_main <span class="ot">&lt;-</span> exp2_rt.avg_subj <span class="sc">%&gt;%</span></span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">primetype_rec =</span> <span class="fu">fct_relevel</span>(primetype_rec, <span class="st">"unrelated"</span>, <span class="st">"related"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb31-6"><a href="#cb31-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(meanRT <span class="sc">~</span> primetype_rec, <span class="at">paired=</span>T) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span><span class="dv">2</span><span class="sc">:-</span><span class="dv">6</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-7"><a href="#cb31-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">factor =</span> <span class="st">"condition_rec"</span>, <span class="at">t=</span><span class="st">'statistic'</span>)</span>
+<span id="cb31-8"><a href="#cb31-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-9"><a href="#cb31-9" aria-hidden="true" tabindex="-1"></a><span class="do">### INTERACTION EFFECT</span></span>
+<span id="cb31-10"><a href="#cb31-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-11"><a href="#cb31-11" aria-hidden="true" tabindex="-1"></a><span class="do">#### descriptive stats</span></span>
+<span id="cb31-12"><a href="#cb31-12" aria-hidden="true" tabindex="-1"></a>exp2_gdavg_fae <span class="ot">&lt;-</span> exp2_mop_subj <span class="sc">%&gt;%</span></span>
+<span id="cb31-13"><a href="#cb31-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>unrelated, <span class="sc">-</span>related) <span class="sc">%&gt;%</span></span>
+<span id="cb31-14"><a href="#cb31-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span><span class="st">"condition_rec"</span>, <span class="at">values_from=</span><span class="st">"priming"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-15"><a href="#cb31-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">interaction =</span> low<span class="sc">-</span>high) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb31-16"><a href="#cb31-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">factor =</span> <span class="st">"frequency:primetype"</span>, </span>
+<span id="cb31-17"><a href="#cb31-17" aria-hidden="true" tabindex="-1"></a>            <span class="at">sd=</span><span class="fu">sd</span>(interaction), <span class="at">se =</span> sd<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>()), <span class="at">ci =</span> (<span class="fu">qt</span>(<span class="fl">0.975</span>, <span class="fu">n</span>()<span class="sc">-</span><span class="dv">1</span>)<span class="sc">*</span>se)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-18"><a href="#cb31-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(<span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>), round))</span>
+<span id="cb31-19"><a href="#cb31-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-20"><a href="#cb31-20" aria-hidden="true" tabindex="-1"></a><span class="do">##### summary table</span></span>
+<span id="cb31-21"><a href="#cb31-21" aria-hidden="true" tabindex="-1"></a>exp2_gdavg_fae_summary <span class="ot">&lt;-</span> exp2_mop_subj <span class="sc">%&gt;%</span> </span>
+<span id="cb31-22"><a href="#cb31-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>unrelated, <span class="sc">-</span>related) <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb31-23"><a href="#cb31-23" aria-hidden="true" tabindex="-1"></a>  <span class="fu">pivot_wider</span>(<span class="at">names_from=</span><span class="st">"condition_rec"</span>, <span class="at">values_from=</span><span class="st">"priming"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-24"><a href="#cb31-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">summarise</span>(<span class="at">mean_high =</span> <span class="fu">round</span>(<span class="fu">mean</span>(high)), <span class="at">mean_low =</span> <span class="fu">round</span>(<span class="fu">mean</span>(low)), <span class="at">cor=</span><span class="fu">round</span>(<span class="fu">cor</span>(high, low), <span class="dv">3</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-25"><a href="#cb31-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">bind_cols</span>(., exp2_gdavg_fae) <span class="sc">%&gt;%</span></span>
+<span id="cb31-26"><a href="#cb31-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">MOP =</span> mean_low<span class="sc">-</span>mean_high, <span class="at">ES =</span> <span class="fu">round</span>(MOP<span class="sc">/</span>sd, <span class="dv">2</span>), <span class="at">ci.lb =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, MOP<span class="sc">-</span>ci), <span class="at">ci.ub =</span> <span class="fu">paste0</span>(MOP<span class="sc">+</span>ci, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-27"><a href="#cb31-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"CI"</span>, ci.lb<span class="sc">:</span>ci.ub, <span class="at">sep =</span> <span class="st">" "</span>) <span class="sc">%&gt;%</span> <span class="fu">select</span>(<span class="sc">-</span>ci, <span class="sc">-</span>se) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-28"><a href="#cb31-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(CI, <span class="at">.after=</span>MOP) <span class="sc">%&gt;%</span></span>
+<span id="cb31-29"><a href="#cb31-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(factor, <span class="at">.before=</span>mean_high)</span>
+<span id="cb31-30"><a href="#cb31-30" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb31-31"><a href="#cb31-31" aria-hidden="true" tabindex="-1"></a><span class="do">#### t-test</span></span>
+<span id="cb31-32"><a href="#cb31-32" aria-hidden="true" tabindex="-1"></a>exp2_rt_stats_interaction <span class="ot">&lt;-</span> exp2_mop_subj <span class="sc">%&gt;%</span> <span class="fu">ungroup</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb31-33"><a href="#cb31-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(condition_rec <span class="sc">!=</span> <span class="st">'non-word'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-34"><a href="#cb31-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">condition_rec =</span> <span class="fu">fct_relevel</span>(condition_rec, <span class="st">"low"</span>, <span class="st">"high"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb31-35"><a href="#cb31-35" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(priming <span class="sc">~</span> condition_rec, <span class="at">paired=</span><span class="cn">TRUE</span>) <span class="sc">%&gt;%</span> </span>
+<span id="cb31-36"><a href="#cb31-36" aria-hidden="true" tabindex="-1"></a>  <span class="co">#mutate_if(is.numeric, list(~as.character(signif(., 3)))) %&gt;%</span></span>
+<span id="cb31-37"><a href="#cb31-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span><span class="dv">1</span>, <span class="sc">-</span><span class="dv">4</span><span class="sc">:-</span><span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-38"><a href="#cb31-38" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"factor"</span>, group1<span class="sc">:</span>group2) <span class="sc">%&gt;%</span></span>
+<span id="cb31-39"><a href="#cb31-39" aria-hidden="true" tabindex="-1"></a>  <span class="fu">rename</span>(<span class="at">t=</span><span class="st">'statistic'</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb31-40"><a href="#cb31-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">factor =</span> <span class="st">"frequency:primetype"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div>
 <section id="stats-summary" class="level4">
 <h4 class="anchored" data-anchor-id="stats-summary">Stats summary</h4>
-<div class="cell-container"><div class="cell-decorator"><pre>In [10]:</pre></div><div class="cell" data-tbl-pos="h">
+<div class="cell-container"><div class="cell-decorator"><pre>In [7]:</pre></div><div class="cell" data-tbl-pos="h">
 
-<div class="cell-container"><div class="cell-decorator"><pre>In [11]:</pre></div><div><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>exp2_summary.results_mop <span class="ot">&lt;-</span> <span class="fu">merge</span>(exp2_gdavg_mop_summary, exp2_rt_stats_main, <span class="at">by=</span><span class="st">'factor'</span>)</span>
-<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>exp2_summary.results_fae <span class="ot">&lt;-</span> <span class="fu">merge</span>(exp2_gdavg_fae_summary, exp2_rt_stats_interaction, <span class="at">by=</span><span class="st">'factor'</span>) <span class="sc">|&gt;</span></span>
-<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>mean_high, <span class="sc">-</span>mean_low)</span>
-<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a>exp2_summary.results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(exp2_summary.results_mop, exp2_summary.results_fae)</span>
-<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>  </span>
-<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>exp2_summary.results <span class="sc">%&gt;%</span></span>
-<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(<span class="fu">c</span>(<span class="st">"sd_unrelated"</span>, <span class="st">"mean.error_unrelated"</span>), <span class="at">.before=</span>gd.mean_related) <span class="sc">%&gt;%</span></span>
-<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
-<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI =</span> <span class="st">"95% CI"</span>,</span>
-<span id="cb26-13"><a href="#cb26-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contains</span>(<span class="st">"mean"</span>) <span class="sc">~</span> <span class="st">"mean"</span>,</span>
-<span id="cb26-14"><a href="#cb26-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contains</span>(<span class="st">"sd"</span>) <span class="sc">~</span> <span class="st">"SD"</span>, </span>
-<span id="cb26-15"><a href="#cb26-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contains</span>(<span class="st">"error"</span>) <span class="sc">~</span> <span class="st">"Error (%)"</span></span>
-<span id="cb26-16"><a href="#cb26-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb26-17"><a href="#cb26-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb26-18"><a href="#cb26-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"unrelated RT"</span>,</span>
-<span id="cb26-19"><a href="#cb26-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span>
-<span id="cb26-20"><a href="#cb26-20" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb26-21"><a href="#cb26-21" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb26-22"><a href="#cb26-22" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"repetition RT"</span>,</span>
-<span id="cb26-23"><a href="#cb26-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>)</span>
-<span id="cb26-24"><a href="#cb26-24" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb26-25"><a href="#cb26-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb26-26"><a href="#cb26-26" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">'priming effects'</span>,</span>
-<span id="cb26-27"><a href="#cb26-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">12</span>)</span>
-<span id="cb26-28"><a href="#cb26-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb26-29"><a href="#cb26-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb26-30"><a href="#cb26-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">md</span>(<span class="st">"_t_-test"</span>),</span>
-<span id="cb26-31"><a href="#cb26-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">15</span>)</span>
-<span id="cb26-32"><a href="#cb26-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb26-33"><a href="#cb26-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
-<span id="cb26-34"><a href="#cb26-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">md</span>(<span class="st">"SD~p~"</span>)</span>
-<span id="cb26-35"><a href="#cb26-35" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb26-36"><a href="#cb26-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
-<span id="cb26-37"><a href="#cb26-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">t =</span> <span class="fu">md</span>(<span class="st">"_t_"</span>),</span>
-<span id="cb26-38"><a href="#cb26-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">md</span>(<span class="st">"_p_"</span>),</span>
-<span id="cb26-39"><a href="#cb26-39" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb26-40"><a href="#cb26-40" aria-hidden="true" tabindex="-1"></a>   <span class="fu">sub_missing</span>(</span>
-<span id="cb26-41"><a href="#cb26-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_text =</span> <span class="st">" "</span></span>
-<span id="cb26-42"><a href="#cb26-42" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-exp2-statsResults" class="cell quarto-float anchored" data-tbl-pos="h">
+<div class="cell-container"><div class="cell-decorator"><pre>In [8]:</pre></div><div><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a>exp2_summary.results_mop <span class="ot">&lt;-</span> <span class="fu">merge</span>(exp2_gdavg_mop_summary, exp2_rt_stats_main, <span class="at">by=</span><span class="st">'factor'</span>)</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>exp2_summary.results_fae <span class="ot">&lt;-</span> <span class="fu">merge</span>(exp2_gdavg_fae_summary, exp2_rt_stats_interaction, <span class="at">by=</span><span class="st">'factor'</span>) <span class="sc">|&gt;</span></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(<span class="sc">-</span>mean_high, <span class="sc">-</span>mean_low)</span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>exp2_summary.results <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(exp2_summary.results_mop, exp2_summary.results_fae)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>exp2_summary.results <span class="sc">%&gt;%</span></span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">t =</span> <span class="fu">round</span>(t, <span class="dv">2</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">relocate</span>(<span class="fu">c</span>(<span class="st">"sd_unrelated"</span>, <span class="st">"mean.error_unrelated"</span>), <span class="at">.before=</span>gd.mean_related) <span class="sc">%&gt;%</span></span>
+<span id="cb32-11"><a href="#cb32-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
+<span id="cb32-12"><a href="#cb32-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb32-13"><a href="#cb32-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">CI =</span> <span class="st">"95% CI"</span>,</span>
+<span id="cb32-14"><a href="#cb32-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contains</span>(<span class="st">"mean"</span>) <span class="sc">~</span> <span class="st">"mean"</span>,</span>
+<span id="cb32-15"><a href="#cb32-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contains</span>(<span class="st">"sd"</span>) <span class="sc">~</span> <span class="st">"SD"</span>, </span>
+<span id="cb32-16"><a href="#cb32-16" aria-hidden="true" tabindex="-1"></a>    <span class="fu">contains</span>(<span class="st">"error"</span>) <span class="sc">~</span> <span class="st">"Error (%)"</span></span>
+<span id="cb32-17"><a href="#cb32-17" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-18"><a href="#cb32-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb32-19"><a href="#cb32-19" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"unrelated RT"</span>,</span>
+<span id="cb32-20"><a href="#cb32-20" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">4</span>)</span>
+<span id="cb32-21"><a href="#cb32-21" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-22"><a href="#cb32-22" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb32-23"><a href="#cb32-23" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"repetition RT"</span>,</span>
+<span id="cb32-24"><a href="#cb32-24" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">5</span><span class="sc">:</span><span class="dv">7</span>)</span>
+<span id="cb32-25"><a href="#cb32-25" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-26"><a href="#cb32-26" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb32-27"><a href="#cb32-27" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">'priming effects'</span>,</span>
+<span id="cb32-28"><a href="#cb32-28" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">9</span><span class="sc">:</span><span class="dv">12</span>)</span>
+<span id="cb32-29"><a href="#cb32-29" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-30"><a href="#cb32-30" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb32-31"><a href="#cb32-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">md</span>(<span class="st">"_t_-test"</span>),</span>
+<span id="cb32-32"><a href="#cb32-32" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(<span class="dv">13</span><span class="sc">:</span><span class="dv">15</span>)</span>
+<span id="cb32-33"><a href="#cb32-33" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-34"><a href="#cb32-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb32-35"><a href="#cb32-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">sd =</span> <span class="fu">md</span>(<span class="st">"SD~p~"</span>)</span>
+<span id="cb32-36"><a href="#cb32-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-37"><a href="#cb32-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
+<span id="cb32-38"><a href="#cb32-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">t =</span> <span class="fu">md</span>(<span class="st">"_t_"</span>),</span>
+<span id="cb32-39"><a href="#cb32-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">p =</span> <span class="fu">md</span>(<span class="st">"_p_"</span>),</span>
+<span id="cb32-40"><a href="#cb32-40" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb32-41"><a href="#cb32-41" aria-hidden="true" tabindex="-1"></a>   <span class="fu">sub_missing</span>(</span>
+<span id="cb32-42"><a href="#cb32-42" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_text =</span> <span class="st">" "</span></span>
+<span id="cb32-43"><a href="#cb32-43" aria-hidden="true" tabindex="-1"></a>  )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-exp2-statsResults" class="cell quarto-float quarto-figure quarto-figure-center anchored" data-tbl-pos="h">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-exp2-statsResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitude of priming.
 </figcaption>
 <div aria-describedby="tbl-exp2-statsResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<div id="rrkkvzkgrk" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#rrkkvzkgrk table {
+<div id="tmzbhxhnsx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#tmzbhxhnsx table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#rrkkvzkgrk thead, #rrkkvzkgrk tbody, #rrkkvzkgrk tfoot, #rrkkvzkgrk tr, #rrkkvzkgrk td, #rrkkvzkgrk th {
+#tmzbhxhnsx thead, #tmzbhxhnsx tbody, #tmzbhxhnsx tfoot, #tmzbhxhnsx tr, #tmzbhxhnsx td, #tmzbhxhnsx th {
   border-style: none;
 }
 
-#rrkkvzkgrk p {
+#tmzbhxhnsx p {
   margin: 0;
   padding: 0;
 }
 
-#rrkkvzkgrk .gt_table {
+#tmzbhxhnsx .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1276,12 +764,12 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-left-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_caption {
+#tmzbhxhnsx .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#rrkkvzkgrk .gt_title {
+#tmzbhxhnsx .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1293,7 +781,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-bottom-width: 0;
 }
 
-#rrkkvzkgrk .gt_subtitle {
+#tmzbhxhnsx .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1305,7 +793,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-top-width: 0;
 }
 
-#rrkkvzkgrk .gt_heading {
+#tmzbhxhnsx .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1317,13 +805,13 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-right-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_bottom_border {
+#tmzbhxhnsx .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_col_headings {
+#tmzbhxhnsx .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1338,7 +826,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-right-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_col_heading {
+#tmzbhxhnsx .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1358,7 +846,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   overflow-x: hidden;
 }
 
-#rrkkvzkgrk .gt_column_spanner_outer {
+#tmzbhxhnsx .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1370,15 +858,15 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 4px;
 }
 
-#rrkkvzkgrk .gt_column_spanner_outer:first-child {
+#tmzbhxhnsx .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#rrkkvzkgrk .gt_column_spanner_outer:last-child {
+#tmzbhxhnsx .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#rrkkvzkgrk .gt_column_spanner {
+#tmzbhxhnsx .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1390,11 +878,11 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   width: 100%;
 }
 
-#rrkkvzkgrk .gt_spanner_row {
+#tmzbhxhnsx .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#rrkkvzkgrk .gt_group_heading {
+#tmzbhxhnsx .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1420,7 +908,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   text-align: left;
 }
 
-#rrkkvzkgrk .gt_empty_group_heading {
+#tmzbhxhnsx .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1435,15 +923,15 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   vertical-align: middle;
 }
 
-#rrkkvzkgrk .gt_from_md > :first-child {
+#tmzbhxhnsx .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#rrkkvzkgrk .gt_from_md > :last-child {
+#tmzbhxhnsx .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#rrkkvzkgrk .gt_row {
+#tmzbhxhnsx .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1462,7 +950,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   overflow-x: hidden;
 }
 
-#rrkkvzkgrk .gt_stub {
+#tmzbhxhnsx .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1475,7 +963,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#rrkkvzkgrk .gt_stub_row_group {
+#tmzbhxhnsx .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1489,15 +977,15 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   vertical-align: top;
 }
 
-#rrkkvzkgrk .gt_row_group_first td {
+#tmzbhxhnsx .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#rrkkvzkgrk .gt_row_group_first th {
+#tmzbhxhnsx .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#rrkkvzkgrk .gt_summary_row {
+#tmzbhxhnsx .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1507,16 +995,16 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#rrkkvzkgrk .gt_first_summary_row {
+#tmzbhxhnsx .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_first_summary_row.thick {
+#tmzbhxhnsx .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#rrkkvzkgrk .gt_last_summary_row {
+#tmzbhxhnsx .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1526,7 +1014,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-bottom-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_grand_summary_row {
+#tmzbhxhnsx .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1536,7 +1024,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#rrkkvzkgrk .gt_first_grand_summary_row {
+#tmzbhxhnsx .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1546,7 +1034,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-top-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_last_grand_summary_row_top {
+#tmzbhxhnsx .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1556,11 +1044,11 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-bottom-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_striped {
+#tmzbhxhnsx .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#rrkkvzkgrk .gt_table_body {
+#tmzbhxhnsx .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1569,7 +1057,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-bottom-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_footnotes {
+#tmzbhxhnsx .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1583,7 +1071,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-right-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_footnote {
+#tmzbhxhnsx .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1592,7 +1080,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#rrkkvzkgrk .gt_sourcenotes {
+#tmzbhxhnsx .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1606,7 +1094,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-right-color: #D3D3D3;
 }
 
-#rrkkvzkgrk .gt_sourcenote {
+#tmzbhxhnsx .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1614,68 +1102,68 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#rrkkvzkgrk .gt_left {
+#tmzbhxhnsx .gt_left {
   text-align: left;
 }
 
-#rrkkvzkgrk .gt_center {
+#tmzbhxhnsx .gt_center {
   text-align: center;
 }
 
-#rrkkvzkgrk .gt_right {
+#tmzbhxhnsx .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#rrkkvzkgrk .gt_font_normal {
+#tmzbhxhnsx .gt_font_normal {
   font-weight: normal;
 }
 
-#rrkkvzkgrk .gt_font_bold {
+#tmzbhxhnsx .gt_font_bold {
   font-weight: bold;
 }
 
-#rrkkvzkgrk .gt_font_italic {
+#tmzbhxhnsx .gt_font_italic {
   font-style: italic;
 }
 
-#rrkkvzkgrk .gt_super {
+#tmzbhxhnsx .gt_super {
   font-size: 65%;
 }
 
-#rrkkvzkgrk .gt_footnote_marks {
+#tmzbhxhnsx .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#rrkkvzkgrk .gt_asterisk {
+#tmzbhxhnsx .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#rrkkvzkgrk .gt_indent_1 {
+#tmzbhxhnsx .gt_indent_1 {
   text-indent: 5px;
 }
 
-#rrkkvzkgrk .gt_indent_2 {
+#tmzbhxhnsx .gt_indent_2 {
   text-indent: 10px;
 }
 
-#rrkkvzkgrk .gt_indent_3 {
+#tmzbhxhnsx .gt_indent_3 {
   text-indent: 15px;
 }
 
-#rrkkvzkgrk .gt_indent_4 {
+#tmzbhxhnsx .gt_indent_4 {
   text-indent: 20px;
 }
 
-#rrkkvzkgrk .gt_indent_5 {
+#tmzbhxhnsx .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
 
-<table class="gt_table do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 6%">
 <col style="width: 6%">
@@ -1715,60 +1203,60 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
 <th id="ES" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ES</th>
 <th id="<em>t</em>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><em>t</em></th>
 <th id="df" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">df</th>
-<th id="<em>p</em>" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col"><em>p</em></th>
+<th id="<em>p</em>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col"><em>p</em></th>
 </tr>
 </thead>
 <tbody class="gt_table_body">
 <tr class="odd">
 <td class="gt_row gt_left" headers="factor">high</td>
-<td class="gt_row gt_right" headers="gd.mean_unrelated">573</td>
+<td class="gt_row gt_right" headers="gd.mean_unrelated">574</td>
 <td class="gt_row gt_right" headers="sd_unrelated">83</td>
 <td class="gt_row gt_right" headers="mean.error_unrelated">3</td>
-<td class="gt_row gt_right" headers="gd.mean_related">555</td>
-<td class="gt_row gt_right" headers="sd_related">85</td>
+<td class="gt_row gt_right" headers="gd.mean_related">548</td>
+<td class="gt_row gt_right" headers="sd_related">83</td>
 <td class="gt_row gt_right" headers="mean.error_related">2</td>
-<td class="gt_row gt_right" headers="cor">0.860</td>
-<td class="gt_row gt_right" headers="MOP">18</td>
-<td class="gt_row gt_left" headers="CI">[16 20]</td>
-<td class="gt_row gt_right" headers="sd">45</td>
-<td class="gt_row gt_right" headers="ES">0.41</td>
-<td class="gt_row gt_right" headers="t">19.7</td>
-<td class="gt_row gt_right" headers="df">2340</td>
-<td class="gt_row gt_left" headers="p">2.88e-80</td>
+<td class="gt_row gt_right" headers="cor">0.850</td>
+<td class="gt_row gt_right" headers="MOP">26</td>
+<td class="gt_row gt_left" headers="CI">[24 28]</td>
+<td class="gt_row gt_right" headers="sd">46</td>
+<td class="gt_row gt_right" headers="ES">0.56</td>
+<td class="gt_row gt_right" headers="t">24.60</td>
+<td class="gt_row gt_right" headers="df">1923</td>
+<td class="gt_row gt_right" headers="p">2.27e-116</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="factor">low</td>
 <td class="gt_row gt_right" headers="gd.mean_unrelated">605</td>
-<td class="gt_row gt_right" headers="sd_unrelated">88</td>
+<td class="gt_row gt_right" headers="sd_unrelated">89</td>
 <td class="gt_row gt_right" headers="mean.error_unrelated">6</td>
-<td class="gt_row gt_right" headers="gd.mean_related">577</td>
-<td class="gt_row gt_right" headers="sd_related">88</td>
+<td class="gt_row gt_right" headers="gd.mean_related">570</td>
+<td class="gt_row gt_right" headers="sd_related">89</td>
 <td class="gt_row gt_right" headers="mean.error_related">3</td>
-<td class="gt_row gt_right" headers="cor">0.850</td>
-<td class="gt_row gt_right" headers="MOP">28</td>
-<td class="gt_row gt_left" headers="CI">[26 30]</td>
-<td class="gt_row gt_right" headers="sd">49</td>
-<td class="gt_row gt_right" headers="ES">0.58</td>
-<td class="gt_row gt_right" headers="t">27.8</td>
-<td class="gt_row gt_right" headers="df">2340</td>
-<td class="gt_row gt_left" headers="p">1.52e-147</td>
+<td class="gt_row gt_right" headers="cor">0.840</td>
+<td class="gt_row gt_right" headers="MOP">35</td>
+<td class="gt_row gt_left" headers="CI">[33 37]</td>
+<td class="gt_row gt_right" headers="sd">51</td>
+<td class="gt_row gt_right" headers="ES">0.69</td>
+<td class="gt_row gt_right" headers="t">30.19</td>
+<td class="gt_row gt_right" headers="df">1923</td>
+<td class="gt_row gt_right" headers="p">3.51e-164</td>
 </tr>
 <tr class="odd">
 <td class="gt_row gt_left" headers="factor">non-word</td>
-<td class="gt_row gt_right" headers="gd.mean_unrelated">623</td>
-<td class="gt_row gt_right" headers="sd_unrelated">103</td>
+<td class="gt_row gt_right" headers="gd.mean_unrelated">629</td>
+<td class="gt_row gt_right" headers="sd_unrelated">108</td>
 <td class="gt_row gt_right" headers="mean.error_unrelated">4</td>
-<td class="gt_row gt_right" headers="gd.mean_related">625</td>
-<td class="gt_row gt_right" headers="sd_related">103</td>
-<td class="gt_row gt_right" headers="mean.error_related">4</td>
-<td class="gt_row gt_right" headers="cor">0.910</td>
-<td class="gt_row gt_right" headers="MOP">-2</td>
-<td class="gt_row gt_left" headers="CI">[-4 0]</td>
-<td class="gt_row gt_right" headers="sd">43</td>
-<td class="gt_row gt_right" headers="ES">-0.05</td>
-<td class="gt_row gt_right" headers="t">-2.33</td>
-<td class="gt_row gt_right" headers="df">2340</td>
-<td class="gt_row gt_left" headers="p">0.0197</td>
+<td class="gt_row gt_right" headers="gd.mean_related">633</td>
+<td class="gt_row gt_right" headers="sd_related">110</td>
+<td class="gt_row gt_right" headers="mean.error_related">5</td>
+<td class="gt_row gt_right" headers="cor">0.900</td>
+<td class="gt_row gt_right" headers="MOP">-4</td>
+<td class="gt_row gt_left" headers="CI">[-6 -2]</td>
+<td class="gt_row gt_right" headers="sd">50</td>
+<td class="gt_row gt_right" headers="ES">-0.08</td>
+<td class="gt_row gt_right" headers="t">-3.53</td>
+<td class="gt_row gt_right" headers="df">1923</td>
+<td class="gt_row gt_right" headers="p">4.32e-04</td>
 </tr>
 <tr class="even">
 <td class="gt_row gt_left" headers="factor">frequency:primetype</td>
@@ -1784,19 +1272,18 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
 </td>
 <td class="gt_row gt_right" headers="mean.error_related"><br>
 </td>
-<td class="gt_row gt_right" headers="cor">0.029</td>
-<td class="gt_row gt_right" headers="MOP">10</td>
-<td class="gt_row gt_left" headers="CI">[7 13]</td>
-<td class="gt_row gt_right" headers="sd">66</td>
-<td class="gt_row gt_right" headers="ES">0.15</td>
-<td class="gt_row gt_right" headers="t">7.24</td>
-<td class="gt_row gt_right" headers="df">2340</td>
-<td class="gt_row gt_left" headers="p">5.86e-13</td>
+<td class="gt_row gt_right" headers="cor">0.024</td>
+<td class="gt_row gt_right" headers="MOP">9</td>
+<td class="gt_row gt_left" headers="CI">[6 12]</td>
+<td class="gt_row gt_right" headers="sd">68</td>
+<td class="gt_row gt_right" headers="ES">0.13</td>
+<td class="gt_row gt_right" headers="t">6.07</td>
+<td class="gt_row gt_right" headers="df">1923</td>
+<td class="gt_row gt_right" headers="p">1.55e-09</td>
 </tr>
 </tbody>
 </table>
 
-</div>
 </div>
 </div>
 </div>
@@ -2225,30 +1712,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","descPosition":"bottom","closeEffect":"zoom","loop":false,"selector":".lightbox"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
-    }
-  });
-
-};
-          </script> 
+</script>  </div> <!-- /content --> 
   
 </body></html>

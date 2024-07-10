@@ -173,6 +173,7 @@
 \@ifpackageloaded{caption}{}{\usepackage{caption}}
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
+
 \ifLuaTeX
   \usepackage{selnolig}  % disable illegal ligatures
 \fi
@@ -191,6 +192,7 @@ effect, online browser-based experiment, power analysis},
   citecolor={Blue},
   urlcolor={Blue},
   pdfcreator={LaTeX via pandoc}}
+
 
 \title{The detection and accurate estimation of frequency attenuation
 effects in masked repetition priming: A large scale web browser-based
@@ -232,6 +234,7 @@ masked repetition priming\sep frequency attenuation effect\sep online
 browser-based experiment\sep 
 power analysis
 \end{keywords}
+
 
 \section{Introduction}\label{sec-intro}
 
@@ -645,16 +648,15 @@ studies online.
 
 As evident in Table~\ref{tbl-litReview}, conducting a properly powered
 experiment for a FAE close to the averaged value calculated from
-previous studies will require sample sizes that would be impractical to
-pursue in standard university research settings, typically quiet lab
-rooms with a small number of research computers. In response to this
-challenge, our study was exclusively conducted online, leveraging the
-growing trend in online behavioral research facilitated by HTML5
-capabilities and the availability of advanced web software such as
-\emph{jsPsych} (de Leeuw 2014), \emph{PsychoJS} (the JavaScript
+previous studies requires a sample size that would be impractical to
+pursue in standard university research settings, i.e.~typically quiet
+lab rooms with a small number of research computers. In response to this
+challenge, the present study was exclusively conducted online,
+leveraging the growing trend in online behavioral research facilitated
+by HTML5 capabilities and the availability of advanced web software such
+as \emph{jsPsych} (de Leeuw 2014), \emph{PsychoJS} (the JavaScript
 counterpart of \emph{PsychoPy}, Peirce et al. (2019)), \emph{Gorilla}
 (Anwyl-Irvine et al. 2020), and \emph{Labvanced} (Finger et al. 2017).
-
 Notably, three recent studies have already demonstrated the viability of
 conducting masked priming experiments online, employing different
 software tools: Angele et al. (2023) with \emph{PsychoJS}, Cayado, Wray,
@@ -666,109 +668,29 @@ experience with it (Petrosino, Sprouse, and Almeida 2023). Similar to
 ensuring cross-platform consistency and simplifying experimental design
 without necessitating proficiency in additional programming languages.
 
-\subsection{Methods}\label{sec-exp1-methods}
+We determined the sample size large enough to guarantee an acceptable
+statistical power (\(>80%
+\)) by a full-fledged power analysis specifically targeting what we
+construed as the smallest theoretically interesting FAE (i.e., 5ms). The
+details of the power analysis is available as supplemental material of
+the paper. Similarly, the code used for the power simulations, along
+with the simulated datasets are available online
+(\url{https://osf.io/r7d2q/}). Our analysis identified a sample size of
+1,250 participants as optimal, ensuring robust statistical power
+especially for a raw FAE equal to or exceeding 10 ms ---- a value
+closely aligned with the average FAE calculated from previous studies
+(cf. Table~\ref{tbl-litReview}). In light of the limitations in the
+temporal accuracy and precision of current online stimulus delivery
+programs (observed in several pilots and previous published studies
+conducted in our lab), we aimed for an intended sample size of 2,600.
+This decision was made to enhance the likelihood of obtaining a sample
+size of at least 1,250 participants after applying all the necessary
+exclusion criteria to the data. In addition, sample sizes exceeding
+1,250 can only help increase the precision of the estimated effect size.
 
-\subsubsection{Participants}\label{sec-exp1-methods-participants}
-
-Three hundred participants (145 females; \emph{mean age} = 38; \emph{sd}
-= 12) were recruited on the Prolific online platform
-(\url{https://www.prolific.com}). Several criteria were selected to
-ensure recruitment of native speakers of U.S. English. Participants had
-to be born in the Unites States of America, speak English as their first
-and only language, and have no self-reported language-related disorder.
-We encouraged participants to avoid any sort of distraction throughout
-the experiment, and to close any program that may be running in the
-background. Because the experiment was run online, participants could
-not be monitored during data collection. Finally, to further reduce
-variability across participants' devices, we restricted the experiment
-to be run on Google Chrome only, which is the most used browser
-worldwide (W3 Counter 2023), and reportedly performs better than any
-other across operating systems (likely thanks to the \emph{Blink}
-engine; see Lukács and Gartus 2023).
-
-\subsubsection{Design}\label{sec-exp1-methods-design}
-
-The masked priming procedured relied on a lexical decision task (LDT),
-in which a 2 (frequency: \emph{high} vs \emph{low})\footnote{The
-  experiment also included an even lower frequency condition (range:
-  {[}3.0 5.01{]}; mean: 4.39, SD: 0.50), thus summing up to six hundred
-  trials being presented in the experiment. However, the average error
-  rate for this condition was 44\% and 33 (out of the 50) target words
-  used in the same condition had a error rate higher than 30\%. This
-  suggested that they might have not known these words (see Kinoshita
-  (2006)). For this reason, this condition was completely removed from
-  analysis.\label{fn-low-freq}} x 2 (prime type: \emph{repetition} vs
-\emph{unrelated}) factorial design was used. Both factors were
-manipulated within-subjects. The dependent variables were lexical
-decision latency (in miliseconds) and error rate (in percentages).
-
-\subsubsection{Materials}\label{sec-exp1-methods-materials}
-
-Two hundred five-letter English words were selected from the English
-Lexicon Project (ELP; Balota et al. 2007), in which 100 words were
-selected from an upper and a lower frequency range, respectively (but
-see fn. \ref{fn-low-freq}). It was not possible to identify two
-frequency ranges that were well separated from one another for both the
-HAL (Lund and Burgess 1996) and the SUBTLEX\(_{US}\) (Brysbaert and New
-2009) frequency databases. As Table~\ref{tbl-words_exp1} shows, we
-managed to do this only for the former, whereas some overlap was present
-in the latter. This is expected given the different source of the two
-databases (see above, and fn. \ref{fn-databases}). The two word subsets
-corresponded to the two word frequency conditions being tested: the
-high-frequency, and low-frequency conditions. In each condition, fifty
-words were randomly chosen to be presented as targets and related primes
-(for the related prime type condition), and the remaining fifty were
-presented as unrelated primes (for the unrelated prime type condition).
-
-\begin{longtable}{crrrrrrrrr}
-
-\caption{\label{tbl-words_exp1}Experiment 1. Descriptive statistics of
-the word item used. For both frequency databases, the word frequencies
-were converted to per-million count to ensure cross-comparison.}
-
-\tabularnewline
-
-\toprule
- &  & \multicolumn{4}{c}{\textbf{HAL}} & \multicolumn{4}{c}{\textbf{SUBTLEX\textsubscript{US}}} \\ 
-\cmidrule(lr){3-6} \cmidrule(lr){7-10}
-frequency & N & min & max & mean & SD & min & max & mean & SD \\ 
-\midrule\addlinespace[2.5pt]
-high & 100 & 169 & 1212 & 482 & 292 & 2.00 & 1168 & 129 & 201 \\ 
-low & 100 & 3 & 23 & 9 & 5 & 0.12 & 13 & 3 & 3 \\ 
-\bottomrule
-
-\end{longtable}
-
-Two-hundred five-letter phonotactically legal nonwords were randomly
-selected from the ELP database as well. Half of them were randomly
-selected to be presented as targets; the other half was instead used as
-unrelated nonword primes.
-
-\subsubsection{Procedure}\label{sec-exp1-methods-proc}
-
-Each recruited participant was assigned one of two word lists, which
-differed only in the relatedness of the prime with respect to the
-target; otherwise, the two lists presented the same set of target words
-and nonwords (300 items in total). In one list, the three conditions
-(high-frequency, low-frequency word conditions, and the non-word
-condition) had 25 target items being preceded by themselves (the
-\emph{related} condition) and the remaining 25 target items being
-preceded by one of the unrelated primes belonging to the same frequency
-bin (the \emph{unrelated} condition). In the other list, these
-assignments were reversed. The order of stimulus presentation was
-randomized for each participant.
-
-After being recruited in the \emph{Prolific} online platform,
-participants were asked to click on a link redirecting them to the
-Labvanced online service. During the experiment, they were asked to
-perform a lexical decision task by pressing either the `J' (for word) or
-`F' (for non-word) keys on their keyboard. Each trial consisted of three
-different stimuli appearing at the center of the screen: a series of
-five hashes (\#\#\#\#\#) presented for 500 ms, followed by a prime word
-presented for 33 ms, and finally the target word; the target word
-disappeared from the screen as soon as a decision was made. The
-motivation for the choice of a very short prime duration (as compared to
-the literature, in which it is usually between 50 and 60 ms; see
+In this experiment, the prime duration was set at 33 ms. The motivation
+for the choice of such a short prime duration (as compared to the
+literature, in which it is usually between 50 and 60 ms; see
 Table~\ref{tbl-litReview}) is threefold. First, previous experiments on
 \emph{Labvanced} (Petrosino, Sprouse, and Almeida 2023) showed that, due
 to the inherent difficulties in presenting stimuli for very short set
@@ -786,295 +708,124 @@ prevents virtually everyone from consciously perceiving the prime word
 Nievas (2010), and thus presents a less contaminated estimate of early
 putatively automatic processes in word recognition.
 
-Participants were given 5 breaks throughout the experiment. When the
-experiment was over, the participants were then redirected to Prolific
-in order to validate their submission. The median time to finish the
-experiment was 11 minutes. Each participant was paid with a standard
-rate of GBP 9/hour.
+\subsection{Methods}\label{sec-exp1-methods}
 
-\subsection{Data analysis}\label{sec-exp1-analysis}
-
-Analysis scripts and an abridged version of the data collected can be
-found on online (\url{https://osf.io/ej8dh}). We performed three
-different data exclusion steps (in sequential order). After removing
-participants and items with high error rates, we inspected the durations
-of prime stimuli and removed those that did not fell within our desired
-range. Finally, we removed RT outliers.
-
-\subsubsection{Step 1: subject and item
-performance}\label{sec-exp1-analysis-performance}
-
-Item and subject error rates were calculated, with a cutoff of 30\%.
-Only 3 low-frequency words (\emph{carte, parse, posit}), 5 non-words
-(\emph{frick, gotch, phasm, pluff, venem}), and 8 participants were
-removed, with 291 participants remaining.
-
-\subsubsection{Step 2: prime
-durations}\label{sec-exp1-analysis-primeTime}
-
-During the experiment, the duration of presentation of the prime word
-was recorded for every trial. Both the mean (38 ms) and the median (35
-ms) of prime durations were slightly larger than the intended value (33
-ms). This distribution suggests some imprecision in prime duration
-during the experiment. This was expected and likely due to the inherent
-difficulty with timing precision of visual presentations in web browsers
-and the great variation of computer hardware and internet connections
-used by the participants. Both of these issues may be impossible to
-control, at least at the current state of browser development. However,
-in masked priming, in which the duration of the prime is an essential
-part of the design, such fluctuations may indeed hinder proper
-elicitation of the priming response. Thus, we only kept trials whose
-prime durations were within a pre-set range from the intended prime
-duration of 33 ms. Taking a standard 60-Hz monitor as reference, the
-lower and the upper bounds were set respectively at 25 ms (i.e., the
-intended prime duration minus half of a full refresh cycle:
-\(33-8~ ms\); noting that Angele et al. (2023) already showed that no
-repetition priming effects are obtained with a 16.7ms prime duration)
-and 60 ms (i.e., the commonly accepted upper threshold of subliminal
-processing), in an attempt to remove any trial that could have been
-consciously perceived by participants. Only 4\% of the trials were out
-of this duration range. A total of 291 participants and 67,209
-observations were included in the next steps of analysis.
-
-\subsubsection{Step 3: RT distribution}\label{sec-exp1-analysis-RT}
-
-Finally, individual trials were excluded if the participant's RT was
-below 200 ms or above 1800 ms. 602 observations were excluded at this
-stage of analysis (i.e., -98.1\% of the dataset). After removing
-incorrect trials, we also made sure that each condition for each each
-participant contained at least half of the total number of trials
-presented (i.e., 12), to ensure more accurate estimates. A total of
-61,449 observations and 282 subjects were included in the statistical
-analysis below.
-
-\subsection{Results}\label{sec-exp1-results}
-
-Results are presented in Table~\ref{tbl-exp1-statsResults}. For each
-frequency bin, priming effects were calculated for each subject by
-subtracting the subject's mean RT to the related condition from the
-subject's mean RT to the unrelated condition. Unstandardized (in ms) and
-standardized effect sizes (i.e., Cohen's \emph{d}) were then calculated
-for each condition. A 2x2 repeated-measures ANOVA (condition, 2 levels:
-high vs.~low; primetype, 2 levels: unrelated vs.~repetition) revealed
-significant main effects (condition: \emph{F}(1, 281)=1167,
-\emph{p}\textless.0001; primetype: \emph{F}(1, 281)=198,
-\emph{p}\textless.0001), and a marginally significant interaction
-(\emph{FAE}=7 ms, \emph{F}(1, 281)=3.53, \emph{p}=.06). Planned
-comparisons showed that significant repetition priming effects were
-triggered in both frequency conditions (\emph{MOP\_HF}=23 ms,
-\emph{CI\_95\%}={[}19, 27{]}, \emph{t}(281)=10.4, \emph{p} \textless{}
-.0001; \emph{MOP\_LF}=30 ms, \emph{CI\_95\%}={[}24, 36{]},
-\emph{t}(281)=9.75, \emph{p}\textless.0001), with the low-frequency
-repetition priming effect being 7 ms larger than that of the
-high-frequency words, but this results was only marginally statistically
-significant (\emph{M\_FAE}= 7 ms, \emph{CI\_95\%}={[}-1, 15{]}),
-\emph{t}(281)=1.88, \emph{p}=0.06). Non-word repetition priming effects
-were inhibitory, and marginally statistically significant
-(\emph{MOP\_NW}=-4 ms, \emph{CI\_95\%}={[}-8, 0{]}, \emph{t}(281)=-1.91,
-\emph{p}=0.057). Participants committed fewer errors in the
-\emph{repetition} compared to \emph{unrelated} conditions, a result that
-was statistically significant in all frequency conditions (high:
-\emph{t}(281)=2.51, \emph{p}\textless.0001; low:
-\emph{t}(281)=6.39,\emph{p}\textless.0001; non-word:
-\emph{t}(281)=-2.24, \emph{p}\textless.0001).
-
-\blandscape
-
-\begin{longtable}{lrrrrrrrrlrrrrl}
-
-\caption{\label{tbl-exp1-statsResults}Experiment 1. Summary of the word
-priming results. \emph{Legend.} MOP: magnitude of priming.}
-
-\tabularnewline
-
-\toprule
- & \multicolumn{3}{c}{unrelated RT} & \multicolumn{3}{c}{repetition RT} &  & \multicolumn{4}{c}{priming effects} & \multicolumn{3}{c}{\emph{t}-test} \\ 
-\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){9-12} \cmidrule(lr){13-15}
-factor & mean & SD & Error (\%) & mean & SD & Error (\%) & cor & MOP & 95\% CI & SD\textsubscript{p} & ES & \emph{t} & df & \emph{p} \\ 
-\midrule\addlinespace[2.5pt]
-high & 619 & 77 & 2 & 596 & 80 & 1 & 0.89 & 23 & [19 27] & 37 & 0.62 & 10.4 & 281 & 8.78e-22 \\ 
-low & 699 & 93 & 10 & 669 & 91 & 7 & 0.84 & 30 & [24 36] & 52 & 0.58 & 9.75 & 281 & 1.51e-19 \\ 
-non-word & 712 & 110 & 6 & 716 & 110 & 6 & 0.96 & -4 & [-8 0] & 31 & -0.11 & -1.91 & 281 & 0.0567 \\ 
-frequency:primetype &   &   &   &   &   &   & -0.01 & 7 & [-1 15] & 64 & 0.11 & 1.88 & 281 & 0.0616 \\ 
-\bottomrule
-
-\end{longtable}
-
-\elandscape
-
-\subsection{Discussion}\label{sec-exp1-discussion}
-
-The primary objective of Experiment 1 was to evaluate whether web
-browser-based stimulus delivery programs such as \emph{Labvanced} can
-yield data comparable in quality to traditional lab-based experiments
-when it comes to masked priming experiments. The results indicate that
-this is indeed possible.
-
-Robust repetition priming was observed in both frequency conditions. The
-non-word condition triggered a small inhibitory repetition effect, in
-line with the previous literature Forster (1999), but this was only
-marginally statistically significant. Crucially, we observed a 7 ms FAE
-that was marginally statistically significant. As noted elsewhere
-(Potvin and Schutz 2000), the absence of a significant interaction
-effect may easily arise due to low statistical power.
-
-The 95\% CI for the FAE was between -1 ms and 15 ms. This interval
-suggests that the actual FAE is possibly a positive value that can be as
-large as 15 ms. This is in line with the results from previous
-literature, with the qualification that the majority of previous
-experiments used \textasciitilde50 ms prime durations, while experiment
-1 used a 33 ms prime duration. Prime durations have been suggested to be
-an upper bound on the size of the masked repetition priming effect
-(Forster 1998), and thus it is not entirely clear how much the FAE
-should vary as a function of the prime duration.
-
-To address the concerns about the lack of statistical power and the
-substantial imprecision in the estimated FAE size observed in experiment
-1, experiment 2 was designed to have a sample size that ensures
-acceptable statistical power to detect the an interaction between
-priming and frequency, as well as a sample size that reduces the width
-of the resulting confidence interval compared to experiment 1.
-
-\section{Experiment 2}\label{experiment-2}
-
-The findings from Experiment 1, as well as those reported by Angele et
-al. (2023), Cayado, Wray, and Stockall (2023) and Petrosino, Sprouse,
-and Almeida (2023), establish the feasibility of obtaining masked
-repetition priming in online experiments with a 33 ms prime duration.
-However, a crucial question remains: can we reliably detect the FAE in
-web browser-based settings? Experiment 2 directly addresses concerns
-about the potential statistical power limitations observed in Experiment
-1 and much of the prior literature. Specifically targeting what we
-construe as the smallest theoretically interesting FAE (5ms), we
-recruited a larger sample size, as determined by a power analysis. We
-simulated 10,000 datasets for each of the combinations of two
-statistical parameters: standard deviation and the correlation between
-conditions. The latter were kept equal across conditions to simplify the
-simulations. Based on our own pilot studies and previous published work
-(Petrosino 2020; Petrosino, Sprouse, and Almeida 2023), the simulations
-involved standard deviations ranging from 80 to 120 ms (with 10 ms
-increments), while the correlation between conditions ranged from 0.7 to
-0.9 (with 0.1 increments). The sample size varied between 200 and 3,000
-participants (with 150 unit increments). Three different FAE sizes were
-simulated: 15 ms, 10 ms and 5 ms. The first effect size (15 ms) is about
-half of the ones observed in previous studies that statistically
-detected the FAE (\textasciitilde30 ms). The second effect size (10 ms)
-is close to the size of the average frequency attenuation effect found
-in the literature (13 ms). The last effect size (5 ms) is our
-lower-bound estimate of a theoretically interesting effect size. The
-code used for the power simulations, along with the simulated datasets
-are available online (\url{https://osf.io/r7d2q/}).
-
-Our analysis identified a sample size of 1,250 participants as optimal,
-ensuring robust statistical power (\textgreater{} 80\%) across various
-parameter combinations (Figure~\ref{fig-power-1250}), especially for raw
-FAEs equal to or exceeding 10 ms ---- a value closely aligned with the
-average FAE calculated from previous studies (refer to
-Table~\ref{tbl-litReview}). In light of the observed limitations in the
-temporal accuracy and precision of current online stimulus delivery
-programs (discussed in Section~\ref{sec-exp1-analysis-primeTime}), which
-necessitated substantial subject and data exclusion in Experiment 1, we
-aimed for an intended sample size of 2,600. This decision was made to
-enhance the likelihood of obtaining a sample size of at least 1,250
-participants after applying all the necessary exclusion criteria to the
-data. In addition, sample sizes exceeding 1,250 can only help increase
-the precision of the estimated effect size.
-
-\phantomsection\label{cell-fig-power-1250}
-\begin{figure}[H]
-
-\centering{
-
-\includegraphics{index_files/figure-pdf/fig-power-1250-1.pdf}
-
-}
-
-\caption{\label{fig-power-1250}Power simulations with a sample size of
-1,250, for all combinations of standard deviation (sd), pairwise
-correlation (cor), and interaction effect size. The red line identifies
-the threshold of 80\% power.}
-
-\end{figure}%
-
-\subsection{Methods}\label{sec-exp2-methods}
-
-\subsubsection{Preregistration}\label{sec-exp2-prereg}
+\subsubsection{Preregistration}\label{sec-exp1-prereg}
 
 We preregistered the results of the power analysis, the goals, the
-design and analysis plan for experiment 2 prior to data collection. The
-preregistration, detailing the experimental hypotheses, the desired
+design and analysis plan for this experiment prior to data collection.
+The preregistration, detailing the experimental hypotheses, the desired
 sample size as well as the planned analyses is available online
 (\url{https://doi.org/10.17605/OSF.IO/3NFQP}).
 
-\subsubsection{Participants}\label{sec-exp2-methods-participants}
+\subsubsection{Participants}\label{sec-exp1-methods-participants}
 
-Two thousand and six hundred participants (1445 females; \emph{mean age}
-= 42, \emph{sd age} = 14) were recruited on Prolific
-(\url{https://www.prolific.com}) with the same criteria specified for
-experiment 1 (Section~\ref{sec-exp1-methods-participants}).
+Two thousand and six hundred participants (1,445 females; \emph{mean
+age} = 42, \emph{sd age} = 14) were recruited on Prolific
+(\url{https://www.prolific.com}). Several criteria were selected to
+ensure recruitment of native speakers of U.S. English. Participants had
+to be born in the Unites States of America, speak English as their first
+and only language, and have no self-reported language-related disorder.
+We encouraged participants to avoid any sort of distraction throughout
+the experiment, and to close any program that may be running in the
+background. Because the experiment was run online, participants could
+not be monitored during data collection. Finally, to further reduce
+variability across participants' devices, we restricted the experiment
+to be run on Google Chrome only, which is the most used browser
+worldwide (W3 Counter 2023), and reportedly performs better than any
+other across operating systems (likely thanks to the \emph{Blink}
+engine; see Lukács and Gartus 2023).
 
-\subsubsection{Design}\label{sec-exp2-methods-design}
+\subsubsection{Design}\label{sec-exp1-methods-design}
 
-The experimental design was identical to one reported in experiment 1.
+The masked priming procedure relied on a lexical decision task (LDT), in
+which a 2 (frequency: \emph{high} vs \emph{low}) x 2 (prime type:
+\emph{repetition} vs \emph{unrelated}) factorial design was used. Both
+factors were manipulated within-subjects. The dependent variables were
+lexical decision latency (RT, in milliseconds) and error rate (in
+percentages).
 
-\subsubsection{Materials}\label{sec-exp2-methods-materials}
+\subsubsection{Materials}\label{sec-exp1-methods-materials}
 
 One-hundred and four five-letter words, half of low frequency (between 7
 and 24 in the SUBTLEX\(_{US}\) frequency per million) and half of high
 frequency (between 57 and 2,961 in the SUBTLEX\(_{US}\) frequency per
 million) were sampled from ELP (Balota et al. 2007), but this time based
-on the SUBTLEX\(_{US}\) frequency counts rather than HAL (which was used
-in experiment 1). Table~\ref{tbl-words_exp2} shows that although the
-SUBTLEX\(_{US}\) frequency ranges of the two conditions were very far
-from one another (similarly to what was done in Experiment 1;
-Section~\ref{sec-exp1-methods-materials}), they still show some overlap
-when HAL frequencies are used. As mentioned before, this seems to be a
-general problem when jointly considering different frequency databases
-for a smaller set of stimuli that need to be manipulated and controlled
-in different ways (see also fn. \ref{fn-databases} and Adelman et al.
-(2014)). From each condition, fifty words were selected to be presented
-as targets and related primes (the \emph{related} condition), and the
-remaining fifty were presented as unrelated primes (the \emph{unrelated}
-condition). All words used were monomorphemic nouns, adjectives, or
-verbs, thus excluding particles, prepositions, and derived or inflected
-forms.
+on the SUBTLEX\(_{US}\) frequency counts rather than HAL.
+Table~\ref{tbl-words_exp1} shows that although the SUBTLEX\(_{US}\)
+frequency ranges of the two conditions were very far from one another
+they still show some overlap when HAL frequencies are used. As mentioned
+before, this seems to be a general problem when jointly considering
+different frequency databases for a smaller set of stimuli that need to
+be manipulated and controlled in different ways (see also fn.
+\ref{fn-databases} and Adelman et al. (2014)). From each condition, 26
+words were selected to be presented as targets and related primes (the
+\emph{repetition} condition), and the remaining 26 were presented as
+unrelated primes (the \emph{unrelated} condition). All word items were
+also controlled for orthographic neighborhood (i.e., Coltheart's
+\emph{N}): \(t \approx 0\). All words used were monomorphemic nouns,
+adjectives, or verbs, thus excluding particles, prepositions, and
+derived or inflected forms.
 
-\begin{longtable}{lrrrrrrrrr}
+\begin{longtable}{lrrrrrrrrrrrrr}
 
-\caption{\label{tbl-words_exp2}Experiment 2. Descriptive statistics of
+\caption{\label{tbl-words_exp1}Experiment 1. Descriptive statistics of
 the word items used. For both frequency databases, the word frequencies
 were converted to per-million count to ensure cross-comparison.}
 
 \tabularnewline
 
 \toprule
- &  & \multicolumn{4}{c}{\textbf{HAL}} & \multicolumn{4}{c}{\textbf{SUBTLEX\textsubscript{US}}} \\ 
-\cmidrule(lr){3-6} \cmidrule(lr){7-10}
-frequency & N & min & max & mean & SD & min & max & mean & SD \\ 
+ &  & \multicolumn{4}{c}{\textbf{HAL}} & \multicolumn{4}{c}{\textbf{SUBTLEX\textsubscript{US}}} & \multicolumn{4}{c}{\textbf{Orthographic \emph{N}}} \\ 
+\cmidrule(lr){3-6} \cmidrule(lr){7-10} \cmidrule(lr){11-14}
+frequency & N & min & max & mean & SD & min & max & mean & SD & min & max & mean & SD \\ 
 \midrule\addlinespace[2.5pt]
-high & 52 & 45 & 4984 & 573 & 808 & 57 & 2691 & 210 & 388 \\ 
-low & 52 & 6 & 570 & 64 & 93 & 7 & 24 & 13 & 5 \\ 
+high & 52 & 45 & 4984 & 573 & 808 & 57 & 2691 & 210 & 388 & 0 & 10 & 3.98 & 2.60 \\ 
+low & 52 & 6 & 570 & 64 & 93 & 7 & 24 & 13 & 5 & 0 & 11 & 3.92 & 2.79 \\ 
 \bottomrule
 
 \end{longtable}
 
-One-hundred and four five-letter, phonotactically legal nonwords were
-randomly selected from the ELP database as well. Half of them were
-randomly selected to be presented as targets; the other half was instead
-used as unrelated nonword primes. None of the nonwords contained any
-existing English morpheme. Both the words and non-words used in the
-experiments are reported in the appendix below. All items (words and
-nonwords) had a less than 10\% error rates in the SUBTLEX\(_{US}\), to
-help ensure that our stimuli were clearly distinguishable as words and
-pseudowords by most participants.
+One-hundred and four five-letter, phono-orthographically legal non-words
+were randomly selected from the ELP database as well. Half of them
+(i.e., 52) were randomly selected to be presented as targets; the other
+half was instead used as unrelated non-word primes. None of the
+non-words contained any existing English morpheme. Both the words and
+non-words used in the experiments are reported in the appendix below. In
+addition, all items had a reported error rate smaller than 10\%, so to
+ensure that they were all clearly distinguishable by participants.
 
-\subsubsection{Procedure}\label{sec-exp2-methods-proc}
+\subsubsection{Procedure}\label{sec-exp1-methods-proc}
 
-Experiment 2 followed the same procedures as experiment 1 (see
-Section~\ref{sec-exp1-methods-proc}). The median time to finish the
-experiment was 5 minutes.
+Each recruited participant was assigned one of two word lists, which
+differed only in the relatedness of the prime with respect to the
+target; otherwise, the two lists presented the same set of target words
+and nonwords (i.e., 104 pairs for each list). In one list, the three
+conditions (the high- and low-frequency word conditions, and the
+non-word condition) had half of the target items being preceded by
+themselves (the \emph{repetition} condition) and half of the target
+items being preceded by one of the unrelated primes belonging to the
+same frequency bin (the \emph{unrelated} condition). In the other list,
+these assignments were reversed. The order of stimulus presentation was
+randomized for each participant.
 
-\subsection{Data analysis}\label{sec-exp2-analysis}
+After being recruited in the \emph{Prolific} online platform,
+participants were asked to click on a link redirecting them to the
+Labvanced online service. During the experiment, they were asked to
+perform a lexical decision task by pressing either the `J' (for word) or
+`F' (for non-word) keys on their keyboard. Each trial consisted of three
+different stimuli appearing at the center of the screen: a series of
+five hashes (\#\#\#\#\#) presented for 500 ms, followed by a prime word
+presented for 33 ms, and finally the target word; the target word
+disappeared from the screen as soon as a decision was made.
+
+Participants were given 5 breaks throughout the experiment. When the
+experiment was over, the participants were then redirected to Prolific
+in order to validate their submission. The median time to finish the
+experiment was 6 minutes. Each participant was paid with a standard rate
+of GBP 9/hour.
+
+\subsection{Data analysis}\label{sec-exp1-analysis}
 
 Analysis scripts and an abridged version of the data collected can be
 found online (\url{https://osf.io/vn3r2}), and consisted of 297,598
@@ -1082,7 +833,7 @@ observations in total. We performed the same three steps of analysis
 described for experiment 1 (Section~\ref{sec-exp1-analysis}).
 
 \subsubsection{Step 1: subject and item
-performance}\label{sec-exp2-analysis-performance}
+performance}\label{sec-exp1-analysis-performance}
 
 Item and subject error rates were calculated. The item error rate was
 never above 14\%, so no item was excluded from analysis. 19 subjects
@@ -1091,7 +842,7 @@ were removed because their error rate was above 30\%. Thus, a total of
 analyses.
 
 \subsubsection{Step 2: prime
-durations}\label{sec-exp2-analysis-primeTime}
+durations}\label{sec-exp1-analysis-primeTime}
 
 Prime fluctuations were dealt with in the same way as in experiment 1
 (Section~\ref{sec-exp1-analysis-primeTime}). The mean (mean = 32.32 ms,
@@ -1101,7 +852,7 @@ experiment 1 (i.e., any trial whose prime duration was out of the
 25-60ms range) removed 13 \% of the trials. No participant was excluded,
 for a total of 237,287 observations.
 
-\subsubsection{Step 3: RT distribution}\label{sec-exp2-analysis-RT}
+\subsubsection{Step 3: RT analysis}\label{sec-exp1-analysis-RT}
 
 After removing the incorrect responses, similarly to experiment 1
 (Section~\ref{sec-exp1-analysis-RT}), 0.51\% of the trials were excluded
@@ -1112,9 +863,9 @@ trials being presented within the same condition, i.e.~13). A total of
 210,889 observations and 2,341 subjects were included in the statistical
 analysis below.
 
-\subsection{Results}\label{sec-exp2-results}
+\subsection{Results}\label{sec-exp1-results}
 
-Table~\ref{tbl-exp2-statsResults} below report the descriptive
+Table~\ref{tbl-exp1-statsResults} below report the descriptive
 statistics of the experiment. For each frequency condition, priming
 effects were calculated in the same way as in experiment 1. A 2x2
 repeated-measures ANOVA (condition, 2 levels: high vs.~low; primetype, 2
@@ -1143,7 +894,7 @@ compared to unrelated trials in the all conditions (high:
 
 \begin{longtable}{lrrrrrrrrlrrrrl}
 
-\caption{\label{tbl-exp2-statsResults}Experiment 2. Summary of the word
+\caption{\label{tbl-exp1-statsResults}Experiment 1. Summary of the word
 priming results. \emph{Legend.} MOP: magnitude of priming.}
 
 \tabularnewline
@@ -1163,35 +914,304 @@ frequency:primetype &   &   &   &   &   &   & 0.029 & 10 & [7 13] & 66 & 0.15 & 
 
 \elandscape
 
+\subsection{Discussion}\label{sec-exp1-discussion}
+
+Experiment 1 was designed to investigate whether Frequency Attenuation
+Effects (FAE) can be detected under masked priming conditions (with SOA
+= 33 ms). We managed to recruit a very large sample size (\(N=2341\)) to
+ensure adequate statistical power for detecting even small effect sizes.
+Our results not only showed statistically significant main effects of
+repetition for high and low frequency words alike, but also detected a
+statistically significant interaction: the low-frequency condition
+yielded priming effects that were 10 ms larger than the high-frequency
+condition with a margin of error as narrow as 5 ms. The absence of a
+robust non-word masked priming response has been used as an additional
+piece of evidence supporting the view that the masked priming response
+stems from lexical memory and is devoid of episodic influences (e.g.,
+Forster 1999). The results of this experiment align with the previous
+evidence in showing at best very small inhibitory masked repetition
+priming for non-words, with very high precision: the 95\% CI indicates
+the plausible range for the masked repetition priming effect for
+non-words to be between -4 and 0 ms when prime duration is 33 ms.
+
+\section{Experiment 2}\label{sec-exp2}
+
+The results of experiment 1 showed that with the right sample size, the
+repetition priming response may indeed be modulated by word frequency.
+However, the experiment was carried out with a unusually short prime
+duration (i.e., 33 ms). In previous pilot experiments carried out at
+longer durations (e.g., 48 ms), we observed that the distribution of the
+prime duration tended to be more positively skewed, with a substantial
+increase of the number of trials with a prime duration above the
+subliminal threshold of 60 ms. While being aware of these methodological
+limitations, we carried out a follow-up experiment that elicited the
+repetition priming response to the same materials used in experiment 1,
+with a longer prime duration (i.e., 48 ms), which is more in line with
+the literature on the topic. The aim for this experiment was three-fold.
+From the methodological point of view, it may show that a shorter prime
+duration in online masked priming experiment may prevent unnecessary
+data loss, while still providing reliable results. From the theoretical
+point of view, it may provide further evidence on two separate issues.
+First, it may inform on the interaction between priming and prime
+duration. In particular, we expect the longer prime duration to elicit a
+larger facilitation, and therefore a larger magnitude of priming.
+Second, and more importantly for the question being asked here, it may
+further inform on the size of the interaction between priming and word
+frequency.
+
+\subsection{Methods}\label{sec-exp2-methods}
+
+\subsubsection{Participants}\label{sec-exp2-methods-participants}
+
+Two thousand and six hundred participants (1,551 females; \emph{mean
+age} = 39, \emph{sd age} = 12) were recruited on Prolific
+(\url{https://www.prolific.com}) with the same criteria specified for
+experiment 1 (Section~\ref{sec-exp1-methods-participants}). Prior to
+recruitment, the participants participating in experiment 1 were
+excluded from the pool, so that the participants recruited for
+experiment 2 was completely different from the participants recruited
+for experiment 1.
+
+\subsubsection{Design}\label{sec-exp2-methods-design}
+
+The experimental design was identical to experiment 1.
+
+\subsubsection{Materials}\label{sec-exp2-methods-materials}
+
+The experimental items were the same as experiment 1.
+
+\subsubsection{Procedure}\label{sec-exp2-methods-proc}
+
+Experiment 2 followed the same procedures as experiment 1 (see
+Section~\ref{sec-exp1-methods-proc}). The median time to finish the
+experiment was the same as experiment 1 (i.e., about 6 minutes).
+
+\subsection{Data analysis}\label{sec-exp2-analysis}
+
+Analysis scripts and an abridged version of the data collected can be
+found online (\url{https://osf.io/k3gpc}), and consisted of 295,940
+observations in total. We performed the same three steps of analysis
+described for experiment 1 (Section~\ref{sec-exp1-analysis}).
+
+\subsubsection{Step 1: subject and item
+performance}\label{sec-exp2-analysis-performance}
+
+Item and subject error rates were calculated. Similarly to experiment 1,
+the item error rate was never above 12\%, so no item was excluded from
+analysis. 39 subjects were removed because their error rate was above
+30\%. Thus, a total of 265,982 observations and 2,558 participants were
+included in further analyses.
+
+\subsubsection{Step 2: prime
+durations}\label{sec-exp2-analysis-primeTime}
+
+Prime fluctuations were dealt with in the same way as in experiment 1
+(Section~\ref{sec-exp1-analysis-primeTime}). The mean (mean = 50.11 ms,
+sd = 11.13) and the median (median = 50 ms) prime durations were closer
+to the intended value (50 ms). The same prime duration cut-off set for
+experiment 1 (i.e., any trial whose prime duration was out of the
+25-60ms range) removed 20 \% of the trials. As compared to experiment 1,
+experiment 2 had therefore a 7\% larger percentage of removed
+out-of-range trials, the majority of which (18\%) were above the
+subliminal threshold. This is in sharp contrast with the distribution of
+the prime durations in experiment 1, where the trials above the range
+amounted to only 0\% of the dataset. As observed in previous studies and
+pilot conducted in our lab, this distribution suggests that setting the
+prime duration closer to either limit of a given range has the side
+effect of allowing for more fluctuations around either limit, thus
+potentially leading to greater data loss (see also further below). No
+participant was excluded, for a total of 213,078 observations.
+
+\subsubsection{Step 3: RT analysis}\label{sec-exp2-analysis-RT}
+
+After removing the incorrect responses, similarly to experiment 1
+(Section~\ref{sec-exp1-analysis-RT}), 0.59\% of the trials were excluded
+if their corresponding RT was below 200 ms or above 1800 ms. Finally,
+634 subjects were removed because the number of trials within the same
+condition was less than 7 (i.e., about half of the total number of
+trials being presented within the same condition, i.e.~13). A total of
+168,195 observations and 1,924 subjects were included in the statistical
+analysis below. The substantial number of subjects being removed at this
+final stage was the ultimate side effect of the increased number of
+out-of-range trials that were removed during the previous step of
+analysis, and provides further evidence of the risks with setting the
+prime duration closer to the upper bound of the subliminal range.
+
+\subsection{Results}\label{sec-exp2-results}
+
+Table~\ref{tbl-exp2-statsResults} below report the descriptive
+statistics of the experiment. For experiment 2, we followed the same
+statistical analysis as experiment 1. A 2x2 repeated-measures ANOVA
+(condition, 2 levels: high vs.~low; primetype, 2 levels: unrelated
+vs.~repetition) revealed significant main effects (condition:
+\emph{F}(1, 1923)=987.4, \emph{p}\textless.0001; primetype: \emph{F}(1,
+1923)=1447, \emph{p}\textless.0001) and interaction \emph{F}(1,
+1923)=36.82, \emph{p}\textless.0001). Planned comparisons confirmed
+statistically significant repetition priming effects for both word
+conditions (\emph{MOP\_HF}=26 ms, \emph{CI\_95\%}={[}24 28{]},
+\emph{t}(1923)=24.6, \emph{p}\textless.0001; \emph{MOP\_LF} = 35 ms,
+\emph{CI\_95\%}={[}33 37{]}, \emph{t}(1923)=30.2,
+\emph{p}\textless.0001), with the low-frequency word repetition priming
+effect being 10 ms larger than the high-frequency word repetition
+priming effect. This FAE effect was statistically significant
+(\emph{M\_FAE}=9 ms, \emph{CI\_95\%}={[}6 12{]}), \emph{t}(1920)=6.07,
+\emph{p}\textless.0001). A very small but statistically significant
+inhibitory priming effect was observed in the non-word condition
+(\emph{MOP\_NW}=-4 ms, \emph{CI\_95\%}={[}-6 -2{]},
+\emph{t}(1923)=-3.53, \emph{p}=.0004). As for the word error analysis,
+we found significant priming effects in the form of fewer errors in
+repeated compared to unrelated trials in the all conditions (high:
+\emph{t}(1923)=9.30, \emph{p}\textless.0001; low: \emph{t}(1923)=15.8,
+\emph{p}\textless.0001; non-word: \emph{t}(1923)=-2.32, \emph{p}=.002).
+
+\blandscape
+
+\begin{longtable}{lrrrrrrrrlrrrrr}
+
+\caption{\label{tbl-exp2-statsResults}Experiment 2. Summary of the word
+priming results. \emph{Legend.} MOP: magnitude of priming.}
+
+\tabularnewline
+
+\toprule
+ & \multicolumn{3}{c}{unrelated RT} & \multicolumn{3}{c}{repetition RT} &  & \multicolumn{4}{c}{priming effects} & \multicolumn{3}{c}{\emph{t}-test} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){9-12} \cmidrule(lr){13-15}
+factor & mean & SD & Error (\%) & mean & SD & Error (\%) & cor & MOP & 95\% CI & SD\textsubscript{p} & ES & \emph{t} & df & \emph{p} \\ 
+\midrule\addlinespace[2.5pt]
+high & 574 & 83 & 3 & 548 & 83 & 2 & 0.850 & 26 & [24 28] & 46 & 0.56 & 24.595576 & 1923 & 2.27e-116 \\ 
+low & 605 & 89 & 6 & 570 & 89 & 3 & 0.840 & 35 & [33 37] & 51 & 0.69 & 30.185474 & 1923 & 3.51e-164 \\ 
+non-word & 629 & 108 & 4 & 633 & 110 & 5 & 0.900 & -4 & [-6 -2] & 50 & -0.08 & -3.525726 & 1923 & 4.32e-04 \\ 
+frequency:primetype &   &   &   &   &   &   & 0.024 & 9 & [6 12] & 68 & 0.13 & 6.068254 & 1923 & 1.55e-09 \\ 
+\bottomrule
+
+\end{longtable}
+
+\elandscape
+
 \subsection{Discussion}\label{sec-exp2-discussion}
 
-Experiment 2 was designed to investigate whether Frequency Attenuation
-Effects (FAE) can be detected under masked priming conditions (with SOA
-\textless{} 60 ms, here 33 ms). We employed a very large sample size to
-ensure adequate statistical power for detecting even small effect sizes.
-Our results not only replicated Experiment 1 in revealing statistically
-significant main effects of repetition for high and low frequency words
-alike, but also detected a statistically significant interaction: the
-low-frequency condition yielded priming effects that were 10 ms larger
-than the high-frequency condition. This value (10 ms) is within the 95\%
-CI from experiment 1 ({[}-1 15{]}), making it a successful replication
-of that result. The 95\% CI of experiment 2 ranges from 7 ms to 13 ms.
-This is notable because it includes the effect size of experiment 1 (7
-ms), while also being quite narrow (a margin of error of 3 ms). This
-indicates that, for the frequency ranges investigated in experiment 2,
-the FAE is unlikely to be smaller than 7 ms or larger than 13 ms when
-the prime duration is 33 ms. In contrast, experiment 1 had a margin of
-error almost three times as large (8 ms).
+Experiment 2 was designed to investigate whether a frequency attenuation
+effect akin to the one detected in experiment 1 at SOA of 33 ms can be
+detected at the longer, and most commonly used SOA of 48 ms. To this
+end, we used the same stimuli and recruited the same sample size as
+experiment 1, and only set the prime duration accordingly. First, we
+found that the masked repetition priming to both high and low-frequency
+words were respectively about 8 ms larger in experiment 2 than in
+experiment 1, resulting from the longer prime duration (Forster, Mohan,
+and Hector 2003). Nevertheless, the significant interaction effect size
+amounted to 9 ms, which is only 1 ms away from the estimate of the
+interaction in experiment 1 (10 ms), but well within its 95\% CI (which
+ranged from 7 ms to 13 ms). Finally, similarly to experiment 1, the
+magnitude of non-word masked repetition priming response in experiment 2
+was inhibitory, though slightly larger (-4 ms, as compared to -2 ms of
+experiment 1).
 
-The absence of a robust non-word masked priming response has been used
-as an additional piece of evidence supporting the view that the masked
-priming response stems from lexical memory and is devoid of episodic
-influences (e.g., Forster 1999). The results of experiment 2 align with
-the previous evidence (including that of experiment 1) in showing at
-best very small inhibitory masked repetition priming for non-words, with
-very high precision: the 95\% CI indicates the plausible range for the
-masked repetition priming effect for non-words to be between -4 and 0 ms
-when prime duration is 33 ms.
+At the face value, experiment 2 is very similar to experiment 1 on
+several respects. First, they involved the exact the same stimuli and
+the same sample size from the same pool (i.e., the Prolific pool;
+crucially though, different participants were recruited for each
+experiment). Second, they were both analyzed with the exact same
+analysis pipeline, and, in particular, with the same criterion to detect
+trials with outlying prime durations. Third, the estimates (means, SDs,
+error percentages, and correlations) of both experiments are numerically
+very close to one another, with the maximal differences almost
+exclusively present in the repetition conditions. For these reasons, one
+may therefore argue against its methodological and theoretical validity,
+and may deem the differences of the magnitude of priming across the two
+experiments might have just been due to sampling error having two major
+sources. The first source of sampling error is the inherent imprecision
+in the presentation of the prime. Regardless of the preset duration of
+the prime, there was an inherent inaccuracy in the actual presentation
+of the prime in both experiments. The analysis pipeline (and, in
+particular, with the criterion to detect trials with outlying prime
+durations) described in detail above might have therefore led to two
+datasets with a similar distribution of the prime durations.
+Figure~\ref{fig-prime-distributions} shows the distributions of the
+prime durations for both datasets after the last analysis step. The two
+distributions minimally overlap, with most of the trials peaking at
+about the relative preset duration (i.e., 33 and 48 ms). The difference
+between the two distribution was also statistically significant:
+\(t(394431)=-868.47, p<.0001\).
+
+\phantomsection\label{cell-fig-prime-distributions}
+\begin{figure}[H]
+
+\centering{
+
+\includegraphics{index_files/figure-pdf/fig-prime-distributions-1.pdf}
+
+}
+
+\caption{\label{fig-prime-distributions}Distribution of the prime
+durations across the two experiments.}
+
+\end{figure}%
+
+The second source of sampling error is equally unavoidable and present
+in every study: participant selection, and is ensured by the fact that
+recruiting sample sizes approaching infinity is virtually impossible.
+One way to gauge the extent to which such source of sampling error might
+have affected the differences in the effect sizes of the two experiments
+is to calculate the \emph{prediction intervals} on the results of
+experiment 1, and check if the results of experiment 2 fall within them.
+Unlike confidence intervals, the lesser-known prediction intervals are
+calculated around the original study's mean (rather than the population
+mean), and express the amount of deviation that a future replication of
+the study may allow for due to sampling error (Spence and Stanley 2016).
+In our case, if the results of experiment 2 falls within the prediction
+interval above, it would suggest that the deviation between the two
+experiment was just due to sampling error, and therefore experiment 2 is
+a replication of experiment 1. Conversely, if the results of experiment
+2 falls within the prediction interval above, it would suggest that the
+deviation between the two studies could not be due to sampling error,
+and therefore experiment 2 is not a replication of experiment 1. The
+prediction intervals for the means of the three conditions and the
+interaction between the two word condition (i.e., FAE) of experiment 1
+were calculated by using the function \texttt{pi.m()} of the R package
+\texttt{predictionInterval} (available in the
+\href{https://cran.r-project.org/web/packages/predictionInterval/predictionInterval.pdf}{CRAN
+repository}), and are reported in Table~\ref{tbl-pis} below. In
+experiment 2, while the estimates of the non-word condition and the FAE
+fall within the relative prediction interval (\emph{MOP\_NW} = -4 ms,
+\emph{PI\_95\%} = {[}-5 1{]}; \emph{FAE} = 9 ms, \emph{PI\_95\%} = {[}6
+14{]}), the estimates of both word conditions are respectively 5 and 4
+ms above the corresponding PIs (\emph{MOP\_HF} = 26 ms, \emph{PI\_95\%}
+= {[}15 21{]}; \emph{MOP\_LF} = 35 ms, \emph{PI\_95\%} = {[}25 31{]}).
+Our interpretation of these results is three-fold. First, the fact that
+the the word priming effects of experiment 2 (for both the high and
+low-frequency conditions) are outside the prediction intervals of
+experiment 1 suggest that the effects elicited in experiment 2 may not
+be considered as mere replications of the effects elicited in experiment
+1. Rather, they corroborate the view that priming may significantly
+benefit from a longer prime duration. Second, the masked repetition
+non-word priming effect size being replicated in both experiments
+further corroborates the commonly-accepted view that the masked priming
+response taps into lexical memory, rather than pure orthographic
+decoding. Finally, and more importantly for the main purpose of the
+paper, the estimate of the FAE of experiment falling within the relative
+prediction interval further confirms the presence of an interaction
+effect between priming and frequency, while not being contingent on the
+duration of the prime.
+
+\begin{longtable}{lrrrrl}
+
+\caption{\label{tbl-pis}Prediction intervals calculated on the means and
+standard deviations (SD) of the conditions tested in experiment 1.}
+
+\tabularnewline
+
+\toprule
+ &  &  & \multicolumn{2}{c}{sample size} &  \\ 
+\cmidrule(lr){4-5}
+factor & mean & SD & experiment 1 & experiment 2 & 95\% PI \\ 
+\midrule\addlinespace[2.5pt]
+high & 18 & 45 & 2341 & 1924 & [15 21] \\ 
+low & 28 & 49 & 2341 & 1924 & [25 31] \\ 
+non-word & -2 & 43 & 2341 & 1924 & [-5 1] \\ 
+frequency:primetype & 10 & 66 & 2341 & 1924 & [6 14] \\ 
+\bottomrule
+
+\end{longtable}
 
 \section{General discussion}\label{sec-discussion}
 
@@ -1263,7 +1283,7 @@ dealing with this in the \emph{entry opening model} is to claim that
 masked priming severely reduces, but does not entirely eliminate, the
 use of sources other than lexical memory (see Forster 1998; Forster,
 Mohan, and Hector 2003, for proposals along this line). Alternatively,
-within the entry-opening model, the results of experiment 2 may be
+within the entry-opening model, the results of this study may be
 explained by the frequency-based mechanism occurring in the fast search
 stage. A potential mechanism in this direction was already hinted at by
 Forster and Davis (1984) themselves, and consists of a procedure,
@@ -1320,6 +1340,8 @@ large online samples proved instrumental in overcoming the longstanding
 challenge of insufficient statistical power to detect interactions in
 factorial designs, which we believe had impeded previous investigations
 into detecting the FAE in masked priming.
+
+\newpage{}
 
 \section*{References}\label{references}
 \addcontentsline{toc}{section}{References}
@@ -1615,6 +1637,12 @@ Naming.''} \emph{Journal of Experimental Psychology: Learning, Memory,
 and Cognition} 17 (3): 459--77.
 \url{https://doi.org/10.1037/0278-7393.17.3.459}.
 
+\bibitem[\citeproctext]{ref-SpenceStanley2016}
+Spence, Jeffrey R, and David J Stanley. 2016. {``Prediction Interval:
+What to Expect When You're Expecting\ldots{} a Replication.''}
+\emph{PloS One} 11 (9): 1--22.
+\url{https://doi.org/10.1371/journal.pone.0162874}.
+
 \bibitem[\citeproctext]{ref-StockallMarantz2006}
 Stockall, Linnaea, and Alec Marantz. 2006. {``A Single Route, Full
 Decomposition Model of Morphological Complexity: MEG Evidence.''}
@@ -1648,281 +1676,13 @@ Increases Inhibitory Word Priming Effects.''} \emph{The Mental Lexicon}
 
 \end{CSLReferences}
 
+\newpage{}
+
 \section*{Wordlists}\label{wordlists}
 \addcontentsline{toc}{section}{Wordlists}
 
-\subsubsection*{Experiment 1}\label{experiment-1}
-\addcontentsline{toc}{subsubsection}{Experiment 1}
-
-\begin{longtable*}{lllrrrr}
-\toprule
- &  &  & \multicolumn{2}{c}{RT (to repetition)} & \multicolumn{2}{c}{RT (to unrelated)} \\ 
-\cmidrule(lr){4-5} \cmidrule(lr){6-7}
-related & unrelated prime & word & mean & SD & mean & SD \\ 
-\midrule\addlinespace[2.5pt]
-\multicolumn{7}{l}{\emph{low frequency condition}} \\ 
-\midrule\addlinespace[2.5pt]
-chasm & smash & chasm & 714 & 216 & 831 & 250 \\ 
-oxide & manna & oxide & 719 & 198 & 715 & 156 \\ 
-vowel & legit & vowel & 655 & 139 & 694 & 152 \\ 
-clerk & blunt & clerk & 617 & 157 & 635 & 133 \\ 
-bleed & slope & bleed & 609 & 171 & 621 & 176 \\ 
-decor & nasal & decor & 654 & 140 & 694 & 204 \\ 
-quirk & forte & quirk & 689 & 204 & 688 & 155 \\ 
-speck & aloud & speck & 732 & 208 & 739 & 187 \\ 
-stash & nymph & stash & 638 & 175 & 657 & 142 \\ 
-ditch & crass & ditch & 671 & 173 & 678 & 157 \\ 
-snare & squid & snare & 684 & 168 & 722 & 164 \\ 
-budge & swirl & budge & 672 & 200 & 732 & 207 \\ 
-slack & grunt & slack & 608 & 129 & 664 & 157 \\ 
-sedan & taunt & sedan & 711 & 197 & 705 & 122 \\ 
-tally & cigar & tally & 667 & 131 & 720 & 176 \\ 
-posit & lunge & posit & – & – & – & – \\ 
-flock & negro & flock & 654 & 141 & 716 & 166 \\ 
-scorn & exert & scorn & 670 & 159 & 651 & 146 \\ 
-grail & lathe & grail & 697 & 206 & 718 & 171 \\ 
-bloat & viola & bloat & 663 & 185 & 698 & 181 \\ 
-tumor & rival & tumor & 627 & 159 & 651 & 152 \\ 
-acute & dizzy & acute & 662 & 174 & 660 & 142 \\ 
-sauna & hertz & sauna & 652 & 132 & 706 & 154 \\ 
-elect & haste & elect & 640 & 162 & 650 & 144 \\ 
-spoof & poppy & spoof & 706 & 185 & 759 & 201 \\ 
-plush & clove & plush & 615 & 138 & 669 & 175 \\ 
-fiend & guise & fiend & 785 & 209 & 846 & 185 \\ 
-knelt & magma & knelt & 744 & 213 & 814 & 225 \\ 
-privy & lotto & privy & 733 & 182 & 777 & 219 \\ 
-sigma & kayak & sigma & 798 & 258 & 796 & 205 \\ 
-parse & taint & parse & – & – & – & – \\ 
-carte & fanny & carte & – & – & – & – \\ 
-verge & rouge & verge & 664 & 168 & 672 & 171 \\ 
-mourn & vitro & mourn & 665 & 171 & 682 & 186 \\ 
-shrug & floss & shrug & 687 & 175 & 682 & 132 \\ 
-clasp & tempt & clasp & 658 & 128 & 701 & 178 \\ 
-bathe & flirt & bathe & 659 & 159 & 701 & 197 \\ 
-linen & fluff & linen & 620 & 91 & 650 & 133 \\ 
-stare & butch & stare & 617 & 126 & 632 & 144 \\ 
-medic & bowel & medic & 637 & 166 & 663 & 218 \\ 
-weave & aspen & weave & 614 & 128 & 649 & 128 \\ 
-flint & chime & flint & 681 & 140 & 718 & 191 \\ 
-flank & crust & flank & 689 & 176 & 740 & 177 \\ 
-scrub & spunk & scrub & 645 & 172 & 670 & 167 \\ 
-hoist & stoke & hoist & 686 & 168 & 724 & 190 \\ 
-stout & dairy & stout & 667 & 148 & 707 & 166 \\ 
-cough & stale & cough & 588 & 147 & 629 & 157 \\ 
-annex & gypsy & annex & 744 & 197 & 798 & 169 \\ 
-plume & gloss & plume & 730 & 195 & 775 & 194 \\ 
-quart & topaz & quart & 662 & 159 & 715 & 205 \\ 
-\midrule\addlinespace[2.5pt]
-\multicolumn{7}{l}{\emph{high frequency condition}} \\ 
-\midrule\addlinespace[2.5pt]
-proof & shoot & proof & 576 & 119 & 617 & 129 \\ 
-clear & usual & clear & 598 & 169 & 588 & 120 \\ 
-audio & teach & audio & 589 & 141 & 632 & 112 \\ 
-apply & adult & apply & 592 & 154 & 632 & 130 \\ 
-phone & allow & phone & 573 & 143 & 588 & 89 \\ 
-class & forum & class & 656 & 162 & 682 & 197 \\ 
-raise & whole & raise & 611 & 154 & 598 & 116 \\ 
-civil & often & civil & 580 & 107 & 623 & 120 \\ 
-match & issue & match & 590 & 119 & 619 & 169 \\ 
-local & style & local & 589 & 141 & 580 & 113 \\ 
-minor & coast & minor & 600 & 137 & 632 & 157 \\ 
-below & reach & below & 611 & 143 & 618 & 90 \\ 
-extra & smith & extra & 599 & 146 & 609 & 141 \\ 
-court & speed & court & 585 & 115 & 638 & 141 \\ 
-exact & sense & exact & 592 & 127 & 590 & 113 \\ 
-bunch & write & bunch & 647 & 140 & 646 & 130 \\ 
-quick & trust & quick & 554 & 104 & 616 & 134 \\ 
-birth & sleep & birth & 619 & 165 & 609 & 156 \\ 
-truth & reply & truth & 579 & 140 & 611 & 150 \\ 
-serve & track & serve & 611 & 136 & 649 & 168 \\ 
-trade & dream & trade & 606 & 185 & 602 & 106 \\ 
-heart & image & heart & 592 & 159 & 602 & 113 \\ 
-index & white & index & 606 & 111 & 625 & 146 \\ 
-cable & flame & cable & 583 & 119 & 626 & 130 \\ 
-break & value & break & 605 & 163 & 601 & 133 \\ 
-woman & avoid & woman & 576 & 119 & 609 & 153 \\ 
-front & short & front & 587 & 138 & 619 & 140 \\ 
-voice & aware & voice & 562 & 127 & 585 & 116 \\ 
-stock & large & stock & 596 & 148 & 661 & 216 \\ 
-seven & prove & seven & 583 & 130 & 653 & 193 \\ 
-blood & brand & blood & 568 & 109 & 598 & 109 \\ 
-plain & river & plain & 596 & 115 & 617 & 123 \\ 
-solid & guess & solid & 643 & 158 & 612 & 140 \\ 
-limit & month & limit & 603 & 122 & 658 & 136 \\ 
-scale & heard & scale & 632 & 144 & 639 & 176 \\ 
-stuff & space & stuff & 623 & 133 & 642 & 154 \\ 
-major & leave & major & 599 & 139 & 585 & 123 \\ 
-brown & agree & brown & 591 & 120 & 632 & 167 \\ 
-house & metal & house & 552 & 121 & 603 & 137 \\ 
-stage & along & stage & 590 & 138 & 619 & 160 \\ 
-built & print & built & 628 & 155 & 664 & 166 \\ 
-video & worst & video & 570 & 113 & 650 & 157 \\ 
-story & sound & story & 594 & 129 & 614 & 176 \\ 
-march & faith & march & 607 & 134 & 630 & 191 \\ 
-clean & quote & clean & 553 & 93 & 585 & 135 \\ 
-price & train & price & 599 & 141 & 624 & 189 \\ 
-event & small & event & 583 & 127 & 623 & 166 \\ 
-thank & night & thank & 656 & 190 & 607 & 128 \\ 
-radio & shell & radio & 577 & 131 & 604 & 162 \\ 
-sorry & alone & sorry & 592 & 155 & 609 & 140 \\ 
-\midrule\addlinespace[2.5pt]
-\multicolumn{7}{l}{non-word} \\ 
-\midrule\addlinespace[2.5pt]
-inurt & strat & inurt & 726 & 259 & 712 & 215 \\ 
-shawt & gleat & shawt & 760 & 270 & 672 & 154 \\ 
-delax & dolio & delax & 758 & 182 & 767 & 195 \\ 
-thelp & cutch & thelp & 745 & 242 & 687 & 199 \\ 
-isapt & greaf & isapt & 645 & 181 & 628 & 160 \\ 
-fopaz & broot & fopaz & 660 & 196 & 628 & 125 \\ 
-fuxom & lubic & fuxom & 676 & 234 & 601 & 126 \\ 
-bloot & drirk & bloot & 761 & 190 & 744 & 172 \\ 
-scart & cooch & scart & 768 & 220 & 726 & 162 \\ 
-frint & motem & frint & 720 & 203 & 685 & 148 \\ 
-ahuck & abapt & ahuck & 673 & 207 & 633 & 153 \\ 
-netro & nigit & netro & 734 & 217 & 721 & 169 \\ 
-moust & hilac & moust & 744 & 186 & 798 & 174 \\ 
-barsh & cojex & barsh & 731 & 216 & 706 & 183 \\ 
-avort & prilt & avort & 710 & 196 & 725 & 199 \\ 
-venem & whirp & venem & – & – & – & – \\ 
-grack & shino & grack & 743 & 209 & 728 & 182 \\ 
-ranth & nelch & ranth & 681 & 174 & 654 & 135 \\ 
-frick & exulk & frick & – & – & – & – \\ 
-nohew & morex & nohew & 683 & 197 & 656 & 165 \\ 
-pramp & tamek & pramp & 745 & 239 & 696 & 200 \\ 
-altep & miant & altep & 664 & 179 & 654 & 159 \\ 
-scrib & bloth & scrib & 788 & 243 & 749 & 230 \\ 
-tumph & bumbo & tumph & 785 & 204 & 768 & 210 \\ 
-dorst & occut & dorst & 686 & 168 & 674 & 184 \\ 
-thint & topec & thint & 754 & 205 & 748 & 153 \\ 
-rourt & shoof & rourt & 691 & 192 & 688 & 194 \\ 
-smout & spack & smout & 759 & 195 & 736 & 184 \\ 
-kayuk & blenk & kayuk & 823 & 289 & 772 & 237 \\ 
-drick & silaf & drick & 727 & 189 & 678 & 131 \\ 
-smoop & crunk & smoop & 710 & 185 & 684 & 154 \\ 
-deirm & fluck & deirm & 649 & 161 & 657 & 178 \\ 
-ephic & ghisk & ephic & 787 & 223 & 751 & 212 \\ 
-glurp & chrik & glurp & 731 & 209 & 727 & 236 \\ 
-blumb & cetup & blumb & 746 & 183 & 733 & 220 \\ 
-eicht & firch & eicht & 725 & 226 & 718 & 205 \\ 
-forim & vasem & forim & 736 & 214 & 690 & 185 \\ 
-slent & earch & slent & 840 & 207 & 773 & 178 \\ 
-lepot & blont & lepot & 693 & 203 & 659 & 162 \\ 
-plock & ecret & plock & 763 & 222 & 734 & 195 \\ 
-ocheb & wateb & ocheb & 643 & 168 & 620 & 130 \\ 
-febut & trook & febut & 659 & 166 & 632 & 156 \\ 
-coreb & ruzak & coreb & 656 & 169 & 643 & 133 \\ 
-frath & theet & frath & 738 & 193 & 699 & 148 \\ 
-eggem & blamp & eggem & 705 & 190 & 681 & 160 \\ 
-gredo & lambo & gredo & 700 & 217 & 689 & 182 \\ 
-brost & aliom & brost & 728 & 204 & 690 & 170 \\ 
-ganic & brust & ganic & 712 & 178 & 660 & 117 \\ 
-polep & cleot & polep & 714 & 236 & 641 & 174 \\ 
-snock & lindo & snock & 766 & 194 & 776 & 206 \\ 
-fomit & driff & fomit & 711 & 187 & 633 & 147 \\ 
-sholf & wrast & sholf & 665 & 157 & 642 & 111 \\ 
-racef & lidst & racef & 668 & 167 & 658 & 171 \\ 
-thamp & huirk & thamp & 711 & 188 & 708 & 226 \\ 
-purso & pumbo & purso & 702 & 196 & 665 & 168 \\ 
-glarm & whilo & glarm & 765 & 210 & 748 & 184 \\ 
-fingo & murkt & fingo & 707 & 164 & 683 & 179 \\ 
-gotch & steck & gotch & – & – & – & – \\ 
-spuff & molax & spuff & 745 & 198 & 692 & 151 \\ 
-schew & ronch & schew & 811 & 294 & 756 & 265 \\ 
-humot & guesh & humot & 690 & 175 & 674 & 149 \\ 
-sgrew & snump & sgrew & 706 & 212 & 724 & 175 \\ 
-fadio & fleak & fadio & 713 & 175 & 678 & 141 \\ 
-plint & recup & plint & 768 & 246 & 735 & 225 \\ 
-pheek & loast & pheek & 696 & 181 & 676 & 192 \\ 
-blasm & smalt & blasm & 785 & 226 & 755 & 175 \\ 
-reash & swimp & reash & 780 & 187 & 754 & 181 \\ 
-chank & tymph & chank & 798 & 229 & 774 & 221 \\ 
-septh & laget & septh & 721 & 196 & 688 & 193 \\ 
-feeth & gluck & feeth & 756 & 191 & 720 & 156 \\ 
-tosit & gatob & tosit & 683 & 184 & 668 & 210 \\ 
-exuct & sauto & exuct & 767 & 232 & 693 & 191 \\ 
-ethym & crunt & ethym & 724 & 211 & 700 & 213 \\ 
-feght & pranc & feght & 718 & 187 & 723 & 203 \\ 
-stoff & twank & stoff & 709 & 165 & 688 & 155 \\ 
-cruck & letap & cruck & 742 & 197 & 812 & 229 \\ 
-fatho & alash & fatho & 643 & 146 & 660 & 184 \\ 
-firsh & sharf & firsh & 717 & 168 & 717 & 196 \\ 
-paltz & frimp & paltz & 688 & 211 & 719 & 227 \\ 
-thark & lumpo & thark & 683 & 134 & 714 & 205 \\ 
-aufit & huilt & aufit & 638 & 146 & 649 & 184 \\ 
-hinup & brosk & hinup & 636 & 126 & 653 & 142 \\ 
-jongo & dulch & jongo & 681 & 181 & 705 & 202 \\ 
-guast & dealf & guast & 670 & 178 & 687 & 210 \\ 
-sunch & drash & sunch & 697 & 196 & 692 & 190 \\ 
-cleak & prock & cleak & 766 & 177 & 819 & 214 \\ 
-stram & spaft & stram & 720 & 157 & 726 & 155 \\ 
-etuip & criex & etuip & 620 & 138 & 635 & 177 \\ 
-opert & phumb & opert & 750 & 225 & 791 & 255 \\ 
-keach & denet & keach & 670 & 176 & 700 & 189 \\ 
-umarm & bluck & umarm & 719 & 213 & 756 & 239 \\ 
-tooch & racet & tooch & 739 & 213 & 741 & 234 \\ 
-chuth & phrap & chuth & 682 & 152 & 726 & 208 \\ 
-tedic & wight & tedic & 695 & 196 & 704 & 199 \\ 
-mutch & lorro & mutch & 796 & 257 & 811 & 279 \\ 
-hilth & oorph & hilth & 682 & 195 & 711 & 213 \\ 
-pluff & praph & pluff & – & – & – & – \\ 
-widet & aboot & widet & 799 & 222 & 818 & 251 \\ 
-scook & hoest & scook & 721 & 168 & 749 & 201 \\ 
-fisco & polic & fisco & 797 & 261 & 797 & 271 \\ 
-gamit & glunk & gamit & 751 & 257 & 725 & 243 \\ 
-phasm & letch & phasm & – & – & – & – \\ 
-sondo & spink & sondo & 679 & 168 & 672 & 182 \\ 
-vuint & dippo & vuint & 634 & 137 & 616 & 130 \\ 
-rynic & astef & rynic & 629 & 123 & 658 & 161 \\ 
-waget & tatch & waget & 736 & 205 & 747 & 211 \\ 
-vooch & shoop & vooch & 671 & 158 & 691 & 169 \\ 
-guilm & isloo & guilm & 675 & 179 & 719 & 210 \\ 
-elsom & scack & elsom & 686 & 195 & 704 & 248 \\ 
-crost & bliff & crost & 718 & 190 & 731 & 199 \\ 
-alept & cempo & alept & 754 & 186 & 780 & 216 \\ 
-robit & glaim & robit & 741 & 206 & 783 & 220 \\ 
-noast & thunt & noast & 658 & 122 & 688 & 160 \\ 
-bealm & plesh & bealm & 740 & 175 & 759 & 204 \\ 
-hyrup & thoop & hyrup & 703 & 125 & 741 & 191 \\ 
-chost & louth & chost & 752 & 192 & 778 & 209 \\ 
-borif & preak & borif & 617 & 111 & 616 & 130 \\ 
-starp & creck & starp & 751 & 215 & 744 & 208 \\ 
-valif & realp & valif & 656 & 178 & 678 & 190 \\ 
-raceb & ferit & raceb & 674 & 203 & 687 & 174 \\ 
-dacit & theep & dacit & 642 & 171 & 649 & 179 \\ 
-abert & murch & abert & 733 & 190 & 765 & 233 \\ 
-paith & blomp & paith & 703 & 161 & 724 & 170 \\ 
-mough & sloup & mough & 710 & 145 & 719 & 145 \\ 
-plick & strit & plick & 768 & 218 & 793 & 232 \\ 
-toost & skinp & toost & 763 & 198 & 786 & 218 \\ 
-tacao & phock & tacao & 751 & 217 & 778 & 285 \\ 
-kneak & cyrrh & kneak & 790 & 212 & 826 & 228 \\ 
-vitch & ahack & vitch & 682 & 155 & 717 & 238 \\ 
-paxim & saist & paxim & 647 & 152 & 667 & 185 \\ 
-kingo & pheep & kingo & 734 & 167 & 738 & 175 \\ 
-truff & ehert & truff & 767 & 218 & 771 & 246 \\ 
-fundt & spuck & fundt & 655 & 162 & 700 & 183 \\ 
-bloam & antuc & bloam & 719 & 155 & 741 & 191 \\ 
-quilp & shish & quilp & 726 & 217 & 718 & 233 \\ 
-fotch & gijou & fotch & 658 & 127 & 661 & 132 \\ 
-broup & drarp & broup & 674 & 161 & 690 & 213 \\ 
-krauf & stilp & krauf & 683 & 183 & 683 & 200 \\ 
-swaft & doint & swaft & 826 & 286 & 821 & 253 \\ 
-adoof & owlut & adoof & 726 & 176 & 724 & 191 \\ 
-meash & swant & meash & 722 & 195 & 776 & 230 \\ 
-afent & vepot & afent & 660 & 151 & 651 & 180 \\ 
-setip & ploic & setip & 705 & 198 & 710 & 203 \\ 
-linew & glick & linew & 769 & 207 & 794 & 242 \\ 
-corax & hatex & corax & 696 & 162 & 755 & 218 \\ 
-scock & framo & scock & 811 & 233 & 807 & 232 \\ 
-quast & praft & quast & 733 & 193 & 763 & 211 \\ 
-ipept & minch & ipept & 685 & 201 & 691 & 209 \\ 
-gonet & ragic & gonet & 658 & 172 & 692 & 203 \\ 
-lertz & stabt & lertz & 629 & 153 & 652 & 155 \\ 
-\bottomrule
-\end{longtable*}
-
-\subsubsection*{Experiment 2}\label{experiment-2-1}
-\addcontentsline{toc}{subsubsection}{Experiment 2}
+\subsection*{Experiment 1}\label{experiment-1}
+\addcontentsline{toc}{subsection}{Experiment 1}
 
 \begin{longtable*}{lllrrrr}
 \toprule
@@ -2044,6 +1804,131 @@ guilm & whilf & guilm & 603 & 142 & 598 & 142 \\
 lairf & drosh & lairf & 587 & 144 & 600 & 150 \\ 
 \bottomrule
 \end{longtable*}
+
+\subsection*{Experiment 2}\label{experiment-2}
+\addcontentsline{toc}{subsection}{Experiment 2}
+
+\begin{longtable*}{lllrrrr}
+\toprule
+ &  &  & \multicolumn{2}{c}{RT (to repetition)} & \multicolumn{2}{c}{RT (to unrelated)} \\ 
+\cmidrule(lr){4-5} \cmidrule(lr){6-7}
+related & unrelated prime & word & mean & SD & mean & SD \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{7}{l}{\emph{low frequency condition}} \\ 
+\midrule\addlinespace[2.5pt]
+arrow & hunch & arrow & 573 & 130 & 591 & 128 \\ 
+pitch & sneak & pitch & 565 & 132 & 608 & 146 \\ 
+hatch & widow & hatch & 606 & 163 & 644 & 164 \\ 
+shark & brief & shark & 560 & 132 & 587 & 124 \\ 
+tooth & sharp & tooth & 533 & 126 & 560 & 111 \\ 
+booth & grief & booth & 566 & 147 & 618 & 163 \\ 
+pound & sting & pound & 552 & 139 & 570 & 134 \\ 
+weigh & thief & weigh & 583 & 158 & 649 & 186 \\ 
+blank & avoid & blank & 556 & 132 & 583 & 132 \\ 
+crush & award & crush & 542 & 126 & 583 & 142 \\ 
+bench & smack & bench & 565 & 143 & 601 & 138 \\ 
+fetch & brand & fetch & 612 & 149 & 663 & 146 \\ 
+cheek & salad & cheek & 556 & 138 & 597 & 148 \\ 
+brush & swamp & brush & 559 & 136 & 593 & 125 \\ 
+march & depth & march & 560 & 149 & 575 & 122 \\ 
+bleed & flesh & bleed & 552 & 137 & 568 & 135 \\ 
+cliff & harsh & cliff & 595 & 149 & 662 & 157 \\ 
+fraud & creep & fraud & 596 & 131 & 634 & 113 \\ 
+cloud & plead & cloud & 539 & 132 & 552 & 108 \\ 
+fluid & thumb & fluid & 601 & 167 & 690 & 173 \\ 
+trash & creek & trash & 564 & 157 & 566 & 126 \\ 
+flush & blond & flush & 570 & 133 & 624 & 155 \\ 
+porch & stink & porch & 584 & 155 & 617 & 153 \\ 
+stiff & patch & stiff & 617 & 163 & 677 & 161 \\ 
+cough & sweep & cough & 552 & 136 & 591 & 145 \\ 
+smash & squad & smash & 553 & 133 & 590 & 142 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{7}{l}{\emph{high frequency condition}} \\ 
+\midrule\addlinespace[2.5pt]
+blood & chief & blood & 534 & 131 & 558 & 112 \\ 
+bunch & child & bunch & 584 & 156 & 619 & 146 \\ 
+catch & board & catch & 529 & 111 & 568 & 141 \\ 
+stuff & tough & stuff & 556 & 128 & 576 & 133 \\ 
+break & stand & break & 542 & 128 & 564 & 123 \\ 
+speak & beach & speak & 543 & 131 & 570 & 132 \\ 
+stick & hotel & stick & 556 & 136 & 599 & 130 \\ 
+sleep & angel & sleep & 525 & 111 & 566 & 137 \\ 
+wrong & truth & wrong & 555 & 142 & 569 & 137 \\ 
+grand & quick & grand & 564 & 129 & 588 & 147 \\ 
+mouth & world & mouth & 534 & 123 & 552 & 116 \\ 
+knock & extra & knock & 549 & 131 & 615 & 139 \\ 
+guard & think & guard & 565 & 118 & 590 & 118 \\ 
+small & thing & small & 549 & 137 & 567 & 130 \\ 
+check & round & check & 546 & 125 & 563 & 120 \\ 
+watch & proud & watch & 531 & 115 & 545 & 133 \\ 
+group & smell & group & 553 & 126 & 579 & 142 \\ 
+month & earth & month & 549 & 126 & 576 & 128 \\ 
+south & relax & south & 563 & 138 & 603 & 144 \\ 
+lunch & truck & lunch & 549 & 141 & 563 & 124 \\ 
+clock & throw & clock & 547 & 133 & 574 & 130 \\ 
+sound & death & sound & 534 & 127 & 559 & 147 \\ 
+drink & north & drink & 550 & 124 & 563 & 116 \\ 
+touch & young & touch & 545 & 145 & 567 & 120 \\ 
+laugh & weird & laugh & 535 & 113 & 556 & 114 \\ 
+black & reach & black & 547 & 129 & 578 & 129 \\ 
+\midrule\addlinespace[2.5pt]
+\multicolumn{7}{l}{non-word} \\ 
+\midrule\addlinespace[2.5pt]
+alkew & grack & alkew & 603 & 150 & 606 & 160 \\ 
+agink & furob & agink & 632 & 161 & 615 & 155 \\ 
+ruzak & begro & ruzak & 580 & 149 & 582 & 155 \\ 
+sondo & labok & sondo & 619 & 168 & 621 & 178 \\ 
+guesh & gazzo & guesh & 707 & 189 & 748 & 195 \\ 
+fadio & criam & fadio & 632 & 169 & 602 & 171 \\ 
+plich & coreb & plich & 645 & 148 & 646 & 180 \\ 
+sgrew & docab & sgrew & 637 & 197 & 648 & 184 \\ 
+sceak & colob & sceak & 692 & 179 & 692 & 165 \\ 
+ghisk & isloo & ghisk & 595 & 149 & 594 & 152 \\ 
+deirm & ahuck & deirm & 599 & 147 & 595 & 147 \\ 
+villo & flurb & villo & 637 & 210 & 615 & 178 \\ 
+tidow & pikto & tidow & 651 & 175 & 641 & 177 \\ 
+drick & aliom & drick & 696 & 194 & 685 & 186 \\ 
+phick & purso & phick & 648 & 176 & 639 & 168 \\ 
+nello & borno & nello & 631 & 178 & 637 & 189 \\ 
+feach & pacaw & feach & 748 & 201 & 745 & 208 \\ 
+tello & rilth & tello & 665 & 185 & 662 & 174 \\ 
+dolio & caveb & dolio & 618 & 175 & 609 & 157 \\ 
+gorgo & swysh & gorgo & 651 & 179 & 631 & 178 \\ 
+whilo & lanjo & whilo & 619 & 150 & 615 & 164 \\ 
+stanf & drief & stanf & 613 & 147 & 627 & 134 \\ 
+crulk & ocheb & crulk & 678 & 173 & 679 & 183 \\ 
+phumb & tunch & phumb & 655 & 175 & 648 & 180 \\ 
+sirth & steaf & sirth & 623 & 146 & 616 & 136 \\ 
+slerk & nohew & slerk & 644 & 167 & 638 & 172 \\ 
+vitbo & nualm & vitbo & 590 & 143 & 596 & 154 \\ 
+sunch & ofium & sunch & 664 & 162 & 676 & 172 \\ 
+soeth & croik & soeth & 590 & 131 & 589 & 146 \\ 
+eltow & valuo & eltow & 638 & 170 & 603 & 153 \\ 
+framo & sorgo & framo & 626 & 165 & 631 & 162 \\ 
+lumpo & shavo & lumpo & 634 & 172 & 635 & 164 \\ 
+spuff & oceab & spuff & 683 & 182 & 665 & 204 \\ 
+gatob & tolio & gatob & 607 & 167 & 594 & 154 \\ 
+nosom & theck & nosom & 603 & 156 & 608 & 160 \\ 
+gezzo & tooch & gezzo & 601 & 160 & 600 & 164 \\ 
+afoub & slonk & afoub & 583 & 136 & 587 & 133 \\ 
+wateb & salch & wateb & 640 & 159 & 641 & 160 \\ 
+nelch & raceb & nelch & 609 & 163 & 595 & 145 \\ 
+dahoo & ahack & dahoo & 611 & 157 & 597 & 154 \\ 
+driek & fideo & driek & 613 & 152 & 610 & 151 \\ 
+gnask & fluko & gnask & 606 & 154 & 606 & 159 \\ 
+brosk & cyrrh & brosk & 637 & 165 & 649 & 180 \\ 
+duvez & revuo & duvez & 590 & 168 & 576 & 154 \\ 
+fielm & cempo & fielm & 621 & 181 & 614 & 160 \\ 
+pumph & exulk & pumph & 687 & 184 & 697 & 202 \\ 
+gerif & kleck & gerif & 587 & 154 & 586 & 147 \\ 
+racef & bonth & racef & 619 & 164 & 621 & 151 \\ 
+pheek & scook & pheek & 641 & 157 & 635 & 169 \\ 
+pruaw & slork & pruaw & 599 & 157 & 598 & 143 \\ 
+guilm & whilf & guilm & 620 & 168 & 603 & 163 \\ 
+lairf & drosh & lairf & 590 & 138 & 597 & 146 \\ 
+\bottomrule
+\end{longtable*}
+
 
 
 

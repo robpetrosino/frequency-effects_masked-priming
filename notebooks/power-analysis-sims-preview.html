@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.5.31">
+    <meta name="generator" content="quarto-1.6.1">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -157,12 +157,15 @@
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
 <link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
+<link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
+<link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
      <script async="" src="https://hypothes.is/embed.js"></script>
 <script>
   window.document.addEventListener("DOMContentLoaded", function (_event) {
     document.body.classList.add('hypothesis-enabled');
   });
-</script>  
+</script>   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script> 
       </head>
 
   <body class="quarto-notebook">
@@ -211,12 +214,14 @@
     <h2 id="toc-title">Table of contents</h2>
    
   <ul>
-  <li><a href="#simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" id="toc-simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" class="nav-link active" data-scroll-target="#simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming">Simulating possible scenarios for the Frequency Attenuation effect in Masked Priming</a>
+  <li><a href="#functions-used-in-the-calculations" id="toc-functions-used-in-the-calculations" class="nav-link active" data-scroll-target="#functions-used-in-the-calculations">Functions used in the calculations</a></li>
+  <li><a href="#simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" id="toc-simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" class="nav-link" data-scroll-target="#simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming">Simulating possible scenarios for the Frequency Attenuation effect in Masked Priming</a>
   <ul class="collapse">
   <li><a href="#es-5-ms" id="toc-es-5-ms" class="nav-link" data-scroll-target="#es-5-ms">ES = 5 ms</a></li>
   <li><a href="#es-10-ms" id="toc-es-10-ms" class="nav-link" data-scroll-target="#es-10-ms">ES = 10 ms</a></li>
   <li><a href="#es-15-ms" id="toc-es-15-ms" class="nav-link" data-scroll-target="#es-15-ms">ES = 15 ms</a></li>
   </ul></li>
+  <li><a href="#conclusions" id="toc-conclusions" class="nav-link" data-scroll-target="#conclusions">Conclusions</a></li>
   </ul>
 </nav>
 </div>
@@ -224,7 +229,9 @@
 </div>
 <main class="content quarto-banner-title-block" id="quarto-document-content">      
 
-       <div class="cell-container code-fold"><div class="cell-decorator"><pre>In [1]:</pre></div><div class="cell">
+       <section id="functions-used-in-the-calculations" class="level1">
+<h1>Functions used in the calculations</h1>
+<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [1]:</pre></div><div class="cell">
 <details class="code-fold">
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
@@ -407,27 +414,21 @@
 <span id="cb1-178"><a href="#cb1-178" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div></div>
-<section id="simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" class="level2">
-<h2 class="anchored" data-anchor-id="simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming">Simulating possible scenarios for the Frequency Attenuation effect in Masked Priming</h2>
+</section>
+<section id="simulating-possible-scenarios-for-the-frequency-attenuation-effect-in-masked-priming" class="level1">
+<h1>Simulating possible scenarios for the Frequency Attenuation effect in Masked Priming</h1>
 <p>Seventeen studies were found in the literature about frequency attenuation. Out of these:</p>
 <ul>
-<li><p>All show the repetition effect for both HF and LF words</p></li>
-<li><p>Only three show a statistically significant interaction between identity priming and frequency (with lower frequency words showing more masked id priming). The effect sizes on these three are quite large (30, 31 and 32 ms), about as large as the corresponding masked id priming for HF in the experiment</p></li>
-<li><p>Overall:</p>
-<ul>
-<li>The average attenuation effect numerically observed is 13 ms</li>
-<li>The range of sample sizes is [16, 48]</li>
-<li>The range of SD for HF is [55, 146]</li>
-<li>The range of SD for LF is [60, 177]</li>
-</ul></li>
+<li><p>All show the repetition effect for both HF and LF words.</p></li>
+<li><p>Only three show a statistically significant interaction between identity priming and frequency (with lower frequency words showing more masked id priming). The effect sizes on these three are quite large (30, 31 and 32 ms), about as large as the corresponding masked id priming for HF in the experiment.</p></li>
 </ul>
-<p>Thus it seems reasonable that there may be a frequency attenuation effect, but what is its size? The experiments that detected it found a very large one, but these are rare. If the effect size really is that large, why aren’t we finding the interaction as often as the main effects? Maybe the 30 ms range is an exaggeration, due to low power? Perhaps the most likely scenario is a 10-15 ms effect that can only be detected with sample sizes &lt;= 48 when it is exaggerated.</p>
-<p>So we will investigate three different interactions ESs: 5, 10, and 15 ms, across all combinations of:</p>
-<ul>
-<li>sample size, between 200 and 3000 participants (with 150-participant increments)</li>
-<li>standard deviation, between 60 and 110 ms (with 10 ms increments)</li>
-<li>correlation between related and unrelated primetype conditions, ranging between 0.7 and 0.9 (with 0.1 increments)</li>
-</ul>
+<p>Thus, it seems reasonable that there may be a frequency attenuation effect, but what is its actual size? The experiments that detected it found a very large one, but this seems a rare event: if the effect size really is that large, why aren’t we finding the interaction as often as the main effects? The inconsistency of past findings regarding the FAE in masked priming has been linked to a potential lack of statistical power in previous research <span class="citation" data-cites="BodnerMasson1997 BodnerMasson2001 MassonBodner2003 Adelman2014">[@BodnerMasson1997; @BodnerMasson2001; @MassonBodner2003; @Adelman2014]</span>. This is a reasonable concern, as interactions like the FAE often require larger sample sizes for statistical detection <span class="citation" data-cites="PotvinSchtuz2000 BrysbaertStevens2018">[@PotvinSchtuz2000; @BrysbaertStevens2018]</span> compared to main effects.</p>
+<p>We ran an extensive power analysis to determined the sample size large enough to guarantee an acceptable statistical power (<span class="math inline">\(&gt;80%\)</span>) able to detect what we construed as the smallest theoretically interesting FAE (i.e., 5ms). To this end, the code below simulates 10,000 datasets for each of the combinations of the following parameters:</p>
+<ol type="1">
+<li>Standard deviation and correlation between related and unrelated condition. Based on our own pilot studies and previous published work <span class="citation" data-cites="Petrosino2020 PetrosinoEtal2023">[@Petrosino2020; @PetrosinoEtal2023]</span>, the simulations involved standard deviations ranging from 80 to 120 ms (with 10 ms increments), while the correlation between conditions ranged from 0.7 to 0.9 (with 0.1 increments). T</li>
+<li>Sample size, ranging between 200 and 3000 participants (with 150-participant increments)</li>
+<li>Three FAE sizes were simulated: 15 ms, 10 ms and 5 ms. The first effect size (15 ms) is about half of the ones observed in previous studies that statistically detected the FAE (~30 ms). The second effect size (10 ms) is close to the size of the average frequency attenuation effect found in the literature (13 ms). The last effect size (5 ms) is our lower-bound estimate of a theoretically interesting effect size.</li>
+</ol>
 <section id="es-5-ms" class="level3">
 <h3 class="anchored" data-anchor-id="es-5-ms">ES = 5 ms</h3>
 <div class="cell-container code-fold"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
@@ -435,60 +436,60 @@
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulation of simple effects: Using a matrix of possible parameters</span></span>
-<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of Effect Sizes ------#</span></span>
 <span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of DD Effect Sizes ------#</span></span>
-<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.5</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">25</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_sim<span class="fl">.5</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">25</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- design ----#</span></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.5</span>ms_base_es, freq_atten_exp2<span class="fl">.5</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_sim<span class="fl">.5</span>ms_base_es, freq_atten_sim<span class="fl">.5</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
 <span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span></span>
 <span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.vector</span>() <span class="sc">|&gt;</span></span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_exp2<span class="fl">.5</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_sim<span class="fl">.5</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
 <span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of N ------#</span></span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
 <span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of SDs ------#</span></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.5</span>ms_min_sd, <span class="at">to =</span> freq_atten_exp2<span class="fl">.5</span>ms_max_sd, </span>
-<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_exp2<span class="fl">.5</span>ms_sd_increment)</span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_sim<span class="fl">.5</span>ms_min_sd, <span class="at">to =</span> freq_atten_sim<span class="fl">.5</span>ms_max_sd, </span>
+<span id="cb2-24"><a href="#cb2-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_sim<span class="fl">.5</span>ms_sd_increment)</span>
 <span id="cb2-25"><a href="#cb2-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-26"><a href="#cb2-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of rhos ------#</span></span>
-<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
-<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
-<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
-<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.5</span>ms_min_rho, <span class="at">to =</span> freq_atten_exp2<span class="fl">.5</span>ms_max_rho, </span>
-<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_exp2<span class="fl">.5</span>ms_rho_increment)</span>
+<span id="cb2-27"><a href="#cb2-27" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb2-28"><a href="#cb2-28" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
+<span id="cb2-29"><a href="#cb2-29" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb2-30"><a href="#cb2-30" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_sim<span class="fl">.5</span>ms_min_rho, <span class="at">to =</span> freq_atten_sim<span class="fl">.5</span>ms_max_rho, </span>
+<span id="cb2-31"><a href="#cb2-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_sim<span class="fl">.5</span>ms_rho_increment)</span>
 <span id="cb2-32"><a href="#cb2-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-33"><a href="#cb2-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- create the control matrix ---- #</span></span>
-<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.5</span>ms_rhos_to_sim,</span>
-<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.5</span>ms_sds_to_sim,</span>
-<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.5</span>ms_n_subjs_to_sim)</span>
-<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_exp2<span class="fl">.5</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
-<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_exp2<span class="fl">.5</span>ms_design)</span>
-<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_params <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.5</span>ms_simulation_params <span class="sc">|&gt;</span></span>
-<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_exp2<span class="fl">.5</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
+<span id="cb2-34"><a href="#cb2-34" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_sim<span class="fl">.5</span>ms_rhos_to_sim,</span>
+<span id="cb2-35"><a href="#cb2-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_sim<span class="fl">.5</span>ms_sds_to_sim,</span>
+<span id="cb2-36"><a href="#cb2-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_sim<span class="fl">.5</span>ms_n_subjs_to_sim)</span>
+<span id="cb2-37"><a href="#cb2-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_sim<span class="fl">.5</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
+<span id="cb2-38"><a href="#cb2-38" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_sim<span class="fl">.5</span>ms_design)</span>
+<span id="cb2-39"><a href="#cb2-39" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_params <span class="ot">&lt;-</span> freq_atten_sim<span class="fl">.5</span>ms_simulation_params <span class="sc">|&gt;</span></span>
+<span id="cb2-40"><a href="#cb2-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_sim<span class="fl">.5</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
 <span id="cb2-41"><a href="#cb2-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="at">FUN =</span> as.list)</span>
 <span id="cb2-42"><a href="#cb2-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-43"><a href="#cb2-43" aria-hidden="true" tabindex="-1"></a><span class="do">### Run simulation</span></span>
 <span id="cb2-44"><a href="#cb2-44" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20140715</span>)</span>
 <span id="cb2-45"><a href="#cb2-45" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_exp2<span class="fl">.5</span>ms_params, do_sim_2x2, </span>
-<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_exp2<span class="fl">.5</span>ms_simulate_effects, </span>
-<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_exp2<span class="fl">.5</span>ms_Nsim) <span class="sc">|&gt;</span></span>
+<span id="cb2-46"><a href="#cb2-46" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_sim<span class="fl">.5</span>ms_params, do_sim_2x2, </span>
+<span id="cb2-47"><a href="#cb2-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_sim<span class="fl">.5</span>ms_simulate_effects, </span>
+<span id="cb2-48"><a href="#cb2-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_sim<span class="fl">.5</span>ms_Nsim) <span class="sc">|&gt;</span></span>
 <span id="cb2-49"><a href="#cb2-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">combine_sims</span>()</span>
 <span id="cb2-50"><a href="#cb2-50" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span>
-<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_exp2.5ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_exp2.5ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
+<span id="cb2-51"><a href="#cb2-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_sim.5ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_sim.5ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
 <span id="cb2-52"><a href="#cb2-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_exp2.5ms.RData"</span>)</span>
+<span id="cb2-53"><a href="#cb2-53" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_sim.5ms.RData"</span>)</span>
 <span id="cb2-54"><a href="#cb2-54" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb2-55"><a href="#cb2-55" aria-hidden="true" tabindex="-1"></a><span class="do">## Plotting</span></span>
-<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.5</span>ms_df <span class="sc">|&gt;</span></span>
+<span id="cb2-56"><a href="#cb2-56" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_df <span class="sc">|&gt;</span></span>
 <span id="cb2-57"><a href="#cb2-57" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(ES <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">|&gt;</span></span>
 <span id="cb2-58"><a href="#cb2-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> nsubj, <span class="at">y =</span> power_unadjusted)) <span class="sc">+</span> </span>
 <span id="cb2-59"><a href="#cb2-59" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>()) <span class="sc">+</span> </span>
@@ -505,61 +506,61 @@
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulation of simple effects: Using a matrix of possible parameters</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
 <span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of Effect Sizes ------#</span></span>
 <span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of DD Effect Sizes ------#</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">20</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_sim<span class="fl">.10</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">20</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
 <span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- design ----#</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.10</span>ms_base_es, freq_atten_exp2<span class="fl">.10</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_sim<span class="fl">.10</span>ms_base_es, freq_atten_sim<span class="fl">.10</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
 <span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span></span>
 <span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.vector</span>() <span class="sc">|&gt;</span></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_exp2<span class="fl">.10</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_sim<span class="fl">.10</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
 <span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of N ------#</span></span>
-<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
 <span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of SDs ------#</span></span>
-<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
-<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.10</span>ms_min_sd, <span class="at">to =</span> freq_atten_exp2<span class="fl">.10</span>ms_max_sd, </span>
-<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_exp2<span class="fl">.10</span>ms_sd_increment)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_sim<span class="fl">.10</span>ms_min_sd, <span class="at">to =</span> freq_atten_sim<span class="fl">.10</span>ms_max_sd, </span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_sim<span class="fl">.10</span>ms_sd_increment)</span>
 <span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of rhos ------#</span></span>
-<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
-<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
-<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
-<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.10</span>ms_min_rho, <span class="at">to =</span> freq_atten_exp2<span class="fl">.10</span>ms_max_rho, </span>
-<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_exp2<span class="fl">.10</span>ms_rho_increment)</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_sim<span class="fl">.10</span>ms_min_rho, <span class="at">to =</span> freq_atten_sim<span class="fl">.10</span>ms_max_rho, </span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_sim<span class="fl">.10</span>ms_rho_increment)</span>
 <span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- create the control matrix ---- #</span></span>
-<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.10</span>ms_rhos_to_sim,</span>
-<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.10</span>ms_sds_to_sim,</span>
-<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.10</span>ms_n_subjs_to_sim)</span>
-<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_exp2<span class="fl">.10</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
-<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_exp2<span class="fl">.10</span>ms_design)</span>
-<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_params <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_simulation_params <span class="sc">|&gt;</span></span>
-<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_exp2<span class="fl">.10</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_sim<span class="fl">.10</span>ms_rhos_to_sim,</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_sim<span class="fl">.10</span>ms_sds_to_sim,</span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_sim<span class="fl">.10</span>ms_n_subjs_to_sim)</span>
+<span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_sim<span class="fl">.10</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
+<span id="cb3-38"><a href="#cb3-38" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_sim<span class="fl">.10</span>ms_design)</span>
+<span id="cb3-39"><a href="#cb3-39" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_params <span class="ot">&lt;-</span> freq_atten_sim<span class="fl">.10</span>ms_simulation_params <span class="sc">|&gt;</span></span>
+<span id="cb3-40"><a href="#cb3-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_sim<span class="fl">.10</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
 <span id="cb3-41"><a href="#cb3-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="at">FUN =</span> as.list)</span>
 <span id="cb3-42"><a href="#cb3-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-43"><a href="#cb3-43" aria-hidden="true" tabindex="-1"></a><span class="do">### Run simulation</span></span>
 <span id="cb3-44"><a href="#cb3-44" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20140715</span>)</span>
 <span id="cb3-45"><a href="#cb3-45" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_exp2<span class="fl">.10</span>ms_params, do_sim_2x2, </span>
-<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_exp2<span class="fl">.10</span>ms_simulate_effects, </span>
-<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_exp2<span class="fl">.10</span>ms_Nsim) <span class="sc">|&gt;</span></span>
+<span id="cb3-46"><a href="#cb3-46" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_sim<span class="fl">.10</span>ms_params, do_sim_2x2, </span>
+<span id="cb3-47"><a href="#cb3-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_sim<span class="fl">.10</span>ms_simulate_effects, </span>
+<span id="cb3-48"><a href="#cb3-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_sim<span class="fl">.10</span>ms_Nsim) <span class="sc">|&gt;</span></span>
 <span id="cb3-49"><a href="#cb3-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">combine_sims</span>()</span>
 <span id="cb3-50"><a href="#cb3-50" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span>
-<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_exp2.10ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_exp2.10ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
+<span id="cb3-51"><a href="#cb3-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_sim.10ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_sim.10ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
 <span id="cb3-52"><a href="#cb3-52" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-53"><a href="#cb3-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_exp2.10ms.RData"</span>)</span>
+<span id="cb3-54"><a href="#cb3-54" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_sim.10ms.RData"</span>)</span>
 <span id="cb3-55"><a href="#cb3-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb3-56"><a href="#cb3-56" aria-hidden="true" tabindex="-1"></a><span class="do">## Plotting</span></span>
-<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df <span class="sc">|&gt;</span></span>
+<span id="cb3-57"><a href="#cb3-57" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_df <span class="sc">|&gt;</span></span>
 <span id="cb3-58"><a href="#cb3-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(ES <span class="sc">==</span> <span class="dv">10</span>) <span class="sc">|&gt;</span></span>
 <span id="cb3-59"><a href="#cb3-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> nsubj, <span class="at">y =</span> power_unadjusted)) <span class="sc">+</span> </span>
 <span id="cb3-60"><a href="#cb3-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>()) <span class="sc">+</span> </span>
@@ -576,61 +577,61 @@
 <summary>Code</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="do">## Simulation of simple effects: Using a matrix of possible parameters</span></span>
-<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_Nsim <span class="ot">&lt;-</span> <span class="dv">10000</span></span>
 <span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of Effect Sizes ------#</span></span>
 <span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of DD Effect Sizes ------#</span></span>
-<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.15</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">15</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_base_es <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_dd_to_sim <span class="ot">&lt;-</span> freq_atten_sim<span class="fl">.15</span>ms_base_es <span class="sc">-</span> <span class="fu">c</span>(<span class="dv">30</span>, <span class="dv">15</span>) <span class="co"># this will create the 2x2 design in which each pair will represent the unrelated and related level of each condition (e.g., high and low frequency). So the two values in the second term of the difference are the actual priming effects of the two conditions of the 2x2 factorial design. These priming effects will be analyzed in a paired t-test in each of the 10,000 simulations of each combination of sample size, sd, and rho. </span></span>
 <span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- design ----#</span></span>
-<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.15</span>ms_base_es, freq_atten_exp2<span class="fl">.15</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_design <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_sim<span class="fl">.15</span>ms_base_es, freq_atten_sim<span class="fl">.15</span>ms_dd_to_sim) <span class="sc">|&gt;</span></span>
 <span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t</span>() <span class="sc">|&gt;</span></span>
 <span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.vector</span>() <span class="sc">|&gt;</span></span>
-<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_exp2<span class="fl">.15</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">setNames</span>(<span class="fu">paste0</span>(<span class="st">"ES"</span>, <span class="dv">1</span><span class="sc">:</span>(<span class="fu">length</span>(freq_atten_sim<span class="fl">.15</span>ms_dd_to_sim)<span class="sc">*</span><span class="dv">2</span>)))</span>
 <span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of N ------#</span></span>
-<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_n_subjs_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="dv">200</span>, <span class="dv">3000</span>, <span class="at">by =</span> <span class="dv">150</span>)</span>
 <span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of SDs ------#</span></span>
-<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
-<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
-<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
-<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.15</span>ms_min_sd, <span class="at">to =</span> freq_atten_exp2<span class="fl">.15</span>ms_max_sd, </span>
-<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_exp2<span class="fl">.15</span>ms_sd_increment)</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_min_sd <span class="ot">&lt;-</span> <span class="dv">60</span></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_max_sd <span class="ot">&lt;-</span> <span class="dv">180</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_sd_increment <span class="ot">&lt;-</span> <span class="dv">10</span></span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_sds_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_sim<span class="fl">.15</span>ms_min_sd, <span class="at">to =</span> freq_atten_sim<span class="fl">.15</span>ms_max_sd, </span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>                                <span class="at">by =</span> freq_atten_sim<span class="fl">.15</span>ms_sd_increment)</span>
 <span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- range of rhos ------#</span></span>
-<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
-<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
-<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
-<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_exp2<span class="fl">.15</span>ms_min_rho, <span class="at">to =</span> freq_atten_exp2<span class="fl">.15</span>ms_max_rho, </span>
-<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_exp2<span class="fl">.15</span>ms_rho_increment)</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_min_rho <span class="ot">&lt;-</span> .<span class="dv">6</span></span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_max_rho <span class="ot">&lt;-</span> .<span class="dv">9</span></span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_rho_increment <span class="ot">&lt;-</span> .<span class="dv">1</span></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_rhos_to_sim <span class="ot">&lt;-</span> <span class="fu">seq</span>(<span class="at">from =</span> freq_atten_sim<span class="fl">.15</span>ms_min_rho, <span class="at">to =</span> freq_atten_sim<span class="fl">.15</span>ms_max_rho, </span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                                 <span class="at">by =</span> freq_atten_sim<span class="fl">.15</span>ms_rho_increment)</span>
 <span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a><span class="co"># ---- create the control matrix ---- #</span></span>
-<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_exp2<span class="fl">.15</span>ms_rhos_to_sim,</span>
-<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.15</span>ms_sds_to_sim,</span>
-<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_exp2<span class="fl">.15</span>ms_n_subjs_to_sim)</span>
-<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_exp2<span class="fl">.15</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
-<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_exp2<span class="fl">.15</span>ms_design)</span>
-<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_params <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.15</span>ms_simulation_params <span class="sc">|&gt;</span></span>
-<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_exp2<span class="fl">.15</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_simulation_params <span class="ot">&lt;-</span> <span class="fu">expand.grid</span>(freq_atten_sim<span class="fl">.15</span>ms_rhos_to_sim,</span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_sim<span class="fl">.15</span>ms_sds_to_sim,</span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>                                               freq_atten_sim<span class="fl">.15</span>ms_n_subjs_to_sim)</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(freq_atten_sim<span class="fl">.15</span>ms_simulation_params) <span class="ot">&lt;-</span> <span class="fu">c</span>(<span class="st">"rho"</span>, <span class="st">"std_dev"</span>, <span class="st">"nsubj"</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_simulate_effects <span class="ot">&lt;-</span> <span class="fu">simulate_data_from_es</span>(freq_atten_sim<span class="fl">.15</span>ms_design)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_params <span class="ot">&lt;-</span> freq_atten_sim<span class="fl">.15</span>ms_simulation_params <span class="sc">|&gt;</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>  <span class="fu">split</span>(<span class="fu">seq</span>(<span class="fu">nrow</span>(freq_atten_sim<span class="fl">.15</span>ms_simulation_params))) <span class="sc">|&gt;</span></span>
 <span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="at">FUN =</span> as.list)</span>
 <span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a><span class="do">### Run simulation</span></span>
 <span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">20140715</span>)</span>
 <span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a>t0 <span class="ot">&lt;-</span> <span class="fu">Sys.time</span>()</span>
-<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_exp2<span class="fl">.15</span>ms_params, do_sim_2x2, </span>
-<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_exp2<span class="fl">.15</span>ms_simulate_effects, </span>
-<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_exp2<span class="fl">.15</span>ms_Nsim) <span class="sc">|&gt;</span></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_df <span class="ot">&lt;-</span> <span class="fu">lapply</span>(freq_atten_sim<span class="fl">.15</span>ms_params, do_sim_2x2, </span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>                               freq_atten_sim<span class="fl">.15</span>ms_simulate_effects, </span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a>                               <span class="at">Nsim =</span> freq_atten_sim<span class="fl">.15</span>ms_Nsim) <span class="sc">|&gt;</span></span>
 <span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a>  <span class="fu">combine_sims</span>()</span>
 <span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a><span class="fu">Sys.time</span>() <span class="sc">-</span> t0</span>
-<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_exp2.15ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_exp2.15ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a><span class="fu">save</span>(<span class="st">"freq_atten_sim.15ms_df"</span>, <span class="at">file =</span> <span class="st">"freq_atten_sim.15ms.RData"</span>, <span class="at">compress=</span><span class="cn">TRUE</span>)</span>
 <span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_exp2.15ms.RData"</span>)</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"freq_atten_sim.15ms.RData"</span>)</span>
 <span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a><span class="do">## Plotting</span></span>
-<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.15</span>ms_df <span class="sc">|&gt;</span></span>
+<span id="cb4-57"><a href="#cb4-57" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_df <span class="sc">|&gt;</span></span>
 <span id="cb4-58"><a href="#cb4-58" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(ES <span class="sc">==</span> <span class="dv">15</span>) <span class="sc">|&gt;</span></span>
 <span id="cb4-59"><a href="#cb4-59" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">x =</span> nsubj, <span class="at">y =</span> power_unadjusted)) <span class="sc">+</span> </span>
 <span id="cb4-60"><a href="#cb4-60" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>(<span class="fu">aes</span>()) <span class="sc">+</span> </span>
@@ -640,6 +641,88 @@
 </details>
 </div></div>
 </section>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<p>Our analysis identified a sample size of 1,250 participants as optimal, ensuring robust statistical power (&gt; 80%) across various parameter combinations (<span class="citation" data-cites="fig-power-1250">@fig-power-1250</span>), especially for raw FAEs equal to or exceeding 10 ms —- a value closely aligned with the average FAE calculated from previous studies (see Introduction in the paper). In light of the limitations in the temporal accuracy and precision of current online stimulus delivery programs (observed in several pilots and previous published studies conducted in our lab), we aimed for an intended sample size of 2,600. This decision was made to enhance the likelihood of obtaining a sample size of at least 1,250 participants after applying all the necessary exclusion criteria to the data. In addition, sample sizes exceeding 1,250 can only help increase the precision of the estimated effect size.</p>
+<div class="cell-container code-fold"><div class="cell-decorator"><pre>In [5]:</pre></div><div id="cell-fig-power-1250" class="cell">
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output cell-output-stderr">
+<pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
+✔ dplyr     1.1.3     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.0
+✔ ggplot2   3.4.4     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ purrr     1.0.2     
+── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
+✖ dplyr::filter() masks stats::filter()
+✖ dplyr::lag()    masks stats::lag()
+ℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors</code></pre>
+</div>
+<details class="code-fold">
+<summary>Code</summary>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'../supplemental-data/freq_atten_sim.5ms.RData'</span>) <span class="co"># ES = 5 ms</span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'../supplemental-data/freq_atten_sim.10ms.RData'</span>) <span class="co"># ES = 10 ms</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">'../supplemental-data/freq_atten_sim.15ms.RData'</span>) <span class="co"># ES = 15 ms</span></span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.5</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.5</span>ms_df <span class="sc">%&gt;%</span> </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">5</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(std_dev <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> std_dev <span class="sc">&lt;=</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rho <span class="sc">&gt;=</span> <span class="fl">0.7</span> <span class="sc">&amp;</span> rho <span class="sc">&lt;=</span> <span class="fl">0.9</span>)</span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.10</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_df <span class="sc">%&gt;%</span> </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(std_dev <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> std_dev <span class="sc">&lt;=</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rho <span class="sc">&gt;=</span> <span class="fl">0.7</span> <span class="sc">&amp;</span> rho <span class="sc">&lt;=</span> <span class="fl">0.9</span>)</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>freq_atten_sim<span class="fl">.15</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.15</span>ms_df <span class="sc">%&gt;%</span> </span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">15</span> <span class="sc">&amp;</span> <span class="fu">grepl</span>(<span class="st">"interaction"</span>, <span class="fu">row.names</span>(freq_atten_exp2<span class="fl">.15</span>ms_df))) <span class="sc">%&gt;%</span></span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(std_dev <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> std_dev <span class="sc">&lt;=</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rho <span class="sc">&gt;=</span> <span class="fl">0.7</span> <span class="sc">&amp;</span> rho <span class="sc">&lt;=</span> <span class="fl">0.9</span>)</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>power_pred_df <span class="ot">&lt;-</span> <span class="fu">bind_rows</span>(freq_atten_sim<span class="fl">.5</span>ms_df.sub, freq_atten_sim<span class="fl">.10</span>ms_df.sub, freq_atten_sim<span class="fl">.15</span>ms_df.sub) </span>
+<span id="cb7-22"><a href="#cb7-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-23"><a href="#cb7-23" aria-hidden="true" tabindex="-1"></a>power_pred_df.sub1250 <span class="ot">&lt;-</span> power_pred_df <span class="sc">%&gt;%</span></span>
+<span id="cb7-24"><a href="#cb7-24" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(nsubj <span class="sc">==</span> <span class="dv">1250</span>)</span>
+<span id="cb7-25"><a href="#cb7-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-26"><a href="#cb7-26" aria-hidden="true" tabindex="-1"></a>power_pred_df.sub1250 <span class="sc">|&gt;</span></span>
+<span id="cb7-27"><a href="#cb7-27" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> power_unadjusted, <span class="at">x =</span> ES)) <span class="sc">+</span> </span>
+<span id="cb7-28"><a href="#cb7-28" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb7-29"><a href="#cb7-29" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb7-30"><a href="#cb7-30" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"red2"</span>) <span class="sc">+</span> </span>
+<span id="cb7-31"><a href="#cb7-31" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(rho <span class="sc">~</span> std_dev) <span class="sc">+</span></span>
+<span id="cb7-32"><a href="#cb7-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">5</span>), <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">5</span>, <span class="dv">15</span>), <span class="at">labels=</span><span class="fu">seq</span>(<span class="dv">5</span>, <span class="dv">15</span>, <span class="dv">5</span>),</span>
+<span id="cb7-33"><a href="#cb7-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . , <span class="at">name =</span> <span class="st">"sd"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
+<span id="cb7-34"><a href="#cb7-34" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">breaks=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="fl">0.2</span>), <span class="at">limits=</span><span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>), <span class="at">labels=</span><span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, .<span class="dv">2</span>),</span>
+<span id="cb7-35"><a href="#cb7-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . , <span class="at">name =</span> <span class="st">"cor"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
+<span id="cb7-36"><a href="#cb7-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb7-37"><a href="#cb7-37" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="co">#axis.line = element_line(colour = "black"),</span></span>
+<span id="cb7-38"><a href="#cb7-38" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-39"><a href="#cb7-39" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb7-40"><a href="#cb7-40" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">"none"</span></span>
+<span id="cb7-42"><a href="#cb7-42" aria-hidden="true" tabindex="-1"></a>      <span class="co">#panel.background = element_blank() </span></span>
+<span id="cb7-43"><a href="#cb7-43" aria-hidden="true" tabindex="-1"></a>     )<span class="sc">+</span></span>
+<span id="cb7-44"><a href="#cb7-44" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"N=1,250"</span>, <span class="at">y =</span> <span class="st">"power (unadjusted)"</span>, <span class="at">x =</span> <span class="st">"FAE size (ms)"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+<div class="cell-output-display">
+<div id="fig-power-1250" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-power-1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
+<a href="power-analysis-sims_files/figure-html/fig-power-1250-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Power simulations with a sample size of 1,250, for all combinations of standard deviation (sd), pairwise correlation (cor), and interaction effect size. The red line identifies the threshold of 80% power."><img src="power-analysis-sims_files/figure-html/fig-power-1250-1.png" class="img-fluid figure-img" width="672"></a>
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-power-1250-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Power simulations with a sample size of 1,250, for all combinations of standard deviation (sd), pairwise correlation (cor), and interaction effect size. The red line identifies the threshold of 80% power.
+</figcaption>
+</figure>
+</div>
+</div>
+</div></div>
 </section>
      </main>
 <!-- /main column -->  <script id="quarto-html-after-body" type="application/javascript">
@@ -1061,6 +1144,37 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content --> 
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","loop":false,"descPosition":"bottom","closeEffect":"zoom"});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
+    }
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
+          </script> 
   
 </body></html>

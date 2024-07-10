@@ -18,115 +18,19 @@ library(ggpubr)
 library(here)
 ```
 
-## Power analysis
-
-```{r}
-#| label: fig-power-1250
-#| fig-cap: "Power simulations with a sample size of 1,250, for all combinations of standard deviation (sd), pairwise correlation (cor), and interaction effect size. The red line identifies the threshold of 80% power."
-
-load('../supplemental-data/freq_atten_exp2.5ms.RData') # ES = 5 ms
-load('../supplemental-data/freq_atten_exp2.10ms.RData') # ES = 10 ms
-load('../supplemental-data/freq_atten_exp2.15ms.RData') # ES = 15 ms
-
-freq_atten_exp2.5ms_df.sub <- freq_atten_exp2.5ms_df %>% 
-  filter(ES == 5) %>%
-  filter(std_dev >= 80 & std_dev <= 120) %>%
-  filter(rho >= 0.7 & rho <= 0.9)
-
-freq_atten_exp2.10ms_df.sub <- freq_atten_exp2.10ms_df %>% 
-  filter(ES == 10) %>%
-  filter(std_dev >= 80 & std_dev <= 120) %>%
-  filter(rho >= 0.7 & rho <= 0.9)
-
-freq_atten_exp2.15ms_df.sub <- freq_atten_exp2.15ms_df %>% 
-  filter(ES == 15 & grepl("interaction", row.names(freq_atten_exp2.15ms_df))) %>%
-  filter(std_dev >= 80 & std_dev <= 120) %>%
-  filter(rho >= 0.7 & rho <= 0.9)
-
-power_pred_df <- bind_rows(freq_atten_exp2.5ms_df.sub, freq_atten_exp2.10ms_df.sub, freq_atten_exp2.15ms_df.sub) 
-
-power_pred_df.sub1250 <- power_pred_df %>%
-  filter(nsubj == 1250)
-
-power_pred_df.sub1250 |>
-  ggplot(aes(y = power_unadjusted, x = ES)) + 
-    geom_line() + 
-    geom_point() +
-    geom_hline(yintercept = 0.8, color = "red2") + 
-    facet_grid(rho ~ std_dev) +
-  scale_x_continuous(breaks=seq(5, 15, 5), limits=c(5, 15), labels=seq(5, 15, 5),
-    sec.axis = sec_axis(~ . , name = "sd", breaks = NULL, labels = NULL)) +
-  scale_y_continuous(breaks=seq(0, 1, 0.2), limits=c(0, 1), labels=seq(0, 1, .2),
-    sec.axis = sec_axis(~ . , name = "cor", breaks = NULL, labels = NULL)) +
-  theme_bw()+
-    theme(#axis.line = element_line(colour = "black"),
-      panel.grid.major = element_blank(),
-      panel.grid.minor = element_blank(), 
-      panel.border = element_blank(),
-      legend.position="none"
-      #panel.background = element_blank() 
-     )+
-  labs(title="N=1,250", y = "power (unadjusted)", x = "FAE size (ms)")
-
-``` 
-
-## Materials
-
-```{r}
-#| warning: false
-#| error: false
-#| label: tbl-words_exp2
-#| tbl-cap: "Experiment 2. Descriptive statistics of the word items used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison."
-#| 
-words_exp2 <- read.csv('../materials/experiment2/frequency-effects_experiment2_stimuli.csv') %>% filter(type=='word')
-
-needs_mutated <- function(x) {
-  if(!is.numeric(x)) return(FALSE)
-  max(x, na.rm = TRUE) > 100
-}
-
-words_exp2 %>%
-  group_by(freq.bin) %>%
-  mutate(Freq_HAL.Pm = (Freq_HAL * 10^6)/(131 * 10^6)) %>%
-  summarise(N = n(),
-            minFreq= min(Freq_HAL.Pm, na.rm = T), maxFreq=max(Freq_HAL.Pm, na.rm = T),
-            meanFreq = mean(Freq_HAL.Pm, na.rm = T), sdFreq = sd(Freq_HAL.Pm, na.rm = T),
-            minSUBFreq= min(SUBTLWF, na.rm = T), maxSUBFreq=max(SUBTLWF, na.rm = T),
-            meanSUBFreq = mean(SUBTLWF, na.rm = T), sdSUBFreq = sd(SUBTLWF, na.rm = T),
-            #meanRT=mean(as.numeric(I_Mean_RT), na.rm = T), sdRT=sd(as.numeric(I_Mean_RT), na.rm = T),
-            #meanLength = mean(Length, na.rm = T), sdLength=sd(Length, na.rm = T)
-            ) %>% 
-  mutate_if(is.numeric, ~round(.)) %>% 
-  mutate_if(needs_mutated, ~round(.)) %>%
-  gt() %>%
-  cols_label(
-    freq.bin = "frequency", 
-    minFreq = "min", maxFreq = "max", meanFreq = "mean", sdFreq = "SD", 
-    minSUBFreq = "min", maxSUBFreq = "max", meanSUBFreq = "mean", sdSUBFreq = "SD") %>%
-  tab_spanner(
-    label=md("**HAL**"),
-    columns=3:6
-  ) %>%
-  tab_spanner(
-    label=md("**SUBTLEX~US~**"),
-    columns=7:10
-  )
-```
-
 ## Data analysis
 
-```{r experiment 2}
-#| label: exp1_raw-dataset
+```{r experiment 3 raw data}
 #| warning: false
 #| error: false
 
 # load the raw data dataframe
-exp2_data_folder <- "experiment2"
+exp2_data_folder <- "data/experiment2"
 exp2_rawdata_filename <- "experiment_2_preprocessed_data.csv"
 
 ## 02. check if the rawdata file exists. if not, download it from OSF.
 if (!file.exists(here(exp2_data_folder, exp2_rawdata_filename))) {
-  osf_retrieve_file("vn3r2") |> 
+  osf_retrieve_file("k3gpc") |> 
     osf_download(path = here(exp2_data_folder),
                  conflicts = "overwrite") 
 }
@@ -134,11 +38,13 @@ if (!file.exists(here(exp2_data_folder, exp2_rawdata_filename))) {
 ## 03. read the data into R.
 exp2_rawdata <- here(exp2_data_folder, exp2_rawdata_filename) |>
   read.csv(na = c("", "NA")) %>%
-  mutate(primeTime = primeDuration - maskDuration) # calculating the actual SOA
+  mutate(primeTime = primeDuration - maskDuration) %>% # calculating the actual SOA
+  rename(list = "Group_Nr")
 
 exp2_info <- list()
 exp2_info$intended_prime_duration <- 33
 exp2_info$prime_dur_lb <- 25
+exp2_info$prime_dur <- 50
 exp2_info$prime_dur_ub <- 60
 exp2_info$rt_lb <- 200
 exp2_info$rt_ub <- 1800
@@ -149,6 +55,9 @@ exp2_info$n_recruited <- exp2_rawdata$Rec_Session_Id |>
 
 exp2_rawdata.sub <- exp2_rawdata %>%
   filter(!is.na(TimeMeasure_Mean) & !is.na(primeDuration) & !is.na(responseError))
+
+exp2_subj.error <- exp2_rawdata.sub %>% group_by(Crowdsourcing_SubjId) %>%
+  summarise(mean.error = mean(responseError))
             
 exp2_info$summary <- with(
   transform(exp2_rawdata.sub,
@@ -158,7 +67,7 @@ exp2_info$summary <- with(
   {
     data.frame(aggregate(Start_Time ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp2_rawdata.sub, unique),
                aggregate(End_Time_Local ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp2_rawdata.sub, unique),
-              aggregate(cbind(list, SelectedGender, SelectedAge, TimeMeasure_Mean, TimeMeasure_Std) ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp2_rawdata.sub, unique),
+               aggregate(cbind(list, SelectedGender, SelectedAge) ~ Rec_Session_Id + Crowdsourcing_SubjId, data=exp2_rawdata.sub, unique),
       aggregate(cbind(responseError, RT_inrange, Prime_inrange) ~ Rec_Session_Id + Crowdsourcing_SubjId, mean, data=exp2_rawdata.sub)
   )
 }
@@ -258,7 +167,7 @@ exp2_step3b_subj_remain <- exp2_data_step3b$Rec_Session_Id |>
 
 exp2_step3b_trials_remain <- nrow(exp2_data_step3b)
 
-# remove subjects with less than 12 trials in at least one condition*primetype combination (half of the total number of items per combination)
+# remove subjects with less than 7 trials in at least one condition*primetype combination (half of the total number of items per combination)
 rt_data_labels <- c("Rec_Session_Id", "condition_rec", "primetype_rec", "RT")
 
 exp2_subj_filter_2 <- exp2_data_step3b[, rt_data_labels] |>
@@ -275,7 +184,8 @@ exp2_subj_filter_conditions <-
   tally() %>% filter(n != 6) %>% pull(Rec_Session_Id)
 
 exp2_data_final <- exp2_data_step3b |>
-  subset(!(Rec_Session_Id %in% exp2_subj_filter_2) & !(Rec_Session_Id %in% exp2_subj_filter_conditions))
+  subset(!(Rec_Session_Id %in% exp2_subj_filter_2) & !(Rec_Session_Id %in% exp2_subj_filter_conditions)) %>%
+  mutate(condition_rec = as.factor(condition_rec), primetype_rec=as.factor(primetype_rec))
 
 exp2_final_subj_remain <- exp2_data_final$Rec_Session_Id |>
   unique() |> 
@@ -361,6 +271,17 @@ exp2_mop_anova <- exp2_rt.avg_subj |>
   subset(condition_rec %in% c("high", "low")) |>
   aov(meanRT ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
 
+### GLMER 
+library(lme4)
+library(car)
+options(contrasts = c("contr.sum", "contr.poly"))
+
+exp2_mop_glmer <- glmer(RT ~ condition_rec * primetype_rec + (1|Crowdsourcing_SubjId) + (1|target_rec), data = exp2_data_final, family = Gamma(link="identity"), control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
+
+summary(exp2_mop_glmer)
+Anova(exp2_mop_glmer, type = 3)
+
+##### PRIMING CALCULATIONS
 #### by subject
 exp2_mop_subj <- exp2_rt.avg_subj %>% 
   pivot_wider(names_from=primetype_rec, values_from=meanRT) %>%
@@ -388,8 +309,7 @@ exp2_rt_stats_main <- exp2_rt.avg_subj %>%
   mutate(primetype_rec = fct_relevel(primetype_rec, "unrelated", "related")) %>%
   group_by(condition_rec) %>%
   t_test(meanRT ~ primetype_rec, paired=T) %>% select(-2:-6) %>%
-  rename(factor = "condition_rec", t='statistic') %>%
-  mutate_if(is.numeric, list(~as.character(signif(., 3))))
+  rename(factor = "condition_rec", t='statistic')
 
 ### INTERACTION EFFECT
 
@@ -418,7 +338,7 @@ exp2_rt_stats_interaction <- exp2_mop_subj %>% ungroup() %>%
   filter(condition_rec != 'non-word') %>%
   mutate(condition_rec = fct_relevel(condition_rec, "low", "high")) %>%
   t_test(priming ~ condition_rec, paired=TRUE) %>% 
-  mutate_if(is.numeric, list(~as.character(signif(., 3)))) %>%
+  #mutate_if(is.numeric, list(~as.character(signif(., 3)))) %>%
   select(-1, -4:-5) %>%
   unite("factor", group1:group2) %>%
   rename(t='statistic') %>%
@@ -444,6 +364,7 @@ exp2_summary.results_fae <- merge(exp2_gdavg_fae_summary, exp2_rt_stats_interact
 exp2_summary.results <- bind_rows(exp2_summary.results_mop, exp2_summary.results_fae)
   
 exp2_summary.results %>%
+  mutate(t = round(t, 2)) %>%
   relocate(c("sd_unrelated", "mean.error_unrelated"), .before=gd.mean_related) %>%
   gt() %>%
   cols_label(

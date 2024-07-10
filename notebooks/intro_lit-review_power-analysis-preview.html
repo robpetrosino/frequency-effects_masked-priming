@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.5.31">
+    <meta name="generator" content="quarto-1.6.1">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -255,11 +255,10 @@ The following object is masked from 'package:stats':
 <section id="literature-review-summary-of-results" class="level2">
 <h2 class="anchored" data-anchor-id="literature-review-summary-of-results">Literature review: summary of results</h2>
 <div class="cell-container"><div class="cell-decorator"><pre>In [2]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>lit_effects_tbl_filename <span class="ot">&lt;-</span> <span class="st">"../supplemental-data/MaskedPrimingDatabase-IDPriming-InteractionFrequency.csv"</span></span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>lit_effects <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(lit_effects_tbl_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>lit_effects_tbl_filename <span class="ot">&lt;-</span> <span class="st">"../supplemental-data/MaskedPrimingDatabase-IDPriming-InteractionFrequency.csv"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lit_effects <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(lit_effects_tbl_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 18 Columns: 8
 ── Column specification ────────────────────────────────────────────────────────
@@ -270,13 +269,12 @@ dbl (4): N, MOP_HF, MOP_LF, MOP_Interaction
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>power_estimates_15 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../supplemental-data/power_estimate2.dataset.range.csv"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(nsubj, minPower, maxPower) <span class="sc">%&gt;%</span></span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(minPower<span class="sc">:</span>maxPower, <span class="sc">~</span><span class="fu">round</span>(., <span class="dv">2</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minPower =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, minPower), <span class="at">maxPower =</span> <span class="fu">paste0</span>(maxPower, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"Power range"</span>, minPower<span class="sc">:</span>maxPower, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>power_estimates_15 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../supplemental-data/power_estimate2.dataset.range.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(nsubj, minPower, maxPower) <span class="sc">%&gt;%</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(minPower<span class="sc">:</span>maxPower, <span class="sc">~</span><span class="fu">round</span>(., <span class="dv">2</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minPower =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, minPower), <span class="at">maxPower =</span> <span class="fu">paste0</span>(maxPower, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"Power range"</span>, minPower<span class="sc">:</span>maxPower, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 17 Columns: 11
 ── Column specification ────────────────────────────────────────────────────────
@@ -287,13 +285,12 @@ dbl (8): nsubj, minPower, maxPower, rho_min, std_dev_min, rho_max, std_dev_m...
 ℹ Use `spec()` to retrieve the full column specification for this data.
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
-<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>power_estimates_30 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../supplemental-data/power_estimate3.dataset.range.csv"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(nsubj, minPower, maxPower) <span class="sc">%&gt;%</span></span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(minPower<span class="sc">:</span>maxPower, <span class="sc">~</span><span class="fu">round</span>(., <span class="dv">2</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minPower =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, minPower), <span class="at">maxPower =</span> <span class="fu">paste0</span>(maxPower, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"Power range"</span>, minPower<span class="sc">:</span>maxPower, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>power_estimates_30 <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">"../supplemental-data/power_estimate3.dataset.range.csv"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(nsubj, minPower, maxPower) <span class="sc">%&gt;%</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(minPower<span class="sc">:</span>maxPower, <span class="sc">~</span><span class="fu">round</span>(., <span class="dv">2</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minPower =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, minPower), <span class="at">maxPower =</span> <span class="fu">paste0</span>(maxPower, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"Power range"</span>, minPower<span class="sc">:</span>maxPower, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Rows: 17 Columns: 11
 ── Column specification ────────────────────────────────────────────────────────
@@ -305,87 +302,84 @@ dbl (8): nsubj, minPower, maxPower, rho_min, std_dev_min, rho_max, std_dev_m...
 ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
 </div>
 
-<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>lit_effects <span class="sc">%&gt;%</span></span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., power_estimates_15, <span class="at">by=</span><span class="fu">join_by</span>(<span class="st">"N"</span> <span class="sc">==</span> <span class="st">"nsubj"</span>), <span class="at">multiple=</span><span class="st">"first"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., power_estimates_30, <span class="at">by=</span><span class="fu">join_by</span>(<span class="st">"N"</span> <span class="sc">==</span> <span class="st">"nsubj"</span>), <span class="at">multiple=</span><span class="st">"first"</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">"_15"</span>, <span class="st">"_30"</span>)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(MOP_HF<span class="sc">:</span>MOP_Interaction, as.numeric)) <span class="sc">%&gt;%</span></span>
-<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(N) %&gt;%</span></span>
-<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">"PAPER"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="co">#tab_options(row.striping.include_table_body = FALSE) %&gt;% </span></span>
-<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_stubhead</span>(<span class="at">label =</span> <span class="st">"Study"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"MOP (ms)"</span>, <span class="at">columns =</span> <span class="fu">c</span>(MOP_HF, MOP_LF)</span>
-<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"FAE (ms)"</span>, <span class="at">columns =</span> <span class="fu">c</span>(MOP_Interaction, <span class="st">`</span><span class="at">p&lt;.05?</span><span class="st">`</span>)</span>
-<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
-<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Power range [min max]"</span>, <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">Power range_15</span><span class="st">`</span>, <span class="st">`</span><span class="at">Power range_30</span><span class="st">`</span>)</span>
-<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>( <span class="at">LANGUAGE =</span> <span class="st">"Language"</span>, </span>
-<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">PRIME_DURATION =</span> <span class="st">"SOA"</span>,</span>
-<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">MOP_HF =</span> <span class="st">"HF"</span>, </span>
-<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">MOP_LF =</span> <span class="st">"LF"</span>, </span>
-<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>              <span class="at">MOP_Interaction =</span> <span class="st">"ES"</span>,</span>
-<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">p&lt;.05?</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">md</span>(<span class="st">"_p_&lt;.05?"</span>),</span>
-<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">Power range_15</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"FAE=15ms"</span>,</span>
-<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">Power range_30</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"FAE=30ms"</span></span>
-<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_footnote</span>( </span>
-<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">footnote =</span> <span class="st">"SOA for each subject determined by pre-test"</span>, </span>
-<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">column =</span> <span class="st">"PRIME_DURATION"</span>, <span class="at">rows =</span> <span class="dv">14</span>)</span>
-<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_footnote</span>(</span>
-<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">footnote =</span> <span class="st">"Reported in Masson &amp; Bodner (2003)"</span>,</span>
-<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_stub</span>(<span class="at">rows =</span> <span class="dv">16</span>) </span>
-<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
-<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grand_summary_rows</span>(</span>
-<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(MOP_HF, MOP_LF, MOP_Interaction),</span>
-<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>    <span class="at">fns =</span> <span class="fu">list</span>(Mean <span class="sc">~</span> <span class="fu">round</span>(<span class="fu">mean</span>(.)),</span>
-<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>               SD <span class="sc">~</span> <span class="fu">round</span>(<span class="fu">sd</span>(.))), </span>
-<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_text =</span> <span class="st">" "</span> </span>
-<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grand_summary_rows</span>(</span>
-<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(MOP_Interaction),</span>
-<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">fns =</span> <span class="fu">list</span>(Correlation <span class="sc">~</span> <span class="fu">round</span>(<span class="fu">cor</span>(MOP_HF, MOP_LF), <span class="dv">2</span>)), </span>
-<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_text =</span> <span class="st">" "</span> </span>
-<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>   <span class="fu">sub_missing</span>(</span>
-<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_text =</span> <span class="st">" "</span></span>
-<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a>  )</span>
-<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a><span class="co">#|</span></span>
-<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>litReview.stats <span class="ot">&lt;-</span> lit_effects <span class="sc">%&gt;%</span></span>
-<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(PAPER, MOP_HF, MOP_LF) <span class="sc">%&gt;%</span></span>
-<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(MOP_HF<span class="sc">:</span>MOP_LF, <span class="at">names_to =</span> <span class="st">"frequency.condition"</span>, <span class="at">values_to=</span><span class="st">"mean.priming"</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb12-56"><a href="#cb12-56" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">frequency.condition =</span> <span class="fu">factor</span>(frequency.condition, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"MOP_LF"</span>, <span class="st">"MOP_HF"</span>))) <span class="sc">%&gt;%</span></span>
-<span id="cb12-57"><a href="#cb12-57" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t_test</span>(mean.priming <span class="sc">~</span> frequency.condition, <span class="at">paired=</span>T, <span class="at">detailed=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-litReview" class="cell quarto-float anchored">
+<div class="cell-container"><div class="cell-decorator"><pre>In [3]:</pre></div><div><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>lit_effects <span class="sc">%&gt;%</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., power_estimates_15, <span class="at">by=</span><span class="fu">join_by</span>(<span class="st">"N"</span> <span class="sc">==</span> <span class="st">"nsubj"</span>), <span class="at">multiple=</span><span class="st">"first"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">left_join</span>(., power_estimates_30, <span class="at">by=</span><span class="fu">join_by</span>(<span class="st">"N"</span> <span class="sc">==</span> <span class="st">"nsubj"</span>), <span class="at">multiple=</span><span class="st">"first"</span>, <span class="at">suffix =</span> <span class="fu">c</span>(<span class="st">"_15"</span>, <span class="st">"_30"</span>)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(MOP_HF<span class="sc">:</span>MOP_Interaction, as.numeric)) <span class="sc">%&gt;%</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>  <span class="co">#group_by(N) %&gt;%</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>(<span class="at">rowname_col =</span> <span class="st">"PAPER"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>  <span class="co">#tab_options(row.striping.include_table_body = FALSE) %&gt;% </span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_stubhead</span>(<span class="at">label =</span> <span class="st">"Study"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"MOP (ms)"</span>, <span class="at">columns =</span> <span class="fu">c</span>(MOP_HF, MOP_LF)</span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"FAE (ms)"</span>, <span class="at">columns =</span> <span class="fu">c</span>(MOP_Interaction, <span class="st">`</span><span class="at">p&lt;.05?</span><span class="st">`</span>)</span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_spanner</span>(</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="st">"Power range [min max]"</span>, <span class="at">columns =</span> <span class="fu">c</span>(<span class="st">`</span><span class="at">Power range_15</span><span class="st">`</span>, <span class="st">`</span><span class="at">Power range_30</span><span class="st">`</span>)</span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>( <span class="at">LANGUAGE =</span> <span class="st">"Language"</span>, </span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>              <span class="at">PRIME_DURATION =</span> <span class="st">"SOA"</span>,</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>              <span class="at">MOP_HF =</span> <span class="st">"HF"</span>, </span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>              <span class="at">MOP_LF =</span> <span class="st">"LF"</span>, </span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a>              <span class="at">MOP_Interaction =</span> <span class="st">"ES"</span>,</span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">p&lt;.05?</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">md</span>(<span class="st">"_p_&lt;.05?"</span>),</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">Power range_15</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"FAE=15ms"</span>,</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a>              <span class="st">`</span><span class="at">Power range_30</span><span class="st">`</span> <span class="ot">=</span> <span class="st">"FAE=30ms"</span></span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-28"><a href="#cb12-28" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_footnote</span>( </span>
+<span id="cb12-29"><a href="#cb12-29" aria-hidden="true" tabindex="-1"></a>    <span class="at">footnote =</span> <span class="st">"SOA for each subject determined by pre-test"</span>, </span>
+<span id="cb12-30"><a href="#cb12-30" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_body</span>(<span class="at">column =</span> <span class="st">"PRIME_DURATION"</span>, <span class="at">rows =</span> <span class="dv">14</span>)</span>
+<span id="cb12-31"><a href="#cb12-31" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-32"><a href="#cb12-32" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_footnote</span>(</span>
+<span id="cb12-33"><a href="#cb12-33" aria-hidden="true" tabindex="-1"></a>    <span class="at">footnote =</span> <span class="st">"Reported in Masson &amp; Bodner (2003)"</span>,</span>
+<span id="cb12-34"><a href="#cb12-34" aria-hidden="true" tabindex="-1"></a>    <span class="at">locations =</span> <span class="fu">cells_stub</span>(<span class="at">rows =</span> <span class="dv">16</span>) </span>
+<span id="cb12-35"><a href="#cb12-35" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span> </span>
+<span id="cb12-36"><a href="#cb12-36" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grand_summary_rows</span>(</span>
+<span id="cb12-37"><a href="#cb12-37" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(MOP_HF, MOP_LF, MOP_Interaction),</span>
+<span id="cb12-38"><a href="#cb12-38" aria-hidden="true" tabindex="-1"></a>    <span class="at">fns =</span> <span class="fu">list</span>(Mean <span class="sc">~</span> <span class="fu">round</span>(<span class="fu">mean</span>(.)),</span>
+<span id="cb12-39"><a href="#cb12-39" aria-hidden="true" tabindex="-1"></a>               SD <span class="sc">~</span> <span class="fu">round</span>(<span class="fu">sd</span>(.))), </span>
+<span id="cb12-40"><a href="#cb12-40" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_text =</span> <span class="st">" "</span> </span>
+<span id="cb12-41"><a href="#cb12-41" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-42"><a href="#cb12-42" aria-hidden="true" tabindex="-1"></a>  <span class="fu">grand_summary_rows</span>(</span>
+<span id="cb12-43"><a href="#cb12-43" aria-hidden="true" tabindex="-1"></a>    <span class="at">columns =</span> <span class="fu">c</span>(MOP_Interaction),</span>
+<span id="cb12-44"><a href="#cb12-44" aria-hidden="true" tabindex="-1"></a>    <span class="at">fns =</span> <span class="fu">list</span>(Correlation <span class="sc">~</span> <span class="fu">round</span>(<span class="fu">cor</span>(MOP_HF, MOP_LF), <span class="dv">2</span>)), </span>
+<span id="cb12-45"><a href="#cb12-45" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_text =</span> <span class="st">" "</span> </span>
+<span id="cb12-46"><a href="#cb12-46" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
+<span id="cb12-47"><a href="#cb12-47" aria-hidden="true" tabindex="-1"></a>   <span class="fu">sub_missing</span>(</span>
+<span id="cb12-48"><a href="#cb12-48" aria-hidden="true" tabindex="-1"></a>    <span class="at">missing_text =</span> <span class="st">" "</span></span>
+<span id="cb12-49"><a href="#cb12-49" aria-hidden="true" tabindex="-1"></a>  )</span>
+<span id="cb12-50"><a href="#cb12-50" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-51"><a href="#cb12-51" aria-hidden="true" tabindex="-1"></a>litReview.stats <span class="ot">&lt;-</span> lit_effects <span class="sc">%&gt;%</span></span>
+<span id="cb12-52"><a href="#cb12-52" aria-hidden="true" tabindex="-1"></a>    <span class="fu">select</span>(PAPER, MOP_HF, MOP_LF) <span class="sc">%&gt;%</span></span>
+<span id="cb12-53"><a href="#cb12-53" aria-hidden="true" tabindex="-1"></a>    <span class="fu">pivot_longer</span>(MOP_HF<span class="sc">:</span>MOP_LF, <span class="at">names_to =</span> <span class="st">"frequency.condition"</span>, <span class="at">values_to=</span><span class="st">"mean.priming"</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb12-54"><a href="#cb12-54" aria-hidden="true" tabindex="-1"></a>    <span class="fu">mutate</span>(<span class="at">frequency.condition =</span> <span class="fu">factor</span>(frequency.condition, <span class="at">levels=</span><span class="fu">c</span>(<span class="st">"MOP_LF"</span>, <span class="st">"MOP_HF"</span>))) <span class="sc">%&gt;%</span></span>
+<span id="cb12-55"><a href="#cb12-55" aria-hidden="true" tabindex="-1"></a>    <span class="fu">t_test</span>(mean.priming <span class="sc">~</span> frequency.condition, <span class="at">paired=</span>T, <span class="at">detailed=</span>T)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-litReview" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-litReview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Summary of the masked repetition priming effects as a function of word frequency reported in the literature. The power range estimates were calculated by simulating 10,000 datasets with the corresponding sample size (N) and FAE = 15 ms and 30 ms.
 </figcaption>
 <div aria-describedby="tbl-litReview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<div id="cgnzinidfu" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#cgnzinidfu table {
+<div id="bcczmffcrn" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#bcczmffcrn table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#cgnzinidfu thead, #cgnzinidfu tbody, #cgnzinidfu tfoot, #cgnzinidfu tr, #cgnzinidfu td, #cgnzinidfu th {
+#bcczmffcrn thead, #bcczmffcrn tbody, #bcczmffcrn tfoot, #bcczmffcrn tr, #bcczmffcrn td, #bcczmffcrn th {
   border-style: none;
 }
 
-#cgnzinidfu p {
+#bcczmffcrn p {
   margin: 0;
   padding: 0;
 }
 
-#cgnzinidfu .gt_table {
+#bcczmffcrn .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -411,12 +405,12 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-left-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_caption {
+#bcczmffcrn .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#cgnzinidfu .gt_title {
+#bcczmffcrn .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -428,7 +422,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-bottom-width: 0;
 }
 
-#cgnzinidfu .gt_subtitle {
+#bcczmffcrn .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -440,7 +434,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-top-width: 0;
 }
 
-#cgnzinidfu .gt_heading {
+#bcczmffcrn .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -452,13 +446,13 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-right-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_bottom_border {
+#bcczmffcrn .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_col_headings {
+#bcczmffcrn .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -473,7 +467,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-right-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_col_heading {
+#bcczmffcrn .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -493,7 +487,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   overflow-x: hidden;
 }
 
-#cgnzinidfu .gt_column_spanner_outer {
+#bcczmffcrn .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -505,15 +499,15 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 4px;
 }
 
-#cgnzinidfu .gt_column_spanner_outer:first-child {
+#bcczmffcrn .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#cgnzinidfu .gt_column_spanner_outer:last-child {
+#bcczmffcrn .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#cgnzinidfu .gt_column_spanner {
+#bcczmffcrn .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -525,11 +519,11 @@ Summary of the masked repetition priming effects as a function of word frequency
   width: 100%;
 }
 
-#cgnzinidfu .gt_spanner_row {
+#bcczmffcrn .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#cgnzinidfu .gt_group_heading {
+#bcczmffcrn .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -555,7 +549,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   text-align: left;
 }
 
-#cgnzinidfu .gt_empty_group_heading {
+#bcczmffcrn .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -570,15 +564,15 @@ Summary of the masked repetition priming effects as a function of word frequency
   vertical-align: middle;
 }
 
-#cgnzinidfu .gt_from_md > :first-child {
+#bcczmffcrn .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#cgnzinidfu .gt_from_md > :last-child {
+#bcczmffcrn .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#cgnzinidfu .gt_row {
+#bcczmffcrn .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -597,7 +591,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   overflow-x: hidden;
 }
 
-#cgnzinidfu .gt_stub {
+#bcczmffcrn .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -610,7 +604,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#cgnzinidfu .gt_stub_row_group {
+#bcczmffcrn .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -624,15 +618,15 @@ Summary of the masked repetition priming effects as a function of word frequency
   vertical-align: top;
 }
 
-#cgnzinidfu .gt_row_group_first td {
+#bcczmffcrn .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#cgnzinidfu .gt_row_group_first th {
+#bcczmffcrn .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#cgnzinidfu .gt_summary_row {
+#bcczmffcrn .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -642,16 +636,16 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#cgnzinidfu .gt_first_summary_row {
+#bcczmffcrn .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_first_summary_row.thick {
+#bcczmffcrn .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#cgnzinidfu .gt_last_summary_row {
+#bcczmffcrn .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -661,7 +655,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-bottom-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_grand_summary_row {
+#bcczmffcrn .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -671,7 +665,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#cgnzinidfu .gt_first_grand_summary_row {
+#bcczmffcrn .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -681,7 +675,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-top-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_last_grand_summary_row_top {
+#bcczmffcrn .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -691,11 +685,11 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-bottom-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_striped {
+#bcczmffcrn .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#cgnzinidfu .gt_table_body {
+#bcczmffcrn .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -704,7 +698,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-bottom-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_footnotes {
+#bcczmffcrn .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -718,7 +712,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-right-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_footnote {
+#bcczmffcrn .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -727,7 +721,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#cgnzinidfu .gt_sourcenotes {
+#bcczmffcrn .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -741,7 +735,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-right-color: #D3D3D3;
 }
 
-#cgnzinidfu .gt_sourcenote {
+#bcczmffcrn .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -749,68 +743,68 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#cgnzinidfu .gt_left {
+#bcczmffcrn .gt_left {
   text-align: left;
 }
 
-#cgnzinidfu .gt_center {
+#bcczmffcrn .gt_center {
   text-align: center;
 }
 
-#cgnzinidfu .gt_right {
+#bcczmffcrn .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#cgnzinidfu .gt_font_normal {
+#bcczmffcrn .gt_font_normal {
   font-weight: normal;
 }
 
-#cgnzinidfu .gt_font_bold {
+#bcczmffcrn .gt_font_bold {
   font-weight: bold;
 }
 
-#cgnzinidfu .gt_font_italic {
+#bcczmffcrn .gt_font_italic {
   font-style: italic;
 }
 
-#cgnzinidfu .gt_super {
+#bcczmffcrn .gt_super {
   font-size: 65%;
 }
 
-#cgnzinidfu .gt_footnote_marks {
+#bcczmffcrn .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#cgnzinidfu .gt_asterisk {
+#bcczmffcrn .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#cgnzinidfu .gt_indent_1 {
+#bcczmffcrn .gt_indent_1 {
   text-indent: 5px;
 }
 
-#cgnzinidfu .gt_indent_2 {
+#bcczmffcrn .gt_indent_2 {
   text-indent: 10px;
 }
 
-#cgnzinidfu .gt_indent_3 {
+#bcczmffcrn .gt_indent_3 {
   text-indent: 15px;
 }
 
-#cgnzinidfu .gt_indent_4 {
+#bcczmffcrn .gt_indent_4 {
   text-indent: 20px;
 }
 
-#cgnzinidfu .gt_indent_5 {
+#bcczmffcrn .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
 
-<table class="gt_table do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <colgroup>
 <col style="width: 10%">
 <col style="width: 10%">
@@ -1143,7 +1137,6 @@ Summary of the masked repetition priming effects as a function of word frequency
 </div>
 </div>
 </div>
-</div>
 </figure>
 </div></div></div>
 </div></div>
@@ -1199,31 +1192,30 @@ dbl (3): KF, HAL, SUBTLEX-US
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">md</span>(<span class="st">"_Skew in SUBTLEX~US~_"</span>),</span>
 <span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">rows =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">15</span></span>
 <span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_group_order</span>(<span class="at">groups =</span> <span class="fu">c</span>(<span class="st">"_Skew in KF_"</span>, <span class="st">"_Skew in HAL_"</span>, <span class="st">"_Skew in SUBTLEX~US~_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-exFreqSkew" class="cell quarto-float anchored">
+<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_group_order</span>(<span class="at">groups =</span> <span class="fu">c</span>(<span class="st">"_Skew in KF_"</span>, <span class="st">"_Skew in HAL_"</span>, <span class="st">"_Skew in SUBTLEX~US~_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-exFreqSkew" class="cell quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-tbl figure">
 <figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-exFreqSkew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Example of frequency count imbalances (in occurrences per million) across the frequency norms of Kucera &amp; Francis (KF), HAL and SUBTLEX<sub>US</sub> for 4 to 6 letter words.
 </figcaption>
 <div aria-describedby="tbl-exFreqSkew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div>
-<div id="lvqhvfsnlv" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#lvqhvfsnlv table {
+<div id="wgeipraqjo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#wgeipraqjo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#lvqhvfsnlv thead, #lvqhvfsnlv tbody, #lvqhvfsnlv tfoot, #lvqhvfsnlv tr, #lvqhvfsnlv td, #lvqhvfsnlv th {
+#wgeipraqjo thead, #wgeipraqjo tbody, #wgeipraqjo tfoot, #wgeipraqjo tr, #wgeipraqjo td, #wgeipraqjo th {
   border-style: none;
 }
 
-#lvqhvfsnlv p {
+#wgeipraqjo p {
   margin: 0;
   padding: 0;
 }
 
-#lvqhvfsnlv .gt_table {
+#wgeipraqjo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -1249,12 +1241,12 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-left-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_caption {
+#wgeipraqjo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#lvqhvfsnlv .gt_title {
+#wgeipraqjo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -1266,7 +1258,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-bottom-width: 0;
 }
 
-#lvqhvfsnlv .gt_subtitle {
+#wgeipraqjo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -1278,7 +1270,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-top-width: 0;
 }
 
-#lvqhvfsnlv .gt_heading {
+#wgeipraqjo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -1290,13 +1282,13 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-right-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_bottom_border {
+#wgeipraqjo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_col_headings {
+#wgeipraqjo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1311,7 +1303,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-right-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_col_heading {
+#wgeipraqjo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1331,7 +1323,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   overflow-x: hidden;
 }
 
-#lvqhvfsnlv .gt_column_spanner_outer {
+#wgeipraqjo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1343,15 +1335,15 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   padding-right: 4px;
 }
 
-#lvqhvfsnlv .gt_column_spanner_outer:first-child {
+#wgeipraqjo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#lvqhvfsnlv .gt_column_spanner_outer:last-child {
+#wgeipraqjo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#lvqhvfsnlv .gt_column_spanner {
+#wgeipraqjo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -1363,11 +1355,11 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   width: 100%;
 }
 
-#lvqhvfsnlv .gt_spanner_row {
+#wgeipraqjo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#lvqhvfsnlv .gt_group_heading {
+#wgeipraqjo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1393,7 +1385,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   text-align: left;
 }
 
-#lvqhvfsnlv .gt_empty_group_heading {
+#wgeipraqjo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -1408,15 +1400,15 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   vertical-align: middle;
 }
 
-#lvqhvfsnlv .gt_from_md > :first-child {
+#wgeipraqjo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#lvqhvfsnlv .gt_from_md > :last-child {
+#wgeipraqjo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#lvqhvfsnlv .gt_row {
+#wgeipraqjo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1435,7 +1427,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   overflow-x: hidden;
 }
 
-#lvqhvfsnlv .gt_stub {
+#wgeipraqjo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1448,7 +1440,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   padding-right: 5px;
 }
 
-#lvqhvfsnlv .gt_stub_row_group {
+#wgeipraqjo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -1462,15 +1454,15 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   vertical-align: top;
 }
 
-#lvqhvfsnlv .gt_row_group_first td {
+#wgeipraqjo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#lvqhvfsnlv .gt_row_group_first th {
+#wgeipraqjo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#lvqhvfsnlv .gt_summary_row {
+#wgeipraqjo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1480,16 +1472,16 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   padding-right: 5px;
 }
 
-#lvqhvfsnlv .gt_first_summary_row {
+#wgeipraqjo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_first_summary_row.thick {
+#wgeipraqjo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#lvqhvfsnlv .gt_last_summary_row {
+#wgeipraqjo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1499,7 +1491,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-bottom-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_grand_summary_row {
+#wgeipraqjo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1509,7 +1501,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   padding-right: 5px;
 }
 
-#lvqhvfsnlv .gt_first_grand_summary_row {
+#wgeipraqjo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1519,7 +1511,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-top-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_last_grand_summary_row_top {
+#wgeipraqjo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1529,11 +1521,11 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-bottom-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_striped {
+#wgeipraqjo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#lvqhvfsnlv .gt_table_body {
+#wgeipraqjo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1542,7 +1534,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-bottom-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_footnotes {
+#wgeipraqjo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1556,7 +1548,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-right-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_footnote {
+#wgeipraqjo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1565,7 +1557,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   padding-right: 5px;
 }
 
-#lvqhvfsnlv .gt_sourcenotes {
+#wgeipraqjo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1579,7 +1571,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   border-right-color: #D3D3D3;
 }
 
-#lvqhvfsnlv .gt_sourcenote {
+#wgeipraqjo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1587,68 +1579,68 @@ Example of frequency count imbalances (in occurrences per million) across the fr
   padding-right: 5px;
 }
 
-#lvqhvfsnlv .gt_left {
+#wgeipraqjo .gt_left {
   text-align: left;
 }
 
-#lvqhvfsnlv .gt_center {
+#wgeipraqjo .gt_center {
   text-align: center;
 }
 
-#lvqhvfsnlv .gt_right {
+#wgeipraqjo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#lvqhvfsnlv .gt_font_normal {
+#wgeipraqjo .gt_font_normal {
   font-weight: normal;
 }
 
-#lvqhvfsnlv .gt_font_bold {
+#wgeipraqjo .gt_font_bold {
   font-weight: bold;
 }
 
-#lvqhvfsnlv .gt_font_italic {
+#wgeipraqjo .gt_font_italic {
   font-style: italic;
 }
 
-#lvqhvfsnlv .gt_super {
+#wgeipraqjo .gt_super {
   font-size: 65%;
 }
 
-#lvqhvfsnlv .gt_footnote_marks {
+#wgeipraqjo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#lvqhvfsnlv .gt_asterisk {
+#wgeipraqjo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#lvqhvfsnlv .gt_indent_1 {
+#wgeipraqjo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#lvqhvfsnlv .gt_indent_2 {
+#wgeipraqjo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#lvqhvfsnlv .gt_indent_3 {
+#wgeipraqjo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#lvqhvfsnlv .gt_indent_4 {
+#wgeipraqjo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#lvqhvfsnlv .gt_indent_5 {
+#wgeipraqjo .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
 
-<table class="gt_table do-not-create-environment cell table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
+<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
 <thead>
 <tr class="header gt_col_headings">
 <th id="Word" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Word</th>
@@ -1763,7 +1755,6 @@ Example of frequency count imbalances (in occurrences per million) across the fr
 </div>
 </div>
 </div>
-</div>
 </figure>
 </div></div></div>
 </div></div>
@@ -1772,7 +1763,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
 <h3 class="anchored" data-anchor-id="power-analysis">Power analysis</h3>
 <div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="cell-fig-power" class="cell">
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../supplemental-data/freq_atten_exp2.10ms.RData"</span>)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../supplemental-data/freq_atten_sim.10ms.RData"</span>)</span>
 <span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_df <span class="sc">%&gt;%</span> </span>
 <span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
@@ -1797,7 +1788,7 @@ Example of frequency count imbalances (in occurrences per million) across the fr
 <span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>     )<span class="sc">+</span></span>
 <span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"FAE = 10 ms"</span>, <span class="at">y =</span> <span class="st">"power (adjusted)"</span>, <span class="at">x =</span> <span class="st">"sample size"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
-<div id="fig-power" class="quarto-figure quarto-figure-center quarto-float anchored">
+<div id="fig-power" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-power-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca" class="">
 <a href="intro_lit-review_power-analysis_files/figure-html/fig-power-1.png" class="lightbox" data-gallery="quarto-lightbox-gallery-1" title="Power simulations for a FAE = 10 ms, for all combinations of standard deviation (sd), correlation (cor), and sample size. The red line identifies the threshold of 80% power."><img src="intro_lit-review_power-analysis_files/figure-html/fig-power-1.png" class="img-fluid figure-img" width="672"></a>
@@ -2231,30 +2222,37 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"openEffect":"zoom","selector":".lightbox","closeEffect":"zoom","loop":false,"descPosition":"bottom"});
-window.onload = () => {
-  lightboxQuarto.on('slide_before_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    const href = trigger.getAttribute('href');
-    if (href !== null) {
-      const imgEl = window.document.querySelector(`a[href="${href}"] img`);
-      if (imgEl !== null) {
-        const srcAttr = imgEl.getAttribute("src");
-        if (srcAttr && srcAttr.startsWith("data:")) {
-          slideConfig.href = srcAttr;
-        }
-      }
-    } 
-  });
-
-  lightboxQuarto.on('slide_after_load', (data) => {
-    const { slideIndex, slideNode, slideConfig, player, trigger } = data;
-    if (window.Quarto?.typesetMath) {
-      window.Quarto.typesetMath(slideNode);
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","selector":".lightbox","openEffect":"zoom","closeEffect":"zoom","loop":false});
+(function() {
+  let previousOnload = window.onload;
+  window.onload = () => {
+    if (previousOnload) {
+      previousOnload();
     }
-  });
-
-};
+    lightboxQuarto.on('slide_before_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      const href = trigger.getAttribute('href');
+      if (href !== null) {
+        const imgEl = window.document.querySelector(`a[href="${href}"] img`);
+        if (imgEl !== null) {
+          const srcAttr = imgEl.getAttribute("src");
+          if (srcAttr && srcAttr.startsWith("data:")) {
+            slideConfig.href = srcAttr;
+          }
+        }
+      } 
+    });
+  
+    lightboxQuarto.on('slide_after_load', (data) => {
+      const { slideIndex, slideNode, slideConfig, player, trigger } = data;
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(slideNode);
+      }
+    });
+  
+  };
+  
+})();
           </script> 
   
 </body></html>
