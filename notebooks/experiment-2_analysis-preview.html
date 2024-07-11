@@ -488,24 +488,16 @@ override using the `.groups` argument.</code></pre>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="do">#### ERROR PRIMING CALCULATIONS ####</span></span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># we will just run stats for this, no numerical calculations (e.g., priming)</span></span>
 <span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">### MAIN EFFECTS</span></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="do">#### t-test</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>exp2_errors_stats_main <span class="ot">&lt;-</span> exp2_error.rates <span class="sc">%&gt;%</span> </span>
-<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(error.percent <span class="sc">~</span> primetype_rec, <span class="at">paired=</span>T)</span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="do">### 2x2 ANOVA</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a>exp2_errors_anova <span class="ot">&lt;-</span> exp2_error.rates <span class="sc">|&gt;</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">Rec_Session_Id =</span> <span class="fu">factor</span>(Rec_Session_Id)) <span class="sc">|&gt;</span></span>
+<span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(condition_rec <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(error.percent <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> <span class="fu">Error</span>(Rec_Session_Id<span class="sc">/</span>(condition_rec <span class="sc">*</span> primetype_rec)), <span class="at">data =</span> _)</span>
 <span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="do">#### RT PRIMING CALCULATIONS ####</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a><span class="co">#summary(exp2_errors_anova)</span></span>
 <span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="do">### MAIN EFFECTS</span></span>
-<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-15"><a href="#cb21-15" aria-hidden="true" tabindex="-1"></a><span class="do">### 2x2 ANOVA</span></span>
-<span id="cb21-16"><a href="#cb21-16" aria-hidden="true" tabindex="-1"></a>exp2_mop_anova <span class="ot">&lt;-</span> exp2_rt.avg_subj <span class="sc">|&gt;</span></span>
-<span id="cb21-17"><a href="#cb21-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">Rec_Session_Id =</span> <span class="fu">factor</span>(Rec_Session_Id)) <span class="sc">|&gt;</span></span>
-<span id="cb21-18"><a href="#cb21-18" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(condition_rec <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>)) <span class="sc">|&gt;</span></span>
-<span id="cb21-19"><a href="#cb21-19" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(meanRT <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> <span class="fu">Error</span>(Rec_Session_Id<span class="sc">/</span>(condition_rec <span class="sc">*</span> primetype_rec)), <span class="at">data =</span> _)</span>
-<span id="cb21-20"><a href="#cb21-20" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-21"><a href="#cb21-21" aria-hidden="true" tabindex="-1"></a><span class="do">### GLMER </span></span>
-<span id="cb21-22"><a href="#cb21-22" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="do">### GLMER</span></span>
+<span id="cb21-14"><a href="#cb21-14" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>Loading required package: Matrix
 
@@ -531,55 +523,48 @@ The following object is masked from 'package:purrr':
     some</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb25"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">contrasts =</span> <span class="fu">c</span>(<span class="st">"contr.sum"</span>, <span class="st">"contr.poly"</span>))</span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">contrasts =</span> <span class="fu">c</span>(<span class="st">"contr.sum"</span>,<span class="st">"contr.poly"</span>))</span>
 <span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>exp2_mop_glmer <span class="ot">&lt;-</span> <span class="fu">glmer</span>(RT <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Crowdsourcing_SubjId) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>target_rec), <span class="at">data =</span> exp2_data_final, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link=</span><span class="st">"identity"</span>), <span class="at">control=</span><span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">"bobyqa"</span>, <span class="at">optCtrl=</span><span class="fu">list</span>(<span class="at">maxfun=</span><span class="fl">1e6</span>)))</span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>exp2_error_glmer <span class="ot">&lt;-</span> <span class="fu">glmer</span>(responseError <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Rec_Session_Id) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>target_rec), <span class="at">data =</span> exp2_data_final_with.errors, <span class="at">family =</span> binomial, <span class="at">control=</span><span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">"bobyqa"</span>, <span class="at">optCtrl=</span><span class="fu">list</span>(<span class="at">maxfun=</span><span class="fl">1e6</span>)))</span>
 <span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(exp2_mop_glmer)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(exp2_error_glmer, <span class="at">type =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>Generalized linear mixed model fit by maximum likelihood (Laplace
-  Approximation) [glmerMod]
- Family: Gamma  ( identity )
-Formula: RT ~ condition_rec * primetype_rec + (1 | Crowdsourcing_SubjId) +  
-    (1 | target_rec)
-   Data: exp2_data_final
-Control: glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 1e+06))
+<pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
 
-     AIC      BIC   logLik deviance df.resid 
- 2051808  2051899 -1025895  2051790   168186 
-
-Scaled residuals: 
-    Min      1Q  Median      3Q     Max 
--3.4411 -0.5829 -0.1749  0.3419 12.8540 
-
-Random effects:
- Groups               Name        Variance Std.Dev.
- Crowdsourcing_SubjId (Intercept) 1842.747 42.9272 
- target_rec           (Intercept)  136.400 11.6790 
- Residual                            0.041  0.2025 
-Number of obs: 168195, groups:  Crowdsourcing_SubjId, 1924; target_rec, 104
-
-Fixed effects:
-                              Estimate Std. Error  t value Pr(&gt;|z|)    
-(Intercept)                   619.6174     0.4438 1396.289  &lt; 2e-16 ***
-condition_rec1                -27.3993     0.5686  -48.188  &lt; 2e-16 ***
-condition_rec2                 -3.9749     0.5796   -6.858 6.97e-12 ***
-primetype_rec1                 -9.6640     0.2344  -41.238  &lt; 2e-16 ***
-condition_rec1:primetype_rec1  -3.4741     0.3095  -11.224  &lt; 2e-16 ***
-condition_rec2:primetype_rec1  -7.7058     0.3156  -24.417  &lt; 2e-16 ***
+Response: responseError
+                               Chisq Df Pr(&gt;Chisq)    
+(Intercept)                 3016.539  1  &lt; 2.2e-16 ***
+condition_rec                 22.196  2  1.514e-05 ***
+primetype_rec                262.276  1  &lt; 2.2e-16 ***
+condition_rec:primetype_rec  283.571  2  &lt; 2.2e-16 ***
 ---
-Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
-
-Correlation of Fixed Effects:
-            (Intr) cndt_1 cndt_2 prmt_1 c_1:_1
-conditn_rc1  0.059                            
-conditn_rc2 -0.166 -0.204                     
-primtyp_rc1  0.111  0.006 -0.188              
-cndtn_r1:_1  0.140 -0.027 -0.081  0.055       
-cndtn_r2:_1  0.021  0.058 -0.021  0.182 -0.421</code></pre>
+Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1</code></pre>
 </div>
 <div class="sourceCode cell-code" id="cb27"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(exp2_mop_glmer, <span class="at">type =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="do">### MAIN EFFECTS</span></span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a><span class="do">#### t-test</span></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>exp2_errors_stats_main <span class="ot">&lt;-</span> exp2_error.rates <span class="sc">%&gt;%</span> </span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">group_by</span>(condition_rec) <span class="sc">%&gt;%</span></span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">t_test</span>(error.percent <span class="sc">~</span> primetype_rec, <span class="at">paired=</span>T)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="do">#### RT PRIMING CALCULATIONS ####</span></span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-10"><a href="#cb27-10" aria-hidden="true" tabindex="-1"></a><span class="do">### MAIN EFFECTS</span></span>
+<span id="cb27-11"><a href="#cb27-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-12"><a href="#cb27-12" aria-hidden="true" tabindex="-1"></a><span class="do">### 2x2 ANOVA</span></span>
+<span id="cb27-13"><a href="#cb27-13" aria-hidden="true" tabindex="-1"></a>exp2_mop_anova <span class="ot">&lt;-</span> exp2_rt.avg_subj <span class="sc">|&gt;</span></span>
+<span id="cb27-14"><a href="#cb27-14" aria-hidden="true" tabindex="-1"></a>  <span class="fu">transform</span>(<span class="at">Rec_Session_Id =</span> <span class="fu">factor</span>(Rec_Session_Id)) <span class="sc">|&gt;</span></span>
+<span id="cb27-15"><a href="#cb27-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">subset</span>(condition_rec <span class="sc">%in%</span> <span class="fu">c</span>(<span class="st">"high"</span>, <span class="st">"low"</span>)) <span class="sc">|&gt;</span></span>
+<span id="cb27-16"><a href="#cb27-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">aov</span>(meanRT <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> <span class="fu">Error</span>(Rec_Session_Id<span class="sc">/</span>(condition_rec <span class="sc">*</span> primetype_rec)), <span class="at">data =</span> _)</span>
+<span id="cb27-17"><a href="#cb27-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-18"><a href="#cb27-18" aria-hidden="true" tabindex="-1"></a><span class="do">### GLMER </span></span>
+<span id="cb27-19"><a href="#cb27-19" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(lme4)</span>
+<span id="cb27-20"><a href="#cb27-20" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(car)</span>
+<span id="cb27-21"><a href="#cb27-21" aria-hidden="true" tabindex="-1"></a><span class="fu">options</span>(<span class="at">contrasts =</span> <span class="fu">c</span>(<span class="st">"contr.sum"</span>, <span class="st">"contr.poly"</span>))</span>
+<span id="cb27-22"><a href="#cb27-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-23"><a href="#cb27-23" aria-hidden="true" tabindex="-1"></a>exp2_mop_glmer <span class="ot">&lt;-</span> <span class="fu">glmer</span>(RT <span class="sc">~</span> condition_rec <span class="sc">*</span> primetype_rec <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>Crowdsourcing_SubjId) <span class="sc">+</span> (<span class="dv">1</span><span class="sc">|</span>target_rec), <span class="at">data =</span> exp2_data_final, <span class="at">family =</span> <span class="fu">Gamma</span>(<span class="at">link=</span><span class="st">"identity"</span>), <span class="at">control=</span><span class="fu">glmerControl</span>(<span class="at">optimizer =</span> <span class="st">"bobyqa"</span>, <span class="at">optCtrl=</span><span class="fu">list</span>(<span class="at">maxfun=</span><span class="fl">1e6</span>)))</span>
+<span id="cb27-24"><a href="#cb27-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-25"><a href="#cb27-25" aria-hidden="true" tabindex="-1"></a><span class="fu">Anova</span>(exp2_mop_glmer, <span class="at">type =</span> <span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Analysis of Deviance Table (Type III Wald chisquare tests)
 
@@ -722,23 +707,23 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
 </figcaption>
 <div aria-describedby="tbl-exp2-statsResults-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="tmzbhxhnsx" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#tmzbhxhnsx table {
+<div id="toihnsjiha" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#toihnsjiha table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#tmzbhxhnsx thead, #tmzbhxhnsx tbody, #tmzbhxhnsx tfoot, #tmzbhxhnsx tr, #tmzbhxhnsx td, #tmzbhxhnsx th {
+#toihnsjiha thead, #toihnsjiha tbody, #toihnsjiha tfoot, #toihnsjiha tr, #toihnsjiha td, #toihnsjiha th {
   border-style: none;
 }
 
-#tmzbhxhnsx p {
+#toihnsjiha p {
   margin: 0;
   padding: 0;
 }
 
-#tmzbhxhnsx .gt_table {
+#toihnsjiha .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -764,12 +749,12 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-left-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_caption {
+#toihnsjiha .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#tmzbhxhnsx .gt_title {
+#toihnsjiha .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -781,7 +766,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-bottom-width: 0;
 }
 
-#tmzbhxhnsx .gt_subtitle {
+#toihnsjiha .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -793,7 +778,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-top-width: 0;
 }
 
-#tmzbhxhnsx .gt_heading {
+#toihnsjiha .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -805,13 +790,13 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-right-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_bottom_border {
+#toihnsjiha .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_col_headings {
+#toihnsjiha .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -826,7 +811,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-right-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_col_heading {
+#toihnsjiha .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -846,7 +831,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   overflow-x: hidden;
 }
 
-#tmzbhxhnsx .gt_column_spanner_outer {
+#toihnsjiha .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -858,15 +843,15 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 4px;
 }
 
-#tmzbhxhnsx .gt_column_spanner_outer:first-child {
+#toihnsjiha .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#tmzbhxhnsx .gt_column_spanner_outer:last-child {
+#toihnsjiha .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#tmzbhxhnsx .gt_column_spanner {
+#toihnsjiha .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -878,11 +863,11 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   width: 100%;
 }
 
-#tmzbhxhnsx .gt_spanner_row {
+#toihnsjiha .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#tmzbhxhnsx .gt_group_heading {
+#toihnsjiha .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -908,7 +893,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   text-align: left;
 }
 
-#tmzbhxhnsx .gt_empty_group_heading {
+#toihnsjiha .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -923,15 +908,15 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   vertical-align: middle;
 }
 
-#tmzbhxhnsx .gt_from_md > :first-child {
+#toihnsjiha .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#tmzbhxhnsx .gt_from_md > :last-child {
+#toihnsjiha .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#tmzbhxhnsx .gt_row {
+#toihnsjiha .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -950,7 +935,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   overflow-x: hidden;
 }
 
-#tmzbhxhnsx .gt_stub {
+#toihnsjiha .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -963,7 +948,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#tmzbhxhnsx .gt_stub_row_group {
+#toihnsjiha .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -977,15 +962,15 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   vertical-align: top;
 }
 
-#tmzbhxhnsx .gt_row_group_first td {
+#toihnsjiha .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#tmzbhxhnsx .gt_row_group_first th {
+#toihnsjiha .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#tmzbhxhnsx .gt_summary_row {
+#toihnsjiha .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -995,16 +980,16 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#tmzbhxhnsx .gt_first_summary_row {
+#toihnsjiha .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_first_summary_row.thick {
+#toihnsjiha .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#tmzbhxhnsx .gt_last_summary_row {
+#toihnsjiha .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1014,7 +999,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-bottom-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_grand_summary_row {
+#toihnsjiha .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -1024,7 +1009,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#tmzbhxhnsx .gt_first_grand_summary_row {
+#toihnsjiha .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1034,7 +1019,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-top-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_last_grand_summary_row_top {
+#toihnsjiha .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -1044,11 +1029,11 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-bottom-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_striped {
+#toihnsjiha .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#tmzbhxhnsx .gt_table_body {
+#toihnsjiha .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -1057,7 +1042,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-bottom-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_footnotes {
+#toihnsjiha .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1071,7 +1056,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-right-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_footnote {
+#toihnsjiha .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -1080,7 +1065,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#tmzbhxhnsx .gt_sourcenotes {
+#toihnsjiha .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -1094,7 +1079,7 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   border-right-color: #D3D3D3;
 }
 
-#tmzbhxhnsx .gt_sourcenote {
+#toihnsjiha .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -1102,63 +1087,63 @@ Experiment 2. Summary of the word priming results. <em>Legend.</em> MOP: magnitu
   padding-right: 5px;
 }
 
-#tmzbhxhnsx .gt_left {
+#toihnsjiha .gt_left {
   text-align: left;
 }
 
-#tmzbhxhnsx .gt_center {
+#toihnsjiha .gt_center {
   text-align: center;
 }
 
-#tmzbhxhnsx .gt_right {
+#toihnsjiha .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#tmzbhxhnsx .gt_font_normal {
+#toihnsjiha .gt_font_normal {
   font-weight: normal;
 }
 
-#tmzbhxhnsx .gt_font_bold {
+#toihnsjiha .gt_font_bold {
   font-weight: bold;
 }
 
-#tmzbhxhnsx .gt_font_italic {
+#toihnsjiha .gt_font_italic {
   font-style: italic;
 }
 
-#tmzbhxhnsx .gt_super {
+#toihnsjiha .gt_super {
   font-size: 65%;
 }
 
-#tmzbhxhnsx .gt_footnote_marks {
+#toihnsjiha .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#tmzbhxhnsx .gt_asterisk {
+#toihnsjiha .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#tmzbhxhnsx .gt_indent_1 {
+#toihnsjiha .gt_indent_1 {
   text-indent: 5px;
 }
 
-#tmzbhxhnsx .gt_indent_2 {
+#toihnsjiha .gt_indent_2 {
   text-indent: 10px;
 }
 
-#tmzbhxhnsx .gt_indent_3 {
+#toihnsjiha .gt_indent_3 {
   text-indent: 15px;
 }
 
-#tmzbhxhnsx .gt_indent_4 {
+#toihnsjiha .gt_indent_4 {
   text-indent: 20px;
 }
 
-#tmzbhxhnsx .gt_indent_5 {
+#toihnsjiha .gt_indent_5 {
   text-indent: 25px;
 }
 </style>

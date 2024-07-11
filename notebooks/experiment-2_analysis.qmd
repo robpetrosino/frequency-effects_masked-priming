@@ -255,6 +255,23 @@ exp2_mop.err_across <- exp2_avgs_subj %>%
 #### ERROR PRIMING CALCULATIONS ####
 # we will just run stats for this, no numerical calculations (e.g., priming)
 
+### 2x2 ANOVA
+exp2_errors_anova <- exp2_error.rates |>
+  transform(Rec_Session_Id = factor(Rec_Session_Id)) |>
+  subset(condition_rec %in% c("high", "low")) |>
+  aov(error.percent ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
+
+#summary(exp2_errors_anova)
+
+### GLMER
+library(lme4)
+library(car)
+options(contrasts = c("contr.sum","contr.poly"))
+
+exp2_error_glmer <- glmer(responseError ~ condition_rec * primetype_rec + (1|Rec_Session_Id) + (1|target_rec), data = exp2_data_final_with.errors, family = binomial, control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
+
+Anova(exp2_error_glmer, type = 3)
+
 ### MAIN EFFECTS
 #### t-test
 exp2_errors_stats_main <- exp2_error.rates %>% 
@@ -278,7 +295,6 @@ options(contrasts = c("contr.sum", "contr.poly"))
 
 exp2_mop_glmer <- glmer(RT ~ condition_rec * primetype_rec + (1|Crowdsourcing_SubjId) + (1|target_rec), data = exp2_data_final, family = Gamma(link="identity"), control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
 
-summary(exp2_mop_glmer)
 Anova(exp2_mop_glmer, type = 3)
 
 ##### PRIMING CALCULATIONS
