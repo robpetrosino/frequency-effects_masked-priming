@@ -295,6 +295,23 @@ exp1_mop.err_across <- exp1_avgs_subj %>%
 #### ERROR PRIMING CALCULATIONS ####
 # we will just run stats for this, no numerical calculations (e.g., priming)
 
+### 2x2 ANOVA
+exp1_errors_anova <- exp1_error.rates |>
+  transform(Rec_Session_Id = factor(Rec_Session_Id)) |>
+  subset(condition_rec %in% c("high", "low")) |>
+  aov(error.percent ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
+
+### GLMER
+library(lme4)
+library(car)
+options(contrasts = c("contr.sum","contr.poly"))
+
+exp1_error_glmer <- glmer(responseError ~ condition_rec * primetype_rec + (1|Rec_Session_Id) + (1|target_rec), data = exp1_data_final_with.errors, family = binomial, control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
+
+#library(emmeans)
+#library(car)
+Anova(exp1_error_glmer, type = 3)
+
 ### MAIN EFFECTS
 #### t-test
 exp1_errors_stats_main <- exp1_error.rates %>% 
@@ -312,17 +329,12 @@ exp1_mop_anova <- exp1_rt.avg_subj |>
   aov(meanRT ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
 
 ### GLMER 
-library(lme4)
-library(car)
-options(contrasts = c("contr.sum","contr.poly"))
-
 exp1_mop_glmer <- glmer(RT ~ condition_rec * primetype_rec + (1|Crowdsourcing_SubjId) + (1|target_rec), data = exp1_data_final, family = Gamma(link="identity"), control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
 
-library(emmeans)
-emmeans(exp1_mop_glmer, pairwise ~ primetype_rec|condition_rec)
-
-summary(exp1_mop_glmer)
-Anova(exp1_mop_glmer, type = 3)
+#library(emmeans)
+#library(car)
+#emmeans(exp1_mop_glmer, pairwise ~ primetype_rec|condition_rec)
+#Anova(exp1_mop_glmer, type = 3)
 
 #### by subject
 exp1_mop_subj <- exp1_rt.avg_subj %>% 
