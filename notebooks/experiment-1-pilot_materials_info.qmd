@@ -1,0 +1,130 @@
+---
+title: "Materials: Pilot Experiment"
+format: html
+---
+
+## Libraries
+
+```{r libraries}
+#| echo: false
+#| warning: false
+#| error: false
+#| message: false
+library(osfr)
+library(knitr)
+library(gt)
+library(gtExtras)
+library(here)
+
+## Utility functions
+download_from_osf <- function(osf_code, path_to) {
+  if (!file.exists(here(path_to, osf_code))) {
+    osf_retrieve_file(osf_code) |> 
+      osf_download(path = data_folder_path, 
+                   conflicts = "overwrite") 
+  }
+}
+```
+
+
+## Retrieving and Ingesting the Materials
+
+```{r}
+#| warning: false
+#| error: false
+#| label: tbl-words_exp1
+#| tbl-cap: "Experiment 1. Descriptive statistics of the word item used. For both frequency databases, the word frequencies were converted to per-million count to ensure cross-comparison."
+
+data_folder_name <- "data"
+data_folder_path <- here(data_folder_name)
+materials_pilot_osf_codes <- list()
+materials_pilot_osf_codes$L1 <- "e49kq"
+materials_pilot_osf_codes$L2 <- "tm8ry"
+materials_pilot_osf_codes$database <- "zvqfg"
+materials_pilot_file_l1 <- "experiment-1_list1.csv"
+materials_pilot_file_l2 <- "experiment-1_list2.csv"
+materials_pilot_database_file <- "experiment-1_word_database.csv"
+  
+## Check if the files exist locally.
+## If not, download them from OSF.
+materials_pilot_osf_codes |>
+  lapply(download_from_osf, path_to = data_folder_path)
+
+## Check the files
+pilot_materials_l1 <- read.csv(here(data_folder_path, materials_pilot_file_l1)) |>
+  transform(List = "list_1")
+
+pilot_materials_l2 <- read.csv(here(data_folder_path, materials_pilot_file_l2)) |>
+  transform(List = "list_2")
+
+pilot_materials <- rbind(pilot_materials_l1, pilot_materials_l2)
+
+pilot_materials_database <- read.csv(here(data_folder_path, materials_pilot_database_file))
+
+pilot_stimuli <- pilot_materials |>
+  transform(Word = tolower(target)) |> 
+  merge(pilot_materials_database, 
+        by = 'Word', 
+        all.x=T, all.y=F)
+
+## Check if there are replicates or items that appear in both lists
+nw_stim <- pilot_stimuli |>
+  subset(condition == "non-word", 
+         select = "Word") |>
+  unique()
+
+w_stim <- pilot_stimuli |>
+  subset(condition != "non-word",
+         select = "Word") |>
+  unique()
+
+# There aren't.
+# w_stim %in% nw_stim
+```
+
+
+```{r}
+pilot_words <- pilot_stimuli |>
+  subset(condition != "non-word") 
+
+pilot_nonwords <- pilot_stimuli |> 
+  subset(condition == "non-word")
+
+#words$freq.bin <- factor(words$freq.bin, levels = c("high", "mid"))
+#words$type <- as.factor(words$type)
+
+## Calculate frequencies per million
+test <- pilot_words %>% 
+  subset(condition != 'low') |>
+  transform(
+    freq_bin = ifelse(condition == "high", "high", "low") |> factor(levels = c("low", "high")),
+    freq_HAL_pm = as.numeric(gsub(",", "", Freq_HAL)) * (10^6) / (131 * 10^6)
+  )
+
+  dplyr::group_by(freq.bin) %>%
+  dplyr::summarise(N = n(),
+            minFreq= min(Freq_HAL.Pm, na.rm = T), maxFreq=max(Freq_HAL.Pm, na.rm = T),
+            meanFreq = mean(Freq_HAL.Pm, na.rm = T), sdFreq = sd(Freq_HAL.Pm, na.rm = T),
+            minSUBFreq= min(SUBTLWF, na.rm = T), maxSUBFreq=max(SUBTLWF, na.rm = T),
+            meanSUBFreq = mean(SUBTLWF, na.rm = T), sdSUBFreq = sd(SUBTLWF, na.rm = T),
+            #meanRT=mean(as.numeric(I_Mean_RT), na.rm = T), sdRT=sd(as.numeric(I_Mean_RT), na.rm = T),
+            #meanLength = mean(Length, na.rm = T), sdLength=sd(Length, na.rm = T)
+            ) %>% 
+  mutate(
+    across(-freq.bin, ~ if_else(.<1, round(., 2), round(.)))
+  ) %>% 
+  gt() %>%
+  tab_spanner(
+    label = md("**HAL**"), 
+    columns = c(minFreq: sdFreq)
+  ) %>%
+  tab_spanner(
+    label = md("**SUBTLEX~US~**"), 
+    columns = c(minSUBFreq: sdSUBFreq)
+  ) %>%
+  cols_label(freq.bin = "frequency", 
+             minFreq = "min", maxFreq = "max", meanFreq = "mean", sdFreq = "SD", 
+             minSUBFreq = "min", maxSUBFreq = "max", meanSUBFreq = "mean", sdSUBFreq = "SD") %>%
+  gt_add_divider(columns=c("maxFreq", "maxSUBFreq"), weight=px(1))
+  
+```
