@@ -1,0 +1,129 @@
+---
+title: "Script E: Meta-analysis"
+format: html
+---
+
+```{r libraries}
+#| warning: false
+#| error: false
+#| message: false
+library(osfr)
+library(tidyverse)
+library(knitr)
+library(gt)
+library(gtExtras)
+library(rstatix)
+library(here)
+library(vcmeta)
+library(lme4)
+library(car)
+```
+
+# Cross-experiment GLMER analysis
+
+```{r glmer merged datasets}
+#| eval: false
+
+data_final_merge <- exp1_data_final %>%
+  mutate(experiment = 1) %>%
+  bind_rows(exp2_data_final %>% mutate(experiment = 2))
+
+mop_glmer_merge <- glmer(RT ~ condition_rec * primetype_rec * experiment + (1|Crowdsourcing_SubjId) + (1|target_rec), data = data_final_merge, family = Gamma(link="identity"), control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
+
+Anova(mop_glmer_merge)
+
+```
+
+# Cross-experiment priming magnitude analysis
+
+```{r priming across experiments}
+
+exp_mop_subj_across <- exp1_mop_subj %>% mutate(experiment=1) %>%
+  bind_rows(exp2_mop_subj %>% mutate(experiment=2)) %>% filter(condition_rec != 'non-word') %>%
+  mutate(condition_rec = factor(condition_rec, levels=c("high", "low"))) %>% ungroup()
+
+mop_subj_across_t.test <- t_test(priming ~ experiment, data=exp_mop_subj_across, var.equal=T, detailed=T)
+```
+
+# Cross-experiment averages
+
+```{r meta-analysis}
+
+mop.error_across_merge <- exp1_mop.err_across %>%
+  mutate(experiment = 1) %>%
+  bind_rows(exp2_mop.err_across %>% mutate(experiment = 2)) %>%
+  group_by(condition_rec, .add=T) %>% group_split() %>% setNames(unique(exp1_mop.err_across$condition_rec))
+
+meta.ave_across_high <- meta.ave.mean.ps(alpha = .05, 
+                                    m1 = mop.error_across_merge$high$gd.mean_unrelated, 
+                                    m2 = mop.error_across_merge$high$gd.mean_related,
+                                    sd1 = mop.error_across_merge$high$sd_unrelated,
+                                    sd2 = mop.error_across_merge$high$sd_related,
+                                    cor = mop.error_across_merge$high$cor,
+                                    n = c(exp1_final_subj_remain, exp2_final_subj_remain)) %>%
+  as_tibble(rownames="Experiment") %>% mutate(condition = 'high', Experiment = str_remove(Experiment, "Study "))
+
+meta.ave_across_low <- meta.ave.mean.ps(alpha = .05, 
+                                    m1 = mop.error_across_merge$low$gd.mean_unrelated, 
+                                    m2 = mop.error_across_merge$low$gd.mean_related,
+                                    sd1 = mop.error_across_merge$low$sd_unrelated,
+                                    sd2 = mop.error_across_merge$low$sd_related,
+                                    cor = mop.error_across_merge$low$cor,
+                                    n = c(exp1_final_subj_remain, exp2_final_subj_remain)) %>%
+  as_tibble(rownames="Experiment") %>% mutate(condition = 'low', Experiment = str_remove(Experiment, "Study "))
+
+meta.ave_across_nw <- meta.ave.mean.ps(alpha = .05, 
+                                    m1 = mop.error_across_merge$`non-word`$gd.mean_unrelated, 
+                                    m2 = mop.error_across_merge$`non-word`$gd.mean_related,
+                                    sd1 = mop.error_across_merge$`non-word`$sd_unrelated,
+                                    sd2 = mop.error_across_merge$`non-word`$sd_related,
+                                    cor = mop.error_across_merge$`non-word`$cor,
+                                    n = c(exp1_final_subj_remain, exp2_final_subj_remain)) %>%
+  as_tibble(rownames="Experiment") %>% mutate(condition = 'non-word', Experiment = str_remove(Experiment, "Study "))
+
+gdavg_fae_summary_merge <- exp1_summary.results_mop %>% 
+  filter(factor != 'non-word') %>%
+  select(factor, MOP, sd) %>% bind_cols(exp1_gdavg_fae_summary %>% select(cor)) %>%
+  mutate(Experiment = 1) %>%
+  bind_rows(exp2_summary.results_mop %>% 
+  filter(factor != 'non-word') %>%
+  select(factor, MOP, sd) %>% bind_cols(exp2_gdavg_fae_summary %>% select(cor)) %>% mutate(Experiment = 2)) %>%
+  pivot_wider(names_from=factor, values_from=MOP:sd) %>% relocate(cor, .after=sd_low)
+
+meta.ave_across_fae <- meta.ave.mean.ps(alpha = .05, 
+                                    m1 = gdavg_fae_summary_merge$MOP_low, 
+                                    m2 = gdavg_fae_summary_merge$MOP_high,
+                                    sd1 = gdavg_fae_summary_merge$sd_low,
+                                    sd2 =gdavg_fae_summary_merge$sd_high,
+                                    cor = gdavg_fae_summary_merge$cor,
+                                    n = c(exp1_final_subj_remain, exp2_final_subj_remain)) %>%
+  as_tibble(rownames="Experiment") %>% mutate(condition = 'frequency:primetype', Experiment = str_remove(Experiment, "Study "))
+
+## bind tibbles                                               
+meta.ave_across <- bind_rows(meta.ave_across_high, meta.ave_across_low, meta.ave_across_nw, meta.ave_across_fae)
+
+meta.ave_across %>%
+  mutate(condition = paste0("*", condition, "*"),
+         across(c(2:5), \(x) round(x, 2)),
+         across(6, \(x) round(x)),
+         LL = paste0("[", LL),
+         UL = paste0(UL, "]")) %>% 
+  unite("95% CI", LL:UL, sep=" ") %>%
+  gt(groupname_col = "condition", process_md = T) %>%
+  tab_style(
+    style = list(
+      cell_fill()
+      ),
+    locations = cells_row_groups()
+  ) %>%
+  tab_style(
+    style = list(
+      cell_text(weight = "bold")
+      ),
+    locations = cells_body(
+      columns = Estimate,
+      rows = Experiment == 'Average'
+    )
+  )
+
+```

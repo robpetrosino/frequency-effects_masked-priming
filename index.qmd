@@ -45,7 +45,7 @@ editor_options:
 
 # Introduction {#sec-intro}
 
-{{< include drafts/_introduction.qmd >}}
+{{< include drafts/_introduction.v2.qmd >}}
 
 # Experiment 1 {#sec-exp1}
 

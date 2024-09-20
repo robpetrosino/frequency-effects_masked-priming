@@ -16,6 +16,8 @@ manuscript:
       title: "Script C: Experiment 2"
     - notebook: notebooks/power-analysis-sims.qmd
       title: "Script D: Power analysis simulations"
+    - notebook: notebooks/meta-analysis.qmd
+      title: "Script E: Meta-analysis"
 
 format:
   html:
