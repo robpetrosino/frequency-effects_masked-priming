@@ -29,7 +29,7 @@ affiliations:
     country: United Arab Emirates
     postal-code: 129188
 abstract: |
-  This study investigates the controversy surrounding the sensitivity of masked repetition priming to word frequency: while unmasked priming exhibits a frequency attenuation effect, wherein high frequency words yield smaller repetition effects, this phenomenon has been inconsistently reported in masked priming. We conducted two large online experiments with rigorously validated frequency databases to reconcile past discrepancies. The first experiment confirmed the viability of conducting masked priming experiments in web browser-based settings. The pre-registered second study, designed for high statistical power and precision, identified a 10-ms attenuation effect under masked priming. This result suggests that the repetition effect in masked priming is less qualitatively distinct from unmasked priming than previously assumed. This finding has implications for masked priming experimental design and theoretical consequences for models of priming. Crucially, models that predict either the presence or absence of frequency attenuation under masked conditions need to account for a small but reliable effect.
+  This study investigates the controversy surrounding the sensitivity of masked repetition priming to word frequency, the so called Frequency Attenuation Effect (FAE). Many early findings suggested no such interaction, but more recent studies have contradicted this. In experiment 1, we provide evidence that the FAE does occur under masked conditions, with a short prime duration (33ms). In experiment 2, we replicate this finding with a longer prime duration (50ms), and show that the magnitude of the FAE is independent of prime duration. We contend that, while no word recognition models can currently account for this pattern of results, there may be possible modifications to the entry-opening model that might render it able to accommodate our set of results.
 keywords: 
   - masked repetition priming
   - frequency attenuation effect
@@ -45,7 +45,7 @@ editor_options:
 
 # Introduction {#sec-intro}
 
-{{< include drafts/_introduction.v2.qmd >}}
+{{< include drafts/_introduction.v3_diogo.qmd >}}
 
 # Experiment 1 {#sec-exp1}
 

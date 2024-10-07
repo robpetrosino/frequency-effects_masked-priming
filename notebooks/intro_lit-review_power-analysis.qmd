@@ -99,39 +99,6 @@ litReview.stats <- lit_effects %>%
     t_test(mean.priming ~ frequency.condition, paired=T, detailed=T)
 ```
 
-### Frequency skew across databases
-
-```{r}
-#| warning: false
-#| error: false
-#| label: tbl-exFreqSkew
-#| tbl-cap: "Example of frequency count imbalances (in occurrences per million) across the frequency norms of Kucera & Francis (KF), HAL and SUBTLEX~US~ for 4 to 6 letter words."
-
-freqSkew <- list.files(path="../supplemental-data/", pattern="_skew_", full.names = T) %>%
-  lapply(function(x) read_csv(x)) %>% bind_rows()
-
-freqSkew %>% 
-  gt() %>%
-  cols_label(
-    `SUBTLEX-US` = md("SUBTLEX~US~")
-  ) %>%
-  fmt_number(decimals = 0, drop_trailing_zeros = TRUE) %>%
-  tab_row_group(
-    label = md("_Skew in KF_"),
-    rows = 1:5
-  ) %>%
-  tab_row_group(
-    label = md("_Skew in HAL_"),
-    rows = 6:10
-  ) %>%
-  tab_row_group(
-    label = md("_Skew in SUBTLEX~US~_"),
-    rows = 11:15
-  ) %>%
-  row_group_order(groups = c("_Skew in KF_", "_Skew in HAL_", "_Skew in SUBTLEX~US~_"))
-
-```
-
 ### Power analysis 
 
 ```{r}

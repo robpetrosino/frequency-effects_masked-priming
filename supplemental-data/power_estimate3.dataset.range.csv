@@ -14,5 +14,7 @@
 30,0.0598,0.9891,0.6,180,0.9,60,"freq_atten_estimate3_LitRev.6.csv","Nievas 2010","2a",13
 36,0.0693,0.9958,0.6,180,0.9,60,"freq_atten_estimate3_LitRev.7.csv","Segui & Grainger 1990","4",14
 40,0.0772,0.9985,0.6,180,0.9,60,"freq_atten_estimate3_LitRev.8.csv","Bodner & Masson 2001","2A-B, 3, 6",15
-48,0.0875,0.9997,0.6,180,0.9,60,"freq_atten_estimate3_LitRev.9.csv","Rajaram & Neely 1992","1",16
-48,0.0875,0.9997,0.6,180,0.9,60,"freq_atten_estimate3_LitRev.9.csv","Rajaram & Neely 1992","2",17
+48,0.0875,0.9997,0.6,180,0.9,70,"freq_atten_estimate3_LitRev.9.csv","Rajaram & Neely 1992","1",16
+48,0.0875,0.9997,0.6,180,0.9,70,"freq_atten_estimate3_LitRev.9.csv","Rajaram & Neely 1992","2",17
+64,0.1178,0.9999,0.6,180,0.9,60,"freq_atten_estimate3_LitRev.10.csv","Wu (2012)","5a",18
+64,0.1178,0.9999,0.6,180,0.9,60,"freq_atten_estimate3_LitRev.10.csv","Wu (2012)","5b",19
