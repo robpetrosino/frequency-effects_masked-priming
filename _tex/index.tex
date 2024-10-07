@@ -78,15 +78,17 @@
 \makesavenoteenv{longtable}
 \usepackage{graphicx}
 \makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+\newsavebox\pandoc@box
+\newcommand*\pandocbounded[1]{% scales image to fit in text height/width
+  \sbox\pandoc@box{#1}%
+  \Gscale@div\@tempa{\textheight}{\dimexpr\ht\pandoc@box+\dp\pandoc@box\relax}%
+  \Gscale@div\@tempb{\linewidth}{\wd\pandoc@box}%
+  \ifdim\@tempb\p@<\@tempa\p@\let\@tempa\@tempb\fi% select the smaller of both
+  \ifdim\@tempa\p@<\p@\scalebox{\@tempa}{\usebox\pandoc@box}%
+  \else\usebox{\pandoc@box}%
+  \fi%
+}
 % Set default figure placement to htbp
-\makeatletter
 \def\fps@figure{htbp}
 \makeatother
 % definitions for citeproc citations
@@ -174,9 +176,6 @@
 \@ifpackageloaded{subcaption}{}{\usepackage{subcaption}}
 \makeatother
 
-\ifLuaTeX
-  \usepackage{selnolig}  % disable illegal ligatures
-\fi
 \usepackage{bookmark}
 
 \IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
@@ -211,22 +210,17 @@ Almeida. Email: \href{mailto:diogo@nyu.edu}{\nolinkurl{diogo@nyu.edu}}. }
 University Abu Dhabi, Abu Dhabi, United Arab Emirates
 \begin{abstract}
 This study investigates the controversy surrounding the sensitivity of
-masked repetition priming to word frequency: while unmasked priming
-exhibits a frequency attenuation effect, wherein high frequency words
-yield smaller repetition effects, this phenomenon has been
-inconsistently reported in masked priming. We conducted two large online
-experiments with rigorously validated frequency databases to reconcile
-past discrepancies. The first experiment confirmed the viability of
-conducting masked priming experiments in web browser-based settings. The
-pre-registered second study, designed for high statistical power and
-precision, identified a 10-ms attenuation effect under masked priming.
-This result suggests that the repetition effect in masked priming is
-less qualitatively distinct from unmasked priming than previously
-assumed. This finding has implications for masked priming experimental
-design and theoretical consequences for models of priming. Crucially,
-models that predict either the presence or absence of frequency
-attenuation under masked conditions need to account for a small but
-reliable effect.
+masked repetition priming to word frequency, the so called Frequency
+Attenuation Effect (FAE). Many early findings suggested no such
+interaction, but more recent studies have contradicted this. In
+experiment 1, we provide evidence that the FAE does occur under masked
+conditions, with a short prime duration (33ms). In experiment 2, we
+replicate this finding with a longer prime duration (50ms), and show
+that the magnitude of the FAE is independent of prime duration. We
+contend that, while no word recognition models can currently account for
+this pattern of results, there may be possible modifications to the
+entry-opening model that might render it able to accommodate our set of
+results.
 \end{abstract}
 \begin{keywords}
 \def\sep{;\ }
@@ -238,139 +232,54 @@ power analysis
 
 \section{Introduction}\label{sec-intro}
 
-The masked priming technique has been an invaluable tool in visual word
-recognition research. It has allowed researchers to study the conditions
-under which orthographic, phonological, morphological, and semantic
-information impact access to visual word forms while mitigating
-strategic effects and minimizing the influence of controlled processes
-(Forster 1998). First introduced in its traditional form by Forster and
-Davis (1984; see also Evett and Humphreys 1981), this technique involves
-a forward mask (i.e., usually a string of hashes, \#\#\#\#\#), followed
-by a prime string presented for very short time (\(SOA < 60\) ms), and a
-target string presented immediately after. Because the prime
-presentation is so brief and masked by preceding and subsequent stimuli,
-most participants report not being aware that a prime string has been
-presented, and can at most report a screen flicker just before the
-target presentation (Forster, Mohan, and Hector 2003).
+Visual word recognition is a complex cognitive function, as written
+words engage various visual and linguistic processes and, in the case of
+fluent readers, do so in a remarkably fast and accurate manner. Among
+many tools that have been developed to study visual word recognition,
+one of the most influential is masked priming. Initially developed to
+help disentangle automatic and episodic contributions to priming in
+lexical decision tasks (Forster and Davis 1984), the masked priming
+procedure has since proved valuable to uncover the conditions under
+which orthographic, phonological, morphological, and semantic
+information impact access to visual word forms, by mitigating strategic
+effects and minimizing the influence of controlled processes (Forster
+1998, for review). The masked priming procedure generally involves a
+forward mask (i.e., usually a string of hashes, \#\#\#\#\#), followed by
+a prime string presented in lowercase for very short time \(SOA < 60\)
+ms), and a target string presented in uppercase immediately after
+(\emph{\#\#\#\#\#} - \emph{prime} - \emph{TARGET}) to which participants
+are expected to respond. Because the prime presentation is so brief and
+masked by preceding and subsequent stimuli, most participants report not
+being aware that a prime string has been presented, and can at most
+report a screen flicker just before the target presentation (cf.
+Forster, Mohan, and Hector 2003; Nievas 2010).
 
-Among possible manipulations of prime-target relatedness, masked
-repetition priming (in which the same word is presented as both the
-prime and target within the same trial: e.g., \emph{love-LOVE}) has been
-well studied, because its response seems to be qualitatively different
-from the unmasked counterpart (\(SOA > 60 ms\)): while high-frequency
-words benefit less from repetition than low-frequency words in the
-unmasked design (\emph{frequency attenuation effect}, henceforth FAE;
-Scarborough, Cortese, and Scarborough 1977), this does not seem to be
-the case when the prime is masked (Forster and Davis 1984; Forster et
-al. 1987; Segui and Grainger 1990; Sereno 1991; Forster and Davis 1991;
-Rajaram and Neely 1992; Bodner and Masson 1997; Forster, Mohan, and
-Hector 2003; Nievas 2010).
-
-This asymmetry in sensitivity to lexical frequency between the masked
-and unmasked repetition priming responses has been important in
-distinguishing among different models of priming in visual word
-recognition. More specifically, \emph{interactive activation models}
-(McClelland and Rumelhart 1981; Grainger and Jacobs 1996; Coltheart et
-al. 2001) conceive of priming as a ``head start'' in processing due to
-the pre-activation of the target word due to the presentation of the
-prime. Thus, according to \emph{interactive activation} models, priming
-is ultimately caused by a single mechanism, making the qualitatively
-different profiles for repetition priming in masked and unmasked
-conditions a difficult empirical finding to explain.
-
-Similarly, episodic models (e.g., Jacoby and Dallas 1981; Jacoby 1983)
-posit a different single mechanism for priming effects: the
-activation/retrieval of the episodic memory trace of the encounter with
-the prime word. These models therefore encounter the same type of
-difficulty in accounting for qualitatively different patterns of
-repetition priming effects in masked and unmasked conditions. A similar
-type of model, called the \emph{memory recruitment model} makes very
-similar predictions to the episodic memory models, positing a
-non-lexical source for priming effects (Bodner and Masson 1997; Masson
-and Bodner 2003; Bodner and Masson 2014). Repetition priming effects
-under this view stem from the exploitation, strategically or
-automatically, of a memory resource created by the encounter with the
-prime word. The frequency attenuation effect, under episodic and memory
-recruitment models alike, is predicted on the basis that low frequency
-primes, being more distinctive stimuli, create a more potent and
-effective memory resource compared to high frequency primes.
-
-In contrast, other models appear to successfuly sidestep the problem
-posed by the qualitatively different repetition priming profiles
-observed in masked and unmasked conditions. One such model is the
-\emph{entry-opening model} (also known as the \emph{bin model}; Forster
-and Davis 1984). According to this model, when the visual stimulus is
-presented, lexical entries are assigned to specific bins based on
-orthographic similarity. In the first stage (fast search stage), a fast,
-frequency-ordered search goes through the entries within a given bin,
-and compares each one with the the input stimulus, assigning to each
-entry a goodness-of-fit score. This comparison is fast and crude, and
-sorts entries into (a) perfect (i.e., no difference is detected between
-the input and the entry), (b) close (i.e., small differences are
-detected), and (c) irrelevant matches (i.e., substantial difference are
-detected). Any entry of type (a) or (b) is opened, so that the entry can
-be further analyzed and compared to the input in the subsequent
-verification stage. Under a masked presentation, the entry of the prime
-word is opened at the fast search stage, but the short duration of the
-stimulus prevents it from reaching the evaluation stage. Crucially, the
-entry is nonetheless left open. Upon the presentation of the target
-stimulus, the access procedure will follow its two stage course, with a
-frequency-sensitive fast search and a subsequent entry opening for
-evaluation/verification. In this view, the fast search for the target
-word proceeds normally, but the evaluation/verification procedure starts
-and ends sooner than it otherwise would, because the target entry has
-already been left open after the brief processing of the prime. Thus,
-the \emph{entry-opening model} explains the masked repetition priming as
-the benefit from having the entry of the target word already open by the
-time the second stage of recognition starts. Crucially, this occurs
-\emph{after} the target word is initially accessed, which happens in
-order of frequency. Put differently, according to the
-\emph{entry-opening model}, masked repetition priming occurs because of
-the time savings from not having to open the entry, which is a
-frequency-insensitive process (i.e., every entry takes the same time to
-be opened), but \emph{after} the frequency-sensitive first access stage.
-As a consequence, the \emph{entry-opening model} predicts a
-frequency-insensitive masked repetition priming effect, which is what
-has been traditionally reported in the literature (see
-Table~\ref{tbl-litReview}). In addition, it also (correctly) predicts
-that pseudowords should not benefit from masked repetition priming, as
-they have no entries in the mental lexicon to be left open after the
-brief processing of the prime.
-
-However, as Table~\ref{tbl-litReview} shows, there are nonetheless a few
-studies that do report significant FAEs in masked repetition priming
-Nievas (2010). Bodner and Masson (2001) argues that when stimuli are
-presented in alternating case (e.g., \emph{pHoNe}), this increases the
-lexical decision difficulty and therefore generates an extra incentive
-to draw on the memory resource created by the brief processing of the
-prime. Under such conditions, they were able to observe a statistically
-significant FAE.
-
-In the same vein, Kinoshita (2006) noticed that in earlier studies the
-low frequency words often had very high error rates, and suggested that
-perhaps many participants did not know them. If participants treated a
-substantial number of low frequency words as nonwords, and nonwords do
-not exhibit repetition priming under masked conditions, it could
-artificially depress the repetition priming effect for the low frequency
-condition alone, which could make any existing FAE harder to detect. In
-two separate experiments, Kinoshita (2006) showed that larger repetition
-priming effects for low frequency words were only obtained when the low
-frequency words were vetted to make sure the participants knew them
-prior to the experiment. Following up on Kinoshita (2006), Norris and
-Kinoshita (2008) were also able to find an interaction between lexical
-frequency and repetition in masked repetition priming, as was Nievas
-(2010) in Spanish (exp. 1B).
-
-Finally, as Table~\ref{tbl-litReview} shows, it is noteworthy that 15
-out of 18 previous studies showed numerically larger masked priming
-effects for low frequency words as opposed to high frequency words,
-irrespective of statistical significance. Similarly, the average
-repetition effect for low frequency words in the studies reviewed in
-Table~\ref{tbl-litReview} is 13 ms larger when compared to that of high
-frequency words. These results are not in line with the predictions
-dictated by the \emph{entry opening model}, and seem to align better
-with the predictions made by \emph{interactive activation models} and
-\emph{memory recruitment} models.
+One of the most robust findings in the masked priming literature is the
+\emph{repetition priming effect}: when the prime and target are the same
+string (albeit in a different case, e.g., \emph{word-WORD}), the
+response to the target is facilitated compared to when the same target
+is preceded by an unrelated prime (e.g., \emph{phone-WORD}). The fact
+that the size of masked repetition priming effect is proportional to the
+duration of the prime (Forster, Mohan, and Hector 2003; Angele et al.
+2023) has led some researchers to posit that the masked repetition
+priming effect reflects a type of ``head start'' in the processing of
+the target. In \emph{Interactive-Activation} (IA) models (McClelland and
+Rumelhart 1981; Grainger and Jacobs 1996; Coltheart et al. 2001), this
+``head start'' is conceived of as increased activation of the target
+entry as a function of its prior activation during the presentation of
+the prime. These raised activation levels in turn help the entry reach
+the recognition threshold faster. Alternatively, \emph{search models}
+like the \emph{entry opening model} (cf. Forster, Mohan, and Hector
+2003) posit an \emph{entry opening time} (EOT) that is uniform across
+lexical items. In this model, the target's EOT is entirely or partially
+saved due to the fact that the entry opening process is effectively
+initiated during the presentation of the prime. Finally,
+\emph{retrospective models} of priming, such as the \emph{memory
+recruitment model} (Bodner and Masson 1997; Masson and Bodner 2003;
+Bodner and Masson 2014), posit a non-lexical source for the masked
+repetition priming effect. Under this view, masked repetition priming
+stems from the exploitation, at post-access stages, of a memory resource
+created by the encounter with the prime word.
 
 \blandscape
 \small
@@ -414,11 +323,13 @@ Segui \& Grainger (1990), exp. 4 & French & 36 & 60 & 42 & 45 & 3 &   & [0.03 0.
 Bodner \& Masson (2001), exps. 2A, 2B, 3, \& 6 (average)\textsuperscript{\textit{2}} & English & 40 & 60 & 37 & 69 & 32 & * & [0.03 0.68] & [0.08 1] \\ 
 Rajaram \& Neely (1992), exp. 1 & English & 48 & 50 & 30 & 37 & 7 &   & [0.04 0.76] & [0.09 1] \\ 
 Rajaram \& Neely (1992), exp. 2 & English & 48 & 50 & 45 & 78 & 33 &   & [0.04 0.76] & [0.09 1] \\ 
+Wu (2012), exp. 5 & English & 64 & 60 & 31 & 64 & 33 & * & [0.04 0.87] & [0.12 1] \\ 
+Wu (2012), exp. 5 & English & 64 & 40 & 33 & 51 & 18 & * & [0.04 0.87] & [0.12 1] \\ 
 \midrule 
 \midrule 
-Mean &   &   &   & 41 & 55 & 13 &   &   &   \\ 
+Mean &   &   &   & 40 & 55 & 15 &   &   &   \\ 
 SD &   &   &   & 10 & 14 & 13 &   &   &   \\ 
-Correlation &   &   &   &   &   & 0.46 &   &   &   \\ 
+Correlation &   &   &   &   &   & 0.41 &   &   &   \\ 
 \bottomrule
 
 \end{longtable}
@@ -430,283 +341,287 @@ Correlation &   &   &   &   &   & 0.46 &   &   &   \\
 
 \elandscape
 
-\section{The present study}\label{sec-study}
+\subsection{Does frequency interact with repetition in masked
+priming?}\label{does-frequency-interact-with-repetition-in-masked-priming}
 
-It is somewhat surprising that the status of the FAE in masked priming
-remains largely unresolved in the literature, given its non-negligible
-average magnitude across studies and its theoretical significance in
-elucidating the underlying cognitive processes of masked priming.
+The masked repetition effect is a robust finding, but there is still
+considerable uncertainty about whether lexical frequency impacts masked
+priming. In unmasked contexts, it is well established that
+high-frequency words often benefit less from repetition than
+low-frequency words (\emph{frequency attenuation effect}, henceforth
+FAE; Scarborough, Cortese, and Scarborough 1977). The precise
+\emph{locus} of this effect, however, remains the topic of debate. Three
+types of models have attempted to explain the FAE in different ways.
 
-One possible interpretation of the conflicting past findings revolves
-around the fact that only 4 out of 18 studies demonstrate a
-statistically significant FAE. Notably, this number potentially
-diminishes further when considering that, among these four studies, the
-FAE is detected only through the pooling of data across multiple studies
-employing a unique alternating-case stimulus presentation (Bodner and
-Masson 2001; Masson and Bodner 2003). This line of reasoning suggests a
-qualitatively distinct profile between masked and unmasked repetition
-priming, with the FAE more firmly established in the latter.
+\emph{IA} models (McClelland and Rumelhart 1981; Grainger and Jacobs
+1996) capture the FAE by positing that once a word is recognized, it
+takes time for its activation levels to return to their normal resting
+state. If the same word is then encountered again while still highly
+activated, it will cross the recognition threshold much faster compared
+to when it is at its usual resting activation levels. Alternatively,
+these models could also propose that each access creates a small but
+long-term change in the resting activation levels of the lexical node,
+and so prior exposure will always lead to some amount of priming. The
+FAE arises in this type of model because low frequency words are
+hypothesized to have a much lower resting activation level compared to
+high frequency words. Thus, any increase activation level will benefit
+low frequency words more compared to high frequency words (cf. Grainger
+et al. 2012).
 
-Conversely, one could argue that 15 out of 18 studies exhibit
-numerically larger repetition effect sizes for low-frequency words
-compared to high-frequency words ---- a pattern that is challenging to
-reconcile with a genuine absence of interaction between frequency and
-masked repetition. Additionally, the average FAE across all studies
-stands at 13 ms, a modest yet non-negligible effect size. In fact, the
-naïve assumption that the two conditions are similar enough across
-experiments could justify the use of a \emph{t}-test with statistically
-significant results: \emph{M\_FAE} = 13, CI\_95\% = {[}7, 20{]}),
-\emph{t}(17) = 4.24, \(p=.0005\). These considerations suggest that a
-genuine FAE may exist in masked priming but might be smaller than the
-magnitudes that are statistically detectable in most previous
-experiments. This interpretation is supported by the results from
-Adelman et al. (2014) in a large scale, multi-site lab-based study on
-orthographic priming. They report a small but reliable FAE, but caution
-this effect could simply be an orthographic neighborhood effect
-masquerading as a frequency effect, due to the high correlations between
-the two variables.
+\emph{Search models} like the \emph{entry opening model} (Forster and
+Davis 1984), on the other hand, predict that candidate entries for
+recognition are evaluated according to their rank order of frequency.
+Because this is a relatively stable property of the lexical system, it
+is unlikely to radically change based on one or even a few entry
+accesses. Thus, these models predict that the FAE must have a different
+source that is not lexical. In this, they agree with \emph{retrospective
+models} (e.g., Jacoby and Dallas 1981; Jacoby 1983; Bodner and Masson
+1997; Masson and Bodner 2003; Bodner and Masson 2014), according to
+which it is the activation/retrieval of the episodic memory trace of the
+encounter with the prime word that is responsible for facilitating the
+behavioral response; the FAE under this view stems from the
+independently established fact that low-frequency words exhibit an
+advantage in episodic memory tasks (like \emph{old-new} tasks;
+Scarborough, Cortese, and Scarborough 1977). Thus, a direct prediction
+of this view would be that, if it were possible to minimize episodic
+influences, then no FAE should be expected. Forster and Davis (1984)
+proposed that masking the priming stimulus could achieve this effect,
+adapting the procedure of Evett and Humphreys (1981). Across six
+experiments, Forster and Davis (1984) established that no FAE arises
+when the primes are effectively masked, corroborating their prediction
+that, being a post-lexical, episodic memory effect, the FAE should only
+be observed when the primes are fully visible and their context is
+somehow relevant for the behavioral decision to the target. This finding
+has since often been replicated Norris et al. (2018).
 
-In addition, another potential contributor to past discrepancies is the
-reliance on the dated Kučera and Francis (1967) word frequency database,
-which 15 out of 18 studies have depended on. This poses a potential
-problem, as this frequency database has consistently demonstrated
+However, as Table~\ref{tbl-litReview} shows, there are, contrary to the
+earlier literature, a number of studies that do report significant FAEs
+in masked repetition priming (Bodner and Masson 2001; Kinoshita 2006;
+Norris and Kinoshita 2008; Nievas 2010; Wu 2012). Bodner and Masson
+(2001) argues that when the processing of stimuli is made harder by an
+alternating case presentation (e.g., \emph{pHoNe}), the associated
+increase in difficulty to perform the lexical decision generates an
+extra incentive to draw on the memory resource created by the brief
+processing of the prime. Under such conditions, they were able to
+observe a statistically significant FAE, as predicted by their
+\emph{memory recruitment} model. Kinoshita (2006) noticed that in
+earlier studies the low frequency words often had very high error rates,
+and suggested that perhaps many participants did not know them. If
+participants treated a substantial number of low frequency words as
+nonwords, and nonwords do not exhibit repetition priming under masked
+conditions, it could artificially depress the repetition priming effect
+for the low frequency condition, which could make any existing FAE
+harder to detect. In two separate experiments, Kinoshita (2006) showed
+that larger repetition priming effects for low frequency words were only
+obtained when the low frequency words were vetted to make sure the
+participants knew them prior to the experiment. Following up on
+Kinoshita (2006), Norris and Kinoshita (2008) were also able to find an
+interaction between lexical frequency and repetition in masked
+repetition priming, as were Wu (2012) (exp. 5) and Nievas (2010) in
+Spanish (exp. 1B).
+
+This uneven pattern of findings is puzzling. However, as
+Table~\ref{tbl-litReview} shows (see also Kinoshita 2006), it is
+noteworthy that 17 out of 20 previous experiments showed numerically
+larger masked priming effects for low frequency words as opposed to high
+frequency words, irrespective of statistical significance. Similarly,
+the average repetition effect for low frequency words in the studies
+reviewed in Table~\ref{tbl-litReview} is 15 ms larger when compared to
+that of high frequency words.
+
+In summary, it is somewhat surprising that the status of the FAE in
+masked priming remains largely unresolved in the literature, given its
+non-negligible average magnitude across studies and its theoretical
+significance in elucidating the underlying cognitive processes of masked
+priming. The experiments reported here were designed put on firmer
+empirical footing whether frequency attenuation effects can be observed
+under masked priming, as well as whether such an effect is sensitive to
+the duration of the prime, which can help distinguish between competing
+frameworks of visual word recognition.
+
+\subsection{Our studies}\label{our-studies}
+
+One potential contributor to past discrepancies about the existence of
+the FAE in masked priming is the overreliance on the dated Kučera and
+Francis (1967) word frequency database, which 15 out of 20 experiments
+have depended on. This frequency database has consistently demonstrated
 inferior predictive performance in psycholinguistic experiments,
 particularly with low-frequency words, compared to more contemporary
 databases (Burgess and Livesay 1998; Zevin and Seidenberg 2002; Balota
 et al. 2004; Brysbaert and New 2009; Yap and Balota 2009; Brysbaert and
 Cortese 2011; Gimenes and New 2016; Herdağdelen and Marelli 2017;
-Brysbaert, Mandera, and Keuleers 2018). Both of these issues are
-addressed in the subsequent sections.
+Brysbaert, Mandera, and Keuleers 2018).
 
-\subsection{Issues with frequency databases}\label{sec-study-freq}
+Another factor that might have contributed to the conflicting past
+findings is the potential underpowered nature of many previous studies,
+as already noted by other researchers (Bodner and Masson 1997, 2001;
+Masson and Bodner 2003; Adelman et al. 2014). This is a reasonable
+concern, as interaction effects like the FAE often require larger sample
+sizes for reliable detection compared to main effects (Potvin and Schutz
+2000; Brysbaert and Stevens 2018). Our literature review revealed
+crucial gaps in the reporting of relevant statistical information, which
+impedes the assessment of the statistical power attained by past
+experiments. The inconsistent reporting of standard deviations (in only
+7 out of 20 experiments) and the complete absence of reporting of the
+correlation structure between conditions complicates power assessments.
+Researchers are thus forced to explore a range of plausible values for
+standard deviations and correlation structures on their own. In our own
+simulations (full details in supplementary material) the results
+reported in Table~\ref{tbl-litReview} reveal a wide range of possible
+statistical power attained by previous studies, depending solely on the
+combination of plausible standard deviation and correlation across
+conditions. For instance, the study with the smallest sample size
+(Forster et al. 1987, N=16) had between 2\% and 24\% chance of detecting
+a 15 ms frequency attenuation effect and a 4\% to 84\% chance to detect
+a 30 ms effect. Similarly, the study with the largest sample size (Wu
+2012, \(N=64\)) exhibited a range of 4\% to 87\% power to detect a 15 ms
+FAE, and 12\% to 100\% for a 30 ms effect. As a consequence of the
+limited reporting of relevant statistical information in past studies,
+it is nearly impossible to determine if any of them were adequately
+powered to detect the effect of interest.
 
-Due to the well-documented concerns over the reliability of the Kučera
-and Francis (1967) frequency database for psycholinguistic experiments
-(Burgess and Livesay 1998; Zevin and Seidenberg 2002; Balota et al.
-2004; Brysbaert and New 2009; Yap and Balota 2009; Brysbaert and Cortese
-2011; Gimenes and New 2016; Herdağdelen and Marelli 2017; Brysbaert,
-Mandera, and Keuleers 2018), our studies exclusively sourced materials
-from the HAL (Lund and Burgess 1996) and SUBTLEX\(_{US}\) (Brysbaert and
-New 2009) databases, which reflect more recent linguistic usage and
-offer better validation in behavioral experiments (e.g., Balota et al.
-2004; Brysbaert and New 2009; Yap and Balota 2009; Brysbaert and Cortese
-2011; Gimenes and New 2016; Herdağdelen and Marelli 2017). While these
-databases outperform Kučera and Francis (1967) in predicting
-psycholinguistic task outcomes, it is important to note potential
-discrepancies in individual frequency counts, particularly in the low
-and mid-frequency ranges. It is possible that this variation,
-attributable to the primary genre of their sources (USENET groups for
-HAL and movie subtitles for SUBTLEX\(_{US}\)),\footnote{A separate,
-  though relevant issue which cannot be addressed here is to how to
-  mitigate the discrepancies across the databases available, but see Yap
-  and Balota (2009), and Brysbaert and Cortese (2011) for proposals
-  about combining the frequency counts from different
-  corpora.\label{fn-databases}} may not have an oversized impact on
-megastudies with very large word samples (e.g., Balota et al. 2004;
-Brysbaert and New 2009; Yap and Balota 2009; Brysbaert and Cortese 2011;
-Gimenes and New 2016; Herdağdelen and Marelli 2017). However,
-corpus-specific frequency skew can become significant when dealing with
-smaller samples of words, as is the case in most masked priming studies
-(cf. Adelman et al. (2014)). Table~\ref{tbl-exFreqSkew} illustrates the
-potential discrepancy in considering words as high or low frequency
-based on the different aforementioned databases.
+Thus, the potential of a non-negligible number of low-powered
+experiments on the scientific record may play a role in accounting for
+the uneven pattern of results reported thus far. First, if low-powered
+experiments are prevalent, it increases the risk of observed
+statistically significant effects being spurious (Button et al. 2013).
+At face value, only 5 out of 19 studies report a statistically
+significant FAE; and two of these employed a unique alternating-case
+stimulus presentation (Bodner and Masson 2001; Masson and Bodner 2003).
+While reporting non-significant FAEs, the remaining 14 studies still
+exhibit numerically larger repetition effect sizes for low-frequency
+words compared to high-frequency words. The observed pattern is
+difficult to reconcile with the purported absence of interaction between
+frequency and masked repetition priming. The average FAE across all
+studies stands at 15 ms, a non-negligible effect size, which, under the
+naïve assumption that the two conditions are similar enough across
+experiments, seem to be statistically significant: \emph{M\_FAE} = 15
+ms, \emph{CI\_95\%} = {[}8 21{]}), \emph{t}(20) = 4.89, \(p=.0001\).
+These considerations suggest that a genuine FAE may indeed exist in
+masked priming, but might be smaller than the magnitudes that are
+statistically detectable in most previous experiments. This
+interpretation is supported by the results from Adelman et al. (2014) in
+a large scale, multi-site lab-based study on orthographic priming. They
+report a small but reliable FAE, but caution this effect could simply be
+an orthographic neighborhood effect masquerading as a frequency effect,
+due to the high correlations between the two variables. The absence of
+clarity regarding the statistical power of previous research poses
+challenges in assessing the likelihood of these significant findings
+being spurious.
 
-\begin{longtable}{lrrr}
-
-\caption{\label{tbl-exFreqSkew}Example of frequency count imbalances (in
-occurrences per million) across the frequency norms of Kucera \& Francis
-(KF), HAL and SUBTLEX\textsubscript{US} for 4 to 6 letter words.}
-
-\tabularnewline
-
-\toprule
-Word & KF & HAL & SUBTLEX\textsubscript{US} \\ 
-\midrule\addlinespace[2.5pt]
-\multicolumn{4}{l}{\emph{Skew in KF}} \\ 
-\midrule\addlinespace[2.5pt]
-negro & $104$ & $3$ & $5$ \\ 
-poet & $99$ & $9$ & $9$ \\ 
-mercer & $71$ & $4$ & $2$ \\ 
-swung & $48$ & $3$ & $2$ \\ 
-mantle & $48$ & $8$ & $2$ \\ 
-\midrule\addlinespace[2.5pt]
-\multicolumn{4}{l}{\emph{Skew in HAL}} \\ 
-\midrule\addlinespace[2.5pt]
-web & $6$ & $351$ & $9$ \\ 
-user & $4$ & $297$ & $2$ \\ 
-mint & $7$ & $211$ & $5$ \\ 
-format & $9$ & $198$ & $1$ \\ 
-warp & $4$ & $125$ & $5$ \\ 
-\midrule\addlinespace[2.5pt]
-\multicolumn{4}{l}{\emph{Skew in SUBTLEX\textsubscript{US}}} \\ 
-\midrule\addlinespace[2.5pt]
-daddy & $4$ & $16$ & $185$ \\ 
-bitch & $6$ & $24$ & $169$ \\ 
-cute & $5$ & $28$ & $88$ \\ 
-pardon & $8$ & $12$ & $65$ \\ 
-steal & $5$ & $28$ & $53$ \\ 
-\bottomrule
-
-\end{longtable}
-
-\subsection{Issues with statistical power}\label{sec-study-power}
-
-The inconsistency of past findings regarding the FAE in masked priming
-has been linked to a potential lack of statistical power in previous
-research (Bodner and Masson 1997, 2001; Masson and Bodner 2003; Adelman
-et al. 2014). This is a reasonable concern, as interactions like the FAE
-often require larger sample sizes for statistical detection (Potvin and
-Schutz 2000; Brysbaert and Stevens 2018) compared to main effects. We
-outline below three ways in which neglecting statistical power might
-frustrate our understanding of FAE in masked repetition priming.
-
-First, our literature review revealed crucial gaps in the reporting of
-relevant statistical information, which impedes the assessment of the
-statistical power attained by past experiments. The inconsistent
-reporting of each conditions' standard deviations (in only 7 out of 18
-studies) and the complete absence of reporting of the correlation
-structure between conditions complicates power assessments. Researchers
-are thus forced to explore a range of plausible values for standard
-deviations and correlation structures on their own.
-
-Table~\ref{tbl-litReview} details our attempt to conduct power
-simulations for two hypothesized frequency attenuation effect sizes: 15
-ms (close to the averaged FAE of 13 ms) and 30 ms (close to the only
-three observed statistically significant FAE in English). Standard
-deviations (ranging between 60 ms and 180 ms, in 10 ms increments) and
-correlation between conditions (uniformly set to range between 0.6 and
-0.9, with 0.1 unit increments) were simulated for each study's sample
-size, with 10,000 replications for each simulation. These range of
-values were derived from our literature review and previous in lab and
-online experiments (Petrosino 2020; Petrosino, Sprouse, and Almeida
-2023). For each simulated dataset, a paired \emph{t}-test was performed
-comparing the repetition effect for high frequency words and low
-frequency words. This calculation is mathematically identical to the
-interaction term in a 2x2 factorial repeated-measures design\^{}{[}the
-resulting \emph{t} value, when squared, is equal to the \emph{F} value
-for the interaction calculated in the 2x2 repeated-measures ANOVA), but
-it is less computationally expensive to perform in large scale
-simulations. Power to detect this interaction was then calculated as the
-proportion of statistically significant tests (\alpha = 5\%) obtained
-across replications. All else being equal, standard deviations and
-correlations between conditions have opposite effects on statistical
-power: increases in standard deviations lead to less power, while
-increases in correlation between conditions lead to more power.
-
-The results reported in Table~\ref{tbl-litReview} reveal a wide range of
-possible statistical power attained by previous studies, depending
-solely on the combination of plausible standard deviation and
-correlation across conditions. For instance, the study with the smallest
-sample size (Forster et al. 1987, N=16) had a 2\% to 24\% chance of
-detecting a 15 ms frequency attenuation effect and a 4\% to 84\% chance
-to detect a 30 ms effect. Similarly, the study with the largest sample
-size (Rajaram and Neely 1992, N=48) exhibited a range of 4\% to 76\% for
-a 15 ms frequency attenuation effect and 9\% to 100\% for a 30 ms
-effect. As a consequence of the limited reporting of relevant
-statistical information in past studies, it is nearly impossible to
-determine if any of them were adequately powered to detect the effect of
-interest.
-
-A second concern arising from the ambiguity surrounding statistical
-power in the literature is the potential impact of a prevalence of
-low-powered experiments on the scientific record. An excess of such
-experiments increases the risk of observed statistically significant
-effects being spurious (Button et al. 2013). As highlighted in
-Table~\ref{tbl-litReview}, only 4 out of 18 studies demonstrate a
-statistically significant FAE. The absence of clarity regarding the
-statistical power of previous research poses challenges in assessing the
-likelihood of these significant findings being spurious.
-
-Finally, it is widely acknowledged that experiments with approximately
+Second, it is widely acknowledged that experiments with approximately
 50\% power are akin to a coin toss in their ability to detect a true
 effect (Cohen 1992). A less-appreciated fact is that, in the presence of
-even lower power (\textless25\%), statistically significant results can
-substantially overestimate the effect size -- a type-M error (Gelman and
-Carlin 2014). When power drops to levels below 10\%, a statistically
-significant result may occur even when the observed effect goes in the
-opposite direction of the true effect -- a type-S error (Gelman and
-Carlin 2014). Our power simulations for within-subjects data revealed a
-similar relationship between statistical power, type-M, and type-S
-errors in line with the observations detailed by Gelman and Carlin
-(2014) for the independent samples \(t\)-test. For instance, at 10\%
-power (a possibility for virtually all previous studies, as indicated in
-Table~\ref{tbl-litReview}), a statistically significant result could
-indicate an overestimation of the magnitude of the frequency attenuation
-effect by a factor between 2 and 5, with up to a 5\% chance of
-incorrectly determining the direction of the effect.
+even lower power (\(<25%
+\)), statistically significant results can substantially overestimate
+the effect size -- a type-M error (Gelman and Carlin 2014). When power
+drops to levels below 10\%, a statistically significant result may occur
+even when the observed effect goes in the opposite direction of the true
+effect -- a type-S error (Gelman and Carlin 2014). Our power simulations
+for within-subjects data revealed a similar relationship between
+statistical power, type-M, and type-S errors in line with the
+observations detailed by Gelman and Carlin (2014) for the independent
+samples case. For instance, at 10\% power (a possibility for virtually
+all previous studies, as indicated in Table~\ref{tbl-litReview}), a
+statistically significant result could indicate an overestimation of the
+magnitude of the frequency attenuation effect by a factor between 2 and
+5, with up to a 5\% chance of incorrectly determining the direction of
+the effect.
 
-The two studies reported here were designed to mitigate these two
-confounding issues: the overreliance on the Kučera and Francis (1967)
-frequency data as well as a potential lack of statistical power observed
-in previous research. As a large increase in statistical power requires
-a large sample size, Experiment 1 aimed to assess the suitability of
-using \emph{Labvanced} (Finger et al. 2017), an online platform for
-running web browser-based experiments, for running masked priming
-studies online.
+The two studies reported here were designed to mitigate these two major
+confounding issues: overreliance on the Kučera and Francis (1967)
+frequency counts, as well as the potential lack of statistical power in
+previous research. With respect to the first issue, we exclusively
+sourced materials from the SUBTLEX\(_{US}\) database (Brysbaert and New
+2009), which reflects more recent linguistic usage and offer better
+validation in behavioral experiments (e.g., Brysbaert and New 2009; Yap
+and Balota 2009; Brysbaert and Cortese 2011; Gimenes and New 2016;
+Herdağdelen and Marelli 2017). As for the second issue, we recruited two
+extremely large samples (\(N=2600\)) to achieve high statistical power
+for an interaction effect like the FAE (see supplementary materials) and
+narrow margins of error around the estimated effect size (Maxwell,
+Kelley, and Rausch 2008).
 
-\section{Experiment 1}\label{sec-exp1}
+\subsection{Web browser-based masked
+priming}\label{web-browser-based-masked-priming}
 
-As evident in Table~\ref{tbl-litReview}, conducting a properly powered
-experiment for a FAE close to the averaged value calculated from
-previous studies requires a sample size that would be impractical to
-pursue in standard university research settings, i.e.~typically quiet
-lab rooms with a small number of research computers. In response to this
-challenge, the present study was exclusively conducted online,
-leveraging the growing trend in online behavioral research facilitated
-by HTML5 capabilities and the availability of advanced web software such
-as \emph{jsPsych} (de Leeuw 2014), \emph{PsychoJS} (the JavaScript
-counterpart of \emph{PsychoPy}, Peirce et al. (2019)), \emph{Gorilla}
-(Anwyl-Irvine et al. 2020), and \emph{Labvanced} (Finger et al. 2017).
+Achieving the desired level of statistical power required a sample size
+that would be impractical to pursue in traditional lab settings,
+typically constrained by access to limited research computers and
+participant pools. In response to this challenge, the present studies
+were exclusively conducted online, leveraging the growing trend in
+online behavioral research facilitated by HTML5 capabilities and the
+availability of advanced web software such as \emph{jsPsych} (de Leeuw
+2014), \emph{PsychoJS} (the JavaScript counterpart of \emph{PsychoPy},
+Peirce et al. 2019), \emph{Gorilla} (Anwyl-Irvine et al. 2020), and
+\emph{Labvanced} (Finger et al. 2017).
+
+\begin{figure}[H]
+
+\centering{
+
+\pandocbounded{\includegraphics[keepaspectratio]{./supplemental-data/online_maskedpriming_meta.png}}
+
+}
+
+\caption{\label{fig-meta}Meta-analysis of three recent masked priming
+experiments conducted online, together with unpublished pilot data from
+our lab, investigating three different phenomena: identity,
+morphological and semantic priming, at 33ms and 50ms prime durations.}
+
+\end{figure}%
+
 Notably, three recent studies have already demonstrated the viability of
 conducting masked priming experiments online, employing different
 software tools: Angele et al. (2023) with \emph{PsychoJS}, Cayado, Wray,
 and Stockall (2023) with \emph{Gorilla} and Petrosino, Sprouse, and
-Almeida (2023) with \emph{Labvanced}. In this study, we opted for
-\emph{Labvanced} (Finger et al. 2017), given our previous successful
-experience with it (Petrosino, Sprouse, and Almeida 2023). Similar to
-\emph{Gorilla}, \emph{Labvanced} eliminates local installation issues,
-ensuring cross-platform consistency and simplifying experimental design
-without necessitating proficiency in additional programming languages.
+Almeida (2023) with \emph{Labvanced}. Crucially, a meta-analysis (Bonett
+2009) of their results (Figure~\ref{fig-meta}; the full details are
+available in the downloadable supplemental material) show a clear
+replication of for four basic benchmark results in masked priming:
+detection of (i) identity and (ii) morphological priming with (iii) no
+evidence of semantic priming, as well as (iv) a proportionality effect
+of identity priming and prime duration.
 
-We determined the sample size large enough to guarantee an acceptable
-statistical power (\(>80%
-\)) by a full-fledged power analysis specifically targeting what we
-construed as the smallest theoretically interesting FAE (i.e., 5ms). The
-details of the power analysis is available as supplemental material of
-the paper. Similarly, the code used for the power simulations, along
-with the simulated datasets are available online
-(\url{https://osf.io/r7d2q/}). Our analysis identified a sample size of
-1,250 participants as optimal, ensuring robust statistical power
-especially for a raw FAE equal to or exceeding 10 ms ---- a value
-closely aligned with the average FAE calculated from previous studies
-(cf. Table~\ref{tbl-litReview}). In light of the limitations in the
-temporal accuracy and precision of current online stimulus delivery
-programs (observed in several pilots and previous published studies
-conducted in our lab), we aimed for an intended sample size of 2,600.
-This decision was made to enhance the likelihood of obtaining a sample
-size of at least 1,250 participants after applying all the necessary
-exclusion criteria to the data. In addition, sample sizes exceeding
-1,250 can only help increase the precision of the estimated effect size.
+Building on these previous findings, experiment 1 attempts to determine
+whether frequency attenuation effects can be observed under masked
+priming. Experiment 2 focuses on whether frequency attenuation effects
+may vary as a function of prime duration.
 
-In this experiment, the prime duration was set at 33 ms. The motivation
-for the choice of such a short prime duration (as compared to the
-literature, in which it is usually between 50 and 60 ms; see
-Table~\ref{tbl-litReview}) is threefold. First, previous experiments on
-\emph{Labvanced} (Petrosino, Sprouse, and Almeida 2023) showed that, due
-to the inherent difficulties in presenting stimuli for very short set
-durations in the browser, a longer set duration would increase the
-number of trials in which the prime duration would rise above the
-subliminal threshold (usually thought to be around 60 ms) due to timing
-inaccuracies and missing screen refreshes, which could trigger the
-adoption of experiment-wide strategies in the task, and ultimately
-contaminate the masked priming response (Zimmerman and Gomez 2012).
-Second, Angele et al. (2023), Cayado, Wray, and Stockall (2023) and
+\section{Experiment 1}\label{sec-exp1}
+
+Experiment 1 was designed to elicit a masked repetition priming response
+to both high- and low-frequency words. The required sample size to
+ensure adequate statistical power (\textgreater80\%) was determined
+through a power analysis simulation (details and code available as
+supplemental material at https://osf.io/r7d2q/). For a 10 ms FAE, a
+sample size of 1,250 participants was identified as necessary to
+maintain 80\% statistical power across a wide range of plausible
+standard deviations and correlation structures between conditions. Given
+the relatively untested nature of web browser-based masked priming
+experiments, we opted for a larger sample size of 2,600 participants.
+This decision was made to increase the likelihood of retaining at least
+1,250 participants after applying exclusion criteria, while also
+guaranteeing a narrow margin of error around the estimated effect size
+(Maxwell, Kelley, and Rausch 2008).
+
+The prime duration was set at 33 ms for three main reasons. First, prior
+studies by Angele et al. (2023), Cayado, Wray, and Stockall (2023), and
 Petrosino, Sprouse, and Almeida (2023) have demonstrated that a 33 ms
-priming duration is sufficient to elicit repetition priming effects in
-online experiments. Finally, setting such a short prime duration
-prevents virtually everyone from consciously perceiving the prime word
-Nievas (2010), and thus presents a less contaminated estimate of early
-putatively automatic processes in word recognition.
+prime duration is sufficient to elicit reliable repetition priming
+effects in web browser-based experiments. Second, this brief prime
+duration ensures that the prime word is almost never consciously
+perceived by participants (Forster, Mohan, and Hector 2003; Nievas
+2010), providing a more accurate measure of early, presumably automatic
+processes involved in word recognition. Lastly, previous research on the
+\emph{Labvanced} platform (Petrosino, Sprouse, and Almeida 2023) has
+shown that timing inaccuracies and missed screen refreshes can lead to
+an increased number of trials with actual prime durations exceeding the
+subliminal threshold (typically considered to be around 60 ms) when the
+prime duration is set to 50 ms. If a significant number of trials exceed
+the subliminal threshold, it may prompt participants to adopt
+experiment-wide strategies, ultimately compromising the observed masked
+priming response (Zimmerman and Gomez 2012).
 
 \subsection{Methods}\label{sec-exp1-methods}
 
@@ -714,8 +629,7 @@ putatively automatic processes in word recognition.
 
 We preregistered the results of the power analysis, the goals, the
 design and analysis plan for this experiment prior to data collection.
-The preregistration, detailing the experimental hypotheses, the desired
-sample size as well as the planned analyses is available online
+The preregistration is available online
 (\url{https://doi.org/10.17605/OSF.IO/3NFQP}).
 
 \subsubsection{Participants}\label{sec-exp1-methods-participants}
@@ -723,18 +637,18 @@ sample size as well as the planned analyses is available online
 Two thousand and six hundred participants (1,445 females; \emph{mean
 age} = 42, \emph{sd age} = 14) were recruited on Prolific
 (\url{https://www.prolific.com}). Several criteria were selected to
-ensure recruitment of native speakers of U.S. English. Participants had
+ensure recruitment of native speakers of U.S. English: participants had
 to be born in the Unites States of America, speak English as their first
 and only language, and have no self-reported language-related disorder.
 We encouraged participants to avoid any sort of distraction throughout
 the experiment, and to close any program that may be running in the
-background. Because the experiment was run online, participants could
-not be monitored during data collection. Finally, to further reduce
-variability across participants' devices, we restricted the experiment
-to be run on Google Chrome only, which is the most used browser
-worldwide (W3 Counter 2023), and reportedly performs better than any
-other across operating systems (likely thanks to the \emph{Blink}
-engine; see Lukács and Gartus 2023).
+background. However, because the experiment was run online, participants
+could not be monitored during data collection. Finally, to further
+reduce variability across participants' devices, we restricted the
+experiment to be run on Google Chrome only, which at the time of this
+writing is the most used browser worldwide (W3 Counter 2023), and
+reportedly performs better than any other across operating systems (see
+Lukács and Gartus 2023).
 
 \subsubsection{Design}\label{sec-exp1-methods-design}
 
@@ -748,24 +662,16 @@ percentages).
 \subsubsection{Materials}\label{sec-exp1-methods-materials}
 
 One-hundred and four five-letter words, half of low frequency (between 7
-and 24 in the SUBTLEX\(_{US}\) frequency per million) and half of high
-frequency (between 57 and 2,961 in the SUBTLEX\(_{US}\) frequency per
-million) were sampled from ELP (Balota et al. 2007), but this time based
-on the SUBTLEX\(_{US}\) frequency counts rather than HAL.
-Table~\ref{tbl-words_exp1} shows that although the SUBTLEX\(_{US}\)
-frequency ranges of the two conditions were very far from one another
-they still show some overlap when HAL frequencies are used. As mentioned
-before, this seems to be a general problem when jointly considering
-different frequency databases for a smaller set of stimuli that need to
-be manipulated and controlled in different ways (see also fn.
-\ref{fn-databases} and Adelman et al. (2014)). From each condition, 26
-words were selected to be presented as targets and related primes (the
-\emph{repetition} condition), and the remaining 26 were presented as
-unrelated primes (the \emph{unrelated} condition). All word items were
-also controlled for orthographic neighborhood (i.e., Coltheart's
-\emph{N}): \(t \approx 0\). All words used were monomorphemic nouns,
-adjectives, or verbs, thus excluding particles, prepositions, and
-derived or inflected forms.
+and 24 occurrences per million in the SUBTLEX\(_{US}\) corpus) and half
+of high frequency (between 57 and 2,961 occurrences per million in the
+SUBTLEX\(_{US}\)) were sampled from the English Lexicon Project (Balota
+et al. 2007). From each condition, 26 words were selected to be
+presented as targets and related primes (the \emph{repetition}
+condition), and the remaining 26 were presented as unrelated primes (the
+\emph{unrelated} condition). All word items were also controlled for
+orthographic neighborhood (i.e., Coltheart's \emph{N}): \(t \approx 0\).
+All words used were monomorphemic nouns, adjectives, or verbs, thus
+excluding particles, prepositions, and derived or inflected forms.
 
 \begin{longtable}{lrrrrrrrrrrrrr}
 
@@ -787,13 +693,14 @@ low & 52 & 6 & 570 & 64 & 93 & 7 & 24 & 13 & 5 & 0 & 11 & 3.92 & 2.79 \\
 \end{longtable}
 
 One-hundred and four five-letter, phono-orthographically legal non-words
-were randomly selected from the ELP database as well. Half of them
-(i.e., 52) were randomly selected to be presented as targets; the other
-half was instead used as unrelated non-word primes. None of the
-non-words contained any existing English morpheme. Both the words and
-non-words used in the experiments are reported in the appendix below. In
-addition, all items had a reported error rate smaller than 10\%, so to
-ensure that they were all clearly distinguishable by participants.
+were randomly selected from the English Lexicon Project database as
+well. Half of them (i.e., 52) were randomly selected to be presented as
+targets; the other half was instead used as unrelated non-word primes.
+None of the non-words contained any existing English morpheme. Both the
+words and non-words used in the experiments are reported in the appendix
+at the end of the paper (after the References section). In addition, all
+items had an error rate in the ELP smaller than 10\%, to ensure that
+they would all be clearly distinguishable from words by participants.
 
 \subsubsection{Procedure}\label{sec-exp1-methods-proc}
 
@@ -822,15 +729,48 @@ disappeared from the screen as soon as a decision was made.
 Participants were given 5 breaks throughout the experiment. When the
 experiment was over, the participants were then redirected to Prolific
 in order to validate their submission. The median time to finish the
-experiment was 6 minutes. Each participant was paid with a standard rate
-of GBP 9/hour.
+experiment was 6 minutes and participants were paid a rate of 9
+GBP/hour.
 
 \subsection{Data analysis}\label{sec-exp1-analysis}
 
+Our preregistered data analysis plan established that the data would be
+analyzed using a \textbf{\emph{2x3}} repeated factors ANOVA (condition,
+3 levels: high vs.~low vs.~non-word; primetype, 2 levels: unrelated
+vs.~repetition), with only subjects as random factors, followed by
+planned comparisons between related and unrelated primetype for each
+condition. The choice of this statistical model follows the
+recommendations of Raaijmakers, Schrijnemakers, and Gremmen (1999) and
+Raaijmakers (2003), and allowed us to carry out the power analysis
+simulations that informed our sample size choice, since models that
+include items as random factors or even as crossed random factors are
+too computationally expensive to run in large scale statistical power
+simulations. However, since these models have become more widely
+adopted, we also present an analysis using Generalized Linear Mixed
+Model (GLMM) analysis on the raw RT and the raw accuracy data. Unlike
+linear mixed-effect models, GLMMs do not assume normal distribution of
+the data, and are therefore particularly useful for non-normally
+distributed data such as RTs and accuracy. For the RT data, a Gamma
+distribution was used; for the accuracy data, a binomial distribution
+was used instead. Both models used an identity link between fixed
+effects and the dependent variable (Lo and Andrews 2015). To prevent
+converge failure, the model was kept as simple as possibly, with
+\emph{condition}, \emph{primetype} and their interaction as fixed
+effects. Subjects and items were crossed as random effects. Before
+fitting the model, the contrasts were also set to sum-to-zero contrasts
+(i.e., by using the R function \texttt{contr.sum()}) to facilitation
+interpretation of main and interaction effects. The fitting was
+performed by using the \texttt{lme4} R-package (Bates et al. 2015) with
+the Laplace approximation technique, using 1 million iterations and the
+BOBYQA optimizer to help convergence. The function \texttt{Anova()} from
+the \texttt{car} R-package (Fox and Weisberg 2019) was used to obtain
+estimates and probability values for fixed effects calculated for
+Type-III sums of squares.
+
 Analysis scripts and an abridged version of the data collected can be
 found online (\url{https://osf.io/vn3r2}), and consisted of 297,598
-observations in total. We performed the same three steps of analysis
-described for experiment 1 (Section~\ref{sec-exp1-analysis}).
+observations in total. The pre-processing of the data consisted of three
+separate steps.
 
 \subsubsection{Step 1: subject and item
 performance}\label{sec-exp1-analysis-performance}
@@ -844,57 +784,48 @@ analyses.
 \subsubsection{Step 2: prime
 durations}\label{sec-exp1-analysis-primeTime}
 
-Prime fluctuations were dealt with in the same way as in experiment 1
-(Section~\ref{sec-exp1-analysis-primeTime}). The mean (mean = 32.32 ms,
-sd = 15) and the median (median = 33 ms) prime durations were closer to
-the intended value (33 ms). The same prime duration cut-off set for
-experiment 1 (i.e., any trial whose prime duration was out of the
-25-60ms range) removed 13 \% of the trials. No participant was excluded,
-for a total of 237,287 observations.
+During the experiment, the duration of presentation of the prime word
+was recorded for every trial. Both the mean (mean = 32 ms; sd=15 ms) and
+the median (33 ms) of the prime duration confirm some imprecision in the
+duration of the presentation of the prime during the experiment. This
+was expected and likely due to the inherent difficulty with timing
+precision of visual presentations in web browsers and the great
+variation of computer hardware and internet connections used by the
+participants. Both of these issues may be impossible to control, at
+least at the current state of browser development. However, in masked
+priming, in which the duration of the prime is an essential part of the
+design, such fluctuations may indeed hinder proper elicitation of the
+priming response. Thus, we only kept trials whose prime durations were
+within a pre-set range from the intended prime duration of 33 ms. Taking
+a standard 60-Hz monitor as reference, the lower and the upper bounds
+were set respectively at 25 ms (i.e., the intended prime duration minus
+half of a full refresh cycle: \(33-8~ ms\); noting that Angele et al.
+(2023) already showed that no repetition priming effects are obtained
+with a 16.7ms prime duration) and 60 ms (i.e., the commonly accepted
+upper threshold of subliminal processing), in an attempt to remove any
+trial that could have been consciously perceived by participants. This
+cut-off removed 13 \% of the trials. No participant was excluded, for a
+total of 237,287 observations.
 
 \subsubsection{Step 3: RT analysis}\label{sec-exp1-analysis-RT}
 
-After removing the incorrect responses, similarly to experiment 1
-(Section~\ref{sec-exp1-analysis-RT}), 0.51\% of the trials were excluded
-if their corresponding RT was below 200 ms or above 1800 ms. Finally,
-249 subjects were removed because the number of trials within the same
-condition was less than 7 (i.e., about half of the total number of
-trials being presented within the same condition, i.e.~13). A total of
-210,889 observations and 2,341 subjects were included in the statistical
-analysis below.
+After removing the incorrect responses, 0.51\% of the trials were
+excluded if their corresponding RT was below 200 ms or above 1800 ms.
+Finally, 249 subjects were removed because the number of trials within
+the same condition was less than 7 (i.e., about half of the total number
+of trials being presented within the same condition, i.e.~13). A total
+of 210,889 observations and 2,341 subjects were included in the
+statistical analysis below.
 
 \subsection{Results}\label{sec-exp1-results}
 
-Table~\ref{tbl-exp1-statsResults} below report the descriptive
-statistics of the experiment. Priming effects were calculated by
-subtracting the mean RT to the related condition to the mean RT from the
-unrelated condition. We ran two different analyses, for both RT and
-error data. First, we ran a 2x2 repeated-measures ANOVA (condition, 3
-levels: high vs.~low vs.~non-word; primetype, 2 levels: unrelated
-vs.~repetition) on the by-subject averaged data, paired with planned
-comparisons between related and unrelated primetype for each condition.
-In addition, a Generalized Linear Mixed Model (GLMM) analysis on the raw
-RT and the raw accuracy data (rather the by-subject means or error rates
-used in the ANOVA analyses). Unlike linear mixed-effect models, GLMMs do
-not assume normal distribution of the data, and are therefore
-particularly useful for non-normally distributed data such as RTs and
-accuracy. For the RT data, a Gamma distribution was used; for the
-accuracy data, a binomial distribution was used instead, both with an
-identity link between fixed effects and the dependent variable (Lo and
-Andrews 2015). To prevent converge failure, the model was kept as simple
-as possibly, with condition, primetype, and their interaction as fixed
-effects, and subjects and items as random intercepts. Before fitting the
-model, the contrasts were also set to sum-to-zero contrasts (i.e., by
-using the R function \texttt{contr.sum()}) to facilitation
-interpretation of main and interaction effects. The fitting was
-performed by using the \texttt{lme4} R-package (Bates et al. 2015) with
-the Laplace approximation technique, using 1 million iterations and the
-BOBYQA optimizer to help convergence. Then, we used the function
-\texttt{Anova()} from the \texttt{car} R-package (Fox and Weisberg 2019)
-to obtain estimates and probability values for fixed effects calculated
-for Type-III sums of squares.
+Priming effects were calculated by subtracting the mean RT to the
+related condition to the mean RT from the unrelated condition. We ran
+two different analyses, for both RT and error data.
 
-In the word analysis, the ANOVA analysis showed significant main effects
+The preregistered 2x3 repeated-measures ANOVA (condition, 3 levels: high
+vs.~low vs.~non-word; primetype, 2 levels: unrelated vs.~repetition) on
+the by-subject averaged RT data revealed significant main effects
 (condition: \emph{F}(1, 2340)=1572, \emph{p}\textless.0001; primetype:
 \emph{F}(1, 2340)=1113, \emph{p}\textless.0001) and their interaction
 \emph{F}(1, 2340)=52.48, \emph{p}\textless.0001). Planned comparisons
@@ -905,21 +836,25 @@ word conditions (\emph{MOP\_HF}=18 ms, \emph{CI\_95\%}={[}16 20{]},
 \emph{p}\textless.0001), with the low-frequency word repetition priming
 effect being 10 ms larger than the high-frequency word repetition
 priming effect. This FAE effect was statistically significant
-(\emph{M\_FAE}=10 ms, \emph{CI\_95\%}={[}7 13{]}), \emph{t}(2340)=7.24,
-\emph{p}\textless.0001l). A very small but statistically significant
+(\emph{M\_FAE}=10 ms, \emph{CI\_95\%}={[}7 13{]}, \emph{t}(2340)=7.24,
+\emph{p}\textless.0001). A very small, but statistically significant
 inhibitory priming effect was observed in the non-word condition
 (\emph{MOP\_NW}=-2 ms, \emph{CI\_95\%}={[}-4 0{]}, \emph{t}(2340)=-2.33,
 \emph{p}\textless.0001). Similarly, the GLMM analysis confirmed that
 both main effects (condition: \(\chi^2=2978.35, p<.0001\); primetype:
-\(\chi^2=1531.12, p<.0001\)) and their interaction
-(\(\chi^2=870.27, p<.0001\)) were significant.
+\(\chi^2=1531.12, p<.0001\)), and their interaction
+(\(\chi^2=870.27, p<.0001\)) were significant. As reported in
+Table~\ref{tbl-exp1-statsResults-anova} and
+Table~\ref{tbl-exp1-statsResults-glmm}, the estimates based on the ANOVA
+and GLMM models overlap with one another, which suggest the two models
+to be substantially equivalent.
 
-In the error analysis, the ANOVA analysis revealed significant effects
-for both main effects (condition: \emph{F}(1, 2340)=392.5,
+In the error analysis, the ANOVA revealed significant effects for both
+main effects (condition: \emph{F}(1, 2340)=392.5,
 \emph{p}\textless.0001; primetype: \emph{F}(1, 2340)=380.5,
 \emph{p}\textless.0001) and interaction \emph{F}(1, 2340)=55.47,
-\emph{p}\textless.0001). Planned comparison revealed significant priming
-effects in the form of fewer errors in the repeated compared to
+\emph{p}\textless.0001). Planned comparisons revealed significant
+priming effects in the form of fewer errors in the repeated compared to
 unrelated trials in the all conditions (high: \emph{t}(2340)=9.95,
 \emph{p}\textless.0001; low: \emph{t}(2340)=16.9,
 \emph{p}\textless.0001; non-word: \emph{t}(2340)=-3.27, \emph{p}=.001).
@@ -931,8 +866,9 @@ their interaction (\(\chi^2=307.57, p<.0001\)) were significant.
 
 \begin{longtable}{lrrrrrrrrlrrrrl}
 
-\caption{\label{tbl-exp1-statsResults}Experiment 1. Summary of the word
-priming results. \emph{Legend.} MOP: magnitude of priming.}
+\caption{\label{tbl-exp1-statsResults-anova}Experiment 1. Summary of the
+word priming results calculated within the ANOVA model. \emph{Legend.}
+MOP: magnitude of priming.}
 
 \tabularnewline
 
@@ -949,297 +885,142 @@ frequency:primetype &   &   &   &   &   &   & 0.029 & 10 & [7 13] & 66 & 0.15 & 
 
 \end{longtable}
 
-\elandscape
+\begin{longtable}{lrlrrlrrlr}
 
-\subsection{Discussion}\label{sec-exp1-discussion}
-
-Experiment 1 was designed to investigate whether Frequency Attenuation
-Effects (FAE) can be detected under masked priming conditions (with SOA
-= 33 ms). We managed to recruit a very large sample size (\(N=2341\)) to
-ensure adequate statistical power for detecting even small effect sizes.
-Our results not only showed statistically significant main effects of
-repetition for high and low frequency words alike, but also detected a
-statistically significant interaction: the low-frequency condition
-yielded priming effects that were 10 ms larger than the high-frequency
-condition with a margin of error as narrow as 5 ms. The absence of a
-robust non-word masked priming response has been used as an additional
-piece of evidence supporting the view that the masked priming response
-stems from lexical memory and is devoid of episodic influences (e.g.,
-Forster 1999). The results of this experiment align with the previous
-evidence in showing at best very small inhibitory masked repetition
-priming for non-words, with very high precision: the 95\% CI indicates
-the plausible range for the masked repetition priming effect for
-non-words to be between -4 and 0 ms when prime duration is 33 ms.
-
-\section{Experiment 2}\label{sec-exp2}
-
-The results of experiment 1 showed that with the right sample size, the
-repetition priming response may indeed be modulated by word frequency.
-However, the experiment was carried out with a unusually short prime
-duration (i.e., 33 ms). In previous pilot experiments carried out at
-longer durations (e.g., 48 ms), we observed that the distribution of the
-prime duration tended to be more positively skewed, with a substantial
-increase of the number of trials with a prime duration above the
-subliminal threshold of 60 ms. While being aware of these methodological
-limitations, we carried out a follow-up experiment that elicited the
-repetition priming response to the same materials used in experiment 1,
-with a longer prime duration (i.e., 48 ms), which is more in line with
-the literature on the topic. The aim for this experiment was three-fold.
-From the methodological point of view, it may show that a shorter prime
-duration in online masked priming experiment may prevent unnecessary
-data loss, while still providing reliable results. From the theoretical
-point of view, it may provide further evidence on two separate issues.
-First, it may inform on the interaction between priming and prime
-duration. In particular, we expect the longer prime duration to elicit a
-larger facilitation, and therefore a larger magnitude of priming.
-Second, and more importantly for the question being asked here, it may
-further inform on the size of the interaction between priming and word
-frequency.
-
-\subsection{Methods}\label{sec-exp2-methods}
-
-\subsubsection{Participants}\label{sec-exp2-methods-participants}
-
-Two thousand and six hundred participants (1,551 females; \emph{mean
-age} = 39, \emph{sd age} = 12) were recruited on Prolific
-(\url{https://www.prolific.com}) with the same criteria specified for
-experiment 1 (Section~\ref{sec-exp1-methods-participants}). Prior to
-recruitment, the participants participating in experiment 1 were
-excluded from the pool, so that the participants recruited for
-experiment 2 was completely different from the participants recruited
-for experiment 1.
-
-\subsubsection{Design}\label{sec-exp2-methods-design}
-
-The experimental design was identical to experiment 1.
-
-\subsubsection{Materials}\label{sec-exp2-methods-materials}
-
-The experimental items were the same as experiment 1.
-
-\subsubsection{Procedure}\label{sec-exp2-methods-proc}
-
-Experiment 2 followed the same procedures as experiment 1 (see
-Section~\ref{sec-exp1-methods-proc}). The median time to finish the
-experiment was the same as experiment 1 (i.e., about 6 minutes).
-
-\subsection{Data analysis}\label{sec-exp2-analysis}
-
-Analysis scripts and an abridged version of the data collected can be
-found online (\url{https://osf.io/k3gpc}), and consisted of 295,940
-observations in total. We performed the same three steps of analysis
-described for experiment 1 (Section~\ref{sec-exp1-analysis}).
-
-\subsubsection{Step 1: subject and item
-performance}\label{sec-exp2-analysis-performance}
-
-Item and subject error rates were calculated. Similarly to experiment 1,
-the item error rate was never above 12\%, so no item was excluded from
-analysis. 39 subjects were removed because their error rate was above
-30\%. Thus, a total of 265,982 observations and 2,558 participants were
-included in further analyses.
-
-\subsubsection{Step 2: prime
-durations}\label{sec-exp2-analysis-primeTime}
-
-Prime fluctuations were dealt with in the same way as in experiment 1
-(Section~\ref{sec-exp1-analysis-primeTime}). The mean (mean = 50.11 ms,
-sd = 11.13) and the median (median = 50 ms) prime durations were closer
-to the intended value (50 ms). The same prime duration cut-off set for
-experiment 1 (i.e., any trial whose prime duration was out of the
-25-60ms range) removed 20 \% of the trials. As compared to experiment 1,
-experiment 2 had therefore a 7\% larger percentage of removed
-out-of-range trials, the majority of which (18\%) were above the
-subliminal threshold. This is in sharp contrast with the distribution of
-the prime durations in experiment 1, where the trials above the range
-amounted to only 0\% of the dataset. As observed in previous studies and
-pilot conducted in our lab, this distribution suggests that setting the
-prime duration closer to either limit of a given range has the side
-effect of allowing for more fluctuations around either limit, thus
-potentially leading to greater data loss (see also further below). No
-participant was excluded, for a total of 213,078 observations.
-
-\subsubsection{Step 3: RT analysis}\label{sec-exp2-analysis-RT}
-
-After removing the incorrect responses, similarly to experiment 1
-(Section~\ref{sec-exp1-analysis-RT}), 0.59\% of the trials were excluded
-if their corresponding RT was below 200 ms or above 1800 ms. Finally,
-634 subjects were removed because the number of trials within the same
-condition was less than 7 (i.e., about half of the total number of
-trials being presented within the same condition, i.e.~13). A total of
-168,195 observations and 1,924 subjects were included in the statistical
-analysis below. The substantial number of subjects being removed at this
-final stage was the ultimate side effect of the increased number of
-out-of-range trials that were removed during the previous step of
-analysis, and provides further evidence of the risks with setting the
-prime duration closer to the upper bound of the subliminal range.
-
-\subsection{Results}\label{sec-exp2-results}
-
-Table~\ref{tbl-exp2-statsResults} below report the descriptive
-statistics of the experiment. For experiment 2, we ran the same
-statistical analyses as experiment 1. In the word analysis, a 2x2
-repeated-measures ANOVA revealed significant main effects (condition:
-\emph{F}(1, 1923)=987.4, \emph{p}\textless.0001; primetype: \emph{F}(1,
-1923)=1447, \emph{p}\textless.0001) and interaction \emph{F}(1,
-1923)=36.82, \emph{p}\textless.0001). Planned comparisons confirmed
-statistically significant repetition priming effects for both word
-conditions (\emph{MOP\_HF}=26 ms, \emph{CI\_95\%}={[}24 28{]},
-\emph{t}(1923)=24.6, \emph{p}\textless.0001; \emph{MOP\_LF} = 35 ms,
-\emph{CI\_95\%}={[}33 37{]}, \emph{t}(1923)=30.2,
-\emph{p}\textless.0001), with the low-frequency word repetition priming
-effect being 10 ms larger than the high-frequency word repetition
-priming effect. This FAE effect was statistically significant
-(\emph{M\_FAE}=9 ms, \emph{CI\_95\%}={[}6 12{]}), \emph{t}(1920)=6.07,
-\emph{p}\textless.0001). A very small but statistically significant
-inhibitory priming effect was observed in the non-word condition
-(\emph{MOP\_NW}=-4 ms, \emph{CI\_95\%}={[}-6 -2{]},
-\emph{t}(1923)=-3.53, \emph{p}=.0004). The GLMM analysis confirmed
-significant effects for condition (\(\chi^2=2613.3, p<.0001\)),
-primetype (\(\chi^2=1700.5, p<.0001\)), and their interaction
-(\(\chi^2=1158.9, p<.0001\)).
-
-In the error analysis, the ANOVA showed significant effects for both
-main effects (condition: \emph{F}(1, 2340)=392.5,
-\emph{p}\textless.0001; primetype: \emph{F}(1, 2340)=380.5,
-\emph{p}\textless.0001) and interaction \emph{F}(1, 2340)=55.47,
-\emph{p}\textless.0001). Planned comparisons confirmed significant
-priming effects in the form of fewer errors in repeated compared to
-unrelated trials in the all conditions (high: \emph{t}(1923)=9.30,
-\emph{p}\textless.0001; low: \emph{t}(1923)=15.8,
-\emph{p}\textless.0001; non-word: \emph{t}(1923)=-2.32, \emph{p}=.002).
-Similar results were obtained in the GLMM error analysis (condition:
-\(\chi^2=51.50, p<.0001\); primetype: \(\chi^2=97.42, p<.0001\);
-interaction: \(\chi^2=283.77, p<.0001\).
-
-\blandscape
-
-\begin{longtable}{lrrrrrrrrlrrrrr}
-
-\caption{\label{tbl-exp2-statsResults}Experiment 2. Summary of the word
-priming results. \emph{Legend.} MOP: magnitude of priming.}
+\caption{\label{tbl-exp1-statsResults-glmm}Experiment 1. Summary of the
+word priming results calculated within the GLMM model. \emph{Legend.}
+MOP: magnitude of priming.}
 
 \tabularnewline
 
 \toprule
- & \multicolumn{3}{c}{unrelated RT} & \multicolumn{3}{c}{repetition RT} &  & \multicolumn{4}{c}{priming effects} & \multicolumn{3}{c}{\emph{t}-test} \\ 
-\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){9-12} \cmidrule(lr){13-15}
-factor & mean & SD & Error (\%) & mean & SD & Error (\%) & cor & MOP & 95\% CI & SD\textsubscript{p} & ES & \emph{t} & df & \emph{p} \\ 
+ & \multicolumn{3}{c}{unrelated RT} & \multicolumn{3}{c}{repetition RT} & \multicolumn{3}{c}{priming effects} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+factor & mean & 95\% CI & SE & mean & 95\% CI & SE & MOP & 95\% CI & SE \\ 
 \midrule\addlinespace[2.5pt]
-high & 574 & 83 & 3 & 548 & 83 & 2 & 0.850 & 26 & [24 28] & 46 & 0.56 & 24.595576 & 1923 & 2.27e-116 \\ 
-low & 605 & 89 & 6 & 570 & 89 & 3 & 0.840 & 35 & [33 37] & 51 & 0.69 & 30.185474 & 1923 & 3.51e-164 \\ 
-non-word & 629 & 108 & 4 & 633 & 110 & 5 & 0.900 & -4 & [-6 -2] & 50 & -0.08 & -3.525726 & 1923 & 4.32e-04 \\ 
-frequency:primetype &   &   &   &   &   &   & 0.024 & 9 & [6 12] & 68 & 0.13 & 6.068254 & 1923 & 1.55e-09 \\ 
+high & 604 & [607 602] & 0.85 & 585 & [588 583] & 0.90 & 19 & [17 21] & 0.63 \\ 
+low & 634 & [637 632] & 0.73 & 606 & [608 604] & 0.83 & 28 & [26 31] & 0.84 \\ 
+non-word & 645 & [647 643] & 0.75 & 647 & [649 645] & 0.84 & -2 & [-4 0] & 0.62 \\ 
+frequency*primetype &   &   &   &   &   &   & 9 & [7 12] & 1.03 \\ 
 \bottomrule
 
 \end{longtable}
 
 \elandscape
 
-\subsection{Discussion}\label{sec-exp2-discussion}
+\subsection{Discussion}\label{sec-exp1-discussion}
 
-Experiment 2 was designed to investigate whether a frequency attenuation
-effect akin to the one detected in experiment 1 at SOA of 33 ms can be
-detected at the longer, and most commonly used SOA of 48 ms. To this
-end, we used the same stimuli and recruited the same sample size as
-experiment 1, and only set the prime duration accordingly. First, we
-found that the masked repetition priming to both high and low-frequency
-words were respectively about 8 ms larger in experiment 2 than in
-experiment 1, resulting from the longer prime duration (Forster, Mohan,
-and Hector 2003). Nevertheless, the significant interaction effect size
-amounted to 9 ms, which is only 1 ms away from the estimate of the
-interaction in experiment 1 (10 ms), but well within its 95\% CI (which
-ranged from 7 ms to 13 ms). Finally, similarly to experiment 1, the
-magnitude of non-word masked repetition priming response in experiment 2
-was inhibitory, though slightly larger (-4 ms, as compared to -2 ms of
-experiment 1).
+Experiment 1 was designed to investigate whether Frequency Attenuation
+Effects (FAE) can be detected in masked priming with a prime duration of
+33 ms. Our findings replicated the results of Angele et al. (2023),
+Cayado, Wray, and Stockall (2023), and Petrosino, Sprouse, and Almeida
+(2023), showing statistically significant masked repetition priming
+effects in a web browser-based experiment for both high- and
+low-frequency words. Crucially, the results also confirmed the presence
+of an FAE, evidenced by a statistically significant interaction: the
+priming effect for low-frequency words was 10 ms larger than that for
+high-frequency words. Additionally, due to the large sample size, the
+FAE was estimated with high precision, yielding a narrow margin of error
+of 3 ms.
 
-At the face value, experiment 2 is very similar to experiment 1 on
-several respects. First, they involved the exact the same stimuli and
-the same sample size from the same pool (i.e., the Prolific pool;
-crucially though, different participants were recruited for each
-experiment). Second, they were both analyzed with the exact same
-analysis pipeline, and, in particular, with the same criterion to detect
-trials with outlying prime durations. Third, the estimates (means, SDs,
-error percentages, and correlations) of both experiments are numerically
-very close to one another, with the maximal differences almost
-exclusively present in the repetition conditions. For these reasons, one
-may therefore argue against its methodological and theoretical validity,
-and may deem the differences of the magnitude of priming across the two
-experiments might have just been due to sampling error having two major
-sources. The first source of sampling error is the inherent imprecision
-in the presentation of the prime. Regardless of the preset duration of
-the prime, there was an inherent inaccuracy in the actual presentation
-of the prime in both experiments. The analysis pipeline (and, in
-particular, with the criterion to detect trials with outlying prime
-durations) described in detail above might have therefore led to two
-datasets with a similar distribution of the prime durations.
-Figure~\ref{fig-prime-distributions} shows the distributions of the
-prime durations for both datasets after the last analysis step. The two
-distributions minimally overlap, with most of the trials peaking at
-about the relative preset duration (i.e., 33 and 48 ms). The difference
-between the two distribution was also statistically significant:
-\(t(394431)=-868.47, p<.0001\).
+Interestingly, in addition to the reliable FAE, our results align with
+previous studies (Cayado, Wray, and Stockall 2023; Petrosino, Sprouse,
+and Almeida 2023) in showing a minimal inhibitory masked repetition
+priming effect for non-words, with very high precision. The 95\%
+confidence interval (CI) suggests that the plausible range for the
+masked repetition priming effect for non-words, at a prime duration of
+33 ms, is between -4 ms and 0 ms.
 
-\phantomsection\label{cell-fig-prime-distributions}
-\begin{figure}[H]
+These findings help dispel doubts about whether an FAE can be observed
+in masked priming, challenging earlier studies that failed to detect
+this effect. However, the results also raise questions about the size
+and malleability of the FAE. The FAE observed in Experiment 1 (10 ms) is
+substantially smaller than those reported in other studies where
+significant FAEs were found (e.g., Kinoshita 2006), where the effect was
+around 30 ms. What could account for this discrepancy in effect size?
+One possibility is that the 30 ms estimate is inflated due to the lower
+statistical power in many previous experiments. As noted in the
+introduction, low power can lead to overestimated effect sizes when
+results are statistically significant. When examining the range of
+effect sizes in Table~\ref{tbl-litReview}, we find that the average FAE
+is approximately 15 ms, which is half the size of those observed when
+statistically significant results were obtained. This 15 ms estimate is
+closer to the 10 ms effect size observed in Experiment 1, but still
+somewhat larger. Thus, there appears to be a potential discrepancy
+between the FAE effect sizes reported in the literature and the estimate
+from Experiment 1.
 
-\centering{
+One possible explanation for this discrepancy is the difference in prime
+duration used in Experiment 1 (33 ms) compared to most previous studies
+(\(\geq 50 ms\)). It is plausible that the FAE scales linearly with
+prime duration in masked priming, similar to how repetition priming
+effects increase with longer prime durations. In fact, this is an actual
+prediction of \emph{IA} models (see Grainger et al. 2012).
 
-\includegraphics{index_files/figure-pdf/fig-prime-distributions-1.pdf}
+Fortunately, Angele et al. (2023) and Petrosino, Sprouse, and Almeida
+(2023) have already demonstrated that web browser-based experiments can
+replicate the proportionality between prime duration and the magnitude
+of masked identity priming, consistent with Forster, Mohan, and Hector
+(2003). Both studies showed that increasing the prime duration from 33
+ms to 50 ms resulted in larger identity priming effects. This provides
+an opportunity to test whether the discrepancy in FAE effect size
+between Experiment 1 and prior literature is due to the shorter prime
+duration used in our study. The goal of Experiment 2, therefore, is to
+leverage the established linear scaling of repetition effects with prime
+duration in masked priming to determine whether extending the prime
+duration also increases the magnitude of the FAE.
 
-}
+\section{Experiment 2}\label{sec-exp2}
 
-\caption{\label{fig-prime-distributions}Distribution of the prime
-durations across the two experiments.}
+Experiment 2 is an exact replication of experiment 1, with one
+difference: the prime duration is set to 50ms instead of 33ms. The
+predictions are straightforward: if the FAE scales with prime duration,
+then the FAE in experiment 2 should be larger than the one observed in
+experiment 1. This result would explain why the FAE observed in
+experiment 1 was smaller than the ones observed in prior studies.
 
-\end{figure}%
+In order to facilitate the interpretation of the results of experiment
+2, we calculate the 95\% \emph{prediction intervals} (PI; cf. Patil,
+Peng, and Leek 2016; Spence and Stanley 2016) for a replication of
+experiment 1 with the effective sample size of experiment 2 (cf.
+Table~\ref{tbl-pis}). The logic of the \emph{prediction interval} is to
+establish a range of possible effect sizes that can be expected in a
+replication due only to sampling error. In order words, if the only
+difference between the original study and the replication study is
+sampling variability, we should expect the effect sizes of the
+replication study to fall within the 95\% PI set by the previous study.
 
-The second source of sampling error is equally unavoidable and present
-in every study: participant selection, and is ensured by the fact that
-recruiting sample sizes approaching infinity is virtually impossible.
-One way to gauge the extent to which such source of sampling error might
-have affected the differences in the effect sizes of the two experiments
-is to calculate the \emph{prediction intervals} on the results of
-experiment 1, and check if the results of experiment 2 fall within them.
-Unlike confidence intervals, the lesser-known prediction intervals are
-calculated around the original study's mean (rather than the population
-mean), and express the amount of deviation that a future replication of
-the study may allow for due to sampling error (Spence and Stanley 2016).
-In our case, if the results of experiment 2 falls within the prediction
-interval above, it would suggest that the deviation between the two
-experiment was just due to sampling error, and therefore experiment 2 is
-a replication of experiment 1. Conversely, if the results of experiment
-2 falls within the prediction interval above, it would suggest that the
-deviation between the two studies could not be due to sampling error,
-and therefore experiment 2 is not a replication of experiment 1. The
-prediction intervals for the means of the three conditions and the
-interaction between the two word condition (i.e., FAE) of experiment 1
-were calculated by using the function \texttt{pi.m()} of the R package
-\texttt{predictionInterval} (available in the
-\href{https://cran.r-project.org/web/packages/predictionInterval/predictionInterval.pdf}{CRAN
-repository}), and are reported in Table~\ref{tbl-pis} below. In
-experiment 2, while the estimates of the non-word condition and the FAE
-fall within the relative prediction interval (\emph{MOP\_NW} = -4 ms,
-\emph{PI\_95\%} = {[}-5 1{]}; \emph{FAE} = 9 ms, \emph{PI\_95\%} = {[}6
-14{]}), the estimates of both word conditions are respectively 5 and 4
-ms above the corresponding PIs (\emph{MOP\_HF} = 26 ms, \emph{PI\_95\%}
-= {[}15 21{]}; \emph{MOP\_LF} = 35 ms, \emph{PI\_95\%} = {[}25 31{]}).
-Our interpretation of these results is three-fold. First, the fact that
-the the word priming effects of experiment 2 (for both the high and
-low-frequency conditions) are outside the prediction intervals of
-experiment 1 suggest that the effects elicited in experiment 2 may not
-be considered as mere replications of the effects elicited in experiment
-1. Rather, they corroborate the view that priming may significantly
-benefit from a longer prime duration. Second, the masked repetition
-non-word priming effect size being replicated in both experiments
-further corroborates the commonly-accepted view that the masked priming
-response taps into lexical memory, rather than pure orthographic
-decoding. Finally, and more importantly for the main purpose of the
-paper, the estimate of the FAE of experiment falling within the relative
-prediction interval further confirms the presence of an interaction
-effect between priming and frequency, while not being contingent on the
-duration of the prime.
+According to Table~\ref{tbl-pis}, we can make the following predictions
+for experiment 2: (1) Non-word repetition effects in masked priming are
+thought to be independent of prime duration (mostly because they are at
+best negligible to begin with). Thus, as far as the non-words are
+concerned, experiment 2 can be seen as a simple replication of
+experiment 1. The \emph{PI\_95\%} for non-words from experiment 1 is
+{[}-5ms 1ms{]}. Thus, we expect that the effect size for non-word
+repetition in experiment 2 could be as low a -5ms or as high as 1ms; any
+result beyond these bounds would strongly imply that the differences
+between the effect sizes of the two experiments cannot be explained
+simply in terms of sampling error. (2) Masked repetition effects for
+words, on the other hand, are thought to linearly increase in magnitude
+as a function of prime duration. Thus, we expect that in experiment 2
+the repetition effect size for LF and HF conditions should be superior
+to the upper bounds of the \emph{PIs\_95\%} of experiment 1. The
+\emph{PI\_95\%} from experiment 1 for the the repetition of HF words is
+{[}15ms 21ms{]}; the one for the LF condition is {[}25ms 31ms{]}. Thus,
+if our prime duration manipulation is successful in experiment 2, we
+should expect the repetition effect for the HF condition to be larger
+than 21ms while the same effect for the LF condition should be larger
+than 31 ms. (3) It is presently unclear whether the FAE interacts with
+prime duration. Given the FAE \emph{PI\_95\%} {[}6ms 14ms{]} from
+experiment 1, we can interpret the results of experiment 2 in the
+following manner: if the FAE in experiment 2 falls within the {[}6ms
+14ms{]} interval, we have no particular reason to think that FAE
+interacts with prime duration, as this result is exactly what would have
+been predicted if experiment 2 was a direct replication of experiment 1.
+However, if the FAE in experiment 2 is larger than 14 ms (as the
+previous literature implies), then we have good reason to believe that
+the FAE linearly scales with prime duration, much like masked repetition
+priming effects do.
 
 \begin{longtable}{lrrrrl}
 
@@ -1261,133 +1042,429 @@ frequency:primetype & 10 & 66 & 2341 & 1924 & [6 14] \\
 
 \end{longtable}
 
+\subsection{Methods}\label{sec-exp2-methods}
+
+\subsubsection{Participants}\label{sec-exp2-methods-participants}
+
+Two thousand and six hundred participants (1,551 females; \emph{mean
+age} = 39, \emph{sd age} = 12) were recruited on Prolific
+(\url{https://www.prolific.com}) with the same criteria specified for
+experiment 1 (Section~\ref{sec-exp1-methods-participants}). Participants
+from experiment 1 were excluded from the recruiment pool, to ensure an
+completely new set of participants.
+
+\subsubsection{Design}\label{sec-exp2-methods-design}
+
+The experimental design was identical to experiment 1.
+
+\subsubsection{Materials}\label{sec-exp2-methods-materials}
+
+The experimental items were the same as experiment 1.
+
+\subsubsection{Procedure}\label{sec-exp2-methods-proc}
+
+Experiment 2 followed the same procedures as experiment 1 (see
+Section~\ref{sec-exp1-methods-proc}). The only difference was the prime
+duration, which was set to 50 ms. The median time to finish the
+experiment was about 6 minutes, like in experiment 1.
+
+\subsection{Data analysis}\label{sec-exp2-analysis}
+
+The analysis and data pre-processing plan were the same as in experiment
+1 (Section~\ref{sec-exp1-analysis}). Analysis scripts and an abridged
+version of the data collected can be found online
+(\url{https://osf.io/k3gpc}), and consisted of 295,940 observations in
+total.
+
+\subsubsection{Step 1: subject and item
+performance}\label{sec-exp2-analysis-performance}
+
+Item and subject error rates were calculated. Similarly to experiment 1,
+the item error rate was never above 12\%, so no item was excluded from
+analysis. 39 subjects were removed because their error rate was above
+30\%. Thus, a total of 265,982 observations and 2,558 participants were
+included in further analyses.
+
+\subsubsection{Step 2: prime
+durations}\label{sec-exp2-analysis-primeTime}
+
+Prime fluctuations were dealt with in the same way as in experiment 1
+(Section~\ref{sec-exp1-analysis-primeTime}). The mean (mean = 50.11 ms,
+sd = 11.13 ms) and the median (median = 50 ms) prime durations were
+closer to the intended value (50 ms). The same prime duration cut-off
+set for experiment 1 (i.e., any trial whose prime duration was out of
+the 25-60ms range) removed 20 \% of the trials. As compared to
+experiment 1, experiment 2 had therefore a 7\% larger percentage of
+removed out-of-range trials, the majority of which (18\%) were above the
+subliminal threshold. This is in contrast with the distribution of the
+prime durations in experiment 1, where the trials above the range
+amounted to only 0\% of the dataset. As observed in previous studies and
+pilot conducted in our lab, this distribution suggests that setting the
+prime duration closer to either limit of a given range has the side
+effect of allowing for more fluctuations beyond either limit, thus
+potentially leading to greater data loss (see also further below). No
+participant was excluded, for a total of 213,078 observations.
+
+\subsubsection{Step 3: RT analysis}\label{sec-exp2-analysis-RT}
+
+After removing the incorrect responses, similarly to experiment 1
+(Section~\ref{sec-exp1-analysis-RT}), 0.59\% of the trials were excluded
+if their corresponding RT was below 200 ms or above 1800 ms. Finally,
+634 subjects were removed because the number of trials within the same
+condition was less than 7 (i.e., about half of the total number of
+trials being presented within the same condition, i.e.~13). A total of
+168,195 observations and 1,924 subjects were included in the statistical
+analysis below. The substantial number of subjects being removed at this
+final stage was the side effect of the increased number of out-of-range
+trials that were removed during the previous step of analysis,
+demonstrating that setting the prime duration closer to the upper bound
+of the subliminal range may incur in a higher degree of data loss in
+online masked priming experiments.
+
+\subsection{Results}\label{sec-exp2-results}
+
+In the word analysis, the 2x3 repeated-measures ANOVA model revealed
+significant main effects (condition: \emph{F}(1, 1923)=987.4,
+\emph{p}\textless.0001; primetype: \emph{F}(1, 1923)=1447,
+\emph{p}\textless.0001) and interaction \emph{F}(1, 1923)=36.82,
+\emph{p}\textless.0001). Planned comparisons confirmed statistically
+significant repetition priming effects for both word conditions
+(\emph{MOP\_HF}=26 ms, \emph{CI\_95\%}={[}24 28{]}, \emph{t}(1923)=24.6,
+\emph{p}\textless.0001; \emph{MOP\_LF} = 35 ms, \emph{CI\_95\%}={[}33
+37{]}, \emph{t}(1923)=30.2, \emph{p}\textless.0001), with the
+low-frequency word repetition priming effect being 10 ms larger than the
+high-frequency word repetition priming effect. This FAE effect was
+statistically significant (\emph{M\_FAE}=9 ms, \emph{CI\_95\%}={[}6
+12{]}), \emph{t}(1920)=6.07, \emph{p}\textless.0001). A very small but
+statistically significant inhibitory priming effect was observed in the
+non-word condition (\emph{MOP\_NW}=-4 ms, \emph{CI\_95\%}={[}-6 -2{]},
+\emph{t}(1923)=-3.53, \emph{p}=.0004). The GLMM analysis confirmed
+significant effects for condition (\(\chi^2=2613.3, p<.0001\)),
+primetype (\(\chi^2=1700.5, p<.0001\)), and their interaction
+(\(\chi^2=1158.9, p<.0001\)). Similarly to experiment 1, the estimates
+of both models were equivalent (see
+Table~\ref{tbl-exp2-statsResults-anova} and
+Table~\ref{tbl-exp2-statsResults-glmm})
+
+In the error analysis, the ANOVA showed significant effects for both
+main effects (condition: \emph{F}(1, 2340)=392.5,
+\emph{p}\textless.0001; primetype: \emph{F}(1, 2340)=380.5,
+\emph{p}\textless.0001) and interaction \emph{F}(1, 2340)=55.47,
+\emph{p}\textless.0001). Planned comparisons confirmed significant
+priming effects in the form of fewer errors in repeated compared to
+unrelated trials in the all conditions (high: \emph{t}(1923)=9.30,
+\emph{p}\textless.0001; low: \emph{t}(1923)=15.8,
+\emph{p}\textless.0001; non-word: \emph{t}(1923)=-2.32, \emph{p}=.002).
+Similar results were obtained in the GLMM error analysis (condition:
+\(\chi^2=51.50, p<.0001\); primetype: \(\chi^2=97.42, p<.0001\);
+interaction: \(\chi^2=283.77, p<.0001\)).
+
+\blandscape
+
+\begin{longtable}{lrrrrrrrrlrrrrr}
+
+\caption{\label{tbl-exp2-statsResults-anova}Experiment 2. Summary of the
+word priming results within the ANOVA model. \emph{Legend.} MOP:
+magnitude of priming.}
+
+\tabularnewline
+
+\toprule
+ & \multicolumn{3}{c}{unrelated RT} & \multicolumn{3}{c}{repetition RT} &  & \multicolumn{4}{c}{priming effects} & \multicolumn{3}{c}{\emph{t}-test} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){9-12} \cmidrule(lr){13-15}
+factor & mean & SD & Error (\%) & mean & SD & Error (\%) & cor & MOP & 95\% CI & SD\textsubscript{p} & ES & \emph{t} & df & \emph{p} \\ 
+\midrule\addlinespace[2.5pt]
+high & 574 & 83 & 3 & 548 & 83 & 2 & 0.850 & 26 & [24 28] & 46 & 0.56 & 24.595576 & 1923 & 2.27e-116 \\ 
+low & 605 & 89 & 6 & 570 & 89 & 3 & 0.840 & 35 & [33 37] & 51 & 0.69 & 30.185474 & 1923 & 3.51e-164 \\ 
+non-word & 629 & 108 & 4 & 633 & 110 & 5 & 0.900 & -4 & [-6 -2] & 50 & -0.08 & -3.525726 & 1923 & 4.32e-04 \\ 
+frequency:primetype &   &   &   &   &   &   & 0.024 & 9 & [6 12] & 68 & 0.13 & 6.068254 & 1923 & 1.55e-09 \\ 
+\bottomrule
+
+\end{longtable}
+
+\begin{longtable}{lrlrrlrrlr}
+
+\caption{\label{tbl-exp2-statsResults-glmm}Experiment 2. Summary of the
+word priming results within the GLMM model. \emph{Legend.} MOP:
+magnitude of priming.}
+
+\tabularnewline
+
+\toprule
+ & \multicolumn{3}{c}{unrelated RT} & \multicolumn{3}{c}{repetition RT} & \multicolumn{3}{c}{priming effects} \\ 
+\cmidrule(lr){2-4} \cmidrule(lr){5-7} \cmidrule(lr){8-10}
+factor & mean & 95\% CI & SE & mean & 95\% CI & SE & MOP & 95\% CI & SE \\ 
+\midrule\addlinespace[2.5pt]
+high & 605 & [608 603] & 0.81 & 579 & [582 577] & 0.87 & 26 & [24 28] & 0.80 \\ 
+low & 633 & [635 631] & 0.81 & 598 & [600 596] & 0.77 & 35 & [32 37] & 0.85 \\ 
+non-word & 649 & [652 647] & 0.95 & 653 & [655 650] & 0.96 & -3 & [-5 -1] & 0.73 \\ 
+frequency*primetype &   &   &   &   &   &   & 8 & [6 11] & 1.05 \\ 
+\bottomrule
+
+\end{longtable}
+
+\elandscape
+
+\subsection{Discussion}\label{sec-exp2-discussion}
+
+Experiment 2 aimed to replicate the FAE observed in Experiment 1 using
+an extended prime duration of 50 ms, and to assess whether this longer
+prime would amplify the effect. To achieve this, the same stimuli and
+sample size from Experiment 1 were employed, with the sole modification
+being the increased prime duration.
+
+As predicted, we found that the masked repetition priming effect for
+both high- and low-frequency words increased by approximately 8 ms in
+Experiment 2 compared to Experiment 1. Specifically, the repetition
+priming effect for high-frequency words was 26 ms and for low-frequency
+words, 35 ms, both exceeding the upper bounds of the 95\% prediction
+interval from Experiment 1 (21 ms and 31 ms, respectively). This
+indicates that the manipulation of prime duration was effective.
+Notably, and consistent with our predictions, the repetition effect for
+the non-word condition was -2 ms, which fell within the 95\% prediction
+interval of Experiment 1 (i.e., {[}-5 1{]}). Furthermore, the larger
+priming response for the high- and low-frequency word conditions in
+Experiment 2 was driven entirely by faster recognition of the related
+word pairs. The RT estimates for the unrelated pairs, along with their
+standard deviations and error rates, were highly similar to those
+observed in Experiment 1. This finding lends additional support to the
+notion that the magnitude of the masked priming response is influenced
+by prime duration (Forster, Mohan, and Hector 2003).
+
+Crucially, we were also able to replicate the FAE in Experiment 2.
+However, the FAE in this experiment was 9 ms
+(\emph{CI\_95\%}\(_{exp2} = [6 12]\)), which is nearly identical to the
+FAE observed in Experiment 1 and falls within its 95\% prediction
+interval, i.e.~{[}6 ms 14 ms{]}. This suggests that, unlike the
+repetition effect in masked priming, the FAE does not interact with
+prime duration. Therefore, the difference in prime duration between
+Experiment 1 and prior studies in the literature does not appear to
+account for the observed discrepancies in the magnitude of the FAEs.
+
 \section{General discussion}\label{sec-discussion}
 
-The repetition priming response stands as a cornerstone in
-psycholinguistic investigations, offering insights into the mechanisms
-governing word recognition. An ongoing debate surrounds the
-interpretation of these effects, particularly concerning their source in
-the memory system. On the one hand, \emph{interactive activation models}
-(McClelland and Rumelhart 1981; Grainger and Jacobs 1996; Coltheart et
-al. 2001) posit a lexical source for repetition priming effects, either
-in terms of temporarily raised resting activation levels for lexical
-nodes in unmasked priming, or as a head start in the retrieval process
-in masked priming. \emph{Episodic} and \emph{memory recruitment models}
-(Jacoby and Dallas 1981; Jacoby 1983; Bodner and Masson 1997; Masson and
-Bodner 2003; Bodner and Masson 2014) on the other hand, invoke a
-non-lexical source for the repetition effect, namely an episodic or
-episodic-like memory resource formed upon brief exposure to the prime
-word that can be recruited during the processing of the target item.
-Crucially, both models predict a single mechanism underlying masked and
-unmasked priming. Differential mechanisms between unmasked and masked
-repetition priming, however, are predicted by the \emph{entry-opening
-model} (Forster and Davis 1984), which propose both lexical and episodic
-sources of priming effects.
+The masked priming paradigm stands as a cornerstone in psycholinguistic
+investigations, providing critical insights into the mechanisms of word
+recognition. However, there is still uncertainty about whether lexical
+frequency interacts with masked repetition priming, a phenomenon known
+as the Frequency Attenuation Effect (FAE). Many early findings suggested
+no such interaction, but more recent studies have contradicted this view
+(see Table~\ref{tbl-litReview}). Resolving this issue is theoretically
+important, as different word recognition models make divergent
+predictions about whether the FAE should occur in masked priming, and,
+if it does, how it should be explained.
 
-Thus, the existence of qualitatively distinct outcomes in masked and
-unmasked priming presented a direct challenge to some, but not all of
-these models. One such finding is the \emph{Frequency Attenuation
-Effect} (FAE), in which higher frequency words exhibit smaller
-repetition effects compared to lower frequency words. The FAE has been
-described as observable only in unmasked priming since the work of
-Forster and Davis (1984), who demonstrated that when the prime word is
-presented very briefly (SOA \(<\) 60 ms), it becomes masked by the
-target word, and this is hypothesized to prevent the conscious encoding
-of the prime. Under such conditions, the FAE purportedly disappears.
-Forster and Davis (1984) argued that this potentially shows that the FAE
-is subserved by a different type of memory source (perhaps episodic)
-than the masked repetition priming response. This conclusion, however,
-is the source of ongoing debates (see Table~\ref{tbl-litReview} for
-review of past findings), which the two experiments reported here were
-meant to address.
+\subsection{Accounting for the FAE}\label{accounting-for-the-fae}
 
-Within this research landscape, our experiments targeting the frequency
-sensitivity of the repetition effect under masked conditions contribute
-methodological and theoretical insights. Methodologically, our results
-help establish the viability and reliability of online data collection
-for the masked priming paradigm, building on the work of Angele et al.
-(2023), Cayado, Wray, and Stockall (2023) and Petrosino, Sprouse, and
-Almeida (2023).
+On one side, \emph{interactive activation} (IA) models (McClelland and
+Rumelhart 1981; Grainger and Jacobs 1996; Coltheart et al. 2001) and
+\emph{retrospective models} of priming, such as the \emph{memory
+recruitment model} (Bodner and Masson 1997; Masson and Bodner 2003;
+Bodner and Masson 2014), predict the FAE in masked priming. However,
+these theories differ in where they locate the effect. \emph{IA} models
+predict a lexical origin (see Grainger et al. 2012), while the memory
+recruitment model suggests a post-lexical source.
 
-In the same vein, the FAEs observed in experiments 1 and 2 have
-important theoretical ramifications. The historical belief that FAE
-fails to obtain in masked priming arose from a lack of statistically
-significant results. These were possibly rooted in the reliance of
-outdated frequency corpora by earlier experiments or inadequate
-statistical power to detect plausible effect sizes. Our design addressed
-these concerns, yielding statistically significant FAE results aligning
-with the literature's average effect (see Table~\ref{tbl-litReview}; the
-95\% CI implies that the FAE is unlikely to be larger than 13 ms with a
-33 ms prime duration). These results challenge the supposed qualitative
-distinction between masked and unmasked repetition priming cleaved by
-the FAE, complicating the rejection of single-mechanism theories, and
-suggesting that \emph{interactive-activation models} and \emph{memory
-recruitment models} may yet offer unifying explanations for masked and
-unmasked priming.
+On the other side, \emph{search models}, such as the \emph{entry-opening
+model} (Forster and Davis 1984), propose a more complex interaction
+between lexical and episodic memory. These models posit that under
+unmasked conditions, repetition priming is driven largely by
+\emph{episodic} memory, but under masked priming, \emph{episodic} memory
+plays no role, and thus masked repetition priming reveals primarily
+\emph{lexical} (and perhaps also \emph{sublexical}) level processes.
+According to the \emph{entry-opening model}, only two processes are at
+play within lexical structure: a frequency-ordered lexical search and
+the time required to open an entry once a potential match is flagged
+(the \emph{entry opening time}, EOT). The search is sensitive to word
+frequency, but the EOT is assumed to be uniform across all entries (and
+it is estimated at roughly 60ms by Forster, Mohan, and Hector 2003).
+Consequently, the model predicts no interaction between frequency and
+repetition priming under masked conditions, meaning the FAE should not
+be observable in masked repetition priming.
 
-Similarly, our results also challenge the entry-opening model's
-prediction of the absence of FAE in masked priming. One potential way of
-dealing with this in the \emph{entry opening model} is to claim that
-masked priming severely reduces, but does not entirely eliminate, the
-use of sources other than lexical memory (see Forster 1998; Forster,
-Mohan, and Hector 2003, for proposals along this line). Alternatively,
-within the entry-opening model, the results of this study may be
-explained by the frequency-based mechanism occurring in the fast search
-stage. A potential mechanism in this direction was already hinted at by
-Forster and Davis (1984) themselves, and consists of a procedure,
-whereby during the fast search stage, the entry of a prime word is
-promoted to the top position of the search list. As a consequence,
-low-frequency words (which are fairly low in the search list) will
-benefit from such promotion procedure more than high-frequency words
-(which are instead already in higher positions), thus ultimately giving
-rise to the FAE.
+Clearly then, the FAE in experiments 1 and 2 empirically aligns with the
+predictions of \emph{IA} and \emph{memory recruitment} models, insofar
+as both models predict an FAE under masked conditions. These findings
+contradict the \emph{entry opening model}, which predict predict no FAE
+in masked repetition priming.
 
-While our findings present a compelling case for the presence of FAE in
-masked priming that is seemingly parallel to the unmasked case,
-questions about potential mechanistic differences persist. The larger
-sample size needed for masked FAEs raises intriguing considerations
-about the influence of memory sources and warrants further
-investigation. For example, there is independent evidence for different
-mechanisms in masked and unmasked repetition priming from RT
-distributional analyses (cf. Gomez, Perea, and Ratcliff (2013)) that
-suggests that repetition priming under masked conditions affect
-primarily the encoding stage of the stimulus. Given that frequency is
-often associated with facilitation of encoding, our results could help
-support this view. Additionally, the trivially small inhibitory effect
-sizes of non-word masked repetition priming in experiments 1 and 2 align
-with the trend (overwhelmingly shown in the literature) that
-facilitatory effect may be exclusive to unmasked designs (Forster 1998;
-Forster, Mohan, and Hector 2003; but see Masson and Bodner 2003), and
-suggests avenues for future exploration.
+However, further considerations suggest that the FAEs observed in our
+studies may be less supportive of the \emph{memory recruitment model},
+which predicts the FAE only when the context of the behavioral task
+justifies drawing on a non-lexical memory resources post-lexically, such
+as increased task difficulty. In our experiments, task difficulty was
+deliberately minimized: both words and non-words had very high accuracy
+rates in the English Lexicon Project, leading to item error rates that
+never rose above 14\%, entirely avoiding the need for item exclusions.
+In addition, only 58 in 5200 participants, or 1.1\%, had an overall
+error rate above 30\%. Finally, many researchers may find implausible
+the assumption that episodic memory resources are formed at the very
+short prime durations used in experiment 1 (33 ms).
 
-Finally, the finding that the FAE occurs under masked priming conditions
-may impact our understanding of masked morphological priming. In this
-literature, there is a unresolved question about the ability of affixes
-to elicit masked morphological priming results (for a review, Amenta and
-Crepaldi 2012). In English, the evidence seems to indicate that only
-stems, but not affixes, have the ability to prime entries across the
-lexicon. This finding can and has been used to support models in which
-affixes are initially stripped before stems are accessed in the lexicon
-(Taft and Forster 1975; Forster and Azuma 2000; Stockall and Marantz
-2006). However, stems and affixes do also have a large frequency
-imbalance, with most affixes being substantially more frequent that most
-stems. The observation of FAE under masked priming can provide an
-alternative reason for why masked stem morphological priming is well
-attested but masked affix morphological priming is not: the latter could
-be due to a ceiling frequency attenuation effect. This is an intriguing
-possibility that must be left for future work to explore.
+Conversely, the \emph{entry-opening model} predicts a null FAE because
+it assumes a fixed EOT. This assumption, based on the observation that
+the magnitude of masked repetition effects mirror prime duration up to
+60ms (Forster, Mohan, and Hector 2003), is contradicted by our findings.
+In Experiment 2, where the prime duration was 50ms, the maximum
+repetition priming effect was 35ms for low-frequency words, suggesting
+that EOTs are not fixed at 60ms, nor do they match the prime duration in
+general (see Wu 2012 for a similar argument). Moreover, repetition
+priming effects were consistently smaller for high-frequency words,
+further challenging the model's assumption of uniform EOTs. Thus, if we
+relax the assumption that EOTs are uniform across the lexicon and
+instead posit that lower-frequency words have longer entry opening times
+than higher-frequency words, the \emph{entry-opening model}, like
+\emph{IA} models, could account for the FAE.
 
-In summary, our study successfully replicated and expanded upon the work
-of Angele et al. (2023), Cayado, Wray, and Stockall (2023) and
-Petrosino, Sprouse, and Almeida (2023), confirming the viability of
-observing repetition priming effects in masked priming experiments
-conducted online with a brief SOA of 33 ms. Notably, we addressed a
-lingering question in the literature by establishing the presence of the
-Frequency Attenuation Effect (FAE) under masked conditions. The use of
-large online samples proved instrumental in overcoming the longstanding
-challenge of insufficient statistical power to detect interactions in
-factorial designs, which we believe had impeded previous investigations
-into detecting the FAE in masked priming.
+\subsection{The independence of FAE from prime
+duration}\label{the-independence-of-fae-from-prime-duration}
+
+What about the finding that the FAE does not seem to interact with prime
+duration? Here, these models seem to make the wrong predictions.
+
+\emph{IA} models assume that it is stimulus exposure that drives
+activation of lexical nodes, and that frequency is directly related with
+lexical nodes activation levels, either in terms of setting their
+resting levels or in how fast they accumulate information from the
+input. Grainger et al. (2012) explains how the FAE is predicted by such
+a model: low-frequency words accumulate evidence more slowly that do
+high-frequency words. If one posits that stimulus repetition provide a
+uniform boost to lexical nodes, then compared to a situation where
+lexical nodes are at their resting activation levels (the unrelated
+condition), lower-frequency repeated words will reach their recognition
+threshold comparatively faster than would repeated high-frequency words
+(cf. Grainger et al. 2012, fig. 1). Under this view, however, the amount
+of activation boost to lexical nodes in the related condition is a
+function of stimulus exposure, and thus a longer prime duration should
+deliver a stronger initial activation boost, which can only lead to a
+magnification of the FAE. Therefore, it seems that the basic mechanics
+of \emph{IA} models, together with the assumptions that allow them to
+capture the FAE, also predict an interactive effect between FAE
+magnitude and prime duration, with larger FAE magnitudes predicted when
+prime durations are longer. In experiments 1 and 2, however, the
+increase from a 33ms to a 50ms prime duration elicited FAEs of same
+magnitude (approximately 10ms).
+
+The original \emph{entry opening model} does not predict a FAE, and so
+it cannot make any predictions about its potential interaction with
+prime duration. However, the modified version of the \emph{entry opening
+model} sketched above would be able to. If it is indeed true that EOTs
+are larger for lower-frequency words, then the relationship between
+prime duration and FAE should be somewhat nonlinear: while prime
+duration equals the EOTs of the higher frequency words, then no FAE
+should be observed. While the prime duration exceeds the EOTs for the
+higher frequency words, but it is still shorter than the EOTs of the
+lower frequency words, the FAE should increase linearly with prime
+duration. It should reach its maximum when the prime duration equals the
+EOTs of the lower frequency words. Beyond that point, increases in prime
+duration should no longer lead to increases in FAE, which should remain
+at its maximum magnitude, namely the difference between the EOTs of
+high- and low-frequency words.
+
+Unfortunately, we do not observe this predicted pattern in experiments 1
+and 2. For instance, in Experiment 1, the repetition effect for
+low-frequency words is close to the prime duration (a 28ms effect for a
+33ms prime duration), while the repetition effect for high-frequency
+words is 10ms shorter (a 18ms effect for a 33ms prime duration). If we
+assume that 28ms is not significantly different from 33ms, the modified
+\emph{entry opening model} would predict that the prime duration has not
+yet exceeded the \emph{opening times} of the low frequency words, while
+it clearly has exceeded the \emph{opening times} of the high-frequency
+words. Thus, the model would predict that an increase in prime duration
+would also increase the magnitude of the repetition effect for the LF
+condition, but not for the HF condition, leading to a larger FAE.
+However, while we did observe an increase in the magnitude of the
+repetition effect for the LF condition in experiment 2 (28ms in Exp.1
+and 35ms in Exp.2), the same was true for the HF condition (18ms in
+Exp.1 and 26ms in Exp.2), and thus the FAE was identical in magnitude
+across experiments. Conversely, if we take the results of experiment 1
+at face value, and assume that the 33ms prime duration exceeds both the
+\emph{opening times} of high- and low-frequency words (18ms and 28ms
+respectively), then the modified \emph{entry opening model} would indeed
+make the prediction that the FAE observed in experiment 1 reveals the
+maximum of the FAE as 10ms, and that this value should not increase when
+prime duration increases. However, the same model would also make the
+prediction that the repetition priming effects should remain stable
+across experiments, contrary to fact (they are both approximately 8ms
+longer in experiment 2).
+
+Thus, it seems neither \emph{IA} models nor the modified \emph{entry
+opening model} make the correct predictions about the pattern of results
+observed in experiments 1 and 2, namely a stable FAE effect across
+increases in prime duration, with a concomitant increase in repetition
+priming effects as a function of prime duration. \emph{IA} models would
+have predicted an increased FAE in experiment 2, and the modified
+\emph{entry opening model} would have predicted either an increased FAE
+in experiment 2, or exactly identical results in terms of FAE and
+repetition priming effects magnitudes in experiments 1 and 2.
+
+Can these models be amended to allow them to capture the results? On the
+one hand, given their core mechanics, \emph{IA} models can capture
+either a situation where FAE does not arise (ie. frequency is purely
+additive to repetition effects), or a situation where FAE is generated
+and it its magnitude is necessarily a function of the prime duration.
+Neither of these patterns match the results of experiments 1 and 2. So
+the results of experiment 1 and 2 pose a real challenge for \emph{IA}
+models.
+
+On the other hand, a different modification to the original \emph{entry
+opening model} may help explain both the existence of the FAE and its
+non-interaction with prime duration. If we assume that the exposure to
+the prime raises the rank order of the target word to the top of the
+search list, this would result in a boost that is a simple function of
+the repeated presentation, and therefore should not interact with prime
+duration. This boost would also impact high- and low-frequency words
+differently: while both words would benefit from repetition by being
+raised to the top of the search list, low-frequency words would be
+retrieved comparatively faster than high-frequency words when contrasted
+with their first retrieval times during the presentation of the prime.
+
+This simple mechanism explains at once the existence of the FAE and the
+fact that it does not interact with prime duration. For instance, in
+experiment 1, the 10ms FAE can be explained as follows: as the EOT is
+uniform, then it must be around 18ms (the repetition priming effect of
+high-frequency words). The repetition priming effect for low-frequency
+words (28ms) is then the the summation of the EOT (18ms) and the
+comparative speed up difference in retrieval time for the target words
+across high- and low-frequency condition (i.e, the FAE, which with this
+set of materials is 10ms).
+
+Unfortunately, this logic would fail to account for the results of
+experiment 2: if the EOT is indeed 18ms as shown in experiment 1, and
+the EOT is the only source of priming for high-frequency words, then
+this effect is already maxed out with a prime duration of 33ms. Why is
+it then that increasing the prime duration to 50ms in experiment 2 makes
+the effect approximately 8ms longer (26ms)? The only way this could be
+true is if the EOTs can vary substantially across samples of
+individuals; for instance, if the EOT for the sample in experiment 1 was
+18ms, but it was 26ms for the sample in experiment 2. The problem with
+this assumption is that it seems arbitrary to assume that the EOT can
+vary substantially (here \textasciitilde8ms) across our two very large
+samples, which are able to produce very narrow margins of errors around
+precise estimates for a number of relevant measurements, such as the
+mean and standard deviations RT for the unrelated conditions and
+non-word conditions and the magnitude of the FAE. Nonetheless, it may be
+a fruitful avenue for future studies to explore.
+
+\section{Conclusion}\label{conclusion}
+
+Our study successfully replicated and expanded upon the work of Angele
+et al. (2023), Cayado, Wray, and Stockall (2023) and Petrosino, Sprouse,
+and Almeida (2023), confirming the viability of observing repetition
+priming effects in masked priming experiments conducted online with both
+a short (33ms) and longer (50ms) priming durations. Notably, we were
+able to successfully address a lingering empirical question in the
+literature by establishing that the Frequency Attenuation Effect (FAE)
+does arises under masked conditions. We were able to determine
+additionally that the FAE is also independent of the duration of the
+prime. We contend that, while this pattern of results presents a direct
+challenge to both \emph{IA} and \emph{entry opening} models, the latter
+offers a few promising avenues for small modifications might enable it
+to accommodate the results of our studies. The most promising is the
+assumption that after the encounter with the prime, its entry is
+temporarily raised to the top of the rank frequency ordered search list.
+This modification explains at once the existence of the FAE, and its
+independence of the prime duration.
 
 \newpage{}
 
@@ -1401,11 +1478,6 @@ Adelman, James S, Rebecca L Johnson, Samantha F McCormick, Meredith
 McKague, Sachiko Kinoshita, Jeffrey S Bowers, Jason R Perry, et al.
 2014. {``A Behavioral Database for Masked Form Priming.''}
 \emph{Behavior Research Methods} 46: 1052--67.
-
-\bibitem[\citeproctext]{ref-AmentaCrepaldi2012}
-Amenta, Simona, and Davide Crepaldi. 2012. {``Morphological Processing
-as We Know It: An Analytical Review of Morphological Effects in Visual
-Word Identification.''} \emph{Frontiers in Psychology} 3: 232.
 
 \bibitem[\citeproctext]{ref-Angele2023}
 Angele, Bernhard, Ana Baciero, Pablo Gómez, and Manuel Perea. 2023.
@@ -1454,6 +1526,11 @@ Priming.''} \emph{Journal of Memory and Language} 37 (2): 268--93.
 Evidence for an Episodic Resource Account of Priming.''} \emph{Journal
 of Memory and Language} 45 (4): 616--47.
 \url{https://doi.org/10.1006/jmla.2001.2791}.
+
+\bibitem[\citeproctext]{ref-Bonett2009}
+Bonett, Douglas G. 2009. {``Meta-Analytic Interval Estimation for
+Standardized and Unstandardized Mean Differences.''} \emph{Psychological
+Methods} 14 (3): 225.
 
 \bibitem[\citeproctext]{ref-Brysbaert2011}
 Brysbaert, Marc, and Michael J Cortese. 2011. {``Do the Effects of
@@ -1526,15 +1603,6 @@ Social Science}. Cologne, Germany.
 Forster, Kenneth I. 1998. {``The Pros and Cons of Masked Priming.''}
 \emph{Journal of Psycholinguistic Research} 27 (2): 203--33.
 
-\bibitem[\citeproctext]{ref-Forster1999}
----------. 1999. {``Microgenesis of Priming Effects in Lexical
-Access.''} \emph{Brain and Language} 68: 5--15.
-
-\bibitem[\citeproctext]{ref-ForsterAzuma2000}
-Forster, Kenneth I., and Tamiko Azuma. 2000. {``Masked Priming for
-Prefixed Words with Bound Stems: Does Submit Prime Permit?''}
-\emph{Language and Cognitive Processes} 15 (4-5): 539--61.
-
 \bibitem[\citeproctext]{ref-ForsterDavis1984}
 Forster, Kenneth I., and Chris Davis. 1984. {``Repetition Priming and
 Frequency Attenuation in Lexical Access.''} \emph{Journal of
@@ -1574,16 +1642,16 @@ Gimenes, Manuel, and Boris New. 2016. {``Worldlex: Twitter and Blog Word
 Frequencies for 66 Languages.''} \emph{Behavior Research Methods} 48:
 963--72.
 
-\bibitem[\citeproctext]{ref-Gomez2013}
-Gomez, Pablo, Manuel Perea, and Roger Ratcliff. 2013. {``A Diffusion
-Model Account of Masked Versus Unmasked Priming: Are They Qualitatively
-Different?''} \emph{Journal of Experimental Psychology: Human Perception
-and Performance} 39 (6): 1731.
-
 \bibitem[\citeproctext]{ref-GraingerJacobs1996}
 Grainger, Jonathan, and Arthur M. Jacobs. 1996. {``Orthographic
 Processing in Visual Word Recognition: A Multiple Read-Out Model.''}
 \emph{Psychological Review} 103 (3): 518.
+
+\bibitem[\citeproctext]{ref-GraingerEtal2012}
+Grainger, Jonathan, Danielle Lopez, Marianna Eddy, Stéphane Dufau, and
+Phillip J Holcomb. 2012. {``How Word Frequency Modulates Masked
+Repetition Priming: An ERP Investigation.''} \emph{Psychophysiology} 49
+(5): 604--16.
 
 \bibitem[\citeproctext]{ref-Herdaugdelen2017}
 Herdağdelen, Amaç, and Marco Marelli. 2017. {``Social Media and Language
@@ -1622,16 +1690,16 @@ Measurement in JavaScript for Web-Based Experiments.''} \emph{Behavior
 Research Methods} 55 (3): 1079--93.
 \url{https://doi.org/10.3758/s13428-022-01835-2}.
 
-\bibitem[\citeproctext]{ref-LundBurgess1996}
-Lund, Kevin, and Curt Burgess. 1996. {``Producing High-Dimensional
-Semantic Spaces from Lexical Co-Occurrence.''} \emph{Behavior Research
-Methods, Instruments, {\&} Computers} 28 (2): 203--8.
-
 \bibitem[\citeproctext]{ref-MassonBodner2003}
 Masson, Michael E. J., and Glen E. Bodner. 2003. {``A Retrospective View
 of Masked Priming: Toward a Unified Account of Masked and Long-Term
 Repetition Priming.''} \emph{Masked Priming: The State of the Art},
 57--94.
+
+\bibitem[\citeproctext]{ref-Maxwell2008}
+Maxwell, Scott E, Ken Kelley, and Joseph R Rausch. 2008. {``Sample Size
+Planning for Statistical Power and Accuracy in Parameter Estimation.''}
+\emph{Annu. Rev. Psychol.} 59 (1): 537--63.
 
 \bibitem[\citeproctext]{ref-McClellandRumelhart1981}
 McClelland, James L., and David E. Rumelhart. 1981. {``An Interactive
@@ -1650,17 +1718,23 @@ Accumulation and Bayesian Inference: Insights from Masked Priming.''}
 \emph{Journal of Experimental Psychology: General} 137 (3): 434--55.
 \url{https://doi.org/10.1037/a0012799}.
 
+\bibitem[\citeproctext]{ref-Norris2018}
+Norris, Dennis, Sachiko Kinoshita, Jane Hall, and Richard Henson. 2018.
+{``Is Reading Automatic? Are the ERP Correlates of Masked Priming Really
+Lexical?''} \emph{Language, Cognition and Neuroscience} 33 (9):
+1152--67.
+
+\bibitem[\citeproctext]{ref-Patil2016}
+Patil, Prasad, Roger D Peng, and Jeffrey T Leek. 2016. {``What Should
+Researchers Expect When They Replicate Studies? A Statistical View of
+Replicability in Psychological Science.''} \emph{Perspectives on
+Psychological Science} 11 (4): 539--44.
+
 \bibitem[\citeproctext]{ref-PeirceEtal2019}
 Peirce, Jonathan, Jeremy R. Gray, Sol Simpson, Michael MacAskill,
 Richard Höchenberger, Hiroyuki Sogo, Erik Kastman, and Jonas Kristoffer
 Lindeløv. 2019. {``PsychoPy2: Experiments in Behavior Made Easy.''}
 \emph{Behavior Research Methods} 51 (1): 195--203.
-
-\bibitem[\citeproctext]{ref-Petrosino2020}
-Petrosino, Roberto. 2020. {``More Than Islands of Regularity: An
-Investigation of the Sensitivity of Morphological Decomposition to
-Higher-Level Linguistic Properties.''} PhD thesis, University of
-Connecticut.
 
 \bibitem[\citeproctext]{ref-PetrosinoEtal2023}
 Petrosino, Roberto, Jon Sprouse, and Diogo Almeida. 2023. {``Asymmetries
@@ -1673,6 +1747,18 @@ Potvin, Patrick J., and Robert W. Schutz. 2000. {``Statistical Power for
 the Two-Factor Repeated Measures ANOVA.''} \emph{Behavior Research
 Methods, Instruments, \& Computers} 32 (2): 347--56.
 \url{https://doi.org/10.3758/bf03207805}.
+
+\bibitem[\citeproctext]{ref-Raaijmakers2003}
+Raaijmakers, Jeroen GW. 2003. {``A Further Look at the"
+Language-as-Fixed-Effect Fallacy".''} \emph{Canadian Journal of
+Experimental Psychology/Revue Canadienne de Psychologie Exp{é}rimentale}
+57 (3): 141.
+
+\bibitem[\citeproctext]{ref-Raaijmakers1999}
+Raaijmakers, Jeroen GW, Joseph MC Schrijnemakers, and Frans Gremmen.
+1999. {``How to Deal with {`the Language-as-Fixed-Effect Fallacy'}:
+Common Misconceptions and Alternative Solutions.''} \emph{Journal of
+Memory and Language} 41 (3): 416--26.
 
 \bibitem[\citeproctext]{ref-RajaramNeely1992}
 Rajaram, Suparna, and James H Neely. 1992. {``Dissociative Masked
@@ -1706,21 +1792,14 @@ What to Expect When You're Expecting\ldots{} a Replication.''}
 \emph{PloS One} 11 (9): 1--22.
 \url{https://doi.org/10.1371/journal.pone.0162874}.
 
-\bibitem[\citeproctext]{ref-StockallMarantz2006}
-Stockall, Linnaea, and Alec Marantz. 2006. {``A Single Route, Full
-Decomposition Model of Morphological Complexity: MEG Evidence.''}
-\emph{The Mental Lexicon} 1 (1): 85--123.
-https://doi.org/\url{https://doi.org/10.1075/ml.1.1.07sto}.
-
-\bibitem[\citeproctext]{ref-TaftForster1975}
-Taft, Marcus, and Kenneth I. Forster. 1975. {``Lexical Storage and
-Retrieval of Prefixed Words.''} \emph{Journal of Verbal Learning and
-Verbal Behavior} 14 (6): 638--47.
-
 \bibitem[\citeproctext]{ref-w3counterGlobalStats}
 W3 Counter. 2023. {``Browser \& Platform Market Share - November
 2023.''}
 \url{https://www.w3counter.com/globalstats.php?year=2023&month=11}.
+
+\bibitem[\citeproctext]{ref-Wu2012}
+Wu, Hongmei. 2012. {``Mechanisms of Masked Priming: Testing the Entry
+Opening Model.''} PhD thesis, The University of Arizona.
 
 \bibitem[\citeproctext]{ref-Yap2009}
 Yap, Melvin J., and David A. Balota. 2009. {``Visual Word Recognition of

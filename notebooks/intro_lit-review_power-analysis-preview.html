@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
     <meta charset="utf-8">
-    <meta name="generator" content="quarto-1.6.1">
+    <meta name="generator" content="quarto-1.6.21">
 
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -152,10 +152,10 @@
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-018089954d508eae8a473f0b7f0491f0.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-f9d477f1d62ddffd2fa441715a11aa79.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
 <script src="../site_libs/quarto-contrib/glightbox/glightbox.min.js"></script>
 <link href="../site_libs/quarto-contrib/glightbox/glightbox.min.css" rel="stylesheet">
 <link href="../site_libs/quarto-contrib/glightbox/lightbox.css" rel="stylesheet">
@@ -210,7 +210,6 @@
   <li><a href="#libraries" id="toc-libraries" class="nav-link active" data-scroll-target="#libraries">Libraries</a></li>
   <li><a href="#literature-review-summary-of-results" id="toc-literature-review-summary-of-results" class="nav-link" data-scroll-target="#literature-review-summary-of-results">Literature review: summary of results</a>
   <ul class="collapse">
-  <li><a href="#frequency-skew-across-databases" id="toc-frequency-skew-across-databases" class="nav-link" data-scroll-target="#frequency-skew-across-databases">Frequency skew across databases</a></li>
   <li><a href="#power-analysis" id="toc-power-analysis" class="nav-link" data-scroll-target="#power-analysis">Power analysis</a></li>
   </ul></li>
   </ul>
@@ -227,10 +226,10 @@
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
 <pre><code>── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──
-✔ dplyr     1.1.3     ✔ readr     2.1.4
-✔ forcats   1.0.0     ✔ stringr   1.5.0
-✔ ggplot2   3.4.4     ✔ tibble    3.2.1
-✔ lubridate 1.9.3     ✔ tidyr     1.3.0
+✔ dplyr     1.1.4     ✔ readr     2.1.4
+✔ forcats   1.0.0     ✔ stringr   1.5.1
+✔ ggplot2   3.5.1     ✔ tibble    3.2.1
+✔ lubridate 1.9.3     ✔ tidyr     1.3.1
 ✔ purrr     1.0.2     
 ── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──
 ✖ dplyr::filter() masks stats::filter()
@@ -260,7 +259,7 @@ The following object is masked from 'package:stats':
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>lit_effects <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(lit_effects_tbl_filename)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 18 Columns: 8
+<pre><code>Rows: 20 Columns: 8
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (4): PAPER, LANGUAGE, PRIME_DURATION, p&lt;.05?
@@ -276,7 +275,7 @@ dbl (4): N, MOP_HF, MOP_LF, MOP_Interaction
 <span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minPower =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, minPower), <span class="at">maxPower =</span> <span class="fu">paste0</span>(maxPower, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"Power range"</span>, minPower<span class="sc">:</span>maxPower, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 17 Columns: 11
+<pre><code>Rows: 19 Columns: 11
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (3): file_name, PAPER, EXP.
@@ -292,7 +291,7 @@ dbl (8): nsubj, minPower, maxPower, rho_min, std_dev_min, rho_max, std_dev_m...
 <span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">minPower =</span> <span class="fu">paste0</span>(<span class="st">"["</span>, minPower), <span class="at">maxPower =</span> <span class="fu">paste0</span>(maxPower, <span class="st">"]"</span>)) <span class="sc">%&gt;%</span></span>
 <span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">unite</span>(<span class="st">"Power range"</span>, minPower<span class="sc">:</span>maxPower, <span class="at">sep =</span> <span class="st">" "</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
-<pre><code>Rows: 17 Columns: 11
+<pre><code>Rows: 19 Columns: 11
 ── Column specification ────────────────────────────────────────────────────────
 Delimiter: ","
 chr (3): file_name, PAPER, EXP.
@@ -363,23 +362,23 @@ Summary of the masked repetition priming effects as a function of word frequency
 </figcaption>
 <div aria-describedby="tbl-litReview-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="raisfunoba" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#raisfunoba table {
+<div id="fnvqvwftlo" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
+<style>#fnvqvwftlo table {
   font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
-#raisfunoba thead, #raisfunoba tbody, #raisfunoba tfoot, #raisfunoba tr, #raisfunoba td, #raisfunoba th {
+#fnvqvwftlo thead, #fnvqvwftlo tbody, #fnvqvwftlo tfoot, #fnvqvwftlo tr, #fnvqvwftlo td, #fnvqvwftlo th {
   border-style: none;
 }
 
-#raisfunoba p {
+#fnvqvwftlo p {
   margin: 0;
   padding: 0;
 }
 
-#raisfunoba .gt_table {
+#fnvqvwftlo .gt_table {
   display: table;
   border-collapse: collapse;
   line-height: normal;
@@ -405,12 +404,12 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-left-color: #D3D3D3;
 }
 
-#raisfunoba .gt_caption {
+#fnvqvwftlo .gt_caption {
   padding-top: 4px;
   padding-bottom: 4px;
 }
 
-#raisfunoba .gt_title {
+#fnvqvwftlo .gt_title {
   color: #333333;
   font-size: 125%;
   font-weight: initial;
@@ -422,7 +421,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-bottom-width: 0;
 }
 
-#raisfunoba .gt_subtitle {
+#fnvqvwftlo .gt_subtitle {
   color: #333333;
   font-size: 85%;
   font-weight: initial;
@@ -434,7 +433,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-top-width: 0;
 }
 
-#raisfunoba .gt_heading {
+#fnvqvwftlo .gt_heading {
   background-color: #FFFFFF;
   text-align: center;
   border-bottom-color: #FFFFFF;
@@ -446,13 +445,13 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-right-color: #D3D3D3;
 }
 
-#raisfunoba .gt_bottom_border {
+#fnvqvwftlo .gt_bottom_border {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
 }
 
-#raisfunoba .gt_col_headings {
+#fnvqvwftlo .gt_col_headings {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -467,7 +466,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-right-color: #D3D3D3;
 }
 
-#raisfunoba .gt_col_heading {
+#fnvqvwftlo .gt_col_heading {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -487,7 +486,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   overflow-x: hidden;
 }
 
-#raisfunoba .gt_column_spanner_outer {
+#fnvqvwftlo .gt_column_spanner_outer {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -499,15 +498,15 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 4px;
 }
 
-#raisfunoba .gt_column_spanner_outer:first-child {
+#fnvqvwftlo .gt_column_spanner_outer:first-child {
   padding-left: 0;
 }
 
-#raisfunoba .gt_column_spanner_outer:last-child {
+#fnvqvwftlo .gt_column_spanner_outer:last-child {
   padding-right: 0;
 }
 
-#raisfunoba .gt_column_spanner {
+#fnvqvwftlo .gt_column_spanner {
   border-bottom-style: solid;
   border-bottom-width: 2px;
   border-bottom-color: #D3D3D3;
@@ -519,11 +518,11 @@ Summary of the masked repetition priming effects as a function of word frequency
   width: 100%;
 }
 
-#raisfunoba .gt_spanner_row {
+#fnvqvwftlo .gt_spanner_row {
   border-bottom-style: hidden;
 }
 
-#raisfunoba .gt_group_heading {
+#fnvqvwftlo .gt_group_heading {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -549,7 +548,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   text-align: left;
 }
 
-#raisfunoba .gt_empty_group_heading {
+#fnvqvwftlo .gt_empty_group_heading {
   padding: 0.5px;
   color: #333333;
   background-color: #FFFFFF;
@@ -564,15 +563,15 @@ Summary of the masked repetition priming effects as a function of word frequency
   vertical-align: middle;
 }
 
-#raisfunoba .gt_from_md > :first-child {
+#fnvqvwftlo .gt_from_md > :first-child {
   margin-top: 0;
 }
 
-#raisfunoba .gt_from_md > :last-child {
+#fnvqvwftlo .gt_from_md > :last-child {
   margin-bottom: 0;
 }
 
-#raisfunoba .gt_row {
+#fnvqvwftlo .gt_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -591,7 +590,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   overflow-x: hidden;
 }
 
-#raisfunoba .gt_stub {
+#fnvqvwftlo .gt_stub {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -604,7 +603,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#raisfunoba .gt_stub_row_group {
+#fnvqvwftlo .gt_stub_row_group {
   color: #333333;
   background-color: #FFFFFF;
   font-size: 100%;
@@ -618,15 +617,15 @@ Summary of the masked repetition priming effects as a function of word frequency
   vertical-align: top;
 }
 
-#raisfunoba .gt_row_group_first td {
+#fnvqvwftlo .gt_row_group_first td {
   border-top-width: 2px;
 }
 
-#raisfunoba .gt_row_group_first th {
+#fnvqvwftlo .gt_row_group_first th {
   border-top-width: 2px;
 }
 
-#raisfunoba .gt_summary_row {
+#fnvqvwftlo .gt_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -636,16 +635,16 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#raisfunoba .gt_first_summary_row {
+#fnvqvwftlo .gt_first_summary_row {
   border-top-style: solid;
   border-top-color: #D3D3D3;
 }
 
-#raisfunoba .gt_first_summary_row.thick {
+#fnvqvwftlo .gt_first_summary_row.thick {
   border-top-width: 2px;
 }
 
-#raisfunoba .gt_last_summary_row {
+#fnvqvwftlo .gt_last_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -655,7 +654,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-bottom-color: #D3D3D3;
 }
 
-#raisfunoba .gt_grand_summary_row {
+#fnvqvwftlo .gt_grand_summary_row {
   color: #333333;
   background-color: #FFFFFF;
   text-transform: inherit;
@@ -665,7 +664,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#raisfunoba .gt_first_grand_summary_row {
+#fnvqvwftlo .gt_first_grand_summary_row {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -675,7 +674,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-top-color: #D3D3D3;
 }
 
-#raisfunoba .gt_last_grand_summary_row_top {
+#fnvqvwftlo .gt_last_grand_summary_row_top {
   padding-top: 8px;
   padding-bottom: 8px;
   padding-left: 5px;
@@ -685,11 +684,11 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-bottom-color: #D3D3D3;
 }
 
-#raisfunoba .gt_striped {
+#fnvqvwftlo .gt_striped {
   background-color: rgba(128, 128, 128, 0.05);
 }
 
-#raisfunoba .gt_table_body {
+#fnvqvwftlo .gt_table_body {
   border-top-style: solid;
   border-top-width: 2px;
   border-top-color: #D3D3D3;
@@ -698,7 +697,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-bottom-color: #D3D3D3;
 }
 
-#raisfunoba .gt_footnotes {
+#fnvqvwftlo .gt_footnotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -712,7 +711,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-right-color: #D3D3D3;
 }
 
-#raisfunoba .gt_footnote {
+#fnvqvwftlo .gt_footnote {
   margin: 0px;
   font-size: 90%;
   padding-top: 4px;
@@ -721,7 +720,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#raisfunoba .gt_sourcenotes {
+#fnvqvwftlo .gt_sourcenotes {
   color: #333333;
   background-color: #FFFFFF;
   border-bottom-style: none;
@@ -735,7 +734,7 @@ Summary of the masked repetition priming effects as a function of word frequency
   border-right-color: #D3D3D3;
 }
 
-#raisfunoba .gt_sourcenote {
+#fnvqvwftlo .gt_sourcenote {
   font-size: 90%;
   padding-top: 4px;
   padding-bottom: 4px;
@@ -743,63 +742,63 @@ Summary of the masked repetition priming effects as a function of word frequency
   padding-right: 5px;
 }
 
-#raisfunoba .gt_left {
+#fnvqvwftlo .gt_left {
   text-align: left;
 }
 
-#raisfunoba .gt_center {
+#fnvqvwftlo .gt_center {
   text-align: center;
 }
 
-#raisfunoba .gt_right {
+#fnvqvwftlo .gt_right {
   text-align: right;
   font-variant-numeric: tabular-nums;
 }
 
-#raisfunoba .gt_font_normal {
+#fnvqvwftlo .gt_font_normal {
   font-weight: normal;
 }
 
-#raisfunoba .gt_font_bold {
+#fnvqvwftlo .gt_font_bold {
   font-weight: bold;
 }
 
-#raisfunoba .gt_font_italic {
+#fnvqvwftlo .gt_font_italic {
   font-style: italic;
 }
 
-#raisfunoba .gt_super {
+#fnvqvwftlo .gt_super {
   font-size: 65%;
 }
 
-#raisfunoba .gt_footnote_marks {
+#fnvqvwftlo .gt_footnote_marks {
   font-size: 75%;
   vertical-align: 0.4em;
   position: initial;
 }
 
-#raisfunoba .gt_asterisk {
+#fnvqvwftlo .gt_asterisk {
   font-size: 100%;
   vertical-align: 0;
 }
 
-#raisfunoba .gt_indent_1 {
+#fnvqvwftlo .gt_indent_1 {
   text-indent: 5px;
 }
 
-#raisfunoba .gt_indent_2 {
+#fnvqvwftlo .gt_indent_2 {
   text-indent: 10px;
 }
 
-#raisfunoba .gt_indent_3 {
+#fnvqvwftlo .gt_indent_3 {
   text-indent: 15px;
 }
 
-#raisfunoba .gt_indent_4 {
+#fnvqvwftlo .gt_indent_4 {
   text-indent: 20px;
 }
 
-#raisfunoba .gt_indent_5 {
+#fnvqvwftlo .gt_indent_5 {
   text-indent: 25px;
 }
 </style>
@@ -818,7 +817,7 @@ Summary of the masked repetition priming effects as a function of word frequency
 <col style="width: 10%">
 </colgroup>
 <thead>
-<tr class="header gt_col_headings gt_spanner_row">
+<tr class="gt_col_headings gt_spanner_row header">
 <th rowspan="2" id="Study" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Study</th>
 <th rowspan="2" id="Language" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Language</th>
 <th rowspan="2" id="N" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">N</th>
@@ -827,7 +826,7 @@ Summary of the masked repetition priming effects as a function of word frequency
 <th colspan="2" id="FAE (ms)" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner">FAE (ms)</span></th>
 <th colspan="2" id="Power range [min max]" class="gt_center gt_columns_top_border gt_column_spanner_outer" data-quarto-table-cell-role="th" scope="colgroup"><span class="gt_column_spanner">Power range [min max]</span></th>
 </tr>
-<tr class="odd gt_col_headings">
+<tr class="gt_col_headings even">
 <th id="HF" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">HF</th>
 <th id="LF" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">LF</th>
 <th id="ES" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">ES</th>
@@ -1068,6 +1067,30 @@ Summary of the masked repetition priming effects as a function of word frequency
 <td class="gt_row gt_left" headers="stub_1_18 Power range_30">[0.09 1]</td>
 </tr>
 <tr class="odd">
+<td id="stub_1_19" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Wu (2012), exp. 5</td>
+<td class="gt_row gt_left" headers="stub_1_19 LANGUAGE">English</td>
+<td class="gt_row gt_right" headers="stub_1_19 N">64</td>
+<td class="gt_row gt_left" headers="stub_1_19 PRIME_DURATION">60</td>
+<td class="gt_row gt_right" headers="stub_1_19 MOP_HF">31</td>
+<td class="gt_row gt_right" headers="stub_1_19 MOP_LF">64</td>
+<td class="gt_row gt_right" headers="stub_1_19 MOP_Interaction">33</td>
+<td class="gt_row gt_right" headers="stub_1_19 p<.05?">*</td>
+<td class="gt_row gt_left" headers="stub_1_19 Power range_15">[0.04 0.87]</td>
+<td class="gt_row gt_left" headers="stub_1_19 Power range_30">[0.12 1]</td>
+</tr>
+<tr class="even">
+<td id="stub_1_20" class="gt_row gt_left gt_stub" data-quarto-table-cell-role="th" scope="row">Wu (2012), exp. 5</td>
+<td class="gt_row gt_left" headers="stub_1_20 LANGUAGE">English</td>
+<td class="gt_row gt_right" headers="stub_1_20 N">64</td>
+<td class="gt_row gt_left" headers="stub_1_20 PRIME_DURATION">40</td>
+<td class="gt_row gt_right" headers="stub_1_20 MOP_HF">33</td>
+<td class="gt_row gt_right" headers="stub_1_20 MOP_LF">51</td>
+<td class="gt_row gt_right" headers="stub_1_20 MOP_Interaction">18</td>
+<td class="gt_row gt_right" headers="stub_1_20 p<.05?">*</td>
+<td class="gt_row gt_left" headers="stub_1_20 Power range_15">[0.04 0.87]</td>
+<td class="gt_row gt_left" headers="stub_1_20 Power range_30">[0.12 1]</td>
+</tr>
+<tr class="odd">
 <td id="grand_summary_stub_1" class="gt_row gt_left gt_stub gt_grand_summary_row gt_first_grand_summary_row" data-quarto-table-cell-role="th" scope="row">Mean</td>
 <td class="gt_row gt_left gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 LANGUAGE"><br>
 </td>
@@ -1075,9 +1098,9 @@ Summary of the masked repetition priming effects as a function of word frequency
 </td>
 <td class="gt_row gt_left gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 PRIME_DURATION"><br>
 </td>
-<td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 MOP_HF">41</td>
+<td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 MOP_HF">40</td>
 <td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 MOP_LF">55</td>
-<td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 MOP_Interaction">13</td>
+<td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 MOP_Interaction">15</td>
 <td class="gt_row gt_right gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 p<.05?"><br>
 </td>
 <td class="gt_row gt_left gt_grand_summary_row gt_first_grand_summary_row" headers="grand_summary_stub_1 Power range_15"><br>
@@ -1115,7 +1138,7 @@ Summary of the masked repetition priming effects as a function of word frequency
 </td>
 <td class="gt_row gt_right gt_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_3 MOP_LF"><br>
 </td>
-<td class="gt_row gt_right gt_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_3 MOP_Interaction">0.46</td>
+<td class="gt_row gt_right gt_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_3 MOP_Interaction">0.41</td>
 <td class="gt_row gt_right gt_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_3 p<.05?"><br>
 </td>
 <td class="gt_row gt_left gt_grand_summary_row gt_last_summary_row" headers="grand_summary_stub_3 Power range_15"><br>
@@ -1140,653 +1163,34 @@ Summary of the masked repetition priming effects as a function of word frequency
 </figure>
 </div></div></div>
 </div></div>
-<section id="frequency-skew-across-databases" class="level3">
-<h3 class="anchored" data-anchor-id="frequency-skew-across-databases">Frequency skew across databases</h3>
-<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div class="cell">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>freqSkew <span class="ot">&lt;-</span> <span class="fu">list.files</span>(<span class="at">path=</span><span class="st">"../supplemental-data/"</span>, <span class="at">pattern=</span><span class="st">"_skew_"</span>, <span class="at">full.names =</span> T) <span class="sc">%&gt;%</span></span>
-<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">lapply</span>(<span class="cf">function</span>(x) <span class="fu">read_csv</span>(x)) <span class="sc">%&gt;%</span> <span class="fu">bind_rows</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stderr">
-<pre><code>Rows: 5 Columns: 4
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): Word
-dbl (3): KF, HAL, SUBTLEX-US
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 5 Columns: 4
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): Word
-dbl (3): KF, HAL, SUBTLEX-US
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.
-Rows: 5 Columns: 4
-── Column specification ────────────────────────────────────────────────────────
-Delimiter: ","
-chr (1): Word
-dbl (3): KF, HAL, SUBTLEX-US
-
-ℹ Use `spec()` to retrieve the full column specification for this data.
-ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-</div>
-
-<div class="cell-container"><div class="cell-decorator"><pre>In [5]:</pre></div><div><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>freqSkew <span class="sc">%&gt;%</span> </span>
-<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gt</span>() <span class="sc">%&gt;%</span></span>
-<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">cols_label</span>(</span>
-<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">`</span><span class="at">SUBTLEX-US</span><span class="st">`</span> <span class="ot">=</span> <span class="fu">md</span>(<span class="st">"SUBTLEX~US~"</span>)</span>
-<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">fmt_number</span>(<span class="at">decimals =</span> <span class="dv">0</span>, <span class="at">drop_trailing_zeros =</span> <span class="cn">TRUE</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(</span>
-<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">md</span>(<span class="st">"_Skew in KF_"</span>),</span>
-<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="at">rows =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">5</span></span>
-<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(</span>
-<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">md</span>(<span class="st">"_Skew in HAL_"</span>),</span>
-<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>    <span class="at">rows =</span> <span class="dv">6</span><span class="sc">:</span><span class="dv">10</span></span>
-<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">tab_row_group</span>(</span>
-<span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>    <span class="at">label =</span> <span class="fu">md</span>(<span class="st">"_Skew in SUBTLEX~US~_"</span>),</span>
-<span id="cb15-18"><a href="#cb15-18" aria-hidden="true" tabindex="-1"></a>    <span class="at">rows =</span> <span class="dv">11</span><span class="sc">:</span><span class="dv">15</span></span>
-<span id="cb15-19"><a href="#cb15-19" aria-hidden="true" tabindex="-1"></a>  ) <span class="sc">%&gt;%</span></span>
-<span id="cb15-20"><a href="#cb15-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">row_group_order</span>(<span class="at">groups =</span> <span class="fu">c</span>(<span class="st">"_Skew in KF_"</span>, <span class="st">"_Skew in HAL_"</span>, <span class="st">"_Skew in SUBTLEX~US~_"</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div><div id="tbl-exFreqSkew" class="cell quarto-float quarto-figure quarto-figure-center anchored">
-<figure class="quarto-float quarto-float-tbl figure">
-<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-exFreqSkew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-Example of frequency count imbalances (in occurrences per million) across the frequency norms of Kucera &amp; Francis (KF), HAL and SUBTLEX<sub>US</sub> for 4 to 6 letter words.
-</figcaption>
-<div aria-describedby="tbl-exFreqSkew-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<div class="cell-output-display">
-<div id="jszxupyawb" style="padding-left:0px;padding-right:0px;padding-top:10px;padding-bottom:10px;overflow-x:auto;overflow-y:auto;width:auto;height:auto;">
-<style>#jszxupyawb table {
-  font-family: system-ui, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-#jszxupyawb thead, #jszxupyawb tbody, #jszxupyawb tfoot, #jszxupyawb tr, #jszxupyawb td, #jszxupyawb th {
-  border-style: none;
-}
-
-#jszxupyawb p {
-  margin: 0;
-  padding: 0;
-}
-
-#jszxupyawb .gt_table {
-  display: table;
-  border-collapse: collapse;
-  line-height: normal;
-  margin-left: auto;
-  margin-right: auto;
-  color: #333333;
-  font-size: 16px;
-  font-weight: normal;
-  font-style: normal;
-  background-color: #FFFFFF;
-  width: auto;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #A8A8A8;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #A8A8A8;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_caption {
-  padding-top: 4px;
-  padding-bottom: 4px;
-}
-
-#jszxupyawb .gt_title {
-  color: #333333;
-  font-size: 125%;
-  font-weight: initial;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-color: #FFFFFF;
-  border-bottom-width: 0;
-}
-
-#jszxupyawb .gt_subtitle {
-  color: #333333;
-  font-size: 85%;
-  font-weight: initial;
-  padding-top: 3px;
-  padding-bottom: 5px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-color: #FFFFFF;
-  border-top-width: 0;
-}
-
-#jszxupyawb .gt_heading {
-  background-color: #FFFFFF;
-  text-align: center;
-  border-bottom-color: #FFFFFF;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_bottom_border {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_col_headings {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_col_heading {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 6px;
-  padding-left: 5px;
-  padding-right: 5px;
-  overflow-x: hidden;
-}
-
-#jszxupyawb .gt_column_spanner_outer {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: normal;
-  text-transform: inherit;
-  padding-top: 0;
-  padding-bottom: 0;
-  padding-left: 4px;
-  padding-right: 4px;
-}
-
-#jszxupyawb .gt_column_spanner_outer:first-child {
-  padding-left: 0;
-}
-
-#jszxupyawb .gt_column_spanner_outer:last-child {
-  padding-right: 0;
-}
-
-#jszxupyawb .gt_column_spanner {
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: bottom;
-  padding-top: 5px;
-  padding-bottom: 5px;
-  overflow-x: hidden;
-  display: inline-block;
-  width: 100%;
-}
-
-#jszxupyawb .gt_spanner_row {
-  border-bottom-style: hidden;
-}
-
-#jszxupyawb .gt_group_heading {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  text-align: left;
-}
-
-#jszxupyawb .gt_empty_group_heading {
-  padding: 0.5px;
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  vertical-align: middle;
-}
-
-#jszxupyawb .gt_from_md > :first-child {
-  margin-top: 0;
-}
-
-#jszxupyawb .gt_from_md > :last-child {
-  margin-bottom: 0;
-}
-
-#jszxupyawb .gt_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin: 10px;
-  border-top-style: solid;
-  border-top-width: 1px;
-  border-top-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 1px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 1px;
-  border-right-color: #D3D3D3;
-  vertical-align: middle;
-  overflow-x: hidden;
-}
-
-#jszxupyawb .gt_stub {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jszxupyawb .gt_stub_row_group {
-  color: #333333;
-  background-color: #FFFFFF;
-  font-size: 100%;
-  font-weight: initial;
-  text-transform: inherit;
-  border-right-style: solid;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-  padding-left: 5px;
-  padding-right: 5px;
-  vertical-align: top;
-}
-
-#jszxupyawb .gt_row_group_first td {
-  border-top-width: 2px;
-}
-
-#jszxupyawb .gt_row_group_first th {
-  border-top-width: 2px;
-}
-
-#jszxupyawb .gt_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jszxupyawb .gt_first_summary_row {
-  border-top-style: solid;
-  border-top-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_first_summary_row.thick {
-  border-top-width: 2px;
-}
-
-#jszxupyawb .gt_last_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_grand_summary_row {
-  color: #333333;
-  background-color: #FFFFFF;
-  text-transform: inherit;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jszxupyawb .gt_first_grand_summary_row {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-top-style: double;
-  border-top-width: 6px;
-  border-top-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_last_grand_summary_row_top {
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-left: 5px;
-  padding-right: 5px;
-  border-bottom-style: double;
-  border-bottom-width: 6px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_striped {
-  background-color: rgba(128, 128, 128, 0.05);
-}
-
-#jszxupyawb .gt_table_body {
-  border-top-style: solid;
-  border-top-width: 2px;
-  border-top-color: #D3D3D3;
-  border-bottom-style: solid;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_footnotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_footnote {
-  margin: 0px;
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jszxupyawb .gt_sourcenotes {
-  color: #333333;
-  background-color: #FFFFFF;
-  border-bottom-style: none;
-  border-bottom-width: 2px;
-  border-bottom-color: #D3D3D3;
-  border-left-style: none;
-  border-left-width: 2px;
-  border-left-color: #D3D3D3;
-  border-right-style: none;
-  border-right-width: 2px;
-  border-right-color: #D3D3D3;
-}
-
-#jszxupyawb .gt_sourcenote {
-  font-size: 90%;
-  padding-top: 4px;
-  padding-bottom: 4px;
-  padding-left: 5px;
-  padding-right: 5px;
-}
-
-#jszxupyawb .gt_left {
-  text-align: left;
-}
-
-#jszxupyawb .gt_center {
-  text-align: center;
-}
-
-#jszxupyawb .gt_right {
-  text-align: right;
-  font-variant-numeric: tabular-nums;
-}
-
-#jszxupyawb .gt_font_normal {
-  font-weight: normal;
-}
-
-#jszxupyawb .gt_font_bold {
-  font-weight: bold;
-}
-
-#jszxupyawb .gt_font_italic {
-  font-style: italic;
-}
-
-#jszxupyawb .gt_super {
-  font-size: 65%;
-}
-
-#jszxupyawb .gt_footnote_marks {
-  font-size: 75%;
-  vertical-align: 0.4em;
-  position: initial;
-}
-
-#jszxupyawb .gt_asterisk {
-  font-size: 100%;
-  vertical-align: 0;
-}
-
-#jszxupyawb .gt_indent_1 {
-  text-indent: 5px;
-}
-
-#jszxupyawb .gt_indent_2 {
-  text-indent: 10px;
-}
-
-#jszxupyawb .gt_indent_3 {
-  text-indent: 15px;
-}
-
-#jszxupyawb .gt_indent_4 {
-  text-indent: 20px;
-}
-
-#jszxupyawb .gt_indent_5 {
-  text-indent: 25px;
-}
-</style>
-
-<table class="gt_table do-not-create-environment cell caption-top table table-sm table-striped small" data-quarto-postprocess="true" data-quarto-disable-processing="false" data-quarto-bootstrap="false">
-<thead>
-<tr class="header gt_col_headings">
-<th id="Word" class="gt_col_heading gt_columns_bottom_border gt_left" data-quarto-table-cell-role="th" scope="col">Word</th>
-<th id="KF" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">KF</th>
-<th id="HAL" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">HAL</th>
-<th id="SUBTLEX<sub>US</sub>" class="gt_col_heading gt_columns_bottom_border gt_right" data-quarto-table-cell-role="th" scope="col">SUBTLEX<sub>US</sub></th>
-</tr>
-</thead>
-<tbody class="gt_table_body">
-<tr class="odd gt_group_heading_row">
-<td colspan="4" id="<em>Skew in KF</em>" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup"><em>Skew in KF</em></td>
-</tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_left" headers="_Skew in KF_  Word">negro</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  KF">104</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  HAL">3</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  SUBTLEX-US">5</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="_Skew in KF_  Word">poet</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  KF">99</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  HAL">9</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  SUBTLEX-US">9</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="_Skew in KF_  Word">mercer</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  KF">71</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  HAL">4</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  SUBTLEX-US">2</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="_Skew in KF_  Word">swung</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  KF">48</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  HAL">3</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  SUBTLEX-US">2</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="_Skew in KF_  Word">mantle</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  KF">48</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  HAL">8</td>
-<td class="gt_row gt_right" headers="_Skew in KF_  SUBTLEX-US">2</td>
-</tr>
-<tr class="odd gt_group_heading_row">
-<td colspan="4" id="<em>Skew in HAL</em>" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup"><em>Skew in HAL</em></td>
-</tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_left" headers="_Skew in HAL_  Word">web</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  KF">6</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  HAL">351</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  SUBTLEX-US">9</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="_Skew in HAL_  Word">user</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  KF">4</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  HAL">297</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  SUBTLEX-US">2</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="_Skew in HAL_  Word">mint</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  KF">7</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  HAL">211</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  SUBTLEX-US">5</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="_Skew in HAL_  Word">format</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  KF">9</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  HAL">198</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  SUBTLEX-US">1</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="_Skew in HAL_  Word">warp</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  KF">4</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  HAL">125</td>
-<td class="gt_row gt_right" headers="_Skew in HAL_  SUBTLEX-US">5</td>
-</tr>
-<tr class="odd gt_group_heading_row">
-<td colspan="4" id="<em>Skew in SUBTLEX<sub>US</sub></em>" class="gt_group_heading" data-quarto-table-cell-role="th" scope="colgroup"><em>Skew in SUBTLEX<sub>US</sub></em></td>
-</tr>
-<tr class="even gt_row_group_first">
-<td class="gt_row gt_left" headers="_Skew in SUBTLEX~US~_  Word">daddy</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  KF">4</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  HAL">16</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  SUBTLEX-US">185</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="_Skew in SUBTLEX~US~_  Word">bitch</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  KF">6</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  HAL">24</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  SUBTLEX-US">169</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="_Skew in SUBTLEX~US~_  Word">cute</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  KF">5</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  HAL">28</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  SUBTLEX-US">88</td>
-</tr>
-<tr class="odd">
-<td class="gt_row gt_left" headers="_Skew in SUBTLEX~US~_  Word">pardon</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  KF">8</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  HAL">12</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  SUBTLEX-US">65</td>
-</tr>
-<tr class="even">
-<td class="gt_row gt_left" headers="_Skew in SUBTLEX~US~_  Word">steal</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  KF">5</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  HAL">28</td>
-<td class="gt_row gt_right" headers="_Skew in SUBTLEX~US~_  SUBTLEX-US">53</td>
-</tr>
-</tbody>
-</table>
-
-</div>
-</div>
-</div>
-</figure>
-</div></div></div>
-</div></div>
-</section>
 <section id="power-analysis" class="level3">
 <h3 class="anchored" data-anchor-id="power-analysis">Power analysis</h3>
-<div class="cell-container"><div class="cell-decorator"><pre>In [6]:</pre></div><div id="cell-fig-power" class="cell">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../supplemental-data/freq_atten_sim.10ms.RData"</span>)</span>
-<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_df <span class="sc">%&gt;%</span> </span>
-<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(std_dev <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> std_dev <span class="sc">&lt;=</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
-<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rho <span class="sc">&gt;=</span> <span class="fl">0.7</span> <span class="sc">&amp;</span> rho <span class="sc">&lt;=</span> <span class="fl">0.9</span>)</span>
-<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df.sub <span class="sc">|&gt;</span></span>
-<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> power_unadjusted, <span class="at">x =</span> nsubj)) <span class="sc">+</span> </span>
-<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
-<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"red2"</span>) <span class="sc">+</span> </span>
-<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(rho <span class="sc">~</span> std_dev) <span class="sc">+</span></span>
-<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . , <span class="at">name =</span> <span class="st">"sd"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
-<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . , <span class="at">name =</span> <span class="st">"cor"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
-<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
-<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="co">#axis.line = element_line(colour = "black"),</span></span>
-<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), </span>
-<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
-<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">"none"</span></span>
-<span id="cb16-23"><a href="#cb16-23" aria-hidden="true" tabindex="-1"></a>      <span class="co">#panel.background = element_blank() </span></span>
-<span id="cb16-24"><a href="#cb16-24" aria-hidden="true" tabindex="-1"></a>     )<span class="sc">+</span></span>
-<span id="cb16-25"><a href="#cb16-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"FAE = 10 ms"</span>, <span class="at">y =</span> <span class="st">"power (adjusted)"</span>, <span class="at">x =</span> <span class="st">"sample size"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-container"><div class="cell-decorator"><pre>In [4]:</pre></div><div id="cell-fig-power" class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="fu">load</span>(<span class="st">"../supplemental-data/freq_atten_sim.10ms.RData"</span>)</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df.sub <span class="ot">&lt;-</span> freq_atten_exp2<span class="fl">.10</span>ms_df <span class="sc">%&gt;%</span> </span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(ES <span class="sc">==</span> <span class="dv">10</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(std_dev <span class="sc">&gt;=</span> <span class="dv">80</span> <span class="sc">&amp;</span> std_dev <span class="sc">&lt;=</span> <span class="dv">120</span>) <span class="sc">%&gt;%</span></span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(rho <span class="sc">&gt;=</span> <span class="fl">0.7</span> <span class="sc">&amp;</span> rho <span class="sc">&lt;=</span> <span class="fl">0.9</span>)</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a>freq_atten_exp2<span class="fl">.10</span>ms_df.sub <span class="sc">|&gt;</span></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(<span class="at">y =</span> power_unadjusted, <span class="at">x =</span> nsubj)) <span class="sc">+</span> </span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_line</span>() <span class="sc">+</span> </span>
+<span id="cb13-12"><a href="#cb13-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb13-13"><a href="#cb13-13" aria-hidden="true" tabindex="-1"></a>    <span class="fu">geom_hline</span>(<span class="at">yintercept =</span> <span class="fl">0.8</span>, <span class="at">color =</span> <span class="st">"red2"</span>) <span class="sc">+</span> </span>
+<span id="cb13-14"><a href="#cb13-14" aria-hidden="true" tabindex="-1"></a>    <span class="fu">facet_grid</span>(rho <span class="sc">~</span> std_dev) <span class="sc">+</span></span>
+<span id="cb13-15"><a href="#cb13-15" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_x_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . , <span class="at">name =</span> <span class="st">"sd"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
+<span id="cb13-16"><a href="#cb13-16" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_y_continuous</span>(<span class="at">sec.axis =</span> <span class="fu">sec_axis</span>(<span class="sc">~</span> . , <span class="at">name =</span> <span class="st">"cor"</span>, <span class="at">breaks =</span> <span class="cn">NULL</span>, <span class="at">labels =</span> <span class="cn">NULL</span>)) <span class="sc">+</span></span>
+<span id="cb13-17"><a href="#cb13-17" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_bw</span>()<span class="sc">+</span></span>
+<span id="cb13-18"><a href="#cb13-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">theme</span>(<span class="co">#axis.line = element_line(colour = "black"),</span></span>
+<span id="cb13-19"><a href="#cb13-19" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.major =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-20"><a href="#cb13-20" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.grid.minor =</span> <span class="fu">element_blank</span>(), </span>
+<span id="cb13-21"><a href="#cb13-21" aria-hidden="true" tabindex="-1"></a>      <span class="at">panel.border =</span> <span class="fu">element_blank</span>(),</span>
+<span id="cb13-22"><a href="#cb13-22" aria-hidden="true" tabindex="-1"></a>      <span class="at">legend.position=</span><span class="st">"none"</span></span>
+<span id="cb13-23"><a href="#cb13-23" aria-hidden="true" tabindex="-1"></a>      <span class="co">#panel.background = element_blank() </span></span>
+<span id="cb13-24"><a href="#cb13-24" aria-hidden="true" tabindex="-1"></a>     )<span class="sc">+</span></span>
+<span id="cb13-25"><a href="#cb13-25" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title=</span><span class="st">"FAE = 10 ms"</span>, <span class="at">y =</span> <span class="st">"power (adjusted)"</span>, <span class="at">x =</span> <span class="st">"sample size"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output-display">
 <div id="fig-power" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -2222,7 +1626,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     }
   }
 });
-</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"loop":false,"openEffect":"zoom","closeEffect":"zoom","descPosition":"bottom","selector":".lightbox"});
+</script>  </div> <!-- /content -->  <script>var lightboxQuarto = GLightbox({"descPosition":"bottom","openEffect":"zoom","selector":".lightbox","loop":false,"closeEffect":"zoom"});
 (function() {
   let previousOnload = window.onload;
   window.onload = () => {

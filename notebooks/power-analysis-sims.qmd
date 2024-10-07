@@ -1,5 +1,5 @@
 ---
-title: "Simulating Power in within-subject psycholinguistic experiments using unstandardized measures of effect size"
+title: "Script E: Simulating Power in within-subject psycholinguistic experiments using unstandardized measures of effect size"
 author: "Diogo Almeida & Roberto Petrosino"
 
 format: 
