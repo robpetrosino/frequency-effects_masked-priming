@@ -289,17 +289,26 @@ exp1_errors_anova <- exp1_error.rates |>
   subset(condition_rec %in% c("high", "low")) |>
   aov(error.percent ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
 
-### GLMER
-library(lme4)
-library(car)
+exp1_error_stats_main <- exp1_error.rates %>%
+  mutate(primetype_rec = fct_relevel(primetype_rec, "unrelated", "related")) %>%
+  group_by(condition_rec) %>%
+  t_test(error.percent ~ primetype_rec, paired=T, detailed=T) %>% select(-3:-7) %>%
+  rename(factor = "condition_rec", t='statistic')
+
+### 2x2 GLMER
 options(contrasts = c("contr.sum","contr.poly"))
 
-exp1_error_glmer <- glmer(responseError ~ condition_rec * primetype_rec + (1|Rec_Session_Id) + (1|target_rec), data = exp1_data_final_with.errors, family = binomial, control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
+exp1_error_2x2glmer <- glmer(responseError ~ condition_rec * primetype_rec + (1|Rec_Session_Id) + (1|target_rec), 
+                             data = subset(exp1_data_final_with.errors, condition_rec %in% c("high", "low")), 
+                             family = binomial, control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
 
-#library(emmeans)
-#library(car)
-Anova(exp1_error_glmer, type = 3)
-emmeans(exp1_error_glmer, pairwise ~ primetype_rec|condition_rec)
+Anova(exp1_error_2x2glmer)
+
+### 2x3 GLMER 
+exp1_error_2x3glmer <- glmer(responseError ~ condition_rec * primetype_rec + (1|Rec_Session_Id) + (1|target_rec), data = exp1_data_final_with.errors, family = binomial, control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
+
+Anova(exp1_error_2x3glmer, type = 3)
+exp1_error_emmeans_glmm <- emmeans(exp1_error_2x3glmer, pairwise ~ primetype_rec|condition_rec)
 
 ### MAIN EFFECTS
 #### t-test
@@ -317,34 +326,41 @@ exp1_mop_anova <- exp1_rt.avg_subj |>
   subset(condition_rec %in% c("high", "low")) |>
   aov(meanRT ~ condition_rec * primetype_rec + Error(Rec_Session_Id/(condition_rec * primetype_rec)), data = _)
 
-### GLMER 
-exp1_mop_glmer <- glmer(RT ~ condition_rec * primetype_rec + (1|Crowdsourcing_SubjId) + (1|target_rec), data = exp1_data_final, family = Gamma(link="identity"), control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
+### 2x2 GLMER 
+exp1_mop_2x2glmer <- glmer(RT ~ condition_rec * primetype_rec + (1|Crowdsourcing_SubjId) + (1|target_rec), 
+                        data = subset(exp1_data_final, condition_rec %in% c("high", "low")), 
+                        family = Gamma(link="identity"), control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
 
-#library(emmeans)
-#library(car)
-Anova(exp1_mop_glmer, type = 3)
-exp1_emmeans_glmm <- emmeans(exp1_mop_glmer, pairwise ~ primetype_rec|condition_rec) %>% as.data.frame() %>%
-  select(-df) %>% mutate(across(c(4, 6:7), \(x) round(x)),
-                         across(5, \(x) round(x, 2))) %>%
+Anova(exp1_mop_2x2glmer, type = 3)
+
+### 2x3 GLMER 
+exp1_mop_2x3glmer <- glmer(RT ~ condition_rec * primetype_rec + (1|Crowdsourcing_SubjId) + (1|target_rec), 
+                        data = exp1_data_final %>% mutate(primetype_rec = factor(primetype_rec, levels=c("unrelated", "related"))),
+                        family = Gamma(link="identity"), control=glmerControl(optimizer = "bobyqa", optCtrl=list(maxfun=1e6)))
+
+Anova(exp1_mop_2x3glmer, type = 3)
+
+#estimates
+exp1_emmeans_glmm <- emmeans(exp1_mop_2x3glmer, pairwise ~ primetype_rec|condition_rec) |> rbind() |> as_tibble() %>%
+  select(-contrast, -df) %>% 
   pivot_wider(names_from=primetype_rec, values_from = c(emmean, SE, asymp.LCL, asymp.UCL)) %>%
-    mutate(across(c(5, 11, 14), \(x) x*-1)) %>% 
-  relocate(asymp.UCL_related, .after=asymp.LCL_related) %>% 
-  unite("CI_related", asymp.UCL_related:asymp.LCL_related, sep=" ") %>%
-  relocate(asymp.UCL_unrelated, .after=asymp.LCL_unrelated) %>% 
-  unite("CI_unrelated", asymp.UCL_unrelated:asymp.LCL_unrelated, sep=" ") %>%
-  unite("CI_MOP", asymp.UCL_.:asymp.LCL_., sep=" ")
+  mutate(across(contains("emmean"), \(x) round(x)), 
+         across(contains("asymp"), \(x) round(x)),
+         across(contains("SE"), \(x) round(x, 2))) %>%
+  relocate(c(emmean_unrelated, SE_unrelated, asymp.LCL_unrelated, asymp.UCL_unrelated), .before=emmean_related) %>%
+    unite("CI_unrelated", asymp.LCL_unrelated:asymp.UCL_unrelated, sep=" ") %>%
+  relocate(c(emmean_related, SE_related, asymp.LCL_related, asymp.UCL_related), .before=emmean_related) %>%
+    unite("CI_related", asymp.LCL_related:asymp.UCL_related, sep=" ") %>%
+    unite("CI_MOP", asymp.LCL_.:asymp.UCL_., sep=" ") %>%
+  rename(MOP = "emmean_.", SE_MOP = "SE_.")
 
-exp1_emmeans_glmm_conditions <- exp1_emmeans_glmm %>% slice(1:3) %>% select(-contrast, -emmean_., -SE_., -CI_MOP) %>%
-  relocate(emmean_unrelated, .after=condition_rec) %>% 
-  relocate(SE_unrelated, .after=emmean_unrelated) %>% 
-  relocate(CI_unrelated, .before=SE_unrelated) %>% relocate(CI_related, .after=emmean_related) %>%
-  mutate(CI_unrelated = paste0("[", CI_unrelated, "]"), CI_related = paste0("[", CI_related, "]"))
-exp1_emmeans_glmm_mop <- exp1_emmeans_glmm %>% slice(-3:-1) %>% 
-  select(-contrast, -emmean_related:-emmean_unrelated, -SE_related:-SE_unrelated, -CI_related:-CI_unrelated) %>%
-  mutate(CI_MOP = paste0("[", CI_MOP, "]")) %>% rename(MOP = "emmean_.", SE_MOP = "SE_.") %>% relocate(CI_MOP, .after=MOP)
+exp1_contrasts_glmm <- emmeans(exp1_mop_2x3glmer, pairwise ~ primetype_rec|condition_rec)$contrasts |> rbind() |> as_tibble() %>%
+  select(condition_rec, z.ratio:p.value) %>% mutate(across(p.value, \(x) signif(x, 3)))
 
-exp1_emmeans_glmm <- left_join(exp1_emmeans_glmm_conditions, exp1_emmeans_glmm_mop, by="condition_rec") %>%
-  rename(factor = "condition_rec")
+exp1_estimates_glmm <- exp1_emmeans_glmm %>%
+  left_join(exp1_contrasts_glmm, by='condition_rec') %>%
+  mutate(across(contains("CI"), \(x) paste0("[", x, "]"))) %>%
+  rename(factor = 'condition_rec')
 
 #### by subject
 exp1_mop_subj <- exp1_rt.avg_subj %>% 
@@ -410,11 +426,18 @@ exp1_rt_stats_interaction <- exp1_mop_subj %>% ungroup() %>%
   mutate(factor = "frequency:primetype")
 
 ## estimates from the GLMM model
-exp1_emmeans_glmm_fae <- confint(contrast(emmeans(exp1_mop_glmer, ~ primetype_rec*condition_rec), interaction = c("pairwise", "pairwise"), adjust='bonferroni')) %>%
-  slice(1) %>% select(estimate:SE, asymp.LCL, asymp.UCL) %>% mutate(across(c(1, 3:4), \(x) round(x)),
-                                                                    across(2, \(x) round(x, 2))) %>%
-  mutate(factor = "frequency*primetype") %>% rename(MOP = "estimate", SE_MOP = "SE") %>% unite("CI_MOP", asymp.LCL:asymp.UCL, sep=" ") %>%
-  relocate(CI_MOP, .after=MOP) %>% relocate(factor, .before=MOP) %>% mutate(CI_MOP = paste0("[", CI_MOP, "]"))
+exp1_emmeans_glmm_fae <- confint(contrast(emmeans(exp1_mop_2x3glmer, ~ primetype_rec*condition_rec), interaction = c("pairwise", "pairwise"), adjust='bonferroni')) %>% slice(1) %>% select(estimate:SE, asymp.LCL, asymp.UCL) %>% 
+  mutate(across(c(1, 3:4), \(x) x*-1),
+         across(c(1:4), \(x) round(x,2))) %>%
+  mutate(factor = "frequency*primetype") %>% rename(MOP = "estimate", SE_MOP = "SE") %>% unite("CI_MOP", asymp.UCL:asymp.LCL, sep=" ") %>%
+  relocate(CI_MOP, .after=SE_MOP) %>% relocate(factor, .before=MOP) %>% mutate(CI_MOP = paste0("[", CI_MOP, "]"))
+
+exp1_z_glmm_fae <- contrast(emmeans(exp1_mop_2x3glmer, ~ primetype_rec*condition_rec), interaction = c("pairwise", "pairwise"), adjust='bonferroni') |>
+  rbind() |> as_tibble() %>% slice(1) %>% select(z.ratio:p.value) %>% 
+  mutate(across(c(1), \(x) x*-1)) %>%
+  mutate(factor = "frequency*primetype") %>% relocate(factor, .before=z.ratio) 
+
+exp1_estimates_glmm_fae <- left_join(exp1_emmeans_glmm_fae, exp1_z_glmm_fae, by='factor')
 
 ```
 
@@ -473,12 +496,14 @@ exp1_summary.results %>%
 ```{r}
 #| echo: false
 #| label: tbl-exp1-statsResults-glmm
-#| tbl-cap: "Experiment 1. Summary of the word priming results within the GLMM model. *Legend.* MOP: magnitude of priming."
+#| tbl-cap: "Experiment 1. Summary of the word priming results based on the 2x3 GLMM model, with the same fixed and random effects as the 2x2 GLMM model, but including the non-word condition. *Legend.* MOP: magnitude of priming."
 #| tbl-pos: 'h'
 
-exp1_summary.results_glmm <- bind_rows(exp1_emmeans_glmm, exp1_emmeans_glmm_fae)
+exp1_summary.results_glmm <- bind_rows(exp1_estimates_glmm, exp1_estimates_glmm_fae)
   
 exp1_summary.results_glmm %>%
+  mutate(z.ratio = round(z.ratio, 2),
+         p.value = "<.0001") %>%
   gt() %>%
   cols_label(
     contains("CI") ~ "95% CI",
