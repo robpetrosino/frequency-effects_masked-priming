@@ -25,6 +25,11 @@ format:
   docx: default
   jats: default
   agu-pdf: default
+  
+output:
+  pdf_document: # Change to appropriate LaTeX template
+    includes:
+      in_header: 'gt_packages.sty'
 
 
 

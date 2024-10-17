@@ -38,7 +38,7 @@ exp.wordlist %>%
     columns = contains("RT_related")
   ) %>%
   cols_label(
-    unrelated = "unrelated prime",
+    unrelated = "repeated prime",
     contains("mean") ~ "mean",
     contains("sd") ~ "SD"
   ) %>%
